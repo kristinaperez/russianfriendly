@@ -1,0 +1,9 @@
+{
+  "name":"Russian Friendly — Бангкок",
+  "short_name":"Russian Friendly",
+  "start_url":"/bangkok",
+  "display":"standalone",
+  "background_color":"#f7f8fa",
+  "theme_color":"#0f172a",
+  "lang":"ru"
+}

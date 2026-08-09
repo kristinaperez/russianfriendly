@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Русскоязычные специалисты в Бангкоке — Russian Friendly</title>
+  <meta name="description" content="Карта русскоязычных специалистов и полезных сервисов в Бангкоке: врачи, стоматология, юристы, переводчики, визы, банки, жильё, трансферы, SIM/eSIM, Border Run и школы.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <link rel="canonical" href="https://russianfriendly.netlify.app/bangkok">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#0f172a">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Russian Friendly">
+  <meta property="og:title" content="Русскоязычные специалисты в Бангкоке">
+  <meta property="og:description" content="Интерактивная карта и каталог полезных сервисов для русскоязычных в Бангкоке.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/bangkok">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/bangkok-og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Бангкоке">
+  <meta name="twitter:description" content="Карта специалистов и сервисов для русскоязычных в Бангкоке.">
+  <meta name="twitter:image" content="https://russianfriendly.netlify.app/bangkok-og.png">
+
+  <!-- Google Tag Manager: замените GTM-XXXXXXX на ID вашего контейнера -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+  </script>
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+    j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');
+  </script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIINfQ3D8YjR7bQ1f9K4m0Kx5QnQ7Fh0F0M=" crossorigin="">
+  <style>
+    :root{--bg:#f7f8fa;--card:#fff;--text:#172033;--muted:#697386;--line:#e7eaf0;--accent:#e85d04;--accent2:#0f766e;--dark:#0f172a;--ok:#15803d}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.5}
+    a{color:inherit}
+    .wrap{max-width:1240px;margin:auto;padding:0 18px}
+    header{background:var(--dark);color:#fff;padding:22px 0 18px}
+    .head{display:flex;gap:24px;align-items:stretch;justify-content:space-between}
+    .brand{flex:1;min-width:0}
+    .eyebrow{font-size:13px;opacity:.72;margin-bottom:5px}
+    h1{font-size:clamp(28px,4vw,44px);line-height:1.05;margin:0 0 10px}
+    .lead{max-width:760px;color:#d8dee9;margin:0}
+    .ad{width:360px;background:#ff7a00;color:#fff;border-radius:16px;padding:16px 18px;display:flex;align-items:center;font-weight:800;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+    .ad a{text-decoration:none}
+    .ad small{display:block;font-size:12px;font-weight:600;opacity:.9;margin-top:4px}
+    nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    nav a{color:#fff;text-decoration:none;border:1px solid #334155;padding:8px 12px;border-radius:999px;font-size:14px}
+    main{padding:22px 0 40px}
+    .notice{background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:13px 15px;margin-bottom:18px}
+    .layout{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
+    #map{height:650px;border-radius:18px;border:1px solid var(--line);overflow:hidden;background:#ddd}
+    .side{min-width:0}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+    .filter{border:1px solid var(--line);background:#fff;color:var(--text);padding:8px 11px;border-radius:999px;cursor:pointer;font-size:13px}
+    .filter.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+    .cards{display:grid;gap:12px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 4px 18px rgba(15,23,42,.04)}
+    .card.hidden{display:none}
+    .cardtop{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+    .cat{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+    .card h2{font-size:18px;margin:3px 0 5px}
+    .card p{margin:6px 0;color:#485366}
+    .badge{white-space:nowrap;font-size:11px;color:var(--ok);background:#ecfdf3;border:1px solid #bbf7d0;border-radius:999px;padding:4px 7px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .btn{display:inline-block;text-decoration:none;background:#f1f5f9;border-radius:9px;padding:7px 10px;font-size:13px}
+    .btn.primary{background:var(--dark);color:#fff}
+    .section{margin-top:26px}
+    .section h2{font-size:25px;margin:0 0 10px}
+    .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .fact{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px}
+    .fact strong{display:block;font-size:23px}
+    .faq details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin:8px 0}
+    .faq summary{cursor:pointer;font-weight:700}
+    footer{background:#0b1220;color:#cbd5e1;padding:28px 0}
+    footer a{color:#fff}
+    .footgrid{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .similar{display:flex;gap:10px;flex-wrap:wrap}
+    .similar a{background:#fff;color:var(--text);padding:10px 13px;border-radius:10px;text-decoration:none;border:1px solid var(--line)}
+    .leaflet-popup-content-wrapper{border-radius:12px}
+    @media(max-width:900px){.head{flex-direction:column}.ad{width:auto}.layout{grid-template-columns:1fr}#map{height:430px}.facts{grid-template-columns:1fr 1fr}}
+    @media(max-width:560px){.wrap{padding:0 12px}header{padding-top:16px}.facts{grid-template-columns:1fr}.cardtop{flex-direction:column}.badge{align-self:flex-start}}
+  </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header>
+  <div class="wrap head">
+    <div class="brand">
+      <div class="eyebrow">RUSSIAN FRIENDLY · БАНГКОК</div>
+      <h1>Русскоязычные специалисты в Бангкоке</h1>
+      <p class="lead">Карта и каталог полезных сервисов для русскоязычных экспатов, релокантов и туристов. Мы отмечаем источник информации и не считаем наличие в каталоге гарантией качества услуги.</p>
+      <nav>
+        <a href="https://russianfriendly.netlify.app/">Все города</a>
+        <a href="#map">Карта</a>
+        <a href="#catalog">Каталог</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+    <div class="ad">
+      <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+        Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+        <small>Проект Кристины Перез</small>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="notice"><strong>Важно:</strong> визовые правила Таиланда меняются. Для въезда граждан РФ ориентируйтесь прежде всего на официальные источники Таиланда и проверяйте условия непосредственно перед поездкой. Для всех иностранцев действует TDAC — цифровая карта прибытия, которую нужно подать онлайн в течение 3 дней до въезда.</div>
+
+  <div class="layout">
+    <section>
+      <div id="map" aria-label="Интерактивная карта Бангкока"></div>
+    </section>
+    <aside class="side" id="catalog">
+      <div class="filters" aria-label="Фильтр категорий">
+        <button class="filter active" data-filter="all">Все</button>
+        <button class="filter" data-filter="medical">👩‍⚕️ Врачи</button>
+        <button class="filter" data-filter="dental">🦷 Стоматологи</button>
+        <button class="filter" data-filter="legal">⚖️ Юристы</button>
+        <button class="filter" data-filter="translate">📄 Переводчики</button>
+        <button class="filter" data-filter="visa">🛂 Визы</button>
+        <button class="filter" data-filter="bank">🏦 Банки</button>
+        <button class="filter" data-filter="housing">🏠 Жильё</button>
+        <button class="filter" data-filter="transfer">🚕 Трансферы</button>
+        <button class="filter" data-filter="sim">📱 SIM/eSIM</button>
+        <button class="filter" data-filter="border">🚍 Border Run</button>
+        <button class="filter" data-filter="school">🏫 Школы</button>
+        <button class="filter" data-filter="shop">🛒 Магазины</button>
+      </div>
+
+      <div class="cards">
+        <article class="card" data-cat="medical" data-lat="13.7461" data-lng="100.5527">
+          <div class="cardtop"><div><div class="cat">👩‍⚕️ Врачи</div><h2>Bumrungrad International Hospital</h2></div><span class="badge">подтверждено</span></div>
+          <p>Международная больница в Sukhumvit 3. В открытых источниках указано наличие русскоязычных переводчиков/сопровождения для пациентов.</p>
+          <p><strong>Адрес:</strong> 33 Sukhumvit 3, Wattana, Bangkok 10110</p>
+          <div class="actions"><a class="btn primary" href="https://www.bumrungrad.com/" target="_blank" rel="noopener">Официальный сайт</a><a class="btn" href="https://www.google.com/maps/search/?api=1&query=Bumrungrad+International+Hospital+Bangkok" target="_blank" rel="noopener">На карте</a></div>
+        </article>
+
+        <article class="card" data-cat="dental" data-lat="13.7461" data-lng="100.5527">
+          <div class="cardtop"><div><div class="cat">🦷 Стоматологи</div><h2>Bumrungrad Dental Center</h2></div><span class="badge">подтверждено</span></div>
+          <p>Стоматологический центр международной больницы. Подходит как вариант для тех, кому важны международный сервис и помощь с коммуникацией.</p>
+          <div class="actions"><a class="btn primary" href="https://www.bumrungrad.com/en/centers/dental-center" target="_blank" rel="noopener">Стоматология</a></div>
+        </article>
+
+        <article class="card" data-cat="legal" data-lat="13.7367" data-lng="100.5232">
+          <div class="cardtop"><div><div class="cat">⚖️ Юристы</div><h2>United Legal Company</h2></div><span class="badge">подтверждено</span></div>
+          <p>Юридическая компания в Таиланде, позиционирующая услуги для иностранцев и русскоязычных клиентов. Перед обращением уточните лицензию конкретного специалиста и предмет консультации.</p>
+          <div class="actions"><a class="btn primary" href="https://www.united-legal.org/" target="_blank" rel="noopener">Сайт</a></div>
+        </article>
+
+        <article class="card" data-cat="translate" data-lat="13.7563" data-lng="100.5018">
+          <div class="cardtop"><div><div class="cat">📄 Переводчики</div><h2>Russian & Thai Translation Services</h2></div><span class="badge">подтверждено</span></div>
+          <p>Перевод и устный перевод Russian–Thai–English–Belarusian. Автор сервиса указывает, что находится в Бангкоке и работает по Таиланду.</p>
+          <div class="actions"><a class="btn primary" href="https://www.translator4you.com/" target="_blank" rel="noopener">Сайт переводчика</a></div>
+        </article>
+
+        <article class="card" data-cat="visa" data-lat="13.7367" data-lng="100.5232">
+          <div class="cardtop"><div><div class="cat">🛂 Визы</div><h2>Thailand e-Visa</h2></div><span class="badge">официальный</span></div>
+          <p>Официальная система подачи электронных виз Таиланда. Используйте её для визовых категорий, которые не покрываются безвизовым въездом.</p>
+          <div class="actions"><a class="btn primary" href="https://www.thaievisa.go.th/" target="_blank" rel="noopener">Thai e-Visa</a><a class="btn" href="https://madrid.thaiembassy.org/en/page/19412-visa" target="_blank" rel="noopener">Правила виз</a></div>
+        </article>
+
+        <article class="card" data-cat="bank" data-lat="13.7248" data-lng="100.5350">
+          <div class="cardtop"><div><div class="cat">🏦 Банки</div><h2>Банковские услуги для иностранцев</h2></div><span class="badge">справочно</span></div>
+          <p>Для открытия счёта требования зависят от банка, статуса пребывания и документов. Не покупайте «гарантированное открытие» без проверки условий банка.</p>
+          <div class="actions"><a class="btn" href="https://www.bangkokbank.com/en/Personal/Other-Services/Foreign-Customers" target="_blank" rel="noopener">Bangkok Bank · Foreign Customers</a></div>
+        </article>
+
+        <article class="card" data-cat="housing" data-lat="13.7146" data-lng="100.6010">
+          <div class="cardtop"><div><div class="cat">🏠 Аренда жилья</div><h2>Phra Khanong / On Nut</h2></div><span class="badge">справочно</span></div>
+          <p>Районы, где в 2026 году отмечается заметное присутствие русскоязычных арендаторов. Ищите квартиру через несколько агентств и проверяйте договор, депозит и условия возврата.</p>
+          <div class="actions"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=Phra+Khanong+Bangkok" target="_blank" rel="noopener">Phra Khanong</a><a class="btn" href="https://www.google.com/maps/search/?api=1&query=On+Nut+Bangkok" target="_blank" rel="noopener">On Nut</a></div>
+        </article>
+
+        <article class="card" data-cat="transfer" data-lat="13.6900" data-lng="100.7501">
+          <div class="cardtop"><div><div class="cat">🚕 Трансферы</div><h2>Трансфер из аэропорта</h2></div><span class="badge">справочно</span></div>
+          <p>Для поездки из BKK/DMK выбирайте сервис с заранее известной ценой и встречей по номеру рейса. Русскоязычное сопровождение лучше подтверждать до оплаты.</p>
+          <div class="actions"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=Suvarnabhumi+Airport+Bangkok" target="_blank" rel="noopener">BKK</a><a class="btn" href="https://www.google.com/maps/search/?api=1&query=Don+Mueang+International+Airport+Bangkok" target="_blank" rel="noopener">DMK</a></div>
+        </article>
+
+        <article class="card" data-cat="sim" data-lat="13.7563" data-lng="100.5018">
+          <div class="cardtop"><div><div class="cat">📱 SIM/eSIM</div><h2>AIS Tourist SIM / eSIM</h2></div><span class="badge">официальный</span></div>
+          <p>AIS предлагает туристические SIM и eSIM, включая пакеты на несколько дней и более длительные варианты.</p>
+          <div class="actions"><a class="btn primary" href="https://www.ais.th/en/consumers/package/international/tourist-plan/russia" target="_blank" rel="noopener">AIS · Tourist Plan</a></div>
+        </article>
+
+        <article class="card" data-cat="border" data-lat="13.7563" data-lng="100.5018">
+          <div class="cardtop"><div><div class="cat">🚍 Border Run</div><h2>Выезд и повторный въезд</h2></div><span class="badge">актуально</span></div>
+          <p>Тема актуальна для планирования длительного пребывания, но повторный въезд не следует считать автоматическим способом продления. Решение принимает иммиграционная служба с учётом обстоятельств и документов.</p>
+          <div class="actions"><a class="btn primary" href="https://www.immigration.go.th/" target="_blank" rel="noopener">Thai Immigration</a></div>
+        </article>
+
+        <article class="card" data-cat="school" data-lat="13.7469" data-lng="100.5502">
+          <div class="cardtop"><div><div class="cat">🏫 Школы</div><h2>Русская школа при Посольстве РФ</h2></div><span class="badge">подтверждено</span></div>
+          <p>Общеобразовательная русская школа при Посольстве России в Бангкоке. Информация о школе размещена в русскоязычных каталогах и справочных источниках.</p>
+          <div class="actions"><a class="btn" href="https://thailandru.ru/obuchenie/shkoly-vuzy-detskie-sady/russkaja-shkola-v-bangkoke_i67" target="_blank" rel="noopener">Описание</a><a class="btn" href="https://www.google.com/maps/search/?api=1&query=Russian+Embassy+School+Bangkok" target="_blank" rel="noopener">На карте</a></div>
+        </article>
+
+        <article class="card" data-cat="shop" data-lat="13.7460" data-lng="100.5520">
+          <div class="cardtop"><div><div class="cat">🛒 Русские магазины</div><h2>Русские продукты в Бангкоке</h2></div><span class="badge">справочно</span></div>
+          <p>Отдельный устойчивый офлайн-магазин с русским ассортиментом в Бангкоке сложно подтвердить по актуальным публичным источникам, поэтому здесь не публикуем выдуманный адрес. Проверяйте локальные сообщества и актуальные карты.</p>
+          <div class="actions"><a class="btn" href="https://t.me/Russia_Bangkok" target="_blank" rel="noopener">Русскоговорящий Бангкок · Telegram</a></div>
+        </article>
+      </div>
+    </aside>
+  </div>
+
+  <section class="section">
+    <h2>Коротко о въезде в Таиланд для граждан РФ</h2>
+    <div class="facts">
+      <div class="fact"><strong>30 дней</strong>Безвизовый въезд по действующему двустороннему соглашению РФ–Таиланд для обычных паспортов.</div>
+      <div class="fact"><strong>TDAC</strong>Цифровую карту прибытия нужно подать онлайн в течение 3 дней до въезда.</div>
+      <div class="fact"><strong>Страховка</strong>Обязательное подтверждение медстраховки для обычного туристического въезда не требуется по опубликованным мерам; страховку всё равно разумно иметь.</div>
+      <div class="fact"><strong>Border Run</strong>Актуальная тема для долгого пребывания, но повторный въезд не гарантирован автоматически.</div>
+    </div>
+  </section>
+
+  <section class="section faq" id="faq">
+    <h2>Частые вопросы</h2>
+    <details><summary>Где найти русскоговорящего стоматолога в Бангкоке?</summary><p>Отдельных русскоговорящих стоматологов с надёжно подтверждёнными актуальными профилями немного. Практичный вариант — международные клиники, где доступна помощь русскоязычных переводчиков; в каталоге указан Bumrungrad.</p></details>
+    <details><summary>Где найти врача, если я не говорю по-тайски?</summary><p>В Бангкоке есть крупные международные больницы с англоязычным персоналом и международными пациентскими службами. Bumrungrad указывает наличие русскоязычного сопровождения в открытых справочных источниках.</p></details>
+    <details><summary>Нужна ли гражданину РФ виза в Таиланд?</summary><p>Для обычного российского паспорта действует безвизовый въезд до 30 дней по двустороннему соглашению РФ–Таиланд. Перед поездкой проверяйте официальные правила: в 2026 году Таиланд пересматривает отдельные режимы освобождения от виз.</p></details>
+    <details><summary>Нужно ли заполнять TDAC?</summary><p>Да. Все иностранцы, въезжающие в Таиланд, должны заполнить Thailand Digital Arrival Card онлайн не ранее чем за 3 дня до даты прибытия.</p></details>
+    <details><summary>Можно ли сделать Border Run из Бангкока?</summary><p>Тема Border Run существует и используется как часть стратегии длительного пребывания, однако повторный въезд после выезда не является гарантированным продлением пребывания. Конкретную ситуацию следует проверять по действующим правилам Immigration Bureau.</p></details>
+    <details><summary>Где искать русскоязычного переводчика в Бангкоке?</summary><p>В каталоге есть сервис Russian & Thai Translation Services, который указывает работу с русским, тайским, английским и белорусским языками и нахождение переводчика в Бангкоке.</p></details>
+  </section>
+
+  <section class="section">
+    <h2>Похожие запросы</h2>
+    <div class="similar">
+      <a href="https://russianfriendly.netlify.app/">🌍 Русскоязычные специалисты в других городах</a>
+      <a href="https://kristinaperez.netlify.app/">🇪🇸 Испанский для жизни в Испании</a>
+      <a href="https://russianfriendly.netlify.app/about.html">ℹ️ О проекте Russian Friendly</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footgrid">
+    <div><strong>Russian Friendly</strong><br>Городские карты для русскоязычных экспатов, релокантов и туристов.<br>Автор — Кристина Перез.</div>
+    <div>
+      <a href="https://russianfriendly.netlify.app/about.html">О проекте</a> ·
+      <a href="https://russianfriendly.netlify.app/contact.html">Контакты</a> ·
+      <a href="https://russianfriendly.netlify.app/privacy-policy.html">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+  const map = L.map('map').setView([13.7563,100.5018], 11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+
+  const cards = [...document.querySelectorAll('.card')];
+  const markers = [];
+  cards.forEach(card=>{
+    const lat=Number(card.dataset.lat), lng=Number(card.dataset.lng);
+    const marker=L.marker([lat,lng]).addTo(map);
+    marker.bindPopup('<strong>'+card.querySelector('h2').textContent+'</strong><br>'+card.querySelector('.cat').textContent);
+    markers.push({marker,cat:card.dataset.cat});
+  });
+
+  document.querySelectorAll('.filter').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f=btn.dataset.filter;
+      cards.forEach(c=>c.classList.toggle('hidden',f!=='all' && c.dataset.cat!==f));
+      markers.forEach(m=>{
+        const show=f==='all'||m.cat===f;
+        if(show) m.marker.addTo(map); else map.removeLayer(m.marker);
+      });
+    });
+  });
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"Русскоязычные специалисты в Бангкоке",
+  "url":"https://russianfriendly.netlify.app/bangkok",
+  "description":"Интерактивная карта и список русскоязычных специалистов и полезных сервисов в Бангкоке.",
+  "inLanguage":"ru-RU",
+  "author":{"@type":"Person","name":"Кристина Перез","url":"https://kristinaperez.netlify.app/"},
+  "isPartOf":{"@type":"WebSite","name":"Russian Friendly","url":"https://russianfriendly.netlify.app/"},
+  "about":{"@type":"City","name":"Бангкок","containedInPlace":{"@type":"Country","name":"Таиланд"}}
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Map",
+  "name":"Карта русскоязычных специалистов в Бангкоке",
+  "url":"https://russianfriendly.netlify.app/bangkok",
+  "about":{"@type":"City","name":"Бангкок","containedInPlace":{"@type":"Country","name":"Таиланд"}},
+  "author":{"@type":"Person","name":"Кристина Перез","url":"https://kristinaperez.netlify.app/"}
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "name":"Кристина Перез",
+  "url":"https://kristinaperez.netlify.app/",
+  "sameAs":["https://russianfriendly.netlify.app/"],
+  "jobTitle":"Автор проекта Russian Friendly"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Где найти русскоговорящего стоматолога в Бангкоке?","acceptedAnswer":{"@type":"Answer","text":"Отдельных русскоговорящих стоматологов с надёжно подтверждёнными актуальными профилями немного. Практичный вариант — международные клиники с международной пациентской службой и возможностью русскоязычного сопровождения."}},
+    {"@type":"Question","name":"Где найти врача, если я не говорю по-тайски?","acceptedAnswer":{"@type":"Answer","text":"В Бангкоке работают международные больницы с англоязычными врачами и международными пациентскими службами; в каталоге указан Bumrungrad."}},
+    {"@type":"Question","name":"Нужна ли гражданину РФ виза в Таиланд?","acceptedAnswer":{"@type":"Answer","text":"Для обычного российского паспорта действует безвизовый въезд до 30 дней по двустороннему соглашению РФ–Таиланд. Перед поездкой следует проверить актуальные правила."}},
+    {"@type":"Question","name":"Нужно ли заполнять TDAC перед въездом в Таиланд?","acceptedAnswer":{"@type":"Answer","text":"Да. Иностранные граждане должны заполнить Thailand Digital Arrival Card онлайн в течение 3 дней до прибытия."}},
+    {"@type":"Question","name":"Можно ли сделать Border Run из Бангкока?","acceptedAnswer":{"@type":"Answer","text":"Border Run остаётся актуальной темой для длительного пребывания, но повторный въезд не гарантирован автоматически; решение принимает иммиграционная служба."}},
+    {"@type":"Question","name":"Где найти русскоязычного переводчика в Бангкоке?","acceptedAnswer":{"@type":"Answer","text":"В каталоге указан Russian & Thai Translation Services, предлагающий перевод и устный перевод на русском, тайском, английском и белорусском языках."}}
+  ]
+}
+</script>
+</body>
+</html>

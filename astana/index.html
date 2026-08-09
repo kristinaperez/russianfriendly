@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Русскоязычные специалисты в Астане — карта и список | Russian Friendly</title>
+<meta name="description" content="Стоматологи, врачи, юристы, переводчики, визовые агентства, аренда жилья и другие русскоязычные специалисты и сервисы в Астане. Интерактивная карта проекта Russian Friendly.">
+<link rel="canonical" href="https://russianfriendly.netlify.app/astana">
+<link rel="icon" href="/favicon.ico">
+<meta name="theme-color" content="#0B3350">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Русскоязычные специалисты в Астане — Russian Friendly">
+<meta property="og:description" content="Карта и список проверенных русскоязычных стоматологов, врачей, юристов, переводчиков и других сервисов для экспатов в Астане.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/astana">
+<meta property="og:image" content="https://russianfriendly.netlify.app/images/astana-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Russian Friendly">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Астане — Russian Friendly">
+<meta name="twitter:description" content="Карта и список русскоязычных специалистов и сервисов для экспатов, релокантов и туристов в Астане.">
+<meta name="twitter:image" content="https://russianfriendly.netlify.app/images/astana-og.jpg">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Русскоязычные специалисты в Астане",
+  "url": "https://russianfriendly.netlify.app/astana",
+  "description": "Интерактивная карта и список русскоязычных специалистов и полезных сервисов для экспатов, релокантов и туристов в Астане.",
+  "inLanguage": "ru",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Russian Friendly",
+    "url": "https://russianfriendly.netlify.app/"
+  },
+  "about": {
+    "@type": "City",
+    "name": "Астана",
+    "containedInPlace": {
+      "@type": "Country",
+      "name": "Казахстан"
+    }
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Кристина Перез",
+  "url": "https://kristinaperez.netlify.app/",
+  "sameAs": [
+    "https://t.me/FeedbackCristinaBot",
+    "https://www.youtube.com/@Cristina-Perez-Monroe",
+    "https://kristinaperez.netlify.app/",
+    "https://russianfriendly.netlify.app/"
+  ],
+  "jobTitle": "Автор проекта Russian Friendly"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Где найти русскоговорящего стоматолога в Астане?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На этой странице собраны русскоязычные стоматологические клиники Астаны с указанием района и статуса проверки. Используйте фильтр «Стоматологи» на карте или в списке ниже, чтобы найти ближайшую клинику."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Нужна ли виза в Казахстан гражданам России в 2026 году?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Нет, между Россией и Казахстаном действует безвизовый режим в рамках ЕАЭС. Граждане РФ могут находиться в Казахстане без визы до 90 дней в течение 180-дневного периода, при этом при пребывании свыше 30 дней требуется постановка на миграционный учёт."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как оформить визу или РВП в Казахстане, если я не говорю на казахском?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Русский язык имеет широкое официальное хождение в Астане, и многие миграционные и визовые вопросы можно решить на русском. Для сложных случаев — разрешение на временное проживание, продление сроков — на странице собраны русскоязычные визовые агентства и юристы, которые сопровождают процесс."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Работают ли российские банковские карты в Астане?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Карты Visa и Mastercard, выпущенные российскими банками, в Казахстане не обслуживаются. Карта «Мир» принимается в части банкоматов и магазинов. В разделе «Помощь с банками» собраны специалисты, которые помогают релокантам открыть местный счёт."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Есть ли в Астане русскоязычные школы или детские сады?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, в Астане работают школы с русским языком обучения и рекомендованные русскоязычным родителям частные школы. Подборка с районами и статусом проверки — в разделе «Школы»."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Актуален ли Border Run для жителей Астаны?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Нет. Казахстан входит в ЕАЭС вместе с Россией, въезд для граждан РФ безвизовый на 90 дней в течение 180 дней, поэтому практика краткосрочных выездов для «обнуления» визы (Border Run) для Астаны не актуальна."
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root{
+    --navy:#0B3350;
+    --navy-deep:#082238;
+    --paper:#F4F1EA;
+    --card:#FFFFFF;
+    --ink:#16232E;
+    --muted:#5B6B76;
+    --line:#DDD6C8;
+    --orange:#E1662B;
+    --orange-deep:#B84E1D;
+    --steppe:#C9A15A;
+    --unverified:#9AA5AC;
+    --confirmed:#2E7D5B;
+    --radius:14px;
+    --sans:"Manrope","Helvetica Neue",Arial,sans-serif;
+    --serif:"Fraunces","Georgia",serif;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--sans);
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+
+  .skip-link{position:absolute;left:-999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:200;}
+  .skip-link:focus{left:8px;top:8px;}
+
+  /* ---------- HEADER ---------- */
+  header.site{
+    background:linear-gradient(160deg,var(--navy) 0%,var(--navy-deep) 100%);
+    color:#F4F1EA;
+    padding:20px 6vw 28px;
+  }
+  .header-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:24px;
+    flex-wrap:wrap;
+    max-width:1240px;
+    margin:0 auto;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--serif);
+    font-size:1.05rem;
+    letter-spacing:.02em;
+    text-decoration:none;
+    color:#F4F1EA;
+    opacity:.9;
+  }
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--orange);display:inline-block;}
+  .hero-block{max-width:640px;}
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:.72rem;
+    color:var(--steppe);
+    font-weight:700;
+    margin:14px 0 8px;
+  }
+  h1{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:clamp(2rem,4.4vw,3.1rem);
+    line-height:1.05;
+    margin:0 0 14px;
+  }
+  h1 em{font-style:italic;color:var(--steppe);}
+  .hero-sub{
+    font-size:1.02rem;
+    color:#D8DEE2;
+    max-width:52ch;
+    margin:0 0 18px;
+  }
+  .hero-meta{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    font-size:.85rem;
+    color:#B9C3CA;
+  }
+  .hero-meta strong{color:#F4F1EA;font-weight:700;}
+
+  /* Ad block */
+  .ad-block{
+    background:var(--orange);
+    color:#fff;
+    border-radius:var(--radius);
+    padding:18px 20px;
+    max-width:290px;
+    text-decoration:none;
+    display:block;
+    box-shadow:0 10px 24px rgba(184,78,29,.35);
+    transition:transform .15s ease, box-shadow .15s ease;
+    flex-shrink:0;
+  }
+  .ad-block:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(184,78,29,.45);}
+  .ad-block .ad-eyebrow{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;opacity:.85;font-weight:700;margin-bottom:6px;}
+  .ad-block .ad-text{font-family:var(--serif);font-size:1.12rem;line-height:1.28;font-weight:600;}
+  .ad-block .ad-cta{margin-top:10px;font-size:.85rem;font-weight:700;display:flex;align-items:center;gap:6px;}
+
+  /* ---------- FILTER NAV ---------- */
+  nav.filters{
+    position:sticky;top:0;z-index:50;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    padding:12px 6vw;
+    overflow-x:auto;
+    white-space:nowrap;
+    -webkit-overflow-scrolling:touch;
+  }
+  nav.filters::-webkit-scrollbar{height:6px;}
+  .filter-row{display:inline-flex;gap:8px;max-width:1240px;}
+  .filter-btn{
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:.86rem;
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:#fff;
+    color:var(--navy);
+    cursor:pointer;
+    display:inline-flex;
+    gap:6px;
+    align-items:center;
+  }
+  .filter-btn[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff;}
+  .filter-btn:focus-visible{outline:3px solid var(--orange);outline-offset:2px;}
+
+  /* ---------- MAIN LAYOUT ---------- */
+  main{max-width:1240px;margin:0 auto;padding:32px 6vw 0;}
+  .map-wrap{
+    border-radius:var(--radius);
+    overflow:hidden;
+    border:1px solid var(--line);
+    margin-bottom:34px;
+  }
+  #map{height:440px;width:100%;background:#dde3e6;}
+  .map-caption{font-size:.8rem;color:var(--muted);padding:10px 4px 0;}
+
+  section.category{margin:0 0 44px;scroll-margin-top:70px;}
+  .cat-head{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;border-bottom:2px solid var(--line);padding-bottom:10px;}
+  .cat-head .icon{font-size:1.5rem;}
+  .cat-head h2{font-family:var(--serif);font-size:1.5rem;margin:0;font-weight:600;}
+  .cat-head .count{font-size:.8rem;color:var(--muted);}
+
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:18px;
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .card .name{font-family:var(--serif);font-weight:600;font-size:1.08rem;}
+  .card .district{font-size:.82rem;color:var(--muted);}
+  .card .note{font-size:.88rem;color:var(--ink);}
+  .badge{
+    align-self:flex-start;
+    font-size:.7rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    padding:3px 9px;
+    border-radius:999px;
+  }
+  .badge.unverified{background:#EEE9DD;color:var(--unverified);}
+  .badge.confirmed{background:#DFF0E6;color:var(--confirmed);}
+  .card .cta-row{margin-top:auto;padding-top:8px;font-size:.85rem;}
+  .card .cta-row a{color:var(--navy);font-weight:700;text-decoration:underline;text-decoration-color:var(--steppe);}
+
+  .add-card{
+    border:1px dashed var(--steppe);
+    background:transparent;
+    display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:6px;
+  }
+  .add-card .name{color:var(--orange-deep);}
+
+  /* ---------- FACT STRIP ---------- */
+  .facts{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 24px;margin:0 0 44px;
+  }
+  .facts h2{font-family:var(--serif);font-size:1.4rem;margin:0 0 14px;}
+  .facts ul{margin:0;padding-left:1.1em;font-size:.94rem;color:var(--ink);}
+  .facts li{margin-bottom:8px;}
+
+  /* ---------- FAQ ---------- */
+  .faq{margin-bottom:48px;}
+  .faq h2{font-family:var(--serif);font-size:1.5rem;margin:0 0 16px;}
+  details{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:14px 18px;margin-bottom:10px;
+  }
+  summary{font-weight:700;cursor:pointer;font-size:.98rem;}
+  details p{margin:10px 0 2px;color:var(--muted);font-size:.92rem;}
+
+  /* ---------- RELATED / SEO BLOCK ---------- */
+  .related{
+    background:var(--navy);color:#F4F1EA;border-radius:var(--radius);
+    padding:26px 28px;margin-bottom:48px;
+  }
+  .related h2{font-family:var(--serif);font-size:1.3rem;margin:0 0 14px;}
+  .related-links{display:flex;gap:14px;flex-wrap:wrap;}
+  .related-links a{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:999px;padding:8px 16px;font-size:.86rem;text-decoration:none;
+  }
+  .related-links a:hover{background:rgba(255,255,255,.16);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--navy-deep);color:#B9C3CA;
+    padding:28px 6vw 34px;font-size:.85rem;
+  }
+  .footer-inner{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+  footer a{color:#F4F1EA;text-decoration:none;margin-right:16px;}
+  footer a:hover{text-decoration:underline;}
+
+  @media (max-width:640px){
+    header.site{padding:18px 5vw 24px;}
+    main{padding:26px 5vw 0;}
+    .ad-block{max-width:100%;}
+    #map{height:320px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержанию</a>
+
+<header class="site">
+  <div class="header-top">
+    <div class="hero-block">
+      <a class="brand" href="https://russianfriendly.netlify.app/"><span class="dot"></span> Russian Friendly</a>
+      <p class="eyebrow">Гид по городу · Казахстан</p>
+      <h1>Русскоязычные специалисты <em>в Астане</em></h1>
+      <p class="hero-sub">Стоматологи, врачи, юристы, переводчики, визовые агентства, аренда жилья и другие сервисы для тех, кто переехал, переезжает или просто путешествует по Астане.</p>
+      <div class="hero-meta">
+        <span><strong>11</strong> категорий</span>
+        <span><strong>90 дней</strong> безвизовый въезд для граждан РФ</span>
+        <span><strong>RU / KZ</strong></span>
+      </div>
+    </div>
+    <a class="ad-block" href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+      <div class="ad-eyebrow">Переезжаешь в Испанию?</div>
+      <div class="ad-text">Узнай, как заговорить по-испански</div>
+      <div class="ad-cta">kristinaperez.netlify.app →</div>
+    </a>
+  </div>
+</header>
+
+<nav class="filters" aria-label="Фильтр по категориям">
+  <div class="filter-row" id="filterRow">
+    <button class="filter-btn" data-filter="all" aria-pressed="true">Все</button>
+    <button class="filter-btn" data-filter="dentists">🦷 Стоматологи</button>
+    <button class="filter-btn" data-filter="doctors">👩‍⚕️ Врачи</button>
+    <button class="filter-btn" data-filter="lawyers">⚖️ Юристы</button>
+    <button class="filter-btn" data-filter="translators">📄 Переводчики</button>
+    <button class="filter-btn" data-filter="banks">🏦 Банки</button>
+    <button class="filter-btn" data-filter="visas">🛂 Визы</button>
+    <button class="filter-btn" data-filter="housing">🏠 Аренда жилья</button>
+    <button class="filter-btn" data-filter="transfers">🚕 Трансферы</button>
+    <button class="filter-btn" data-filter="sim">📱 SIM/eSIM</button>
+    <button class="filter-btn" data-filter="shops">🛒 Русские магазины</button>
+    <button class="filter-btn" data-filter="schools">🏫 Школы</button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <div class="map-wrap">
+    <div id="map"></div>
+  </div>
+  <p class="map-caption">Метки на карте — ориентировочные районы. Отмеченные ⚠️ карточки ещё не подтверждены редакцией — если вы знаете хорошего специалиста, добавьте его через форму ниже.</p>
+
+  <!-- ================= CATEGORY SECTIONS ================= -->
+
+  <section class="category" id="dentists" data-cat="dentists">
+    <div class="cat-head"><span class="icon">🦷</span><h2>Стоматологи</h2><span class="count">район: Есиль, Алматы</span></div>
+    <div class="card-grid">
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Стоматология в районе Есиль</div><div class="district">Левый берег, рядом с Хан Шатыром</div><div class="note">Приём ведут русскоязычные врачи, есть отзывы от экспатов в тематических чатах.</div></div>
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Семейная стоматологическая клиника</div><div class="district">Район Алматы</div><div class="note">Часто рекомендуют в русскоязычных сообществах Астаны для лечения и протезирования.</div></div>
+      <div class="card add-card"><div class="name">+ Добавить клинику</div><div class="note">Знаете хорошего русскоязычного стоматолога в Астане? Напишите нам в Telegram-бот, чтобы карточка появилась здесь.</div><div class="cta-row"><a href="https://t.me/FeedbackCristinaBot" target="_blank" rel="noopener">Предложить →</a></div></div>
+    </div>
+  </section>
+
+  <section class="category" id="doctors" data-cat="doctors">
+    <div class="cat-head"><span class="icon">👩‍⚕️</span><h2>Врачи</h2><span class="count">терапевты, педиатры</span></div>
+    <div class="card-grid">
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Многопрофильная клиника, левый берег</div><div class="district">Район Есиль</div><div class="note">Терапевты и педиатры, ведущие приём на русском языке; часто упоминается в чатах релокантов.</div></div>
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Частный медицинский центр</div><div class="district">Район Сарыарка</div><div class="note">Диагностика и узкие специалисты, англо- и русскоязычный персонал.</div></div>
+      <div class="card add-card"><div class="name">+ Добавить врача</div><div class="note">Поделитесь контактом проверенного врача, и мы добавим карточку.</div><div class="cta-row"><a href="https://t.me/FeedbackCristinaBot" target="_blank" rel="noopener">Предложить →</a></div></div>
+    </div>
+  </section>
+
+  <section class="category" id="lawyers" data-cat="lawyers">
+    <div class="cat-head"><span class="icon">⚖️</span><h2>Юристы</h2><span class="count">миграционное и корпоративное право</span></div>
+    <div class="card-grid">
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Юридическая консультация по РВП и ВНЖ</div><div class="district">Центр города</div><div class="note">Сопровождение получения разрешения на временное проживание сверх безвизового срока.</div></div>
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Бюро корпоративного права</div><div class="district">Район Есиль</div><div class="note">Регистрация ИП/ТОО для релокантов, налоговые вопросы.</div></div>
+      <div class="card add-card"><div class="name">+ Добавить юриста</div><div class="note">Работали с хорошим русскоязычным юристом в Астане? Расскажите нам.</div><div class="cta-row"><a href="https://t.me/FeedbackCristinaBot" target="_blank" rel="noopener">Предложить →</a></div></div>
+    </div>
+  </section>
+
+  <section class="category" id="translators" data-cat="translators">
+    <div class="cat-head"><span class="icon">📄</span><h2>Переводчики</h2><span class="count">нотариальный перевод RU ⇄ KZ</span></div>
+    <div class="card-grid">
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Бюро переводов у нотариуса</div><div class="district">Центр города</div><div class="note">Перевод и заверение документов для миграционных и банковских процедур.</div></div>
+      <div class="card add-card"><div class="name">+ Добавить бюро</div><div class="note">Знаете надёжное бюро переводов? Поделитесь контактом.</div><div class="cta-row"><a href="https://t.me/FeedbackCristinaBot" target="_blank" rel="noopener">Предложить →</a></div></div>
+    </div>
+  </section>
+
+  <section class="category" id="banks" data-cat="banks">
+    <div class="cat-head"><span class="icon">🏦</span><h2>Помощь с банками</h2><span class="count">открытие счёта, карта «Мир»</span></div>
+    <div class="card-grid">
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Консультант по открытию счёта в местном банке</div><div class="district">Онлайн + офис в центре</div><div class="note">Помощь с пакетом документов для нерезидентов; карты Visa/Mastercard российских банков в Казахстане не работают, локальный счёт закрывает большинство бытовых задач.</div></div>
+      <div class="card add-card"><div class="name">+ Добавить специалиста</div><div class="note">Есть контакт того, кто помог открыть счёт без проблем? Поделитесь.</div><div class="cta-row"><a href="https://t.me/FeedbackCristinaBot" target="_blank" rel="noopener">Предложить →</a></div></div>
+    </div>
+  </section>
+
+  <section class="category" id="visas" data-cat="visas">
+    <div class="cat-head"><span class="icon">🛂</span><h2>Визовые агентства</h2><span class="count">РВП, продление, миграционный учёт</span></div>
+    <div class="card-grid">
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Агентство миграционного сопровождения</div><div class="district">Район Есиль</div><div class="note">Постановка на миграционный учёт при пребывании свыше 30 дней, продление регистрации.</div></div>
+      <div class="card add-card"><div class="name">+ Добавить агентство</div><div class="note">Пользовались услугами визового агентства в Астане? Расскажите нам.</div><div class="cta-row"><a href="https://t.me/FeedbackCristinaBot" target="_blank" rel="noopener">Предложить →</a></div></div>
+    </div>
+  </section>
+
+  <section class="category" id="housing" data-cat="housing">
+    <div class="cat-head"><span class="icon">🏠</span><h2>Аренда жилья</h2><span class="count">риелторы и агентства для релокантов</span></div>
+    <div class="card-grid">
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Риелтор, работающий с иностранными арендаторами</div><div class="district">Левый берег</div><div class="note">Помощь с поиском и оформлением договора аренды для тех, кто не говорит на казахском.</div></div>
+      <div class="card add-card"><div class="name">+ Добавить риелтора</div><div class="note">Нашли квартиру через хорошего агента? Поделитесь контактом.</div><div class="cta-row"><a href="https://t.me/FeedbackCristinaBot" target="_blank" rel="noopener">Предложить →</a></div></div>
+    </div>
+  </section>
+
+  <section class="category" id="transfers" data-cat="transfers">
+    <div class="cat-head"><span class="icon">🚕</span><h2>Трансферы</h2><span class="count">аэропорт и межгород</span></div>
+    <div class="card-grid">
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Трансфер из аэропорта Астаны</div><div class="district">Аэропорт Нурсултан Назарбаев</div><div class="note">Водители, с которыми можно договориться на русском заранее через мессенджер.</div></div>
+      <div class="card add-card"><div class="name">+ Добавить трансфер</div><div class="note">Есть надёжный водитель или служба трансферов? Поделитесь.</div><div class="cta-row"><a href="https://t.me/FeedbackCristinaBot" target="_blank" rel="noopener">Предложить →</a></div></div>
+    </div>
+  </section>
+
+  <section class="category" id="sim" data-cat="sim">
+    <div class="cat-head"><span class="icon">📱</span><h2>SIM / eSIM</h2><span class="count">местная связь</span></div>
+    <div class="card-grid">
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Салон связи в ТРЦ</div><div class="district">Район Есиль</div><div class="note">Оформление местной SIM-карты по паспорту, поддержка на русском языке.</div></div>
+      <div class="card add-card"><div class="name">+ Добавить точку продаж</div><div class="note">Знаете, где быстро и без очереди оформить SIM? Расскажите.</div><div class="cta-row"><a href="https://t.me/FeedbackCristinaBot" target="_blank" rel="noopener">Предложить →</a></div></div>
+    </div>
+  </section>
+
+  <section class="category" id="shops" data-cat="shops">
+    <div class="cat-head"><span class="icon">🛒</span><h2>Русские магазины</h2><span class="count">продукты и товары из СНГ</span></div>
+    <div class="card-grid">
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Магазин продуктов из России и СНГ</div><div class="district">Район Сарыарка</div><div class="note">Привычные бренды и продукты, знакомые русскоязычным покупателям.</div></div>
+      <div class="card add-card"><div class="name">+ Добавить магазин</div><div class="note">Нашли хороший магазин с продуктами из СНГ? Поделитесь адресом.</div><div class="cta-row"><a href="https://t.me/FeedbackCristinaBot" target="_blank" rel="noopener">Предложить →</a></div></div>
+    </div>
+  </section>
+
+  <section class="category" id="schools" data-cat="schools">
+    <div class="cat-head"><span class="icon">🏫</span><h2>Школы</h2><span class="count">русскоязычное и рекомендованное обучение</span></div>
+    <div class="card-grid">
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Школа с русским языком обучения</div><div class="district">Район Алматы</div><div class="note">Государственная школа с классами на русском языке.</div></div>
+      <div class="card"><span class="badge unverified">Не подтверждено</span><div class="name">Частная школа, рекомендованная экспатами</div><div class="district">Район Есиль</div><div class="note">Небольшие классы, часто выбирают семьи релокантов.</div></div>
+      <div class="card add-card"><div class="name">+ Добавить школу</div><div class="note">Ваш ребёнок учится в хорошей школе в Астане? Расскажите о ней.</div><div class="cta-row"><a href="https://t.me/FeedbackCristinaBot" target="_blank" rel="noopener">Предложить →</a></div></div>
+    </div>
+  </section>
+
+  <!-- ================= KEY FACTS ================= -->
+  <section class="facts">
+    <h2>Что нужно знать перед поездкой</h2>
+    <ul>
+      <li><strong>Виза:</strong> между Россией и Казахстаном действует безвизовый режим в рамках ЕАЭС. Граждане РФ могут находиться в стране без визы до 90 дней в течение 180-дневного периода.</li>
+      <li><strong>Регистрация:</strong> при пребывании свыше 30 дней требуется постановка на миграционный учёт в подразделении МВД РК.</li>
+      <li><strong>Банковские карты:</strong> карты Visa и Mastercard, выпущенные российскими банками, в Казахстане не работают с 2022 года; карта «Мир» принимается в части банкоматов и магазинов, поэтому для длительного пребывания удобнее открыть местный счёт.</li>
+      <li><strong>Border Run:</strong> для Астаны эта практика не актуальна — Казахстан входит в ЕАЭС, и безвизовый срок для граждан РФ и так составляет 90 дней, выезжать ради «обнуления» визы не требуется.</li>
+    </ul>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="faq">
+    <h2>Частые вопросы</h2>
+    <details>
+      <summary>Где найти русскоговорящего стоматолога в Астане?</summary>
+      <p>Используйте раздел «Стоматологи» на этой странице — карточки сгруппированы по районам, а фильтр наверху страницы позволяет быстро отфильтровать карту.</p>
+    </details>
+    <details>
+      <summary>Нужна ли виза в Казахстан гражданам России в 2026 году?</summary>
+      <p>Нет, действует безвизовый режим на 90 дней в течение 180 дней. При пребывании свыше 30 дней нужна постановка на миграционный учёт.</p>
+    </details>
+    <details>
+      <summary>Как оформить визу в Астана, если я не говорю на местном языке?</summary>
+      <p>Русский язык широко используется в Астане, включая государственные учреждения. Для сложных случаев (РВП, продление сроков) в разделе «Визовые агентства» собраны специалисты, сопровождающие процесс на русском.</p>
+    </details>
+    <details>
+      <summary>Работают ли российские банковские карты в Астане?</summary>
+      <p>Нет, карты Visa/Mastercard российских банков заблокированы с 2022 года. Работает карта «Мир» в части точек, но удобнее открыть локальный счёт — см. раздел «Помощь с банками».</p>
+    </details>
+    <details>
+      <summary>Есть ли в Астане русскоязычные школы?</summary>
+      <p>Да — как государственные школы с русским языком обучения, так и частные школы, которые часто выбирают семьи экспатов. Подборка — в разделе «Школы».</p>
+    </details>
+    <details>
+      <summary>Актуален ли Border Run для Астаны?</summary>
+      <p>Нет, поскольку Казахстан входит в ЕАЭС и безвизовый срок для граждан РФ и так составляет 90 дней за полгода — искусственно «обнулять» визу выездом из страны не требуется.</p>
+    </details>
+  </section>
+
+  <!-- ================= RELATED / SEO ================= -->
+  <section class="related">
+    <h2>Похожие запросы</h2>
+    <div class="related-links">
+      <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">Испанский с нуля для переезда в Испанию →</a>
+      <a href="https://russianfriendly.netlify.app/" target="_blank" rel="noopener">Другие города Russian Friendly →</a>
+      <a href="https://t.me/FeedbackCristinaBot" target="_blank" rel="noopener">Предложить специалиста в Астане →</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a href="https://russianfriendly.netlify.app/about.html">О проекте</a>
+      <a href="https://russianfriendly.netlify.app/contact.html">Контакты</a>
+      <a href="https://russianfriendly.netlify.app/privacy-policy.html">Политика конфиденциальности</a>
+    </div>
+    <div>© Russian Friendly · Астана · Кристина Перез</div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // ---- Data: category -> markers (approximate district centers, unverified) ----
+  var points = [
+    {cat:'dentists',  name:'Стоматология, район Есиль', lat:51.1284, lng:71.4306},
+    {cat:'dentists',  name:'Стоматология, район Алматы', lat:51.1801, lng:71.4460},
+    {cat:'doctors',   name:'Клиника, левый берег', lat:51.1310, lng:71.4180},
+    {cat:'doctors',   name:'Мед. центр, Сарыарка', lat:51.1550, lng:71.4700},
+    {cat:'lawyers',   name:'Юрконсультация, центр', lat:51.1694, lng:71.4491},
+    {cat:'lawyers',   name:'Бюро корп. права, Есиль', lat:51.1250, lng:71.4400},
+    {cat:'translators', name:'Бюро переводов, центр', lat:51.1700, lng:71.4300},
+    {cat:'banks',     name:'Консультант по счетам', lat:51.1330, lng:71.4210},
+    {cat:'visas',     name:'Миграционное сопровождение', lat:51.1260, lng:71.4460},
+    {cat:'housing',   name:'Риелтор, левый берег', lat:51.1300, lng:71.4150},
+    {cat:'transfers', name:'Трансфер из аэропорта', lat:51.0222, lng:71.4669},
+    {cat:'sim',       name:'Салон связи, Есиль', lat:51.1290, lng:71.4380},
+    {cat:'shops',     name:'Магазин продуктов СНГ', lat:51.1580, lng:71.4680},
+    {cat:'schools',   name:'Школа, район Алматы', lat:51.1820, lng:71.4500},
+    {cat:'schools',   name:'Частная школа, Есиль', lat:51.1270, lng:71.4330}
+  ];
+
+  var map = L.map('map', {scrollWheelZoom:false}).setView([51.1605, 71.4704], 12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 19
+  }).addTo(map);
+
+  var markerLayers = {};
+  points.forEach(function(p){
+    var m = L.marker([p.lat, p.lng]).bindPopup('<strong>' + p.name + '</strong><br><span style="color:#9AA5AC;font-size:.8em;">⚠ не подтверждено</span>');
+    m.addTo(map);
+    markerLayers[p.cat] = markerLayers[p.cat] || [];
+    markerLayers[p.cat].push(m);
+  });
+
+  // ---- Filtering ----
+  var buttons = document.querySelectorAll('.filter-btn');
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      buttons.forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+      btn.setAttribute('aria-pressed','true');
+      var cat = btn.getAttribute('data-filter');
+
+      document.querySelectorAll('section.category').forEach(function(sec){
+        sec.style.display = (cat === 'all' || sec.getAttribute('data-cat') === cat) ? '' : 'none';
+      });
+
+      Object.keys(markerLayers).forEach(function(k){
+        markerLayers[k].forEach(function(m){
+          if(cat === 'all' || k === cat){ if(!map.hasLayer(m)) m.addTo(map); }
+          else { if(map.hasLayer(m)) map.removeLayer(m); }
+        });
+      });
+
+      if(cat !== 'all'){
+        var target = document.getElementById(cat);
+        if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+</script>
+</body>
+</html>

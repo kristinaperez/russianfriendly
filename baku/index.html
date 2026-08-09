@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Русскоязычные специалисты в Баку — стоматологи, врачи, юристы, жильё | Russian Friendly</title>
+<meta name="description" content="Карта и список русскоязычных специалистов и сервисов в Баку: стоматологи, врачи, юристы, переводчики, помощь с банками, визы, аренда жилья, трансферы, SIM/eSIM, русские магазины и школы. Проект Russian Friendly.">
+<link rel="icon" href="/favicon.ico">
+<link rel="canonical" href="https://russianfriendly.netlify.app/baku">
+<meta name="theme-color" content="#0B3350">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Русскоязычные специалисты в Баку | Russian Friendly">
+<meta property="og:description" content="Интерактивная карта и список русскоязычных специалистов и сервисов для экспатов, релокантов и туристов в Баку.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/baku">
+<meta property="og:image" content="https://russianfriendly.netlify.app/og-baku.webp">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Russian Friendly">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Баку | Russian Friendly">
+<meta name="twitter:description" content="Карта и список русскоязычных специалистов и сервисов для экспатов и релокантов в Баку.">
+<meta name="twitter:image" content="https://russianfriendly.netlify.app/og-baku.webp">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TXH64T8T');</script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+  :root{
+    --navy:#0B3350;
+    --navy-deep:#071e30;
+    --sand:#F3E9D6;
+    --sand-2:#EADFC7;
+    --paper:#FBF6EC;
+    --flame1:#E8592B;
+    --flame2:#C4341A;
+    --gold:#C9973C;
+    --ink:#20241E;
+    --ink-soft:#5B5A50;
+    --line:rgba(11,51,80,0.12);
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.55;
+  }
+  h1,h2,h3,.display{
+    font-family:'Marcellus','Playfair Display',Georgia,serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+  }
+  a{color:inherit;}
+  img{max-width:100%;}
+
+  /* ---------- Fire signature motif ---------- */
+  .flame-rule{
+    display:flex;align-items:center;gap:10px;margin:0 0 22px;
+    color:var(--flame1);
+  }
+  .flame-rule svg{width:16px;height:20px;flex:none;}
+  .flame-rule .line{flex:1;height:1px;background:linear-gradient(90deg,var(--flame1),transparent);}
+  .flame-rule span{font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap;}
+
+  /* ---------- Header ---------- */
+  header.site{
+    background:
+      radial-gradient(120% 160% at 15% -10%, #123f63 0%, var(--navy) 46%, #071e30 100%);
+    color:var(--sand);
+    padding:18px 20px 34px;
+    position:relative;
+    overflow:hidden;
+  }
+  header.site::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(135deg, rgba(201,151,60,0.05) 0 2px, transparent 2px 26px);
+    pointer-events:none;
+  }
+  .flame-bg{position:absolute;bottom:-40px;right:-30px;width:260px;height:340px;opacity:0.16;pointer-events:none;}
+  .top-bar{
+    max-width:1180px;margin:0 auto;
+    display:flex;justify-content:space-between;align-items:flex-start;gap:24px;
+    flex-wrap:wrap;
+    position:relative;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--sand-2);}
+  .brand svg{width:18px;height:22px;}
+  .brand a{text-decoration:none;font-weight:600;letter-spacing:0.02em;}
+
+  .promo{
+    background:linear-gradient(135deg,var(--flame1),var(--flame2));
+    color:#fff;
+    padding:12px 16px;
+    border-radius:12px;
+    font-size:13.5px;
+    max-width:300px;
+    box-shadow:0 8px 22px rgba(196,52,26,0.35);
+    text-decoration:none;
+    display:block;
+    line-height:1.4;
+  }
+  .promo strong{display:block;font-family:'Marcellus',serif;font-size:15px;margin-bottom:3px;font-weight:400;}
+  .promo:hover{filter:brightness(1.06);}
+
+  .hero{max-width:1180px;margin:38px auto 0;position:relative;}
+  .eyebrow{
+    font-size:12.5px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);
+    margin-bottom:14px;
+  }
+  h1.hero-title{
+    font-size:clamp(34px,5.4vw,58px);
+    margin:0 0 16px;
+    color:#fff;
+    max-width:760px;
+  }
+  h1.hero-title em{
+    font-style:normal;color:var(--flame1);
+  }
+  .hero-sub{max-width:600px;color:var(--sand-2);font-size:16.5px;margin-bottom:26px;}
+  .hero-stats{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:6px;}
+  .stat b{display:block;font-family:'Marcellus',serif;font-size:26px;color:#fff;}
+  .stat span{font-size:12.5px;color:var(--sand-2);letter-spacing:0.03em;}
+
+  /* ---------- Nav chips ---------- */
+  .cat-nav{
+    max-width:1180px;margin:26px auto 0;padding:0 20px;
+    display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .cat-nav a{
+    flex:none;
+    font-size:13px;
+    padding:8px 14px;
+    border-radius:999px;
+    background:var(--sand);
+    border:1px solid var(--line);
+    text-decoration:none;
+    color:var(--navy);
+    white-space:nowrap;
+  }
+  .cat-nav a:hover{background:var(--flame1);color:#fff;border-color:var(--flame1);}
+
+  main{max-width:1180px;margin:0 auto;padding:38px 20px 10px;}
+
+  /* ---------- Facts strip ---------- */
+  .facts{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:14px;margin-bottom:52px;
+  }
+  .fact-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 18px 16px;
+  }
+  .fact-card .ic{font-size:20px;margin-bottom:8px;display:block;}
+  .fact-card h3{font-size:15px;margin:0 0 6px;color:var(--navy);}
+  .fact-card p{margin:0;font-size:13.5px;color:var(--ink-soft);}
+
+  /* ---------- Map ---------- */
+  #map{
+    height:440px;border-radius:var(--radius);border:1px solid var(--line);
+    margin-bottom:56px;box-shadow:0 10px 30px rgba(11,51,80,0.08);
+  }
+  .leaflet-popup-content b{font-family:'Marcellus',serif;font-size:15px;}
+  .leaflet-popup-content .badge{display:inline-block;margin-top:4px;}
+
+  /* ---------- Category sections ---------- */
+  section.category{margin-bottom:56px;scroll-margin-top:20px;}
+  .cat-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;flex-wrap:wrap;}
+  .cat-head h2{font-size:26px;margin:0;color:var(--navy);}
+  .cat-head .emoji{font-size:24px;}
+  .cat-desc{color:var(--ink-soft);font-size:14.5px;margin:0 0 20px;max-width:640px;}
+
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px;position:relative;transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(11,51,80,0.10);}
+  .card h4{margin:0 0 6px;font-family:'Marcellus',serif;font-weight:400;font-size:17px;color:var(--ink);}
+  .card .district{font-size:12px;color:var(--gold);letter-spacing:0.03em;margin-bottom:8px;}
+  .card p{margin:0 0 10px;font-size:13.5px;color:var(--ink-soft);}
+  .card .meta{font-size:12.5px;color:var(--ink-soft);display:flex;flex-direction:column;gap:3px;margin-bottom:10px;}
+  .badge{
+    font-size:11px;padding:3px 9px;border-radius:999px;font-weight:600;letter-spacing:0.02em;
+  }
+  .badge.ok{background:#E4F2E6;color:#2C7A3D;}
+  .badge.check{background:#FBEAD9;color:#B5581E;}
+
+  .disclaimer{
+    background:#FBEAD9;border:1px solid #F0C79A;color:#7A431B;
+    border-radius:12px;padding:14px 18px;font-size:13.5px;margin-bottom:46px;
+    max-width:900px;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-item{border-bottom:1px solid var(--line);padding:18px 0;}
+  .faq-item h3{font-size:16.5px;margin:0 0 8px;color:var(--navy);font-family:'Marcellus',serif;font-weight:400;}
+  .faq-item p{margin:0;font-size:14.5px;color:var(--ink-soft);}
+
+  /* ---------- Related ---------- */
+  .related{
+    background:var(--sand);border-radius:18px;padding:30px 26px;margin:20px 0 56px;
+  }
+  .related h2{font-size:20px;margin:0 0 14px;color:var(--navy);}
+  .related ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+  .related a{
+    text-decoration:none;color:var(--navy);font-size:14.5px;font-weight:600;
+    display:flex;align-items:center;gap:8px;
+  }
+  .related a::before{content:"→";color:var(--flame1);}
+  .related a:hover{color:var(--flame1);}
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--navy);color:var(--sand-2);padding:36px 20px 26px;margin-top:30px;
+  }
+  .footer-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+  footer nav a{margin-right:18px;font-size:13.5px;text-decoration:none;color:var(--sand-2);}
+  footer nav a:hover{color:#fff;}
+  footer .fine{font-size:12px;color:rgba(255,255,255,0.45);margin-top:18px;max-width:1180px;margin-left:auto;margin-right:auto;}
+
+  @media (max-width:600px){
+    #map{height:320px;}
+    .card-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXH64T8T"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header class="site">
+  <svg class="flame-bg" viewBox="0 0 100 140" fill="none"><path d="M50 5C30 30 15 55 15 80c0 25 15 45 35 55 20-10 35-30 35-55C85 55 70 30 50 5z" fill="#E8592B"/></svg>
+  <div class="top-bar">
+    <div class="brand">
+      <svg viewBox="0 0 24 30" fill="none"><path d="M12 2C6 9 3 16 3 22c0 7 4 12 9 15 5-3 9-8 9-15 0-6-3-13-9-20z" fill="#C9973C"/></svg>
+      <a href="https://russianfriendly.netlify.app/">Russian Friendly</a>
+      <span style="opacity:.5">·</span><span>Баку</span>
+    </div>
+    <a class="promo" href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+      <strong>Переезжаешь в Испанию?</strong>
+      Узнай, как заговорить → kristinaperez.netlify.app
+    </a>
+  </div>
+
+  <div class="hero">
+    <div class="eyebrow">Гид по городу · обновляется регулярно</div>
+    <h1 class="hero-title">Русскоязычные специалисты <em>в Баку</em></h1>
+    <p class="hero-sub">Карта и список проверенных и рекомендованных врачей, юристов, переводчиков и других специалистов — для тех, кто переезжает, работает удалённо или просто путешествует по Баку и говорит по-русски.</p>
+    <div class="hero-stats">
+      <div class="stat"><b>9</b><span>категорий услуг</span></div>
+      <div class="stat"><b>90</b><span>дней безвизового пребывания для граждан РФ</span></div>
+      <div class="stat"><b>1</b><span>город — Баку, Азербайджан</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="cat-nav" aria-label="Категории">
+  <a href="#dentists">🦷 Стоматологи</a>
+  <a href="#doctors">👩‍⚕️ Врачи</a>
+  <a href="#lawyers">⚖️ Юристы</a>
+  <a href="#translators">📄 Переводчики</a>
+  <a href="#banks">🏦 Банки</a>
+  <a href="#visa">🛂 Визы</a>
+  <a href="#housing">🏠 Аренда жилья</a>
+  <a href="#transfers">🚕 Трансферы</a>
+  <a href="#sim">📱 SIM/eSIM</a>
+  <a href="#shops">🛒 Русские магазины</a>
+  <a href="#schools">🏫 Школы</a>
+  <a href="#faq">❓ Вопросы</a>
+</nav>
+
+<main>
+
+  <div class="disclaimer">
+    ⚠️ <strong>О данных:</strong> карточки с пометкой «Проверено» подтверждены редакцией Russian Friendly, карточки с пометкой «Уточняется» — собраны из открытых источников и рекомендаций сообщества и требуют самостоятельной проверки перед обращением (актуальность цен, приёма, лицензий). Пишите нам в Telegram, если нашли неточность.
+  </div>
+
+  <section class="facts" aria-label="Ключевые факты для въезда">
+    <div class="fact-card">
+      <span class="ic">🛂</span>
+      <h3>Виза не нужна</h3>
+      <p>Граждане РФ въезжают в Азербайджан без визы на срок до 90 дней. При пребывании дольше 10–15 дней нужна регистрация по месту жительства (делает отель или самостоятельно через миграционную службу).</p>
+    </div>
+    <div class="fact-card">
+      <span class="ic">📄</span>
+      <h3>Загранпаспорт обязателен</h3>
+      <p>Внутренний паспорт РФ не подходит — нужен загранпаспорт со сроком действия с запасом от даты выезда из Азербайджана.</p>
+    </div>
+    <div class="fact-card">
+      <span class="ic">🚍</span>
+      <h3>Border run не актуален</h3>
+      <p>Автомобильные погранпереходы с большинством соседних стран закрыты для иностранцев, а безвизовый срок и так составляет 90 дней — практика «выезд-въезд» здесь не применяется в отличие от Грузии или Таиланда.</p>
+    </div>
+    <div class="fact-card">
+      <span class="ic">📱</span>
+      <h3>Регистрация телефона</h3>
+      <p>При пребывании дольше 30 дней с местной SIM-картой телефон (IMEI) нужно зарегистрировать через imei.az или в салоне оператора.</p>
+    </div>
+  </section>
+
+  <div id="map" role="img" aria-label="Карта русскоязычных специалистов в Баку"></div>
+
+  <!-- STOMATOLOGY -->
+  <section class="category" id="dentists">
+    <div class="flame-rule"><svg viewBox="0 0 24 30" fill="currentColor"><path d="M12 2C6 9 3 16 3 22c0 7 4 12 9 15 5-3 9-8 9-15 0-6-3-13-9-20z"/></svg><span>01 · Стоматологи</span><div class="line"></div></div>
+    <div class="cat-head"><span class="emoji">🦷</span><h2>Русскоговорящие стоматологи</h2></div>
+    <p class="cat-desc">Клиники Баку с русскоязычным персоналом — от плановой гигиены до имплантации. Цены в Баку заметно ниже европейских, качество на уровне частных клиник СНГ.</p>
+    <div class="card-grid">
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>DentaHealth Baku</h4>
+        <div class="district">Насиминский район, центр</div>
+        <p>Крупная многопрофильная клиника, приём по-русски, есть врачи с опытом работы в РФ.</p>
+        <div class="meta"><span>💳 От 20 AZN — консультация</span><span>🗓 Запись онлайн и по телефону</span></div>
+      </div>
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>Caspian Smile Clinic</h4>
+        <div class="district">Ясамальский район</div>
+        <p>Небольшая семейная клиника, часто рекомендуется в чатах релокантов за внимательное отношение.</p>
+        <div class="meta"><span>💳 Средний чек ниже сетевых клиник</span></div>
+      </div>
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>Nariman Dental</h4>
+        <div class="district">Наримановский район</div>
+        <p>Специализация на имплантации и протезировании, популярна у медтуристов из СНГ.</p>
+        <div class="meta"><span>🗣 Приём на русском и азербайджанском</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOCTORS -->
+  <section class="category" id="doctors">
+    <div class="flame-rule"><svg viewBox="0 0 24 30" fill="currentColor"><path d="M12 2C6 9 3 16 3 22c0 7 4 12 9 15 5-3 9-8 9-15 0-6-3-13-9-20z"/></svg><span>02 · Врачи</span><div class="line"></div></div>
+    <div class="cat-head"><span class="emoji">👩‍⚕️</span><h2>Русскоговорящие врачи и клиники</h2></div>
+    <p class="cat-desc">Терапевты, педиатры и профильные специалисты, к которым можно прийти без языкового барьера.</p>
+    <div class="card-grid">
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>MediClub Baku</h4>
+        <div class="district">Сабаильский район</div>
+        <p>Многопрофильный медцентр с обширным списком русскоговорящих специалистов, лаборатория при клинике.</p>
+        <div class="meta"><span>🚑 Есть вызов врача на дом</span></div>
+      </div>
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>Fidan Family Clinic</h4>
+        <div class="district">Ясамальский район</div>
+        <p>Педиатрия и семейная медицина, ориентирована на экспатов с детьми.</p>
+        <div class="meta"><span>👶 Приём детей с рождения</span></div>
+      </div>
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>Central Hospital Baku</h4>
+        <div class="district">Наримановский район</div>
+        <p>Крупный многопрофильный госпиталь, международный отдел работает с иностранными пациентами.</p>
+        <div class="meta"><span>🏥 Экстренная помощь 24/7</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAWYERS -->
+  <section class="category" id="lawyers">
+    <div class="flame-rule"><svg viewBox="0 0 24 30" fill="currentColor"><path d="M12 2C6 9 3 16 3 22c0 7 4 12 9 15 5-3 9-8 9-15 0-6-3-13-9-20z"/></svg><span>03 · Юристы</span><div class="line"></div></div>
+    <div class="cat-head"><span class="emoji">⚖️</span><h2>Юристы для эмигрантов и бизнеса</h2></div>
+    <p class="cat-desc">Вид на жительство, регистрация бизнеса, трудовые и семейные вопросы — юристы, работающие с иностранными клиентами.</p>
+    <div class="card-grid">
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>Baku Legal Partners</h4>
+        <div class="district">Центр, Насиминский район</div>
+        <p>Сопровождение ВНЖ, открытие ООО для нерезидентов, консультации на русском.</p>
+        <div class="meta"><span>💼 Специализация: миграционное и корпоративное право</span></div>
+      </div>
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>Юрист Заур Алиев</h4>
+        <div class="district">Частная практика, онлайн-консультации</div>
+        <p>Часто рекомендуется в русскоязычных сообществах релокантов по вопросам аренды и трудоустройства.</p>
+        <div class="meta"><span>💬 Первая консультация в мессенджере</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSLATORS -->
+  <section class="category" id="translators">
+    <div class="flame-rule"><svg viewBox="0 0 24 30" fill="currentColor"><path d="M12 2C6 9 3 16 3 22c0 7 4 12 9 15 5-3 9-8 9-15 0-6-3-13-9-20z"/></svg><span>04 · Переводчики</span><div class="line"></div></div>
+    <div class="cat-head"><span class="emoji">📄</span><h2>Переводчики и нотариальный перевод</h2></div>
+    <p class="cat-desc">Перевод и нотариальное заверение документов с/на азербайджанский, английский — для ВНЖ, банков, ЗАГС.</p>
+    <div class="card-grid">
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>Бюро переводов «Тарджума»</h4>
+        <div class="district">Центр, рядом с Notary офисами</div>
+        <p>Работает с потоком документов релокантов — переводы диплома, свидетельств, доверенностей.</p>
+        <div class="meta"><span>⏱ Срочный перевод за 1 день</span></div>
+      </div>
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>AZ Translate Group</h4>
+        <div class="district">Наримановский район</div>
+        <p>Устный и письменный перевод, сопровождение на встречах с госорганами.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANKS -->
+  <section class="category" id="banks">
+    <div class="flame-rule"><svg viewBox="0 0 24 30" fill="currentColor"><path d="M12 2C6 9 3 16 3 22c0 7 4 12 9 15 5-3 9-8 9-15 0-6-3-13-9-20z"/></svg><span>05 · Банки</span><div class="line"></div></div>
+    <div class="cat-head"><span class="emoji">🏦</span><h2>Помощь с открытием счёта</h2></div>
+    <p class="cat-desc">Открытие банковского счёта и карты для нерезидентов — что реально работает в 2026 году.</p>
+    <div class="card-grid">
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>Консультант по банкам «Открыть счёт в Баку»</h4>
+        <div class="district">Онлайн + сопровождение в отделении</div>
+        <p>Помогает подготовить документы и записаться в банк, где принимают иностранных клиентов без ВНЖ.</p>
+        <div class="meta"><span>🏦 Работает с Kapital Bank, ABB, PASHA Bank</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISA -->
+  <section class="category" id="visa">
+    <div class="flame-rule"><svg viewBox="0 0 24 30" fill="currentColor"><path d="M12 2C6 9 3 16 3 22c0 7 4 12 9 15 5-3 9-8 9-15 0-6-3-13-9-20z"/></svg><span>06 · Визы</span><div class="line"></div></div>
+    <div class="cat-head"><span class="emoji">🛂</span><h2>Визовые и миграционные агентства</h2></div>
+    <p class="cat-desc">Хотя гражданам РФ виза для краткого визита не нужна, при переезде на более долгий срок пригодится помощь с ВНЖ, рабочей визой и регистрацией.</p>
+    <div class="card-grid">
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>MigrationHelp Baku</h4>
+        <div class="district">Центр</div>
+        <p>Сопровождение оформления ВНЖ, рабочей визы, регистрации по месту пребывания.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOUSING -->
+  <section class="category" id="housing">
+    <div class="flame-rule"><svg viewBox="0 0 24 30" fill="currentColor"><path d="M12 2C6 9 3 16 3 22c0 7 4 12 9 15 5-3 9-8 9-15 0-6-3-13-9-20z"/></svg><span>07 · Жильё</span><div class="line"></div></div>
+    <div class="cat-head"><span class="emoji">🏠</span><h2>Аренда жилья</h2></div>
+    <p class="cat-desc">Риелторы и агентства, работающие с иностранными арендаторами — от студий у моря до квартир в центре.</p>
+    <div class="card-grid">
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>Baku Rent Hub</h4>
+        <div class="district">Приморский бульвар, центр</div>
+        <p>Подбор долгосрочной аренды для релокантов, сопровождение сделки, договор на русском.</p>
+      </div>
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>Риелтор Севиндж</h4>
+        <div class="district">Частная практика</div>
+        <p>Рекомендуется в чатах экспатов за честные цены без завышенной комиссии для иностранцев.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSFERS -->
+  <section class="category" id="transfers">
+    <div class="flame-rule"><svg viewBox="0 0 24 30" fill="currentColor"><path d="M12 2C6 9 3 16 3 22c0 7 4 12 9 15 5-3 9-8 9-15 0-6-3-13-9-20z"/></svg><span>08 · Трансферы</span><div class="line"></div></div>
+    <div class="cat-head"><span class="emoji">🚕</span><h2>Трансферы из/в аэропорт Гейдар Алиев</h2></div>
+    <p class="cat-desc">Заказ трансфера заранее — удобно с багажом или поздним рейсом, водители говорят по-русски.</p>
+    <div class="card-grid">
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>Baku Airport Transfer</h4>
+        <div class="district">Аэропорт GYD ↔ город</div>
+        <p>Встреча с табличкой, фиксированная цена без счётчика, оплата картой или наличными.</p>
+      </div>
+      <div class="card">
+        <span class="badge ok">Проверено</span>
+        <h4>Bolt / Yandex Go</h4>
+        <div class="district">По всему городу</div>
+        <p>Приложения такси работают в Баку так же, как в других крупных городах СНГ — самый простой способ передвижения без языкового барьера.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIM -->
+  <section class="category" id="sim">
+    <div class="flame-rule"><svg viewBox="0 0 24 30" fill="currentColor"><path d="M12 2C6 9 3 16 3 22c0 7 4 12 9 15 5-3 9-8 9-15 0-6-3-13-9-20z"/></svg><span>09 · Связь</span><div class="line"></div></div>
+    <div class="cat-head"><span class="emoji">📱</span><h2>SIM-карты и eSIM</h2></div>
+    <p class="cat-desc">Местные операторы Azercell, Bakcell и Nar продают SIM-карты туристам прямо в аэропорту по паспорту.</p>
+    <div class="card-grid">
+      <div class="card">
+        <span class="badge ok">Проверено</span>
+        <h4>Стойки операторов в аэропорту GYD</h4>
+        <div class="district">Аэропорт Гейдар Алиев, зона прилёта</div>
+        <p>Самый быстрый способ получить SIM с мобильным интернетом сразу по прилёту, нужен загранпаспорт.</p>
+      </div>
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>eSIM для Азербайджана (Airalo и аналоги)</h4>
+        <div class="district">Устанавливается онлайн до вылета</div>
+        <p>Удобно для короткой поездки, если не хочется искать салон связи в первый день.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOPS -->
+  <section class="category" id="shops">
+    <div class="flame-rule"><svg viewBox="0 0 24 30" fill="currentColor"><path d="M12 2C6 9 3 16 3 22c0 7 4 12 9 15 5-3 9-8 9-15 0-6-3-13-9-20z"/></svg><span>10 · Магазины</span><div class="line"></div></div>
+    <div class="cat-head"><span class="emoji">🛒</span><h2>Русские магазины и продукты</h2></div>
+    <p class="cat-desc">Знакомые продукты и товары для тех, кто скучает по вкусам родины.</p>
+    <div class="card-grid">
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>«Славянский» продуктовый</h4>
+        <div class="district">Ясамальский район</div>
+        <p>Гречка, творог, чёрный хлеб и другие привычные продукты для семей из СНГ.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHOOLS -->
+  <section class="category" id="schools">
+    <div class="flame-rule"><svg viewBox="0 0 24 30" fill="currentColor"><path d="M12 2C6 9 3 16 3 22c0 7 4 12 9 15 5-3 9-8 9-15 0-6-3-13-9-20z"/></svg><span>11 · Школы</span><div class="line"></div></div>
+    <div class="cat-head"><span class="emoji">🏫</span><h2>Русскоязычные и рекомендованные школы</h2></div>
+    <p class="cat-desc">Школы с обучением на русском языке или сильной международной программой — популярный вопрос у семей с детьми при переезде.</p>
+    <div class="card-grid">
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>Бакинская русская гимназия</h4>
+        <div class="district">Наримановский район</div>
+        <p>Полное обучение по российской программе, набор в течение учебного года для переехавших семей.</p>
+      </div>
+      <div class="card">
+        <span class="badge check">Уточняется</span>
+        <h4>QSI International School of Baku</h4>
+        <div class="district">Сабаильский район</div>
+        <p>Международная школа с англоязычной программой, популярна у экспатов, часть персонала говорит по-русски.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="margin-bottom:20px;">
+    <div class="flame-rule"><svg viewBox="0 0 24 30" fill="currentColor"><path d="M12 2C6 9 3 16 3 22c0 7 4 12 9 15 5-3 9-8 9-15 0-6-3-13-9-20z"/></svg><span>Вопросы и ответы</span><div class="line"></div></div>
+    <h2 style="color:var(--navy);margin-bottom:6px;">Частые вопросы про переезд в Баку</h2>
+    <div class="faq-item">
+      <h3>Где найти русскоговорящего стоматолога в Баку?</h3>
+      <p>В разделе «Стоматологи» этой страницы собраны клиники Насиминского, Ясамальского и Наримановского районов, где приём ведут на русском языке — от плановой гигиены до имплантации.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Нужна ли виза в Баку для граждан России?</h3>
+      <p>Нет, между Россией и Азербайджаном действует безвизовый режим: находиться в стране можно до 90 дней, при въезде нужен только загранпаспорт. При пребывании дольше 10–15 дней требуется регистрация по месту жительства.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Как оформить визу или ВНЖ в Баку, если я не говорю по-азербайджански?</h3>
+      <p>Русскоязычные миграционные агентства и юристы (раздел «Визы» и «Юристы») сопровождают весь процесс — от подготовки документов до подачи заявления в миграционную службу.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Актуален ли border run в Азербайджане?</h3>
+      <p>Практически нет: безвизовый срок для граждан РФ и так составляет 90 дней, а автомобильные пункты пропуска с соседними странами закрыты для иностранцев, поэтому классическая схема «выезд-въезд», как в Грузии или Таиланде, здесь не применяется.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Где искать русскоязычного юриста в Баку?</h3>
+      <p>В разделе «Юристы» собраны специалисты по миграционному, корпоративному и трудовому праву, работающие с иностранными клиентами на русском языке.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Как быстро найти жильё в Баку для переезда?</h3>
+      <p>Раздел «Аренда жилья» содержит агентства и частных риелторов, которые сопровождают сделку на русском языке и помогают избежать завышенных «цен для иностранцев».</p>
+    </div>
+  </section>
+
+  <div class="related">
+    <h2>Похожие запросы</h2>
+    <ul>
+      <li><a href="https://russianfriendly.netlify.app/" target="_blank" rel="noopener">Все города проекта Russian Friendly</a></li>
+      <li><a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">Учебник разговорного испанского «45 шагов к испанскому»</a></li>
+      <li><a href="https://russianfriendly.netlify.app/about.html" target="_blank" rel="noopener">Об авторе проекта Russian Friendly</a></li>
+    </ul>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="brand" style="color:var(--sand-2);">
+      <svg viewBox="0 0 24 30" fill="none" style="width:16px;height:20px;"><path d="M12 2C6 9 3 16 3 22c0 7 4 12 9 15 5-3 9-8 9-15 0-6-3-13-9-20z" fill="#C9973C"/></svg>
+      Russian Friendly · Баку
+    </div>
+    <nav>
+      <a href="https://russianfriendly.netlify.app/about.html">О проекте</a>
+      <a href="https://russianfriendly.netlify.app/contact.html">Контакты</a>
+      <a href="https://russianfriendly.netlify.app/privacy-policy.html">Политика конфиденциальности</a>
+    </nav>
+  </div>
+  <p class="fine">© 2026 Кристина Перез · Russian Friendly. Информация о специалистах носит справочный характер, актуальность рекомендуем уточнять напрямую.</p>
+</footer>
+
+<!-- JSON-LD: WebPage / Map -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Русскоязычные специалисты в Баку",
+  "url": "https://russianfriendly.netlify.app/baku",
+  "description": "Интерактивная карта и список русскоязычных специалистов и полезных сервисов для экспатов, релокантов и туристов в Баку.",
+  "inLanguage": "ru",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Russian Friendly",
+    "url": "https://russianfriendly.netlify.app/"
+  },
+  "about": {
+    "@type": "Place",
+    "name": "Баку",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "AZ",
+      "addressLocality": "Баку"
+    }
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Map",
+  "name": "Карта русскоязычных специалистов в Баку",
+  "about": {
+    "@type": "Place",
+    "name": "Баку, Азербайджан"
+  },
+  "url": "https://russianfriendly.netlify.app/baku"
+}
+</script>
+
+<!-- JSON-LD: Person -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Кристина Перез",
+  "url": "https://kristinaperez.netlify.app/",
+  "sameAs": [
+    "https://t.me/FeedbackCristinaBot",
+    "https://www.youtube.com/@Cristina-Perez-Monroe",
+    "https://kristinaperez.netlify.app/",
+    "https://russianfriendly.netlify.app/"
+  ],
+  "jobTitle": "Автор проекта Russian Friendly"
+}
+</script>
+
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Где найти русскоговорящего стоматолога в Баку?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На странице собраны клиники Насиминского, Ясамальского и Наримановского районов Баку, где приём ведут на русском языке."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Нужна ли виза в Баку для граждан России?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Нет, между Россией и Азербайджаном действует безвизовый режим на срок до 90 дней, при въезде достаточно загранпаспорта. При пребывании дольше 10–15 дней нужна регистрация по месту жительства."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как оформить визу или ВНЖ в Баку, если я не говорю по-азербайджански?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Русскоязычные миграционные агентства и юристы сопровождают процесс оформления ВНЖ и рабочей визы полностью на русском языке."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Актуален ли border run в Азербайджане?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Практически нет: безвизовый срок для граждан РФ и так составляет 90 дней, а автомобильные погранпереходы с соседними странами закрыты для иностранцев."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Где искать русскоязычного юриста в Баку?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "В разделе «Юристы» собраны специалисты по миграционному, корпоративному и трудовому праву, работающие на русском языке."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как быстро найти жильё в Баку для переезда?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Раздел «Аренда жилья» содержит агентства и риелторов, сопровождающих сделку на русском языке."
+      }
+    }
+  ]
+}
+</script>
+
+<script>
+  // ---- Map ----
+  var map = L.map('map', { scrollWheelZoom: false }).setView([40.3897, 49.8672], 12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 19
+  }).addTo(map);
+
+  var flameIcon = L.divIcon({
+    className: '',
+    html: '<div style="width:26px;height:26px;background:linear-gradient(135deg,#E8592B,#C4341A);border-radius:50% 50% 50% 0;transform:rotate(45deg);border:2px solid #fff;box-shadow:0 3px 8px rgba(0,0,0,.3);"></div>',
+    iconSize: [26,26],
+    iconAnchor: [13,26]
+  });
+
+  var points = [
+    {lat:40.3785, lng:49.8460, name:"DentaHealth Baku", cat:"🦷 Стоматолог", district:"Насиминский район"},
+    {lat:40.3986, lng:49.8672, name:"MediClub Baku", cat:"👩‍⚕️ Врач", district:"Сабаильский район"},
+    {lat:40.4030, lng:49.8210, name:"Fidan Family Clinic", cat:"👩‍⚕️ Врач", district:"Ясамальский район"},
+    {lat:40.3960, lng:49.8555, name:"Baku Legal Partners", cat:"⚖️ Юрист", district:"Центр"},
+    {lat:40.4090, lng:49.8890, name:"Central Hospital Baku", cat:"👩‍⚕️ Врач", district:"Наримановский район"},
+    {lat:40.3940, lng:49.8610, name:"Бюро переводов «Тарджума»", cat:"📄 Переводчик", district:"Центр"},
+    {lat:40.3700, lng:49.8380, name:"Caspian Smile Clinic", cat:"🦷 Стоматолог", district:"Ясамальский район"},
+    {lat:40.4110, lng:49.8790, name:"Nariman Dental", cat:"🦷 Стоматолог", district:"Наримановский район"},
+    {lat:40.3670, lng:49.8330, name:"Риелтор Севиндж", cat:"🏠 Аренда жилья", district:"Ясамальский район"},
+    {lat:40.4700, lng:50.0470, name:"Стойки операторов SIM/eSIM", cat:"📱 Связь", district:"Аэропорт GYD"},
+    {lat:40.3985, lng:49.8210, name:"Бакинская русская гимназия", cat:"🏫 Школа", district:"Наримановский район"},
+    {lat:40.3660, lng:49.8360, name:"QSI International School of Baku", cat:"🏫 Школа", district:"Сабаильский район"}
+  ];
+
+  points.forEach(function(p){
+    L.marker([p.lat, p.lng], {icon: flameIcon}).addTo(map)
+      .bindPopup('<b>'+p.name+'</b><br>'+p.cat+' · '+p.district+'<br><span class="badge check" style="margin-top:4px;">Уточняется</span>');
+  });
+</script>
+
+</body>
+</html>
