@@ -40,7 +40,7 @@
    Включить оптимизацию по SEO/GEO, Google Tag Manager, 
 превью Open Graph для смартфонов (WhatsApp, Telegram, iMessage, FB, VK) и валидный микроразметку JSON-LD.
 
-    файл robots делать не надо, он уже есть в корне сайта 
+     
 
    Используй следующую структуру метатегов и скриптов:
 
@@ -154,3 +154,5 @@ https://kristinaperez.netlify.app/, https://russianfriendly.netlify.app/
 Главная / карта Бразилиа: полная карта и список специалистов и сервисов с фильтром по категориям."
 
  И если можешь, нарисуй для Open Graph файл og:image, ты ведь вставляешь ссылку og-preview.jpg 
+
+  Файл robots делать не надо, он уже есть в корне сайта 

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Русскоязычные специалисты и сервисы в Буэнос-Айрес — Карта Russian Friendly</title>
+  <meta name="description" content="Интерактивная карта русскоязычных врачей, стоматологов, юристов, школ, переводчиков и бытовых сервисов в Буэнос-Айрес. Проверенные контакты.">
+  <meta name="keywords" content="Буэнос-Айрес, русские, врачи, стоматологи, юристы, карта, русскоязычные, услуги, Аргентина, border run, риелтор, переводчик">
+  <meta name="author" content="Russian Friendly">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="icon" href="/favicon.ico">
+  <!-- ===================== SEO / GEO ===================== -->
+  <link rel="canonical" href="https://russianfriendly.netlify.app/buenos-aires">
+  <!-- Open Graph / preview for smartphones -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Русскоязычные специалисты и сервисы в Буэнос-Айрес — Карта Russian Friendly">
+  <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Буэнос-Айрес на одной интерактивной карте.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/buenos-aires">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/buenos-aires/og-preview.jpg">
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Буэнос-Айрес">
+  <meta name="twitter:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Буэнос-Айрес на одной интерактивной карте.">
+  <meta name="twitter:image" content="https://russianfriendly.netlify.app/buenos-aires/og-preview.jpg">
+  <!-- Mobile "add to home screen" -->
+  <meta name="theme-color" content="#0B3350">
+  <!-- JSON-LD: Map / WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Русскоязычные специалисты и сервисы в Буэнос-Айрес",
+    "url": "https://russianfriendly.netlify.app/buenos-aires",
+    "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Буэнос-Айрес."
+  }
+  </script>
+  <!-- JSON-LD: Person (автор) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Кристина Перез",
+    "url": "https://kristinaperez.netlify.app/",
+    "sameAs": [
+      "https://t.me/FeedbackCristinaBot",
+      "https://www.youtube.com/@Cristina-Perez-Monroe",
+      "https://kristinaperez.netlify.app/",
+      "https://pitermap.netlify.app/",
+      "https://aseosmadrid.netlify.app/"
+    ],
+    "jobTitle": "Автор проекта Russian Friendly"
+  }
+  </script>
+  <!-- JSON-LD: FAQPage — прямые ответы на вопросы, которые задают в поиске и в чатах с ИИ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Где найти русскоязычного врача или стоматолога в Буэнос-Айрес?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "На карте Russian Friendly Буэнос-Айрес собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Как найти русские школы и сервисы в Буэнос-Айрес?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/buenos-aires для поиска школ, переводчиков, банковских консультантов и жилья."
+        }
+      }
+    ]
+  }
+  </script>
+  <!-- Google Tag Manager (примерный контейнер, замените ID при необходимости) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f5f7fa;
+      color: #1e293b;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    /* Шапка */
+    .site-header {
+      background: #0B3350;
+      color: white;
+      padding: 16px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .header-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+    .brand .sub {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ad-block {
+      background: #ff6600;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 4px 10px rgba(255,102,0,0.4);
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+    .ad-block:hover {
+      background: #e55d00;
+      transform: scale(1.02);
+    }
+    /* Карта */
+    .map-section {
+      margin: 24px 0 16px;
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    #map {
+      height: 500px;
+      width: 100%;
+      z-index: 1;
+    }
+    .feedback-bar {
+      background: #f8fafc;
+      padding: 14px 20px;
+      text-align: center;
+      border-top: 1px solid #e2e8f0;
+    }
+    .feedback-btn {
+      background: #0B3350;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+      font-size: 1rem;
+    }
+    .feedback-btn:hover {
+      background: #0e4068;
+    }
+    /* Категории (легенда) */
+    .categories-panel {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    }
+    .categories-panel h2 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: #0B3350;
+    }
+    .chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chip {
+      background: #f1f5f9;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .chip:hover {
+      background: #e2e8f0;
+      border-color: #94a3b8;
+    }
+    .chip.active {
+      background: #0B3350;
+      color: white;
+      border-color: #0B3350;
+    }
+    /* SEO GEO блок */
+    .seo-geo-block {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 24px;
+      margin: 30px 0 20px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    }
+    .seo-geo-block h2 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      color: #0B3350;
+    }
+    .promo {
+      margin: 10px 0;
+      font-size: 1rem;
+    }
+    .promo a {
+      color: #ff6600;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #ff6600;
+    }
+    .promo a:hover {
+      color: #cc5200;
+    }
+    /* Футер */
+    .site-footer {
+      background: #0B3350;
+      color: #e2e8f0;
+      padding: 24px 0;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+    }
+    .footer-links a {
+      color: #f1f5f9;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .footer-links a:hover {
+      text-decoration: underline;
+      color: #ffcc80;
+    }
+    @media (max-width: 640px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      .ad-block {
+        width: 100%;
+        justify-content: center;
+      }
+      #map {
+        height: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <h1>🗺️ Буэнос-Айрес · Russian Friendly Map</h1>
+        <div class="sub">🇦🇷 Русскоязычные специалисты и сервисы</div>
+      </div>
+      <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener noreferrer" class="ad-block">
+        ✈️ Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Карта -->
+    <section class="map-section">
+      <div id="map"></div>
+      <div class="feedback-bar">
+        <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener" class="feedback-btn">
+          💬 Нашли неверные данные? Сообщите нам в бот
+        </a>
+      </div>
+    </section>
+
+    <!-- Панель категорий -->
+    <div class="categories-panel">
+      <h2>📌 Категории на карте</h2>
+      <div class="chip-list" id="categoryFilters">
+        <span class="chip active" data-category="all">🌐 Все</span>
+        <span class="chip" data-category="dentist">🦷 Стоматологи</span>
+        <span class="chip" data-category="doctor">👩‍⚕️ Врачи</span>
+        <span class="chip" data-category="lawyer">⚖️ Юристы</span>
+        <span class="chip" data-category="translator">📄 Переводчики</span>
+        <span class="chip" data-category="finance">🏦 Банки / Финансы</span>
+        <span class="chip" data-category="visa">🛂 Визовые агентства</span>
+        <span class="chip" data-category="realtor">🏠 Аренда / Риелторы</span>
+        <span class="chip" data-category="transfer">🚕 Трансферы</span>
+        <span class="chip" data-category="sim">📱 SIM / eSIM</span>
+        <span class="chip" data-category="border">🚍 Border Run</span>
+        <span class="chip" data-category="shop">🏠 Русские магазины</span>
+        <span class="chip" data-category="school">🏫 Русские школы</span>
+      </div>
+    </div>
+
+    <!-- Видимый SEO/GEO блок -->
+    <section class="seo-geo-block">
+      <h2>Похожие запросы</h2>
+      <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+      <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-links">
+      <a href="https://russianfriendly.netlify.app/">🏠 Главная Russian Friendly</a>
+      <a href="/about.html">ℹ️ About</a>
+      <a href="/contact.html">📞 Contact</a>
+      <a href="/privacy-policy.html">🔒 Privacy Policy</a>
+    </div>
+    <div style="text-align: center; margin-top: 16px; opacity: 0.7; font-size: 0.8rem;">
+      © 2025 Russian Friendly · Буэнос-Айрес
+    </div>
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    (function() {
+      // Координаты центра Буэнос-Айреса
+      const BA_CENTER = [-34.6037, -58.3816];
+      const map = L.map('map').setView(BA_CENTER, 13);
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; CartoDB',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(map);
+
+      // Иконки по категориям (эмодзи + цвет маркера)
+      const categoryIcons = {
+        dentist: { emoji: '🦷', color: '#e91e63' },
+        doctor: { emoji: '👩‍⚕️', color: '#4caf50' },
+        lawyer: { emoji: '⚖️', color: '#3f51b5' },
+        translator: { emoji: '📄', color: '#ff9800' },
+        finance: { emoji: '🏦', color: '#009688' },
+        visa: { emoji: '🛂', color: '#9c27b0' },
+        realtor: { emoji: '🏠', color: '#795548' },
+        transfer: { emoji: '🚕', color: '#607d8b' },
+        sim: { emoji: '📱', color: '#00bcd4' },
+        border: { emoji: '🚍', color: '#ff5722' },
+        shop: { emoji: '🏠', color: '#8bc34a' },
+        school: { emoji: '🏫', color: '#2196f3' }
+      };
+
+      // Данные специалистов (демо-точки в Буэнос-Айресе)
+      const places = [
+        { id: 1, name: "Dr. Ivanova Dental", lat: -34.5965, lng: -58.3920, category: "dentist", desc: "Стоматология с русскоязычным врачом. Палермо." },
+        { id: 2, name: "Clínica Médica Russa", lat: -34.6080, lng: -58.3725, category: "doctor", desc: "Терапевт, педиатр. Русский язык." },
+        { id: 3, name: "Legalidad Rusa", lat: -34.5990, lng: -58.3800, category: "lawyer", desc: "Юристы по миграции и недвижимости." },
+        { id: 4, name: "TranslatePro BA", lat: -34.6025, lng: -58.3890, category: "translator", desc: "Письменные и устные переводы." },
+        { id: 5, name: "FinConsult Argenta", lat: -34.5940, lng: -58.4005, category: "finance", desc: "Помощь с банковскими счетами, DNI." },
+        { id: 6, name: "Visa Express BA", lat: -34.6105, lng: -58.3780, category: "visa", desc: "Визовые услуги, продление." },
+        { id: 7, name: "Rieltorskaya BA", lat: -34.5880, lng: -58.4150, category: "realtor", desc: "Аренда квартир, русский риелтор." },
+        { id: 8, name: "Transfer Baires", lat: -34.6150, lng: -58.3650, category: "transfer", desc: "Трансфер из аэропорта EZE/AEP." },
+        { id: 9, name: "SIMBA eSIM", lat: -34.6030, lng: -58.3810, category: "sim", desc: "Подключение eSIM и местных SIM." },
+        { id: 10, name: "Border Run Uruguay", lat: -34.5900, lng: -58.3900, category: "border", desc: "Организация выезда в Колонию/Монтевидео." },
+        { id: 11, name: "Beryozka Market", lat: -34.5850, lng: -58.4050, category: "shop", desc: "Русские продукты, гречка, творог." },
+        { id: 12, name: "Школа Знайка", lat: -34.6200, lng: -58.3950, category: "school", desc: "Русская школа выходного дня." },
+        { id: 13, name: "Dr. Petrov Clínica", lat: -34.5700, lng: -58.4300, category: "doctor", desc: "Кардиолог, русскоязычный." },
+        { id: 14, name: "Abogado Ruso", lat: -34.6120, lng: -58.4080, category: "lawyer", desc: "Гражданские дела, консультации." }
+      ];
+
+      // Создаём кастомные иконки с эмодзи
+      function createIcon(emoji, bgColor) {
+        return L.divIcon({
+          html: `<div style="background:${bgColor}; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 2px 8px rgba(0,0,0,0.3); border:2px solid white;">${emoji}</div>`,
+          className: '',
+          iconSize: [36, 36],
+          popupAnchor: [0, -18]
+        });
+      }
+
+      const markersLayer = L.layerGroup().addTo(map);
+      const allMarkers = [];
+
+      // Добавляем маркеры на карту
+      places.forEach(place => {
+        const cat = categoryIcons[place.category] || { emoji: '📍', color: '#999' };
+        const icon = createIcon(cat.emoji, cat.color);
+        const marker = L.marker([place.lat, place.lng], { icon, category: place.category })
+          .bindPopup(`<strong>${place.name}</strong><br>${place.desc}<br><small>${cat.emoji} ${place.category}</small>`);
+        allMarkers.push(marker);
+        markersLayer.addLayer(marker);
+      });
+
+      // Фильтрация по категориям
+      const chips = document.querySelectorAll('#categoryFilters .chip');
+      chips.forEach(chip => {
+        chip.addEventListener('click', function(e) {
+          const category = this.dataset.category;
+          // Обновляем активный класс
+          chips.forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+
+          // Очищаем слой и добавляем нужные маркеры
+          markersLayer.clearLayers();
+          if (category === 'all') {
+            allMarkers.forEach(m => markersLayer.addLayer(m));
+          } else {
+            allMarkers.forEach(m => {
+              if (m.options.category === category) {
+                markersLayer.addLayer(m);
+              }
+            });
+          }
+        });
+      });
+
+      // Автоматически подгоняем границы под все маркеры при загрузке
+      const bounds = L.latLngBounds(allMarkers.map(m => m.getLatLng()));
+      if (bounds.isValid()) {
+        map.fitBounds(bounds, { padding: [30, 30], maxZoom: 15 });
+      }
+    })();
+  </script>
+</body>
+</html>
