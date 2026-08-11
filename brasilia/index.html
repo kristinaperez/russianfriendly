@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Русскоязычные специалисты и сервисы в Бразилиа — Карта Russian Friendly</title>
+<meta name="description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Бразилиа на одной интерактивной карте. Проект Russian Friendly.">
+<link rel="icon" href="/favicon.ico">
+
+<!-- ===================== SEO / GEO ===================== -->
+<link rel="canonical" href="https://russianfriendly.netlify.app/brasilia">
+
+<!-- Open Graph / preview for smartphones -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Русскоязычные специалисты и сервисы в Бразилиа — Карта Russian Friendly">
+<meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Бразилиа на одной интерактивной карте.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/brasilia">
+<meta property="og:image" content="https://russianfriendly.netlify.app/brasilia/og-preview.jpg">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Бразилиа">
+
+<!-- Mobile "add to home screen" -->
+<meta name="theme-color" content="#0B3350">
+
+<!-- JSON-LD: Map / WebPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Русскоязычные специалисты и сервисы в Бразилиа",
+  "url": "https://russianfriendly.netlify.app/brasilia",
+  "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Бразилиа."
+}
+</script>
+
+<!-- JSON-LD: Person (автор) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Кристина Перез",
+  "url": "https://kristinaperez.netlify.app/",
+  "sameAs": [
+    "https://t.me/FeedbackCristinaBot",
+    "https://www.youtube.com/@Cristina-Perez-Monroe",
+    "https://kristinaperez.netlify.app/",
+    "https://pitermap.netlify.app/",
+    "https://aseosmadrid.netlify.app/"
+  ],
+  "jobTitle": "Автор проекта Russian Friendly"
+}
+</script>
+
+<!-- JSON-LD: FAQPage — прямые ответы на вопросы, которые задают в поиске и в чатах с ИИ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Где найти русскоязычного врача или стоматолога в Бразилиа?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На карте Russian Friendly Бразилиа собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как найти русские школы и сервисы в Бразилиа?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/brasilia для поиска школ, переводчиков, банковских консультантов и жилья."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');
+</script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<style>
+  :root{
+    --navy: #0B3350;
+    --navy-deep: #072238;
+    --orange: #ff6600;
+    --paper: #F6F4EF;
+    --ink: #1B2833;
+    --muted: #5A6B78;
+    --line: #DDE3E8;
+    --radius: 10px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  a{color:inherit;}
+
+  /* ---------- Header ---------- */
+  header.site-header{
+    background: var(--navy-deep);
+    color:#fff;
+    border-bottom: 4px solid var(--orange);
+  }
+  .header-inner{
+    max-width:1200px;
+    margin:0 auto;
+    padding: 18px 24px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap: 16px;
+  }
+  .brand{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .brand .eyebrow{
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#9FC6DE;
+  }
+  .brand h1{
+    margin:0;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    letter-spacing:-0.01em;
+  }
+  .brand h1 .city{ color: var(--orange); }
+
+  .promo-block{
+    background: var(--orange);
+    color:#1a1400;
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 14px;
+    max-width: 340px;
+    text-decoration:none;
+    display:inline-block;
+    box-shadow: 0 4px 14px rgba(255,102,0,.35);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .promo-block:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255,102,0,.45);
+  }
+
+  /* ---------- Layout ---------- */
+  main{ max-width:1200px; margin:0 auto; padding: 0 24px 60px; }
+
+  .intro{
+    padding: 32px 0 20px;
+  }
+  .intro p{
+    color: var(--muted);
+    max-width: 720px;
+    line-height:1.6;
+    font-size:15px;
+  }
+
+  /* ---------- Filters ---------- */
+  .filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom: 18px;
+  }
+  .filter-btn{
+    border:1px solid var(--line);
+    background:#fff;
+    padding:8px 14px;
+    border-radius: 999px;
+    font-size:13px;
+    cursor:pointer;
+    color: var(--ink);
+    transition: all .15s ease;
+  }
+  .filter-btn:hover{ border-color: var(--orange); }
+  .filter-btn.active{
+    background: var(--navy);
+    border-color: var(--navy);
+    color:#fff;
+  }
+
+  /* ---------- Map ---------- */
+  #map{
+    width:100%;
+    height: 480px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    box-shadow: 0 2px 10px rgba(11,51,80,.08);
+  }
+
+  .feedback-link{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin: 14px 0 40px;
+    font-size: 14px;
+    color: var(--navy);
+    text-decoration:none;
+    font-weight:600;
+  }
+  .feedback-link:hover{ color: var(--orange); }
+  .feedback-link svg{ flex-shrink:0; }
+
+  /* ---------- Category grid ---------- */
+  .categories h2, .seo-geo-block h2{
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+  .cat-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 44px;
+  }
+  .cat-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .cat-card .emoji{ font-size: 22px; }
+
+  /* ---------- SEO block ---------- */
+  .seo-geo-block{
+    border-top: 1px solid var(--line);
+    padding-top: 28px;
+    margin-top: 20px;
+  }
+  .seo-geo-block .promo{
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .seo-geo-block .promo a{
+    color: var(--orange);
+    font-weight:600;
+    text-decoration:none;
+  }
+  .seo-geo-block .promo a:hover{ text-decoration:underline; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    background: var(--navy-deep);
+    color:#cfe0ec;
+    padding: 30px 24px;
+    margin-top: 20px;
+  }
+  .footer-inner{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    gap: 18px 28px;
+    justify-content:space-between;
+    align-items:center;
+    font-size: 13px;
+  }
+  .footer-inner nav{ display:flex; flex-wrap:wrap; gap: 18px; }
+  .footer-inner a{ color:#cfe0ec; text-decoration:none; }
+  .footer-inner a:hover{ color: var(--orange); }
+
+  @media (max-width: 640px){
+    .header-inner{ flex-direction:column; align-items:flex-start; }
+    #map{ height: 360px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="eyebrow">Russian Friendly Map</span>
+      <h1>Бразилиа — <span class="city">карта русскоязычных специалистов</span></h1>
+    </div>
+    <a class="promo-block" href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+      Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+    </a>
+  </div>
+</header>
+
+<main>
+
+  <section class="intro">
+    <p>Проверенные и предложенные сообществом контакты стоматологов, врачей, юристов, переводчиков, школ и других сервисов для русскоязычных экспатов, релокантов и туристов в Бразилиа. Фильтруйте по категориям и смотрите метки прямо на карте города.</p>
+  </section>
+
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-cat="all">Все категории</button>
+    <button class="filter-btn" data-cat="dentist">🦷 Стоматологи</button>
+    <button class="filter-btn" data-cat="doctor">👩‍⚕️ Врачи</button>
+    <button class="filter-btn" data-cat="lawyer">⚖️ Юристы</button>
+    <button class="filter-btn" data-cat="translator">📄 Переводчики</button>
+    <button class="filter-btn" data-cat="bank">🏦 Банки / финансы</button>
+    <button class="filter-btn" data-cat="visa">🛂 Визовые агентства</button>
+    <button class="filter-btn" data-cat="housing">🏠 Аренда жилья</button>
+    <button class="filter-btn" data-cat="transfer">🚕 Трансферы</button>
+    <button class="filter-btn" data-cat="sim">📱 SIM / eSIM</button>
+    <button class="filter-btn" data-cat="shop">🏠 Русские магазины</button>
+    <button class="filter-btn" data-cat="school">🏠 Русские школы</button>
+  </div>
+
+  <div id="map"></div>
+
+  <a class="feedback-link" href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21.5 3.5L2.5 11L9 13.5M21.5 3.5L14.5 21.5L9 13.5M21.5 3.5L9 13.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Нашли неверные данные? Сообщите нам в бот
+  </a>
+
+  <section class="categories">
+    <h2>Разделы каталога</h2>
+    <div class="cat-grid">
+      <div class="cat-card"><span class="emoji">🦷</span> Стоматологи</div>
+      <div class="cat-card"><span class="emoji">👩‍⚕️</span> Врачи</div>
+      <div class="cat-card"><span class="emoji">⚖️</span> Юристы</div>
+      <div class="cat-card"><span class="emoji">📄</span> Переводчики</div>
+      <div class="cat-card"><span class="emoji">🏦</span> Помощь с банками</div>
+      <div class="cat-card"><span class="emoji">🛂</span> Визовые агентства</div>
+      <div class="cat-card"><span class="emoji">🏠</span> Аренда жилья / Риелторы</div>
+      <div class="cat-card"><span class="emoji">🚕</span> Трансферы</div>
+      <div class="cat-card"><span class="emoji">📱</span> SIM / eSIM</div>
+      <div class="cat-card"><span class="emoji">🏠</span> Русские магазины</div>
+      <div class="cat-card"><span class="emoji">🏠</span> Русские / рекомендованные школы</div>
+    </div>
+  </section>
+
+  <section class="seo-geo-block">
+    <h2>Похожие запросы</h2>
+    <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+    <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© Russian Friendly — сеть городских гидов для русскоязычных экспатов</span>
+    <nav>
+      <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // Brasília center coordinates
+  const map = L.map('map').setView([-15.7942, -47.8822], 12);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  // Placeholder dataset — replace with real, verified listings.
+  // Each entry: category key, name, short note, coordinates.
+  const places = [
+    { cat: 'dentist',    emoji: '🦷', name: 'Стоматология (пример)',        note: 'Добавьте проверенный контакт через бот обратной связи', coords: [-15.7801, -47.8825] },
+    { cat: 'doctor',     emoji: '👩‍⚕️', name: 'Врач общей практики (пример)',  note: 'Добавьте проверенный контакт через бот обратной связи', coords: [-15.8022, -47.8919] },
+    { cat: 'lawyer',     emoji: '⚖️', name: 'Юрист (пример)',               note: 'Добавьте проверенный контакт через бот обратной связи', coords: [-15.7934, -47.8698] },
+    { cat: 'translator', emoji: '📄', name: 'Переводчик (пример)',           note: 'Добавьте проверенный контакт через бот обратной связи', coords: [-15.8102, -47.8756] },
+    { cat: 'bank',       emoji: '🏦', name: 'Финансовый консультант (пример)', note: 'Добавьте проверенный контакт через бот обратной связи', coords: [-15.7877, -47.8956] },
+    { cat: 'visa',       emoji: '🛂', name: 'Визовое агентство (пример)',    note: 'Добавьте проверенный контакт через бот обратной связи', coords: [-15.7965, -47.8631] },
+    { cat: 'housing',    emoji: '🏠', name: 'Риелтор (пример)',              note: 'Добавьте проверенный контакт через бот обратной связи', coords: [-15.8155, -47.8807] },
+    { cat: 'transfer',   emoji: '🚕', name: 'Трансфер (пример)',             note: 'Добавьте проверенный контакт через бот обратной связи', coords: [-15.8697, -47.9172] },
+    { cat: 'sim',        emoji: '📱', name: 'SIM / eSIM (пример)',           note: 'Добавьте проверенный контакт через бот обратной связи', coords: [-15.7889, -47.8845] },
+    { cat: 'shop',       emoji: '🏠', name: 'Русский магазин (пример)',      note: 'Добавьте проверенный контакт через бот обратной связи', coords: [-15.7756, -47.8894] },
+    { cat: 'school',     emoji: '🏠', name: 'Школа (пример)',                note: 'Добавьте проверенный контакт через бот обратной связи', coords: [-15.8244, -47.8683] }
+  ];
+
+  function makeIcon(emoji){
+    return L.divIcon({
+      html: `<div style="background:#fff;border:2px solid #ff6600;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 6px rgba(0,0,0,.25);">${emoji}</div>`,
+      className: '',
+      iconSize: [32, 32],
+      iconAnchor: [16, 16]
+    });
+  }
+
+  const markers = places.map(p => {
+    const m = L.marker(p.coords, { icon: makeIcon(p.emoji) })
+      .bindPopup(`<strong>${p.name}</strong><br>${p.note}`);
+    m.category = p.cat;
+    return m;
+  });
+
+  const layerGroup = L.layerGroup(markers).addTo(map);
+
+  document.getElementById('filters').addEventListener('click', (e) => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cat = btn.dataset.cat;
+    layerGroup.clearLayers();
+    markers
+      .filter(m => cat === 'all' || m.category === cat)
+      .forEach(m => layerGroup.addLayer(m));
+  });
+</script>
+
+</body>
+</html>

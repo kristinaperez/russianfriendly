@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Бишкек — Russian Friendly Map | Русскоязычные специалисты и сервисы</title>
+<meta name="description" content="Интерактивная карта и каталог русскоязычных врачей, стоматологов, юристов, переводчиков, школ и сервисов для релокантов и туристов в Бишкеке.">
+<link rel="icon" href="/favicon.ico">
+
+<!-- ===================== SEO / GEO ===================== -->
+<link rel="canonical" href="https://russianfriendly.netlify.app/bishkek">
+
+<!-- Open Graph / preview for smartphones -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Русскоязычные специалисты и сервисы в Бишкек — Карта Russian Friendly">
+<meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Бишкек на одной интерактивной карте.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/bishkek">
+<meta property="og:image" content="https://russianfriendly.netlify.app/bishkek/og-preview.jpg">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Бишкеке">
+
+<!-- Mobile "add to home screen" -->
+<meta name="theme-color" content="#0B3350">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- JSON-LD: Map / WebPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Русскоязычные специалисты и сервисы в Бишкек",
+  "url": "https://russianfriendly.netlify.app/bishkek",
+  "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Бишкек."
+}
+</script>
+
+<!-- JSON-LD: Person (автор) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Кристина Перез",
+  "url": "https://kristinaperez.netlify.app/",
+  "sameAs": [
+    "https://t.me/FeedbackCristinaBot",
+    "https://www.youtube.com/@Cristina-Perez-Monroe",
+    "https://kristinaperez.netlify.app/",
+    "https://pitermap.netlify.app/",
+    "https://aseosmadrid.netlify.app/"
+  ],
+  "jobTitle": "Автор проекта Russian Friendly"
+}
+</script>
+
+<!-- JSON-LD: FAQPage — прямые ответы на вопросы, которые задают в поиске и в чатах с ИИ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Где найти русскоязычного врача или стоматолога в Бишкек?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На карте Russian Friendly Бишкек собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как найти русские школы и сервисы в Бишкек?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/bishkek для поиска школ, переводчиков, банковских консультантов и жилья."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Google Tag Manager (замените GTM-XXXXXXX на ваш ID контейнера) -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Leaflet (карта) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<style>
+:root{--navy:#0B3350;--orange:#ff6600;--bg:#f2f6fa;--muted:#5b7186}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:var(--bg);color:#17304a}
+a{color:var(--orange)}
+
+/* ===== Шапка ===== */
+.header{background:linear-gradient(135deg,#0B3350,#124a73);color:#fff;padding:18px 24px;display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.brand h1{margin:0;font-size:1.5rem;letter-spacing:.3px}
+.brand .tagline{margin:6px 0 0;font-size:.92rem;opacity:.85;max-width:560px}
+.brand .tagline a{color:#ffc79b}
+.ad-spain{display:block;background:var(--orange);color:#fff;font-weight:700;padding:12px 18px;border-radius:12px;text-decoration:none;box-shadow:0 4px 16px rgba(255,102,0,.5);max-width:360px;line-height:1.4;font-size:.95rem;transition:background .2s}
+.ad-spain:hover{background:#e65c00}
+
+main{max-width:1100px;margin:0 auto;padding:22px 16px}
+h2{color:var(--navy)}
+
+/* ===== Фильтры и карта ===== */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 12px}
+.chip{border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:999px;padding:7px 14px;font-size:.87rem;cursor:pointer;font-weight:600;transition:all .15s}
+.chip:hover{background:#e6eef5}
+.chip.active{background:var(--orange);border-color:var(--orange);color:#fff}
+#map{height:540px;border-radius:16px;border:3px solid var(--navy);box-shadow:0 8px 24px rgba(11,51,80,.18);z-index:1}
+.pin{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;border:2px solid #fff;box-shadow:0 3px 8px rgba(0,0,0,.4)}
+.feedback-row{margin:16px 0 6px;text-align:center}
+.feedback-btn{display:inline-block;background:var(--navy);color:#fff;padding:12px 22px;border-radius:12px;text-decoration:none;font-weight:600;box-shadow:0 4px 12px rgba(11,51,80,.25)}
+.feedback-btn:hover{background:#124a73}
+.map-note{font-size:.82rem;color:var(--muted);text-align:center;margin-top:8px}
+
+/* ===== Каталог ===== */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 3px 10px rgba(11,51,80,.10);border-top:4px solid var(--c,var(--navy))}
+.card h3{margin:8px 0 4px;font-size:1.02rem;color:var(--navy)}
+.card p{margin:6px 0;font-size:.9rem}
+.card .muted{color:var(--muted)}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.card-emoji{font-size:1.6rem}
+.cat-label{display:inline-block;background:#eef4fa;color:var(--navy);border-radius:8px;padding:3px 8px;font-size:.78rem;font-weight:600}
+.badge{border-radius:8px;padding:3px 8px;font-size:.76rem;font-weight:700;white-space:nowrap}
+.badge.ok{background:#e6f6ec;color:#1c7c3c}
+.badge.wait{background:#fff1e6;color:#c05600}
+
+/* ===== FAQ ===== */
+.faq details{background:#fff;border-radius:12px;padding:12px 18px;margin:10px 0;box-shadow:0 3px 10px rgba(11,51,80,.08)}
+.faq summary{cursor:pointer;font-weight:700;color:var(--navy)}
+.faq details p{margin:10px 0 4px;font-size:.92rem}
+
+/* ===== SEO / GEO блок ===== */
+.seo-geo-block{margin:28px 0;background:#eaf1f7;border-left:5px solid var(--orange);border-radius:12px;padding:16px 22px}
+.seo-geo-block h2{margin-top:0}
+.seo-geo-block .promo a{color:var(--orange);font-weight:700}
+
+/* ===== Футер ===== */
+footer{background:var(--navy);color:#dbe7f3;padding:24px 16px;text-align:center}
+footer nav a{color:#ffb380;margin:0 10px;text-decoration:none;font-weight:600}
+footer nav a:hover{color:var(--orange)}
+footer .copy{margin-top:12px;font-size:.85rem;opacity:.8}
+
+@media (max-width:720px){
+  .header{flex-direction:column;align-items:flex-start}
+  #map{height:420px}
+}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- ===================== ШАПКА ===================== -->
+<header class="header">
+  <div class="brand">
+    <h1>Бишкек — Russian Friendly Map</h1>
+    <p class="tagline">Русскоязычные специалисты, сервисы и организации на одной интерактивной карте города. Часть сети <a href="https://russianfriendly.netlify.app/" target="_blank" rel="noopener">Russian Friendly</a>.</p>
+  </div>
+  <a class="ad-spain" href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app</a>
+</header>
+
+<main>
+  <!-- ===================== КАРТА ===================== -->
+  <section id="map-section">
+    <h2>🗺️ Карта специалистов и сервисов</h2>
+    <div class="filters" id="filters" aria-label="Фильтр по категориям"></div>
+    <div id="map">Для просмотра карты включите JavaScript.</div>
+    <div class="feedback-row">
+      <a class="feedback-btn" href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">Нашли неверные данные? Сообщите нам в бот</a>
+    </div>
+    <p class="map-note">✓ подтверждено сообществом · ⏳ ожидает подтверждения. Демо-контакты замените на реальные перед публикацией.</p>
+  </section>
+
+  <!-- ===================== КАТАЛОГ ===================== -->
+  <section id="catalog-section">
+    <h2>📇 Каталог</h2>
+    <div class="cards" id="catalog"></div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="faq">
+    <h2>❓ Частые вопросы</h2>
+    <details>
+      <summary>Где найти русскоязычного врача или стоматолога в Бишкек?</summary>
+      <p>На карте Russian Friendly Бишкек собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом.</p>
+    </details>
+    <details>
+      <summary>Как найти русские школы и сервисы в Бишкек?</summary>
+      <p>Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/bishkek для поиска школ, переводчиков, банковских консультантов и жилья.</p>
+    </details>
+  </section>
+
+  <!-- ===================== SEO / GEO БЛОК ===================== -->
+  <section class="seo-geo-block">
+    <h2>Похожие запросы</h2>
+    <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+    <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+  </section>
+</main>
+
+<!-- ===================== ФУТЕР ===================== -->
+<footer>
+  <nav>
+    <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+    <a href="/privacy-policy.html">Privacy Policy</a>
+  </nav>
+  <p class="copy">© 2026 Russian Friendly · Бишкек · автор — Кристина Перез</p>
+</footer>
+
+<script>
+/* =============== ДАННЫЕ (демо — замените контакты на реальные) =============== */
+const CATS = {
+  dentists:    {emoji:'🦷', name:'Стоматологи',            color:'#e63946'},
+  doctors:     {emoji:'👩‍⚕️', name:'Врачи',                 color:'#2a9d8f'},
+  lawyers:     {emoji:'⚖️', name:'Юристы',                 color:'#4361ee'},
+  translators: {emoji:'📄', name:'Переводчики',            color:'#8e44ad'},
+  banks:       {emoji:'🏦', name:'Помощь с банками / финансы', color:'#b8860b'},
+  visa:        {emoji:'🛂', name:'Визовые агентства',      color:'#e76f51'},
+  realty:      {emoji:'🏠', name:'Аренда жилья / Риелторы', color:'#1d7fbf'},
+  transfer:    {emoji:'🚕', name:'Трансферы',              color:'#f1c40f'},
+  sim:         {emoji:'📱', name:'SIM / eSIM',             color:'#34495e'},
+  shops:       {emoji:'🏠', name:'Русские магазины',       color:'#d62828'},
+  schools:     {emoji:'🏠', name:'Русские и рекомендованные школы', color:'#6a994e'}
+};
+
+const PLACES = [
+  {cat:'dentists', name:'Стоматология «Дента Люкс»', addr:'пр. Чуй, 108', lat:42.8751, lng:74.5932, status:'ok',   contact:'@dentalux_kg', note:'Русскоязычные врачи, терапия, профчистка, детский приём.'},
+  {cat:'dentists', name:'Клиника «Айболит»', addr:'ул. Киевская, 87', lat:42.8694, lng:74.6011, status:'wait', note:'Стоматология полного цикла, персонал говорит по-русски.'},
+  {cat:'doctors',  name:'Центр семейной медицины «Айгерим»', addr:'ул. Тыныстанова, 145', lat:42.8712, lng:74.6052, status:'ok', contact:'@med_aigerim', note:'Терапевт, педиатр, анализы; приём на русском языке.'},
+  {cat:'doctors',  name:'Педиатр Елена Морозова', addr:'мкр. Асанбай, 12', lat:42.8563, lng:74.6148, status:'wait', note:'Выезд на дом, консультации на русском.'},
+  {cat:'lawyers',  name:'Юридическая компания «Право KG»', addr:'пр. Манаса, 55', lat:42.8788, lng:74.5898, status:'ok', contact:'@pravo_kg', note:'ВНЖ, регистрация, договоры аренды, консультации для релокантов.'},
+  {cat:'translators', name:'Присяжный переводчик Айнура С.', addr:'ул. Абдрахманова, 147', lat:42.8668, lng:74.5869, status:'ok', note:'Нотариальный перевод документов, русский ↔ кыргызский.'},
+  {cat:'banks',    name:'Финансовый консультант (счета и карты)', addr:'пр. Чуй / ул. Раззакова', lat:42.8741, lng:74.5967, status:'wait', note:'Помощь с открытием счёта, карты местных банков, переводы.'},
+  {cat:'visa',     name:'Визовое агентство «Виза KG»', addr:'ул. Токтогула, 170', lat:42.8723, lng:74.5811, status:'ok', contact:'@visa_kg', note:'Шенген, США, ВНЖ-консультации, запись в консульства.'},
+  {cat:'realty',   name:'Риелтор «Дом в Бишкеке»', addr:'ул. Медерова, 98', lat:42.8635, lng:74.6075, status:'ok', contact:'@dom_bishkek', note:'Аренда квартир с русскоязычными хозяевами, проверка договора.'},
+  {cat:'transfer', name:'Трансфер «Bishkek Go»', addr:'аэропорт «Манас»', lat:43.0613, lng:74.4776, status:'ok', contact:'@bishkek_go', note:'Встреча в аэропорту, поездки по городу и на Иссык-Куль.'},
+  {cat:'sim',      name:'Точка SIM / eSIM (O!, Beeline, Mega)', addr:'ЦУМ, пр. Чуй', lat:42.8736, lng:74.6007, status:'ok', note:'Оформление SIM на паспорт, настройка eSIM, русскоязычный персонал.'},
+  {cat:'shops',    name:'Магазин «Берёзка»', addr:'ул. Ахунбаева, 107', lat:42.8590, lng:74.5930, status:'ok', note:'Привычные продукты: гречка, сгущёнка, хлеб «Бородинский».'},
+  {cat:'shops',    name:'Лавка «Славянский»', addr:'Ош базар', lat:42.8617, lng:74.5706, status:'wait', note:'Русские товары, консервы, крупы, сладости.'},
+  {cat:'schools',  name:'Школа № 61 (русский язык обучения)', addr:'мкр. Тунгуч', lat:42.8835, lng:74.5762, status:'ok', note:'Государственная школа с русским языком обучения.'},
+  {cat:'schools',  name:'Частная школа «Европа»', addr:'ул. Юнусалиева, 30', lat:42.8775, lng:74.6180, status:'wait', note:'Русскоязычная программа, международные классы, продлёнка.'}
+];
+
+/* =============== КАРТА =============== */
+const map = L.map('map').setView([42.8746, 74.5973], 12);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+const markersLayer = L.layerGroup().addTo(map);
+let activeCat = 'all';
+
+function badge(s){
+  return s === 'ok'
+    ? '<span class="badge ok">✓ подтверждено</span>'
+    : '<span class="badge wait">⏳ ожидает подтверждения</span>';
+}
+
+function render(){
+  markersLayer.clearLayers();
+  const list = PLACES.filter(p => activeCat === 'all' || p.cat === activeCat);
+
+  list.forEach(p => {
+    const c = CATS[p.cat];
+    const icon = L.divIcon({
+      className: '',
+      html: '<div class="pin" style="background:' + c.color + '">' + c.emoji + '</div>',
+      iconSize: [34, 34], iconAnchor: [17, 32], popupAnchor: [0, -30]
+    });
+    const popup =
+      '<b>' + p.name + '</b><br>' +
+      '<span>' + c.emoji + ' ' + c.name + '</span><br>' +
+      '📍 ' + p.addr + '<br>' + badge(p.status) +
+      (p.contact ? '<br>✉️ <a href="https://t.me/' + p.contact.replace('@','') + '" target="_blank" rel="noopener">' + p.contact + '</a>' : '') +
+      (p.note ? '<br><i>' + p.note + '</i>' : '');
+    L.marker([p.lat, p.lng], {icon: icon}).bindPopup(popup).addTo(markersLayer);
+  });
+
+  if (list.length) map.fitBounds(markersLayer.getBounds().pad(0.2), {maxZoom: 15});
+
+  /* каталог */
+  document.getElementById('catalog').innerHTML = list.map(p => {
+    const c = CATS[p.cat];
+    return '<article class="card" style="--c:' + c.color + '">' +
+      '<div class="card-top"><span class="card-emoji">' + c.emoji + '</span>' + badge(p.status) + '</div>' +
+      '<h3>' + p.name + '</h3>' +
+      '<p class="muted">📍 ' + p.addr + '</p>' +
+      (p.note ? '<p>' + p.note + '</p>' : '') +
+      (p.contact ? '<p>✉️ <a href="https://t.me/' + p.contact.replace('@','') + '" target="_blank" rel="noopener">' + p.contact + '</a></p>' : '') +
+      '<span class="cat-label">' + c.name + '</span>' +
+      '</article>';
+  }).join('');
+}
+
+/* =============== ФИЛЬТРЫ =============== */
+const filtersBox = document.getElementById('filters');
+const chips = [['all', '🗺️ Все']].concat(Object.keys(CATS).map(k => [k, CATS[k].emoji + ' ' + CATS[k].name]));
+chips.forEach(([key, label]) => {
+  const b = document.createElement('button');
+  b.className = 'chip' + (key === 'all' ? ' active' : '');
+  b.textContent = label;
+  b.onclick = () => {
+    activeCat = key;
+    document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    render();
+  };
+  filtersBox.appendChild(b);
+});
+
+render();
+</script>
+</body>
+</html>

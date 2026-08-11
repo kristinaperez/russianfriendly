@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Барселона — Russian Friendly Map</title>
+  <meta name="description" content="Русскоязычные специалисты и сервисы в Барселоне: стоматологи, врачи, юристы, переводчики, школы, жильё и другие услуги на интерактивной карте.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="canonical" href="https://russianfriendly.netlify.app/barcelona">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Русскоязычные специалисты и сервисы в Барселоне — Карта Russian Friendly">
+  <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Барселоне на одной интерактивной карте.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/barcelona">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/barcelona/og-preview.jpg">
+  <meta property="og:image:alt" content="Russian Friendly Map — Барселона">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Барселоне">
+  <meta name="twitter:description" content="Интерактивная карта русскоязычных специалистов и сервисов в Барселоне.">
+  <meta name="twitter:image" content="https://russianfriendly.netlify.app/barcelona/og-preview.jpg">
+  <meta name="theme-color" content="#0B3350">
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    "name":"Русскоязычные специалисты и сервисы в Барселоне",
+    "url":"https://russianfriendly.netlify.app/barcelona",
+    "description":"Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Барселоны."
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Кристина Перез",
+    "url":"https://kristinaperez.netlify.app/",
+    "sameAs":[
+      "https://t.me/FeedbackCristinaBot",
+      "https://www.youtube.com/@Cristina-Perez-Monroe",
+      "https://kristinaperez.netlify.app/",
+      "https://pitermap.netlify.app/",
+      "https://aseosmadrid.netlify.app/"
+    ],
+    "jobTitle":"Автор проекта Russian Friendly"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Где найти русскоязычного врача или стоматолога в Барселоне?",
+        "acceptedAnswer":{"@type":"Answer","text":"На карте Russian Friendly Барселона собраны контакты врачей, стоматологов и клиник с русскоязычным персоналом."}
+      },
+      {
+        "@type":"Question",
+        "name":"Как найти русские школы и сервисы в Барселоне?",
+        "acceptedAnswer":{"@type":"Answer","text":"Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/barcelona для поиска школ, переводчиков, банковских консультантов и жилья."}
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Tag Manager: вставьте ваш контейнер GTM вместо GTM-XXXXXXX -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+  </script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    :root{--navy:#0B3350;--orange:#ff6600;--bg:#f5f7f9}
+    *{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:#17212b}
+    header{background:var(--navy);color:#fff;padding:18px 5%;display:flex;justify-content:space-between;gap:20px;align-items:center}
+    header h1{margin:0;font-size:clamp(22px,4vw,34px)} header p{margin:5px 0 0;opacity:.85}
+    .ad{display:block;color:var(--orange);border:2px solid var(--orange);padding:12px 16px;border-radius:10px;text-decoration:none;font-weight:700;background:#fff}
+    main{max-width:1200px;margin:auto;padding:22px 16px}
+    .categories{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:15px}.cat{border:0;border-radius:20px;padding:9px 13px;background:#fff;cursor:pointer;box-shadow:0 1px 5px #0001}
+    #map{height:65vh;min-height:450px;border-radius:14px;box-shadow:0 2px 12px #0002}
+    .feedback{display:inline-block;margin:14px 0;color:#fff;background:var(--orange);padding:12px 16px;border-radius:8px;text-decoration:none;font-weight:700}
+    .seo-geo-block{background:#fff;padding:20px;border-radius:12px;margin-top:20px}.promo{font-weight:700}.promo a{color:var(--orange)}
+    footer{background:var(--navy);color:#fff;padding:25px 5%;display:flex;flex-wrap:wrap;gap:18px} footer a{color:#fff}
+    @media(max-width:700px){header{align-items:stretch;flex-direction:column}.ad{text-align:center}#map{height:58vh;min-height:400px}}
+  </style>
+</head>
+<body>
+<header>
+  <div><h1>Барселона — Russian Friendly Map</h1><p>Русскоязычные специалисты, сервисы и полезные места</p></div>
+  <a class="ad" href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app</a>
+</header>
+
+<main>
+  <div class="categories" aria-label="Категории">
+    <button class="cat" data-cat="all">Все</button>
+    <button class="cat" data-cat="Стоматологи">🦷 Стоматологи</button>
+    <button class="cat" data-cat="Врачи">👩‍⚕️ Врачи</button>
+    <button class="cat" data-cat="Юристы">⚖️ Юристы</button>
+    <button class="cat" data-cat="Переводчики">📄 Переводчики</button>
+    <button class="cat" data-cat="Банки">🏦 Банки / финансы</button>
+    <button class="cat" data-cat="Визы">🛂 Визы</button>
+    <button class="cat" data-cat="Жильё">🏠 Жильё / риелторы</button>
+    <button class="cat" data-cat="Трансферы">🚕 Трансферы</button>
+    <button class="cat" data-cat="SIM">📱 SIM / eSIM</button>
+    <button class="cat" data-cat="Магазины">🛒 Русские магазины</button>
+    <button class="cat" data-cat="Школы">🏫 Школы</button>
+  </div>
+  <div id="map"></div>
+  <a class="feedback" href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">Нашли неверные данные? Сообщите нам в бот</a>
+
+  <section class="seo-geo-block">
+    <h2>Похожие запросы</h2>
+    <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+    <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+  </section>
+</main>
+
+<footer>
+  <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+  <a href="/about.html">About</a>
+  <a href="/contact.html">Contact</a>
+  <a href="/privacy-policy.html">Privacy Policy</a>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map=L.map('map').setView([41.3874,2.1686],12);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(map);
+
+const places=[
+  // Добавляйте реальные точки сюда в формате:
+  // {name:'Название',cat:'Стоматологи',lat:41.39,lng:2.17,info:'Описание / контакты'}
+];
+let markers=[];
+function render(filter='all'){
+  markers.forEach(m=>map.removeLayer(m)); markers=[];
+  places.filter(p=>filter==='all'||p.cat===filter).forEach(p=>{
+    const m=L.marker([p.lat,p.lng]).addTo(map).bindPopup(`<strong>${p.name}</strong><br>${p.cat}<br>${p.info||''}`);
+    markers.push(m);
+  });
+}
+document.querySelectorAll('.cat').forEach(b=>b.addEventListener('click',()=>render(b.dataset.cat)));
+render();
+</script>
+</body>
+</html>

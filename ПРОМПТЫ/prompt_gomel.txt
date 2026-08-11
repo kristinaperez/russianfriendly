@@ -1,0 +1,128 @@
+Создай веб-страницу index.html для интерактивной карты локальных русскоязычных специалистов и сервисов в городе Гомель.
+
+ОСНОВНАЯ КОНЦЕПЦИЯ И СТРУКТУРА:
+1. Тематика: Карта и каталог русскоязычных специалистов, услуг и организаций в городском пространстве (Гомель).
+2. Городской URL проекта: https://russianfriendly.netlify.app/gomel
+3. Общий портал: https://russianfriendly.netlify.app
+
+ПРОФИЛИ УСЛУГ И КАТЕГОРИИ ДЛЯ КАРТЫ:
+- 🦷 Стоматологи
+- 👩‍⚕️ Врачи
+- ⚖️ Юристы
+- 📄 Переводчики
+- 🏦 Помощь с банками / финансовые консультации
+- 🛂 Визовые агентства
+- 🏠 Аренда жилья / Риелторы
+- 🚕 Трансферы
+- 📱 SIM / eSIM
+- 🏠 Русские магазины (товары привычного ассортимента)
+- 🏠 Русские (русскоязычные) или хорошие (рекомендованные) школы
+
+ТРЕБОВАНИЯ К HTML/CSS/JS СТРУКТУРЕ:
+
+1. <head> ТЕГ И ИКОНКА:
+   Вставьте точно следующую строку в элемент <head>:
+   <link rel="icon" href="/favicon.ico">
+
+2. ШАПКА САЙТА (HEADER):
+   В шапке страницы размести основное название сайта/города (Гомель — Russian Friendly Map), а справа от основной информации обязательно добавь рекламный блок со следующими параметрами:
+   - Текст: "Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app"
+   - Ссылка: https://kristinaperez.netlify.app/
+   - Оформление: Блок и текст выделены ярко-оранжевым цветом (#ff6600 / orange accent).
+
+3. КАРТА И ОБРАТНАЯ СВЯЗЬ:
+   - Внедрить интерактивную карту (например, Leaflet.js / OpenStreetMap) с метками специалистов и заведений по Гомель.
+   - Сразу под картой добавить кнопку/ссылку на бота обратной связи:
+     URL: https://t.me/RussianFriendlyFeedbackbot
+     Текст ссылки: "Нашли неверные данные? Сообщите нам в бот"
+
+4. SEO / GEO И СЛУЖЕБНЫЕ МЕТАТЕГИ:
+   Включить оптимизацию по SEO/GEO, Google Tag Manager, превью Open Graph для смартфонов (WhatsApp, Telegram, iMessage, FB, VK) и валидный микроразметку JSON-LD.
+   Используй следующую структуру метатегов и скриптов:
+
+   <!-- ===================== SEO / GEO ===================== -->
+   <link rel="canonical" href="https://russianfriendly.netlify.app/gomel">
+   
+   <!-- Open Graph / preview for smartphones -->
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="Русскоязычные специалисты и сервисы в Гомель — Карта Russian Friendly">
+   <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Гомель на одной интерактивной карте.">
+   <meta property="og:url" content="https://russianfriendly.netlify.app/gomel">
+   <meta property="og:image" content="https://russianfriendly.netlify.app/gomel/og-preview.jpg">
+
+   <!-- Twitter / X card -->
+   <meta name="twitter:card" content="summary_large_image">
+   <meta name="twitter:title" content="Русскоязычные специалисты в Гомель">
+
+   <!-- Mobile "add to home screen" -->
+   <meta name="theme-color" content="#0B3350">
+
+   <!-- JSON-LD: Map / WebPage -->
+   <script type="application/ld+json">
+   {
+     "@context": "https://schema.org",
+     "@type": "WebPage",
+     "name": "Русскоязычные специалисты и сервисы в Гомель",
+     "url": "https://russianfriendly.netlify.app/gomel",
+     "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Гомель."
+   }
+   </script>
+
+   <!-- JSON-LD: Person (автор) -->
+   <script type="application/ld+json">
+   {
+     "@context": "https://schema.org",
+     "@type": "Person",
+     "name": "Кристина Перез",
+     "url": "https://kristinaperez.netlify.app/",
+     "sameAs": [
+       "https://t.me/FeedbackCristinaBot",
+       "https://www.youtube.com/@Cristina-Perez-Monroe",
+       "https://kristinaperez.netlify.app/",
+       "https://pitermap.netlify.app/",
+       "https://aseosmadrid.netlify.app/"
+     ],
+     "jobTitle": "Автор проекта Russian Friendly"
+   }
+   </script>
+
+   <!-- JSON-LD: FAQPage — прямые ответы на вопросы, которые задают в поиске и в чатах с ИИ -->
+   <script type="application/ld+json">
+   {
+     "@context": "https://schema.org",
+     "@type": "FAQPage",
+     "mainEntity": [
+       {
+         "@type": "Question",
+         "name": "Где найти русскоязычного врача или стоматолога в Гомель?",
+         "acceptedAnswer": {
+           "@type": "Answer",
+           "text": "На карте Russian Friendly Гомель собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+         }
+       },
+       {
+         "@type": "Question",
+         "name": "Как найти русские школы и сервисы в Гомель?",
+         "acceptedAnswer": {
+           "@type": "Answer",
+           "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/gomel для поиска школ, переводчиков, банковских консультантов и жилья."
+         }
+       }
+     ]
+   }
+   </script>
+
+5. ВИДИМЫЙ SEO / GEO БЛОК ВНИЗУ СТРАНИЦЫ:
+   В конце контентной части перед футером размести следующий сео-блок:
+   <section class="seo-geo-block">
+     <h2>Похожие запросы</h2>
+     <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+     <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+   </section>
+
+6. ССЫЛКИ В ФУТЕРЕ (FOOTER):
+   В конце файла index.html помести футер с обязательными ссылками на информационные страницы сайта, которые располагаются в корне домена:
+   - <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+   - <a href="/about.html">About</a> (или https://russianfriendly.netlify.app/about)
+   - <a href="/contact.html">Contact</a> (или https://russianfriendly.netlify.app/contact)
+   - <a href="/privacy-policy.html">Privacy Policy</a> (или https://russianfriendly.netlify.app/privacy-policy)

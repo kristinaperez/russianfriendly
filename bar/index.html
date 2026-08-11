@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Бар — Russian Friendly Map | Русскоязычные специалисты и сервисы</title>
+  <meta name="description" content="Russian Friendly Map в Баре: каталог русскоязычных стоматологов, врачей, юристов, переводчиков, риелторов, трансферов, SIM/eSIM, магазинов и других полезных сервисов.">
+  <meta name="keywords" content="Бар Черногория русские, русскоязычные специалисты Бар, Russian Friendly Bar, русские сервисы Бар, стоматолог Бар, врач Бар, юрист Бар, переводчик Бар, аренда жилья Бар">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Russian Friendly">
+  <link rel="canonical" href="https://russianfriendly.netlify.app/bar">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Russian Friendly">
+  <meta property="og:title" content="Бар — Russian Friendly Map">
+  <meta property="og:description" content="Карта русскоязычных специалистов, услуг и полезных мест в Баре.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/bar">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/og/bar.jpg">
+  <meta property="og:image:alt" content="Russian Friendly Map — Бар">
+
+  <!-- Telegram / WhatsApp / соцсети используют Open Graph; Twitter fallback -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Бар — Russian Friendly Map">
+  <meta name="twitter:description" content="Русскоязычные специалисты и сервисы в Баре.">
+  <meta name="twitter:image" content="https://russianfriendly.netlify.app/og/bar.jpg">
+
+  <!-- Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIINfQ3xE6V4M6M8nR8d5bN8Y7x3n2Y8M7Q="
+    crossorigin=""
+  >
+
+  <!-- Google Tag Manager: замените GTM-XXXXXXX на свой ID -->
+  <script>
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),
+          dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');
+  </script>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Бар — Russian Friendly Map",
+    "url": "https://russianfriendly.netlify.app/bar",
+    "description": "Карта и каталог русскоязычных специалистов, услуг и полезных мест в Баре.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Russian Friendly",
+      "url": "https://russianfriendly.netlify.app/"
+    },
+    "about": {
+      "@type": "City",
+      "name": "Bar",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Bar",
+        "addressCountry": "ME"
+      }
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --orange: #ff6600;
+      --orange-dark: #dc4f00;
+      --bg: #f6f7f9;
+      --card: #ffffff;
+      --text: #17202a;
+      --muted: #697586;
+      --border: #e5e7eb;
+      --shadow: 0 8px 25px rgba(0,0,0,.07);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-inner {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      text-decoration: none;
+      min-width: 230px;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.15;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .ad {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 10px 18px;
+      border: 2px solid var(--orange);
+      border-radius: 12px;
+      color: var(--orange);
+      background: #fff8f3;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      transition: .2s ease;
+    }
+
+    .ad:hover {
+      background: var(--orange);
+      color: #fff;
+    }
+
+    main { padding: 28px 0 50px; }
+
+    .hero {
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.1;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 800px;
+    }
+
+    .notice {
+      margin: 18px 0;
+      padding: 13px 16px;
+      border-radius: 12px;
+      background: #fff8f3;
+      border: 1px solid #ffd5bd;
+      font-size: 14px;
+    }
+
+    .notice strong { color: var(--orange-dark); }
+
+    .map-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    #map {
+      width: 100%;
+      height: 560px;
+    }
+
+    .map-toolbar {
+      padding: 14px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+    }
+
+    .filter {
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 9px 13px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: .15s ease;
+    }
+
+    .filter:hover,
+    .filter.active {
+      background: var(--orange);
+      color: #fff;
+      border-color: var(--orange);
+    }
+
+    .feedback {
+      display: inline-flex;
+      margin-top: 14px;
+      color: var(--orange-dark);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .feedback:hover { text-decoration: underline; }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 22px;
+      margin-top: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 23px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .categories li {
+      padding: 12px;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .seo-block {
+      margin-top: 28px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .seo-block h2 {
+      margin-top: 0;
+      font-size: 25px;
+    }
+
+    .seo-block h3 {
+      margin-bottom: 6px;
+      font-size: 18px;
+    }
+
+    footer {
+      background: #111827;
+      color: #d1d5db;
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      margin-right: 18px;
+    }
+
+    footer a:hover { color: #ff8a45; }
+
+    .copyright {
+      color: #9ca3af;
+      font-size: 13px;
+    }
+
+    .leaflet-popup-content-wrapper {
+      border-radius: 12px;
+    }
+
+    .popup-title {
+      font-weight: 800;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .popup-category {
+      color: var(--orange-dark);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .popup-note {
+      color: #667085;
+      font-size: 13px;
+    }
+
+    @media (max-width: 760px) {
+      .header-inner {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .ad { width: 100%; }
+
+      #map { height: 460px; }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .categories {
+        grid-template-columns: 1fr;
+      }
+
+      main { padding-top: 22px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden">
+    </iframe>
+  </noscript>
+
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="https://russianfriendly.netlify.app/">
+        <strong>🇲🇪 Бар — Russian Friendly Map</strong>
+        <span>Русскоязычные специалисты и сервисы</span>
+      </a>
+
+      <a
+        class="ad"
+        href="https://kristinaperez.netlify.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <h1>Русскоязычные сервисы в Баре</h1>
+        <p>
+          Интерактивная карта полезных специалистов, услуг и организаций для
+          русскоязычных жителей и гостей города Бар.
+        </p>
+      </section>
+
+      <div class="notice">
+        <strong>Важно:</strong> Бар находится в Черногории (Montenegro), а не в Сербии.
+        Поэтому страница использует географические данные Бара, Черногория.
+        Перед публикацией карточек специалистов проверяйте актуальность информации.
+      </div>
+
+      <section class="map-card" aria-label="Интерактивная карта Бар, Черногория">
+        <div class="map-toolbar" id="filters">
+          <button class="filter active" data-category="all">Все</button>
+          <button class="filter" data-category="dentist">🦷 Стоматологи</button>
+          <button class="filter" data-category="doctor">👩‍⚕️ Врачи</button>
+          <button class="filter" data-category="lawyer">⚖️ Юристы</button>
+          <button class="filter" data-category="translator">📄 Переводчики</button>
+          <button class="filter" data-category="finance">🏦 Банки / финансы</button>
+          <button class="filter" data-category="visa">🛂 Визы</button>
+          <button class="filter" data-category="realty">🏠 Недвижимость</button>
+          <button class="filter" data-category="transfer">🚕 Трансферы</button>
+          <button class="filter" data-category="sim">📱 SIM / eSIM</button>
+          <button class="filter" data-category="borderrun">🚍 Border Run</button>
+          <button class="filter" data-category="shop">🛒 Русские магазины</button>
+          <button class="filter" data-category="school">🏫 Школы</button>
+        </div>
+
+        <div id="map"></div>
+      </section>
+
+      <a
+        class="feedback"
+        href="https://t.me/RussianFriendlyFeedbackbot"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Нашли неверные данные? Сообщите нам в бот →
+      </a>
+
+      <section class="content-grid">
+        <article class="card">
+          <h2>Категории каталога</h2>
+          <ul class="categories">
+            <li>🦷 Стоматологи</li>
+            <li>👩‍⚕️ Врачи</li>
+            <li>⚖️ Юристы</li>
+            <li>📄 Переводчики</li>
+            <li>🏦 Помощь с банками / финансовые консультации</li>
+            <li>🛂 Визовые агентства</li>
+            <li>🏠 Аренда жилья / риелторы</li>
+            <li>🚕 Трансферы</li>
+            <li>📱 SIM / eSIM</li>
+            <li>🚍 Border Run</li>
+            <li>🛒 Русские магазины</li>
+            <li>🏫 Русские / рекомендованные школы</li>
+          </ul>
+        </article>
+
+        <aside class="card">
+          <h2>Как добавить специалиста?</h2>
+          <p>
+            Если вы знаете хороший русскоязычный сервис в Баре или заметили
+            ошибку на карте, отправьте информацию через нашего бота.
+          </p>
+          <p>
+            Желательно указать название, категорию, адрес, телефон или сайт
+            и язык обслуживания.
+          </p>
+          <a
+            href="https://t.me/RussianFriendlyFeedbackbot"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Открыть бот обратной связи
+          </a>
+        </aside>
+      </section>
+
+      <!-- Видимый SEO / GEO блок -->
+      <section class="seo-block">
+        <h2>Русскоязычные специалисты и сервисы в Баре, Черногория</h2>
+
+        <p>
+          Russian Friendly Map помогает русскоязычным жителям и гостям Бара
+          находить полезные услуги и специалистов в городе. На карте можно
+          искать стоматологов, врачей, юристов, переводчиков, специалистов
+          по недвижимости, трансферы, SIM/eSIM, визовые услуги и другие
+          сервисы.
+        </p>
+
+        <h3>Русские и русскоязычные сервисы в Баре</h3>
+        <p>
+          Если вы переехали в Бар, приехали на длительный срок или только
+          планируете поездку, каталог Russian Friendly может помочь быстрее
+          ориентироваться в городской инфраструктуре и находить специалистов,
+          с которыми можно общаться на русском языке.
+        </p>
+
+        <h3>Аренда жилья и недвижимость</h3>
+        <p>
+          В отдельной категории собираются риелторы и специалисты по аренде
+          жилья. Перед обращением рекомендуется уточнять актуальность
+          предложений, стоимость, условия договора и наличие необходимых
+          документов.
+        </p>
+
+        <h3>Медицина, стоматология и юридическая помощь</h3>
+        <p>
+          Каталог предназначен для поиска специалистов, однако Russian
+          Friendly не является медицинским, юридическим или финансовым
+          консультантом. Всегда самостоятельно проверяйте квалификацию,
+          лицензии, цены и актуальные контакты специалиста.
+        </p>
+
+        <h3>Как сообщить об ошибке?</h3>
+        <p>
+          Информация в каталоге может меняться. Если телефон, адрес, сайт,
+          категория или другое описание стали неверными, сообщите нам через
+          <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener noreferrer">
+            бот обратной связи Russian Friendly
+          </a>.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+        <a href="https://russianfriendly.netlify.app/about">About</a>
+        <a href="https://russianfriendly.netlify.app/contact">Contact</a>
+        <a href="https://russianfriendly.netlify.app/privacy-policy">Privacy Policy</a>
+      </div>
+      <div class="copyright">
+        © 2026 Russian Friendly
+      </div>
+    </div>
+  </footer>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin="">
+  </script>
+
+  <script>
+    // Бар, Черногория — координаты центра города.
+    const map = L.map('map', {
+      scrollWheelZoom: true
+    }).setView([42.0931, 19.1003], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    /*
+      Данные специалистов.
+      Важно: реальные компании/специалисты намеренно не выдумываются.
+      Добавляйте подтверждённые записи в этот массив.
+
+      Пример:
+      {
+        name: "Название специалиста",
+        category: "dentist",
+        label: "🦷 Стоматолог",
+        lat: 42.09,
+        lng: 19.10,
+        description: "Приём на русском языке",
+        url: "https://example.com"
+      }
+    */
+    const services = [
+      ["Дентал Студия «BarDent»","dentist","🦷 Стоматология",42.0939,19.1003,"Терапевтическая стоматология, гигиена, протезирование. Русскоязычные врачи. Telegram / Viber: +382 69 *** ***. Центр Бара."],
+      ["Частный стоматолог Др. Милош","dentist","🦷 Стоматолог",42.0928,19.1015,"Лечение кариеса, эстетическая стоматология, неотложная помощь при острой боли. Есть русский язык. WhatsApp. Ул. Македонская."],
+      ["Частный терапевт и педиатр — выезд на дом","doctor","👩‍⚕️ Врач / педиатр",42.0931,19.1003,"Консультации детей и взрослых, осмотр, лечение и рецепты. Выезд на дом 24/7. Telegram-сообщество «Врачи Черногории / Бар»."],
+      ["Analiza / Moj Lab","doctor","🧪 Лаборатория",42.0940,19.1000,"Анализы и диагностика. По предоставленным данным — русскоязычный сервис/персонал на рецепции. Филиалы в центре Бара."],
+      ["Юридическое сопровождение бизнеса и ВНЖ","lawyer","⚖️ Юристы / ВНЖ",42.0931,19.1003,"Открытие D.O.O., регистрация бизнеса, налогообложение и ВНЖ по недвижимости. Telegram: @юристы_бар_mne."],
+      ["Судебный переводчик (Tumač za ruski jezik)","translator","📄 Судебный переводчик",42.0937,19.0996,"Официальный перевод документов с апостилем для MUP, нотариусов и школ. Рядом с Нотариусом / MUP г. Бар."],
+      ["Консультации по открытию банковских счетов","finance","🏦 Банки / финансы",42.0931,19.1003,"Помощь с документами для CKB, Prva Banka и Adriatic Bank, подтверждением источников доходов. Telegram-чат «Финансы Черногория»."],
+      ["Визовый консалтинг & подача на ВНЖ (Boravak)","visa","🛂 ВНЖ / Boravak",42.0931,19.1003,"Сбор документов на ВНЖ, запись в MUP Бара, продление статуса и консультации по номад-визам. Локальные агентства / Telegram-специалисты."],
+      ["Агентства недвижимости в Баре","realty","🏠 Недвижимость / аренда",42.0935,19.1008,"Долгосрочная аренда квартир и домов, проверка договоров и оформление белого картона. Telegram-каналы «Недвижимость Бар Аренда»."],
+      ["Русскоязычные трансферы & такси","transfer","🚕 Трансферы / такси",42.0931,19.1003,"Трансферы из аэропортов Подгорицы (TGD) и Тивата (TIV), детские кресла, поездки по Черногории и в Албанию. WhatsApp / Telegram."],
+      ["Связь & Интернет — One / M:tel / Telekom","sim","📱 SIM / eSIM",42.0942,19.1006,"Помощь с туристическими и годовыми SIM/eSIM тарифами и настройкой роутеров. Официальные салоны связи в центре Бара."],
+      ["Регулярные визараны из Бара в Боснию / Албанию","borderrun","🚍 Border Run / визаран",42.0931,19.1003,"Выезды на минивэнах, помощь с прохождением границы. Албания и Босния. Ежедневные рейсы по записи в Telegram."],
+      ["MixMarkt — магазин продуктов СНГ","shop","🛒 Русские продукты",42.0943,19.1001,"Гречка, творог, сметана, пельмени, сушёная рыба, квас и другие привычные продукты. По исходным данным — возле центральной площади Бара."],
+      ["Русскоязычные школы и образовательные центры","school","🏫 Русские школы / центры",42.0931,19.1003,"Частные русскоязычные школы/центры с обучением по привычным программам. Консультации в чате «Школы Черногория»."],
+      ["OŠ «Blažo Jokov Orlandić»","school","🏫 Государственная школа",42.0950,19.1000,"Государственная школа Бара, указанная как вариант для адаптации детей. Адрес и условия приёма рекомендуется проверить перед публикацией."],
+      ["OŠ «Anto Đedović»","school","🏫 Государственная школа",42.0931,19.1003,"Государственная школа Бара, указанная как вариант для адаптации детей. Адрес и условия приёма рекомендуется проверить перед публикацией."]
+    ].map(([name,category,label,lat,lng,description]) => ({
+      name, category, label, lat, lng, description,
+      sourceNote: "Координаты ориентировочные: в исходных данных не был указан точный адрес."
+    }));
+
+    const categoryLabels = {
+      dentist: '🦷 Стоматологи',
+      doctor: '👩‍⚕️ Врачи',
+      lawyer: '⚖️ Юристы',
+      translator: '📄 Переводчики',
+      finance: '🏦 Банки / финансы',
+      visa: '🛂 Визовые агентства',
+      realty: '🏠 Аренда жилья / риелторы',
+      transfer: '🚕 Трансферы',
+      sim: '📱 SIM / eSIM',
+      borderrun: '🚍 Border Run',
+      shop: '🛒 Русские магазины',
+      school: '🏫 Школы'
+    };
+
+    const markers = [];
+
+    function addMarker(service) {
+      const marker = L.marker([service.lat, service.lng]);
+
+      const url = service.url
+        ? `<p><a href="${service.url}" target="_blank" rel="noopener noreferrer">Открыть сайт →</a></p>`
+        : '';
+
+      marker.bindPopup(`
+        <div class="popup-title">${service.name}</div>
+        <div class="popup-category">${service.label || categoryLabels[service.category] || ''}</div>
+        <div class="popup-note">${service.description || ''}</div>
+        ${service.sourceNote ? `<p style="font-size:12px;color:#8a5a44;margin:8px 0 0;">ℹ️ ${service.sourceNote}</p>` : ''}
+        ${url}
+      `);
+
+      marker.category = service.category;
+      marker.addTo(map);
+      markers.push(marker);
+    }
+
+    services.forEach(addMarker);
+
+    function showCategory(category) {
+      markers.forEach(marker => {
+        const visible = category === 'all' || marker.category === category;
+
+        if (visible) {
+          if (!map.hasLayer(marker)) marker.addTo(map);
+        } else {
+          if (map.hasLayer(marker)) map.removeLayer(marker);
+        }
+      });
+    }
+
+    document.querySelectorAll('.filter').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+        button.classList.add('active');
+        showCategory(button.dataset.category);
+      });
+    });
+  </script>
+</body>
+</html>

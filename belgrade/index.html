@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Русскоязычные специалисты и сервисы в Белград — Russian Friendly Map</title>
+  <meta name="description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы для русскоязычных в Белграде на одной интерактивной карте.">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="/favicon.ico">
+
+  <!-- ===================== SEO / GEO ===================== -->
+  <link rel="canonical" href="https://russianfriendly.netlify.app/belgrade">
+
+  <!-- Open Graph / preview for smartphones -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Русскоязычные специалисты и сервисы в Белград — Карта Russian Friendly">
+  <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Белград на одной интерактивной карте.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/belgrade">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/belgrade/og-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ru_RU">
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Белград">
+  <meta name="twitter:description" content="Карта русскоязычных специалистов, услуг и полезных сервисов в Белграде.">
+  <meta name="twitter:image" content="https://russianfriendly.netlify.app/belgrade/og-preview.jpg">
+
+  <!-- Mobile "add to home screen" -->
+  <meta name="theme-color" content="#0B3350">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIINfQ3ApJkR5P4G6R2b+V1N2Y6s3K3e4XQ="
+        crossorigin="">
+
+  <!-- JSON-LD: Map / WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Русскоязычные специалисты и сервисы в Белград",
+    "url": "https://russianfriendly.netlify.app/belgrade",
+    "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Белград."
+  }
+  </script>
+
+  <!-- JSON-LD: Person (автор) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Кристина Перез",
+    "url": "https://kristinaperez.netlify.app/",
+    "sameAs": [
+      "https://t.me/FeedbackCristinaBot",
+      "https://www.youtube.com/@Cristina-Perez-Monroe",
+      "https://kristinaperez.netlify.app/",
+      "https://pitermap.netlify.app/",
+      "https://aseosmadrid.netlify.app/"
+    ],
+    "jobTitle": "Автор проекта Russian Friendly"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Где найти русскоязычного врача или стоматолога в Белград?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "На карте Russian Friendly Белград собраны контакты врачей, стоматологов и клиник, которые работают с русскоязычными клиентами. Перед обращением рекомендуется проверить актуальность контактов."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Как найти русские школы и сервисы в Белград?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Воспользуйтесь интерактивным каталогом Russian Friendly для поиска школ, переводчиков, банковских консультантов, жилья, трансферов и других полезных сервисов."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --navy: #0B3350;
+      --navy-2: #092a42;
+      --blue: #1d6fa5;
+      --orange: #ff6600;
+      --bg: #f4f7f9;
+      --card: #ffffff;
+      --text: #17232d;
+      --muted: #647481;
+      --border: #dbe4ea;
+      --shadow: 0 8px 28px rgba(11, 51, 80, .10);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+
+    .header {
+      background: linear-gradient(135deg, var(--navy), #124a70);
+      color: #fff;
+      padding: 18px 24px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      text-decoration: none;
+      min-width: 0;
+    }
+
+    .brand small {
+      display: block;
+      color: #b9d6e6;
+      font-size: 13px;
+      margin-bottom: 2px;
+      letter-spacing: .04em;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 34px);
+      line-height: 1.15;
+    }
+
+    .ad {
+      display: block;
+      max-width: 470px;
+      padding: 12px 16px;
+      border: 2px solid var(--orange);
+      border-radius: 12px;
+      background: rgba(255, 102, 0, .10);
+      color: #ff8a3d;
+      text-decoration: none;
+      font-weight: 800;
+      box-shadow: 0 4px 18px rgba(0,0,0,.12);
+    }
+
+    .ad:hover {
+      background: var(--orange);
+      color: #fff;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 22px 20px 50px;
+    }
+
+    .intro {
+      margin: 0 0 18px;
+    }
+
+    .intro h2 {
+      margin: 0 0 5px;
+      color: var(--navy);
+      font-size: clamp(22px, 3vw, 30px);
+    }
+
+    .intro p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel h3 {
+      margin: 0 0 12px;
+      color: var(--navy);
+      font-size: 18px;
+    }
+
+    .filters {
+      display: grid;
+      gap: 8px;
+    }
+
+    .filter {
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      padding: 10px 11px;
+      border-radius: 10px;
+      cursor: pointer;
+      font: inherit;
+      transition: .15s ease;
+    }
+
+    .filter:hover,
+    .filter.active {
+      border-color: var(--blue);
+      background: #eef7fc;
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .map-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    #map {
+      width: 100%;
+      height: min(68vh, 680px);
+      min-height: 480px;
+    }
+
+    .map-note {
+      padding: 12px 16px;
+      color: var(--muted);
+      font-size: 13px;
+      background: #fbfcfd;
+      border-top: 1px solid var(--border);
+    }
+
+    .feedback {
+      display: inline-flex;
+      margin-top: 12px;
+      padding: 11px 16px;
+      border-radius: 10px;
+      background: var(--navy);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .feedback:hover { background: var(--blue); }
+
+    .catalog {
+      margin-top: 22px;
+    }
+
+    .catalog h2,
+    .seo-geo-block h2 {
+      color: var(--navy);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .category-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 5px 18px rgba(11,51,80,.06);
+    }
+
+    .category-card h3 {
+      margin: 0 0 6px;
+      color: var(--navy);
+      font-size: 17px;
+    }
+
+    .category-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .seo-geo-block {
+      margin-top: 28px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .seo-geo-block h2 { margin-top: 0; }
+
+    .promo {
+      margin: 10px 0;
+      font-weight: 700;
+    }
+
+    .promo a {
+      color: var(--orange);
+      text-decoration: none;
+    }
+
+    .promo a:hover { text-decoration: underline; }
+
+    footer {
+      background: var(--navy-2);
+      color: #d9e8f1;
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 7px;
+    }
+
+    footer a:hover { color: #ff8a3d; }
+
+    .leaflet-popup-content h4 {
+      margin: 0 0 5px;
+      color: var(--navy);
+    }
+
+    .leaflet-popup-content p {
+      margin: 3px 0;
+    }
+
+    .status {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .header-inner { align-items: stretch; flex-direction: column; }
+      .ad { max-width: none; }
+      .layout { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 600px) {
+      .header { padding: 15px; }
+      .container { padding: 18px 12px 40px; }
+      #map { min-height: 420px; height: 62vh; }
+      .cards { grid-template-columns: 1fr; }
+      .filter { padding: 9px 10px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="https://russianfriendly.netlify.app/" aria-label="Russian Friendly">
+        <small>RUSSIAN FRIENDLY</small>
+        <h1>Белград — Russian Friendly Map</h1>
+      </a>
+
+      <a class="ad"
+         href="https://kristinaperez.netlify.app/"
+         target="_blank"
+         rel="noopener">
+        Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="intro">
+      <h2>Русскоязычные специалисты и сервисы в Белграде</h2>
+      <p>Интерактивная карта полезных контактов для русскоязычных экспатов, релокантов и путешественников.</p>
+    </section>
+
+    <section class="layout">
+      <aside class="panel" aria-label="Фильтр категорий">
+        <h3>Категории</h3>
+        <div class="filters">
+          <button class="filter active" data-category="all">📍 Все категории</button>
+          <button class="filter" data-category="dentists">🦷 Стоматологи</button>
+          <button class="filter" data-category="doctors">👩‍⚕️ Врачи</button>
+          <button class="filter" data-category="lawyers">⚖️ Юристы</button>
+          <button class="filter" data-category="translators">📄 Переводчики</button>
+          <button class="filter" data-category="finance">🏦 Банки / финансы</button>
+          <button class="filter" data-category="visa">🛂 Визовые агентства</button>
+          <button class="filter" data-category="housing">🏠 Жильё / риелторы</button>
+          <button class="filter" data-category="transfer">🚕 Трансферы</button>
+          <button class="filter" data-category="sim">📱 SIM / eSIM</button>
+          <button class="filter" data-category="border-run">🚍 Border Run</button>
+          <button class="filter" data-category="shops">🛒 Русские магазины</button>
+          <button class="filter" data-category="schools">🏫 Школы</button>
+        </div>
+        <div class="status">Данные каталога можно дополнять и проверять через бота обратной связи.</div>
+      </aside>
+
+      <div>
+        <div class="map-card">
+          <div id="map" aria-label="Интерактивная карта русскоязычных специалистов в Белграде"></div>
+          <div class="map-note">
+            Карта использует OpenStreetMap. Метки, отмеченные как «Демо», являются шаблоном для наполнения каталога и не означают подтверждённую рекомендацию.
+          </div>
+        </div>
+
+        <a class="feedback"
+           href="https://t.me/RussianFriendlyFeedbackbot"
+           target="_blank"
+           rel="noopener">
+          Нашли неверные данные? Сообщите нам в бот
+        </a>
+      </div>
+    </section>
+
+    <section class="catalog">
+      <h2>Что можно найти на карте</h2>
+      <div class="cards">
+        <article class="category-card"><h3>🦷 Стоматологи</h3><p>Стоматологи и клиники, где можно получить помощь на русском языке.</p></article>
+        <article class="category-card"><h3>👩‍⚕️ Врачи</h3><p>Врачи и медицинские специалисты для русскоязычных жителей Белграда.</p></article>
+        <article class="category-card"><h3>⚖️ Юристы</h3><p>Юридические консультации и помощь с документами.</p></article>
+        <article class="category-card"><h3>📄 Переводчики</h3><p>Переводчики и специалисты по официальным документам.</p></article>
+        <article class="category-card"><h3>🏦 Банки / финансы</h3><p>Помощь с банковскими вопросами и финансовыми услугами.</p></article>
+        <article class="category-card"><h3>🛂 Визовые агентства</h3><p>Визы, релокация и сопутствующая административная помощь.</p></article>
+        <article class="category-card"><h3>🏠 Жильё / риелторы</h3><p>Аренда жилья, поиск квартир и риелторские услуги.</p></article>
+        <article class="category-card"><h3>🚕 Трансферы</h3><p>Трансферы из аэропорта и поездки по Белграду и окрестностям.</p></article>
+        <article class="category-card"><h3>📱 SIM / eSIM</h3><p>Мобильная связь, SIM и eSIM для жизни и поездок.</p></article>
+        <article class="category-card"><h3>🚍 Border Run</h3><p>Организация поездок за границу для решения вопросов со сроками пребывания и документами.</p></article>
+        <article class="category-card"><h3>🛒 Русские магазины</h3><p>Магазины с привычными русскоязычным покупателям товарами и продуктами.</p></article>
+        <article class="category-card"><h3>🏫 Школы</h3><p>Русскоязычные и рекомендованные школы и образовательные проекты.</p></article>
+      </div>
+    </section>
+
+    <section class="seo-geo-block">
+      <h2>Похожие запросы</h2>
+      <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+      <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+    <a href="/privacy-policy.html">Privacy Policy</a>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+
+  <script>
+    const map = L.map('map').setView([44.8125, 20.4612], 12);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Шаблонные точки для будущего наполнения.
+    // Не являются реальными рекомендациями и специально помечены как «Демо».
+    const places = [
+      { lat: 44.8125, lng: 20.4612, category: 'dentists', title: '🦷 Стоматологи — демо-точка', text: 'Замените эту точку на проверенного специалиста.' },
+      { lat: 44.8048, lng: 20.4750, category: 'doctors', title: '👩‍⚕️ Врачи — демо-точка', text: 'Замените эту точку на проверенного специалиста.' },
+      { lat: 44.8176, lng: 20.4569, category: 'lawyers', title: '⚖️ Юристы — демо-точка', text: 'Замените эту точку на проверенный контакт.' },
+      { lat: 44.8067, lng: 20.4490, category: 'translators', title: '📄 Переводчики — демо-точка', text: 'Замените эту точку на проверенный контакт.' },
+      { lat: 44.8236, lng: 20.4517, category: 'finance', title: '🏦 Банки / финансы — демо-точка', text: 'Замените эту точку на проверенный сервис.' },
+      { lat: 44.8002, lng: 20.4874, category: 'visa', title: '🛂 Визовые услуги — демо-точка', text: 'Замените эту точку на проверенный сервис.' },
+      { lat: 44.8141, lng: 20.4715, category: 'housing', title: '🏠 Жильё / риелторы — демо-точка', text: 'Замените эту точку на проверенный контакт.' },
+      { lat: 44.8015, lng: 20.4602, category: 'transfer', title: '🚕 Трансферы — демо-точка', text: 'Замените эту точку на проверенный сервис.' },
+      { lat: 44.8192, lng: 20.4385, category: 'sim', title: '📱 SIM / eSIM — демо-точка', text: 'Замените эту точку на проверенный сервис.' },
+      { lat: 44.7927, lng: 20.4480, category: 'border-run', title: '🚍 Border Run — демо-точка', text: 'Замените эту точку на проверенный сервис.' },
+      { lat: 44.8260, lng: 20.4684, category: 'shops', title: '🛒 Русские магазины — демо-точка', text: 'Замените эту точку на проверенный магазин.' },
+      { lat: 44.8090, lng: 20.4320, category: 'schools', title: '🏫 Школы — демо-точка', text: 'Замените эту точку на проверенную школу.' }
+    ];
+
+    const markerLayer = L.layerGroup().addTo(map);
+
+    function renderMarkers(category = 'all') {
+      markerLayer.clearLayers();
+
+      places
+        .filter(place => category === 'all' || place.category === category)
+        .forEach(place => {
+          L.marker([place.lat, place.lng])
+            .bindPopup(`<h4>${place.title}</h4><p>${place.text}</p>`)
+            .addTo(markerLayer);
+        });
+    }
+
+    document.querySelectorAll('.filter').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+        button.classList.add('active');
+        renderMarkers(button.dataset.category);
+      });
+    });
+
+    renderMarkers();
+  </script>
+</body>
+</html>

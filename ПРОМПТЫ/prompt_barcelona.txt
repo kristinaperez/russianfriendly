@@ -1,0 +1,215 @@
+Создай веб-страницу index.html для интерактивной карты локальных русскоязычных специалистов и сервисов в городе Барселона.
+
+ОСНОВНАЯ КОНЦЕПЦИЯ И СТРУКТУРА:
+1. Тематика: Карта и каталог русскоязычных специалистов, услуг и организаций в городском пространстве (Барселона).
+2. Городской URL проекта: https://russianfriendly.netlify.app/barcelona
+3. Общий портал: https://russianfriendly.netlify.app
+
+ПРОФИЛИ УСЛУГ И КАТЕГОРИИ ДЛЯ КАРТЫ:
+- 🦷 Стоматологи
+- 👩‍⚕️ Врачи
+- ⚖️ Юристы
+- 📄 Переводчики
+- 🏦 Помощь с банками / финансовые консультации
+- 🛂 Визовые агентства
+- 🏠 Аренда жилья / Риелторы
+- 🚕 Трансферы
+- 📱 SIM / eSIM
+- 🏠 Русские магазины (товары привычного ассортимента)
+- 🏠 Русские (русскоязычные) или хорошие (рекомендованные) школы
+
+ТРЕБОВАНИЯ К HTML/CSS/JS СТРУКТУРЕ:
+
+1. <head> ТЕГ И ИКОНКА:
+   Вставьте точно следующую строку в элемент <head>:
+   <link rel="icon" href="/favicon.ico">
+
+2. ШАПКА САЙТА (HEADER):
+   В шапке страницы размести основное название сайта/города (Барселона — Russian Friendly Map), а справа от основной информации обязательно добавь рекламный блок со следующими параметрами:
+   - Текст: "Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app"
+   - Ссылка: https://kristinaperez.netlify.app/
+   - Оформление: Блок и текст выделены ярко-оранжевым цветом (#ff6600 / orange accent).
+
+3. КАРТА И ОБРАТНАЯ СВЯЗЬ:
+   - Внедрить интерактивную карту (например, Leaflet.js / OpenStreetMap) с метками специалистов и заведений по Барселона.
+   - Сразу под картой добавить кнопку/ссылку на бота обратной связи:
+     URL: https://t.me/RussianFriendlyFeedbackbot
+     Текст ссылки: "Нашли неверные данные? Сообщите нам в бот"
+
+4. SEO / GEO И СЛУЖЕБНЫЕ МЕТАТЕГИ:
+   Включить оптимизацию по SEO/GEO, Google Tag Manager, превью Open Graph для смартфонов (WhatsApp, Telegram, iMessage, FB, VK) и валидный микроразметку JSON-LD.
+   Используй следующую структуру метатегов и скриптов:
+
+   <!-- ===================== SEO / GEO ===================== -->
+   <link rel="canonical" href="https://russianfriendly.netlify.app/barcelona">
+   
+   <!-- Open Graph / preview for smartphones -->
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="Русскоязычные специалисты и сервисы в Барселона — Карта Russian Friendly">
+   <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Барселона на одной интерактивной карте.">
+   <meta property="og:url" content="https://russianfriendly.netlify.app/barcelona">
+   <meta property="og:image" content="https://russianfriendly.netlify.app/barcelona/og-preview.jpg">
+
+   <!-- Twitter / X card -->
+   <meta name="twitter:card" content="summary_large_image">
+   <meta name="twitter:title" content="Русскоязычные специалисты в Барселона">
+
+   <!-- Mobile "add to home screen" -->
+   <meta name="theme-color" content="#0B3350">
+
+   <!-- JSON-LD: Map / WebPage -->
+   <script type="application/ld+json">
+   {
+     "@context": "https://schema.org",
+     "@type": "WebPage",
+     "name": "Русскоязычные специалисты и сервисы в Барселона",
+     "url": "https://russianfriendly.netlify.app/barcelona",
+     "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Барселона."
+   }
+   </script>
+
+   <!-- JSON-LD: Person (автор) -->
+   <script type="application/ld+json">
+   {
+     "@context": "https://schema.org",
+     "@type": "Person",
+     "name": "Кристина Перез",
+     "url": "https://kristinaperez.netlify.app/",
+     "sameAs": [
+       "https://t.me/FeedbackCristinaBot",
+       "https://www.youtube.com/@Cristina-Perez-Monroe",
+       "https://kristinaperez.netlify.app/",
+       "https://pitermap.netlify.app/",
+       "https://aseosmadrid.netlify.app/"
+     ],
+     "jobTitle": "Автор проекта Russian Friendly"
+   }
+   </script>
+
+   <!-- JSON-LD: FAQPage — прямые ответы на вопросы, которые задают в поиске и в чатах с ИИ -->
+   <script type="application/ld+json">
+   {
+     "@context": "https://schema.org",
+     "@type": "FAQPage",
+     "mainEntity": [
+       {
+         "@type": "Question",
+         "name": "Где найти русскоязычного врача или стоматолога в Барселона?",
+         "acceptedAnswer": {
+           "@type": "Answer",
+           "text": "На карте Russian Friendly Барселона собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+         }
+       },
+       {
+         "@type": "Question",
+         "name": "Как найти русские школы и сервисы в Барселона?",
+         "acceptedAnswer": {
+           "@type": "Answer",
+           "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/barcelona для поиска школ, переводчиков, банковских консультантов и жилья."
+         }
+       }
+     ]
+   }
+   </script>
+
+5. ВИДИМЫЙ SEO / GEO БЛОК ВНИЗУ СТРАНИЦЫ:
+   В конце контентной части перед футером размести следующий сео-блок:
+   <section class="seo-geo-block">
+     <h2>Похожие запросы</h2>
+     <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+     <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+   </section>
+
+6. ССЫЛКИ В ФУТЕРЕ (FOOTER):
+   В конце файла index.html помести футер с обязательными ссылками на информационные страницы сайта, которые располагаются в корне домена:
+   - <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+   - <a href="/about.html">About</a> (или https://russianfriendly.netlify.app/about)
+   - <a href="/contact.html">Contact</a> (или https://russianfriendly.netlify.app/contact)
+   - <a href="/privacy-policy.html">Privacy Policy</a> (или https://russianfriendly.netlify.app/privacy-policy)
+
+
+И сделай файлы:  
+
+
+
+- llms по городу Барселона, как это, только замени имя города:  
+  # Русскоязычные специалисты в Барселоне
+  > Интерактивная карта и список русскоязычных специалистов и полезных сервисов для русскоязычных экспатов, релокантов и туристов в Аликанте. Проект серии Russian Friendly, автор — Кристина Перез.
+  ## О проекте
+  Сайт собирает и структурирует контакты специалистов и сервисов, актуальных для русскоязычных в Аликанте (стоматологи, врачи, юристы, присяжные переводчики, помощь с открытием банковских счетов, визовые агентства и релокация, аренда жилья, трансферы, мобильная связь, русские магазины и школы). Данные помечаются как подтверждённые или неподтверждённые в зависимости от источника.
+  ## Ключевые факты
+  - Для въезда в Испанию гражданам РФ и стран СНГ требуется Шенгенская виза (тип C, до 90 дней пребывания в полугодие) или национальная виза/ВНЖ (виза цифрового кочевника Nomad, ВНЖ без права работы NLV, студенческая виза).
+  - При въезде по Шенгенской визе обязательно наличие медицинской страховки с покрытием не менее 30 000 евро, действующей во всех странах Шенгенского соглашения.
+  ## Разделы сайта
+  🦷 Стоматологи, 👩‍⚕️ Врачи, ⚖️ Юристы, 📄 Переводчики, 🏦 Помощь с банками, 🛂 Визовые агентства, 🏠 Аренда жилья, 🚕 Трансферы, 📱 SIM/eSIM, 🏠 Русские магазины, 🏠 Русские и рекомендованные школы
+  ## Автор
+  Кристина Перез — автор сети городских гидов Russian Friendly:
+  [https://kristinaperez.netlify.app/](https://kristinaperez.netlify.app/), [https://russianfriendly.netlify.app/](https://russianfriendly.netlify.app/)
+  ## Страницы
+  - [Главная / карта Барселона](https://russianfriendly.netlify.app/alicante): полная карта и список специалистов и сервисов с фильтром по категориям.
+
+
+      Ниже в файлах названия городов заменяй на соответствующий город, по которому делаешь карту:  
+robots: 
+
+User-agent: \*
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: [https://russianfriendly.netlify.app/alicante/sitemap.xml](https://russianfriendly.netlify.app/alicante/sitemap.xml)
+
+ и sitemap с сегодняшней датой:  
+
+
+
+\<urlset xmlns="[http://www.sitemaps.org/schemas/sitemap/0.9](http://www.sitemaps.org/schemas/sitemap/0.9)">
+
+\<url>
+
+\<loc>[https://russianfriendly.netlify.app/alicante](https://russianfriendly.netlify.app/alicante)\</loc>
+
+\<lastmod>2026-08-09\</lastmod>
+
+\<changefreq>weekly\</changefreq>
+
+\<priority>1.0\</priority>
+
+\</url>
+
+\</urlset>
+
+
+
+
+И сделай файл llms по городу Барселона, аналогично как ниже, только замени имя города:
+ (llms) 
+
+Русскоязычные специалисты в Аликанте
+
+Интерактивная карта и список русскоязычных специалистов и полезных сервисов для русскоязычных экспатов, релокантов и туристов в Аликанте. Проект серии Russian Friendly, автор — Кристина Перез.
+
+О проекте
+Сайт собирает и структурирует контакты специалистов и сервисов, актуальных для русскоязычных в Аликанте (стоматологи, врачи, юристы, присяжные переводчики, помощь с открытием банковских счетов, визовые агентства и релокация, аренда жилья, трансферы, мобильная связь, русские магазины и школы). Данные помечаются как подтверждённые или неподтверждённые в зависимости от источника.
+Ключевые факты
+Для въезда в Испанию гражданам РФ и стран СНГ требуется Шенгенская виза (тип C, до 90 дней пребывания в полугодие) или национальная виза/ВНЖ (виза цифрового кочевника Nomad, ВНЖ без права работы NLV, студенческая виза).
+При въезде по Шенгенской визе обязательно наличие медицинской страховки с покрытием не менее 30 000 евро, действующей во всех странах Шенгенского соглашения.
+Разделы сайта
+🦷 Стоматологи, 👩‍⚕️ Врачи, ⚖️ Юристы, 📄 Переводчики, 🏦 Помощь с банками, 🛂 Визовые агентства, 🏠 Аренда жилья, 🚕 Трансферы, 📱 SIM/eSIM, 🏠 Русские магазины, 🏠 Русские и рекомендованные школы
+Автор
+Кристина Перез — автор сети городских гидов Russian Friendly:
+https://kristinaperez.netlify.app/, https://russianfriendly.netlify.app/
+Страницы
+Главная / карта Аликанте: полная карта и список специалистов и сервисов с фильтром по категориям.
+
+ И если можешь, нарисуй для Open Graph файл og:image, ты ведь вставляешь ссылку og-preview.jpg 
