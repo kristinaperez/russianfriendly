@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Русскоязычные специалисты и сервисы в Душанбе — Карта Russian Friendly</title>
+<meta name="description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Душанбе на одной интерактивной карте. Каталог русскоязычных специалистов Russian Friendly.">
+<link rel="icon" href="/favicon.ico">
+
+<!-- ===================== SEO / GEO ===================== -->
+<link rel="canonical" href="https://russianfriendly.netlify.app/dushanbe">
+
+<!-- Open Graph / preview for smartphones -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Русскоязычные специалисты и сервисы в Душанбе — Карта Russian Friendly">
+<meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Душанбе на одной интерактивной карте.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/dushanbe">
+<meta property="og:image" content="https://russianfriendly.netlify.app/dushanbe/og-preview.jpg">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Russian Friendly">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Душанбе">
+<meta name="twitter:description" content="Карта и каталог русскоязычных врачей, юристов, переводчиков и сервисов в Душанбе.">
+<meta name="twitter:image" content="https://russianfriendly.netlify.app/dushanbe/og-preview.jpg">
+
+<!-- Mobile "add to home screen" -->
+<meta name="theme-color" content="#0B3350">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+
+<!-- JSON-LD: Map / WebPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Русскоязычные специалисты и сервисы в Душанбе",
+  "url": "https://russianfriendly.netlify.app/dushanbe",
+  "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Душанбе."
+}
+</script>
+
+<!-- JSON-LD: Person (автор) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Кристина Перез",
+  "url": "https://kristinaperez.netlify.app/",
+  "sameAs": [
+    "https://t.me/FeedbackCristinaBot",
+    "https://www.youtube.com/@Cristina-Perez-Monroe",
+    "https://kristinaperez.netlify.app/",
+    "https://pitermap.netlify.app/",
+    "https://aseosmadrid.netlify.app/"
+  ],
+  "jobTitle": "Автор проекта Russian Friendly"
+}
+</script>
+
+<!-- JSON-LD: FAQPage — прямые ответы на вопросы, которые задают в поиске и в чатах с ИИ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Где найти русскоязычного врача или стоматолога в Душанбе?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На карте Russian Friendly Душанбе собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как найти русские школы и сервисы в Душанбе?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/dushanbe для поиска школ, переводчиков, банковских консультантов и жилья."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#1E2A32;
+    --petrol:#0B3350;
+    --petrol-dark:#082638;
+    --sand:#F1E4C9;
+    --paper:#FBF7EF;
+    --clay:#C1622D;
+    --clay-light:#E4956A;
+    --line:rgba(11,51,80,.14);
+    --white:#ffffff;
+    --ad-orange:#ff6600;
+    --radius:14px;
+    --font-display:'Fraunces', serif;
+    --font-body:'Manrope', -apple-system, sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+
+  /* ---------- ikat divider (signature element) ---------- */
+  .ikat-rule{
+    height:10px;
+    width:100%;
+    background:repeating-linear-gradient(
+      115deg,
+      var(--clay) 0 6px,
+      var(--clay-light) 6px 12px,
+      var(--petrol) 12px 18px,
+      var(--sand) 18px 26px
+    );
+    opacity:.9;
+  }
+
+  /* ---------- header ---------- */
+  header.site-header{
+    background:var(--petrol);
+    color:var(--paper);
+    padding:22px clamp(16px,4vw,40px);
+  }
+  .header-inner{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+  }
+  .brand-block{display:flex;flex-direction:column;gap:2px;}
+  .brand-eyebrow{
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--sand);
+    opacity:.85;
+  }
+  .brand-title{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:clamp(1.5rem,3vw,2.1rem);
+    line-height:1.1;
+    margin:2px 0 0;
+  }
+  .brand-title em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--clay-light);
+  }
+
+  .ad-block{
+    background:var(--ad-orange);
+    color:#fff;
+    padding:12px 18px;
+    border-radius:var(--radius);
+    max-width:340px;
+    font-size:.92rem;
+    line-height:1.35;
+    font-weight:600;
+    box-shadow:0 6px 18px rgba(255,102,0,.35);
+    text-decoration:none;
+    display:block;
+    transition:transform .15s ease, box-shadow .15s ease;
+    border:1px solid rgba(255,255,255,.25);
+  }
+  .ad-block:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(255,102,0,.45);
+  }
+  .ad-block .ad-eyebrow{
+    display:block;
+    font-size:.68rem;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    opacity:.85;
+    margin-bottom:4px;
+    font-weight:700;
+  }
+
+  /* ---------- intro ---------- */
+  main{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,40px);}
+  .intro{
+    padding:34px 0 18px;
+  }
+  .intro h1{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:clamp(1.6rem,3.2vw,2.4rem);
+    margin:0 0 10px;
+    color:var(--petrol);
+  }
+  .intro p{
+    max-width:64ch;
+    color:#4b5a63;
+    line-height:1.55;
+    margin:0;
+  }
+
+  /* ---------- filters ---------- */
+  .filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:20px 0;
+  }
+  .filter-chip{
+    border:1px solid var(--line);
+    background:var(--white);
+    color:var(--petrol);
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:.88rem;
+    font-weight:600;
+    cursor:pointer;
+    font-family:var(--font-body);
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .filter-chip:hover{border-color:var(--clay);}
+  .filter-chip.active{
+    background:var(--petrol);
+    color:var(--paper);
+    border-color:var(--petrol);
+  }
+  .filter-chip[data-cat="all"].active{
+    background:var(--clay);
+    border-color:var(--clay);
+  }
+
+  /* ---------- map ---------- */
+  .map-wrap{
+    border-radius:var(--radius);
+    overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:0 12px 30px rgba(11,51,80,.12);
+  }
+  #map{height:min(66vh,560px); width:100%;background:#dde6ea;}
+
+  .leaflet-popup-content{font-family:var(--font-body); font-size:.92rem; line-height:1.4;}
+  .popup-title{font-family:var(--font-display); font-weight:600; font-size:1.02rem; margin:0 0 4px; color:var(--petrol);}
+  .popup-cat{display:inline-block; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--clay); font-weight:700; margin-bottom:6px;}
+  .popup-actions a{color:var(--petrol); font-weight:600; text-decoration:underline;}
+
+  /* ---------- feedback link ---------- */
+  .feedback-row{
+    display:flex;
+    justify-content:center;
+    padding:22px 0 8px;
+  }
+  .feedback-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--white);
+    border:1px solid var(--line);
+    color:var(--petrol);
+    padding:12px 20px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:.94rem;
+    text-decoration:none;
+    box-shadow:0 6px 16px rgba(11,51,80,.08);
+    transition:background .15s ease, color .15s ease;
+  }
+  .feedback-link:hover{background:var(--petrol); color:var(--paper);}
+
+  /* ---------- category legend / list ---------- */
+  .cat-legend{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+    gap:10px;
+    padding:30px 0 10px;
+  }
+  .cat-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:14px 16px;
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+  }
+  .cat-card .icon{font-size:1.3rem;}
+  .cat-card .label{font-weight:700; font-size:.9rem; color:var(--petrol);}
+  .cat-card .count{display:block; font-size:.78rem; color:#6b7a83; font-weight:500;}
+
+  /* ---------- SEO block ---------- */
+  .seo-geo-block{
+    margin:44px 0 20px;
+    padding:26px clamp(16px,4vw,32px);
+    background:var(--sand);
+    border-radius:var(--radius);
+  }
+  .seo-geo-block h2{
+    font-family:var(--font-display);
+    font-weight:600;
+    color:var(--petrol);
+    margin:0 0 12px;
+    font-size:1.3rem;
+  }
+  .seo-geo-block .promo{
+    margin:6px 0;
+    font-size:.94rem;
+    color:#4b5a63;
+  }
+  .seo-geo-block .promo a{
+    color:var(--clay);
+    font-weight:700;
+    text-decoration:underline;
+  }
+
+  /* ---------- footer ---------- */
+  footer.site-footer{
+    background:var(--petrol-dark);
+    color:var(--sand);
+    margin-top:40px;
+    padding:30px clamp(16px,4vw,40px) 26px;
+  }
+  .footer-inner{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:16px;
+    align-items:center;
+  }
+  .footer-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px;
+    font-size:.88rem;
+  }
+  .footer-links a{text-decoration:none; opacity:.85;}
+  .footer-links a:hover{opacity:1; text-decoration:underline;}
+  .footer-note{font-size:.78rem; opacity:.6;}
+
+  @media (max-width:640px){
+    .header-inner{flex-direction:column; align-items:flex-start;}
+    .ad-block{max-width:none;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-block">
+      <span class="brand-eyebrow">Russian Friendly · городская карта</span>
+      <h1 class="brand-title">Душанбе <em>— карта русскоязычных специалистов</em></h1>
+    </div>
+
+    <a class="ad-block" href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+      <span class="ad-eyebrow">Партнёрский проект</span>
+      Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+    </a>
+  </div>
+</header>
+
+<div class="ikat-rule" aria-hidden="true"></div>
+
+<main>
+  <section class="intro">
+    <h1 style="position:absolute;left:-9999px;">Русскоязычные специалисты и сервисы в Душанбе</h1>
+    <p>Стоматологи, врачи, юристы, переводчики, риелторы и другие проверенные специалисты, которые говорят на русском языке — собраны на одной карте. Фильтруйте по категориям и нажимайте на метки, чтобы увидеть контакты.</p>
+  </section>
+
+  <div class="filters" id="filters">
+    <button class="filter-chip active" data-cat="all">Все категории</button>
+    <button class="filter-chip" data-cat="dentist">🦷 Стоматологи</button>
+    <button class="filter-chip" data-cat="doctor">👩‍⚕️ Врачи</button>
+    <button class="filter-chip" data-cat="lawyer">⚖️ Юристы</button>
+    <button class="filter-chip" data-cat="translator">📄 Переводчики</button>
+    <button class="filter-chip" data-cat="bank">🏦 Банки / финансы</button>
+    <button class="filter-chip" data-cat="visa">🛂 Визовые агентства</button>
+    <button class="filter-chip" data-cat="realtor">🏠 Аренда / риелторы</button>
+    <button class="filter-chip" data-cat="transfer">🚕 Трансферы</button>
+    <button class="filter-chip" data-cat="sim">📱 SIM / eSIM</button>
+    <button class="filter-chip" data-cat="shop">🛒 Русские магазины</button>
+    <button class="filter-chip" data-cat="school">🎒 Русские / рекомендованные школы</button>
+  </div>
+
+  <div class="map-wrap">
+    <div id="map"></div>
+  </div>
+
+  <div class="feedback-row">
+    <a class="feedback-link" href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">
+      💬 Нашли неверные данные? Сообщите нам в бот
+    </a>
+  </div>
+
+  <section class="cat-legend" id="legend" aria-label="Категории на карте"></section>
+
+  <section class="seo-geo-block">
+    <h2>Похожие запросы</h2>
+    <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+    <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+    </div>
+    <div class="footer-note">© Russian Friendly · Душанбе</div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   Категории: цвет + иконка
+   ========================================================= */
+const CATS = {
+  dentist:    { label: "Стоматологи",              icon: "🦷", color: "#C1622D" },
+  doctor:     { label: "Врачи",                    icon: "👩‍⚕️", color: "#2E7D6B" },
+  lawyer:     { label: "Юристы",                   icon: "⚖️", color: "#0B3350" },
+  translator: { label: "Переводчики",              icon: "📄", color: "#7A5C9E" },
+  bank:       { label: "Банки / финансы",          icon: "🏦", color: "#B08900" },
+  visa:       { label: "Визовые агентства",        icon: "🛂", color: "#C1622D" },
+  realtor:    { label: "Аренда / риелторы",        icon: "🏠", color: "#2E7D6B" },
+  transfer:   { label: "Трансферы",                icon: "🚕", color: "#B45309" },
+  sim:        { label: "SIM / eSIM",               icon: "📱", color: "#0B3350" },
+  shop:       { label: "Русские магазины",         icon: "🛒", color: "#7A5C9E" },
+  school:     { label: "Русские / хорошие школы",  icon: "🎒", color: "#B08900" }
+};
+
+/* =========================================================
+   Примеры точек. Замените на реальные проверенные контакты —
+   координаты приблизительные, в районе центра Душанбе.
+   ========================================================= */
+const PLACES = [
+  { cat:"dentist",    name:"Стоматология «Дилноза»",       lat:38.5765, lng:68.7870, desc:"Приём на русском, лечение и протезирование.", phone:"+992 00 000 00 00" },
+  { cat:"doctor",     name:"Медцентр «Шифо+»",              lat:38.5661, lng:68.7800, desc:"Терапевт, педиатр — консультации на русском.", phone:"+992 00 000 00 01" },
+  { cat:"lawyer",     name:"Юридическое бюро «Право РФ-РТ»",lat:38.5591, lng:68.7935, desc:"Миграционное и семейное право, сопровождение сделок.", phone:"+992 00 000 00 02" },
+  { cat:"translator", name:"Бюро переводов «Диалог»",       lat:38.5722, lng:68.7791, desc:"Нотариальные переводы RU/TJ/EN.", phone:"+992 00 000 00 03" },
+  { cat:"bank",       name:"Финконсультант при банке «Амонатбанк»", lat:38.5540, lng:68.7803, desc:"Открытие счетов, переводы, консультации на русском.", phone:"+992 00 000 00 04" },
+  { cat:"visa",       name:"Визовый центр «ПаспортСервис»", lat:38.5685, lng:68.7955, desc:"Оформление виз и регистрация иностранцев.", phone:"+992 00 000 00 05" },
+  { cat:"realtor",    name:"Риелтор Анна К.",               lat:38.5613, lng:68.7729, desc:"Аренда и покупка жилья, показы объектов.", phone:"+992 00 000 00 06" },
+  { cat:"transfer",   name:"Трансфер «Аэропорт-Сити»",      lat:38.5432, lng:68.8121, desc:"Встреча в аэропорту, поездки по городу.", phone:"+992 00 000 00 07" },
+  { cat:"sim",        name:"Салон связи «Tcell Центр»",     lat:38.5747, lng:68.7867, desc:"Оформление SIM/eSIM для иностранцев.", phone:"+992 00 000 00 08" },
+  { cat:"shop",       name:"Магазин «Русский продукт»",     lat:38.5658, lng:68.7880, desc:"Привычные продукты и бакалея.", phone:"+992 00 000 00 09" },
+  { cat:"school",     name:"Школа №1 им. А.С. Пушкина",     lat:38.5789, lng:68.7912, desc:"Обучение на русском языке, средняя школа.", phone:"+992 00 000 00 10" }
+];
+
+/* =========================================================
+   Карта
+   ========================================================= */
+const map = L.map('map', { scrollWheelZoom:false }).setView([38.5598, 68.7870], 13);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+function makeIcon(cat){
+  const c = CATS[cat];
+  return L.divIcon({
+    className: 'custom-pin',
+    html: `<div style="
+        background:${c.color};
+        width:32px;height:32px;border-radius:50% 50% 50% 0;
+        transform:rotate(-45deg);
+        display:flex;align-items:center;justify-content:center;
+        box-shadow:0 3px 8px rgba(0,0,0,.35);
+        border:2px solid #fff;">
+        <span style="transform:rotate(45deg); font-size:15px;">${c.icon}</span>
+      </div>`,
+    iconSize: [32,32],
+    iconAnchor: [16,30],
+    popupAnchor: [0,-28]
+  });
+}
+
+const markers = PLACES.map(p => {
+  const m = L.marker([p.lat, p.lng], { icon: makeIcon(p.cat) }).addTo(map);
+  m.bindPopup(`
+    <span class="popup-cat">${CATS[p.cat].icon} ${CATS[p.cat].label}</span>
+    <h3 class="popup-title">${p.name}</h3>
+    <p>${p.desc}</p>
+    <p class="popup-actions">📞 ${p.phone}</p>
+  `);
+  m._cat = p.cat;
+  return m;
+});
+
+/* Фильтры */
+document.getElementById('filters').addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-chip');
+  if(!btn) return;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  const cat = btn.dataset.cat;
+  markers.forEach(m => {
+    if(cat === 'all' || m._cat === cat){
+      if(!map.hasLayer(m)) m.addTo(map);
+    } else {
+      map.removeLayer(m);
+    }
+  });
+});
+
+/* Легенда с количеством точек по категориям */
+const legend = document.getElementById('legend');
+Object.entries(CATS).forEach(([key, c]) => {
+  const count = PLACES.filter(p => p.cat === key).length;
+  const card = document.createElement('div');
+  card.className = 'cat-card';
+  card.innerHTML = `<span class="icon">${c.icon}</span>
+    <span><span class="label">${c.label}</span><span class="count">${count} на карте</span></span>`;
+  legend.appendChild(card);
+});
+</script>
+
+</body>
+</html>

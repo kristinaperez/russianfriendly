@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Русскоязычные специалисты и сервисы в Даугавпилс — Карта Russian Friendly</title>
+<meta name="description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Даугавпилс на одной интерактивной карте.">
+<link rel="icon" href="/favicon.ico">
+
+<!-- ===================== SEO / GEO ===================== -->
+<link rel="canonical" href="https://russianfriendly.netlify.app/daugavpils">
+
+<!-- Open Graph / preview for smartphones -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Русскоязычные специалисты и сервисы в Даугавпилс — Карта Russian Friendly">
+<meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Даугавпилс на одной интерактивной карте.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/daugavpils">
+<meta property="og:image" content="https://russianfriendly.netlify.app/daugavpils/og-preview.jpg">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Даугавпилс">
+
+<!-- Mobile "add to home screen" -->
+<meta name="theme-color" content="#0B3350">
+
+<!-- JSON-LD: Map / WebPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Русскоязычные специалисты и сервисы в Даугавпилс",
+  "url": "https://russianfriendly.netlify.app/daugavpils",
+  "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Даугавпилс."
+}
+</script>
+
+<!-- JSON-LD: Person (автор) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Кристина Перез",
+  "url": "https://kristinaperez.netlify.app/",
+  "sameAs": [
+    "https://t.me/FeedbackCristinaBot",
+    "https://www.youtube.com/@Cristina-Perez-Monroe",
+    "https://kristinaperez.netlify.app/",
+    "https://pitermap.netlify.app/",
+    "https://aseosmadrid.netlify.app/"
+  ],
+  "jobTitle": "Автор проекта Russian Friendly"
+}
+</script>
+
+<!-- JSON-LD: FAQPage — прямые ответы на вопросы, которые задают в поиске и в чатах с ИИ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Где найти русскоязычного врача или стоматолога в Даугавпилс?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На карте Russian Friendly Даугавпилс собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как найти русские школы и сервисы в Даугавпилс?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/daugavpils для поиска школ, переводчиков, банковских консультантов и жилья."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Google Tag Manager -->
+<!-- Replace GTM-XXXXXXX with your real container ID before publishing -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+<style>
+  :root{
+    --color-bg: #1B1512;
+    --color-surface: #241C17;
+    --color-surface-2: #2C221C;
+    --color-maroon: #7A2E2A;
+    --color-maroon-soft: #96433D;
+    --color-ochre: #C98A2C;
+    --color-ochre-soft: #E3A94A;
+    --color-teal: #2F6E73;
+    --color-teal-soft: #3F868C;
+    --color-cream: #EDE3D0;
+    --color-cream-dim: #C9BFA9;
+    --color-rust: #B4643A;
+    --color-orange-mandate: #ff6600;
+
+    --font-display: "Fraunces", Georgia, serif;
+    --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", "Courier New", monospace;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-cream);
+    font-family: var(--font-body);
+    line-height: 1.55;
+  }
+
+  a{ color: var(--color-ochre-soft); }
+  a:focus-visible, button:focus-visible, .cat-btn:focus-visible{
+    outline: 2px solid var(--color-ochre-soft);
+    outline-offset: 3px;
+  }
+
+  .wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Hero / header ---------- */
+  .hero{
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 40px;
+  }
+  .hero-bands{
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 90% at 20% -10%, rgba(122,46,42,.85), transparent 60%),
+      radial-gradient(110% 80% at 85% 0%, rgba(201,138,44,.55), transparent 65%),
+      linear-gradient(180deg, #3a221d 0%, #241c17 55%, #1B1512 100%);
+    filter: blur(2px);
+    z-index: 0;
+  }
+  .hero-inner{
+    position: relative;
+    z-index: 1;
+    padding-top: 34px;
+  }
+
+  header.site-header{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(237,227,208,.14);
+  }
+
+  .brand .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--color-ochre-soft);
+    margin: 0 0 10px;
+  }
+  .brand h1{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(32px, 4.6vw, 54px);
+    line-height: 1.05;
+    margin: 0 0 12px;
+    color: var(--color-cream);
+  }
+  .brand p.tagline{
+    max-width: 46ch;
+    margin: 0;
+    color: var(--color-cream-dim);
+    font-size: 16px;
+  }
+
+  /* Promo block — colors mandated by the brief, kept exactly */
+  .promo-block{
+    flex: 0 0 auto;
+    max-width: 300px;
+    background: var(--color-orange-mandate);
+    color: #1a0e00;
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.4;
+    box-shadow: 0 10px 30px -8px rgba(255,102,0,.55);
+  }
+  .promo-block a{
+    color: #1a0e00;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  .hero-meta{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .hero-meta span{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 6px 10px;
+    border: 1px solid rgba(237,227,208,.25);
+    border-radius: 100px;
+    color: var(--color-cream-dim);
+  }
+
+  /* ---------- Category legend (signature: color-block swatches) ---------- */
+  section.categories{
+    padding: 36px 0 8px;
+  }
+  section.categories h2{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 22px;
+    margin: 0 0 16px;
+    color: var(--color-cream);
+  }
+  .cat-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 10px;
+    list-style: none;
+    margin: 0 0 8px;
+    padding: 0;
+  }
+  .cat-btn{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    text-align: left;
+    background: var(--color-surface);
+    border: 1px solid rgba(237,227,208,.12);
+    border-left: 6px solid var(--cat-color, var(--color-ochre));
+    border-radius: 6px;
+    padding: 10px 12px;
+    color: var(--color-cream);
+    font-family: var(--font-body);
+    font-size: 14px;
+    cursor: pointer;
+    transition: background .15s ease, transform .15s ease;
+  }
+  .cat-btn:hover{ background: var(--color-surface-2); }
+  .cat-btn[aria-pressed="false"]{ opacity: .5; }
+  .cat-btn .emoji{ font-size: 17px; }
+
+  /* ---------- Map ---------- */
+  section.map-section{ padding: 28px 0 10px; }
+  #map{
+    width: 100%;
+    height: 520px;
+    border-radius: 10px;
+    border: 1px solid rgba(237,227,208,.16);
+    background: var(--color-surface);
+  }
+  .leaflet-popup-content-wrapper{
+    background: var(--color-surface);
+    color: var(--color-cream);
+    border-radius: 8px;
+  }
+  .leaflet-popup-tip{ background: var(--color-surface); }
+  .leaflet-popup-content b{ font-family: var(--font-display); }
+  .popup-example-tag{
+    display: inline-block;
+    margin-top: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-ochre-soft);
+    letter-spacing: .04em;
+  }
+
+  .feedback-link{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 12px 18px;
+    background: var(--color-teal);
+    color: var(--color-cream);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: background .15s ease;
+  }
+  .feedback-link:hover{ background: var(--color-teal-soft); }
+
+  .map-note{
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--color-cream-dim);
+    max-width: 62ch;
+  }
+
+  /* ---------- About / body copy ---------- */
+  section.about{
+    padding: 48px 0 8px;
+    border-top: 1px solid rgba(237,227,208,.1);
+    margin-top: 40px;
+  }
+  section.about h2{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 26px;
+    margin: 0 0 14px;
+  }
+  section.about p{
+    max-width: 70ch;
+    color: var(--color-cream-dim);
+    font-size: 15px;
+  }
+
+  /* ---------- SEO / GEO block (verbatim per brief) ---------- */
+  .seo-geo-block{
+    margin: 48px 0 8px;
+    padding: 26px 24px;
+    background: var(--color-surface);
+    border-radius: 10px;
+    border: 1px solid rgba(237,227,208,.12);
+  }
+  .seo-geo-block h2{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 20px;
+    margin: 0 0 12px;
+  }
+  .seo-geo-block .promo{
+    margin: 6px 0;
+    font-size: 14px;
+    color: var(--color-cream-dim);
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    margin-top: 56px;
+    padding: 28px 0 40px;
+    border-top: 1px solid rgba(237,227,208,.14);
+  }
+  footer nav{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    font-size: 13px;
+  }
+  footer nav a{
+    color: var(--color-cream-dim);
+    text-decoration: none;
+  }
+  footer nav a:hover{ color: var(--color-ochre-soft); }
+  footer .copyright{
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(237,227,208,.4);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    .cat-btn{ transition: none; }
+  }
+
+  @media (max-width: 640px){
+    #map{ height: 420px; }
+    .promo-block{ max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-bands" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="wrap">
+      <header class="site-header">
+        <div class="brand">
+          <p class="eyebrow">Даугавпилс · Russian Friendly Map</p>
+          <h1>Русскоязычные специалисты и сервисы в Даугавпилс</h1>
+          <p class="tagline">Стоматологи, врачи, юристы, переводчики, школы и сервисы города — собраны на одной интерактивной карте.</p>
+          <div class="hero-meta">
+            <span>11 категорий</span>
+            <span>Обновляется сообществом</span>
+            <span>Часть сети Russian Friendly</span>
+          </div>
+        </div>
+        <div class="promo-block">
+          Переезжаешь в Испанию? Узнай, как заговорить →
+          <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a>
+        </div>
+      </header>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section class="categories" aria-label="Категории на карте">
+    <h2>Категории на карте</h2>
+    <ul class="cat-grid" id="catGrid"></ul>
+  </section>
+
+  <section class="map-section" aria-label="Карта">
+    <div id="map" role="application" aria-label="Интерактивная карта русскоязычных специалистов в Даугавпилс"></div>
+    <a class="feedback-link" href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">
+      Нашли неверные данные? Сообщите нам в бот
+    </a>
+    <p class="map-note">Отмеченные на карте точки — примеры для демонстрации формата каталога. Реальные проверенные контакты добавляются и уточняются через бота обратной связи.</p>
+  </section>
+
+  <section class="about">
+    <h2>О проекте</h2>
+    <p>Russian Friendly — сеть городских карт для русскоговорящих, живущих за пределами России. Даугавпилс — родной город Марка Ротко, и эта страница продолжает серию городских каталогов, объединяя стоматологов, врачей, юристов, переводчиков, банковских консультантов, визовые агентства, риелторов, трансферы, SIM/eSIM-операторов, русские магазины и рекомендованные школы в одном месте.</p>
+    <p>Если вы специалист или знаете хороший русскоязычный сервис в городе — напишите в бот обратной связи, и запись появится на карте после проверки.</p>
+  </section>
+
+  <section class="seo-geo-block">
+    <h2>Похожие запросы</h2>
+    <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+    <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav aria-label="Служебные ссылки">
+      <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+    </nav>
+    <p class="copyright">© Russian Friendly · Даугавпилс · russianfriendly.netlify.app/daugavpils</p>
+  </div>
+</footer>
+
+<script>
+  // ---------------------------------------------------------------
+  // Category definitions (color ties into the hero's color-field
+  // motif, and doubles as the marker legend).
+  // ---------------------------------------------------------------
+  const CATEGORIES = [
+    { id: "dentists",   emoji: "🦷", label: "Стоматологи",                 color: "#7A2E2A" },
+    { id: "doctors",    emoji: "👩‍⚕️", label: "Врачи",                      color: "#2F6E73" },
+    { id: "lawyers",    emoji: "⚖️",  label: "Юристы",                     color: "#C98A2C" },
+    { id: "translators",emoji: "📄", label: "Переводчики",                 color: "#96433D" },
+    { id: "banks",      emoji: "🏦", label: "Помощь с банками",            color: "#E3A94A" },
+    { id: "visas",      emoji: "🛂", label: "Визовые агентства",           color: "#3F868C" },
+    { id: "realestate", emoji: "🏠", label: "Аренда жилья / Риелторы",     color: "#B4643A" },
+    { id: "transfers",  emoji: "🚕", label: "Трансферы",                   color: "#C98A2C" },
+    { id: "sim",        emoji: "📱", label: "SIM / eSIM",                  color: "#3F868C" },
+    { id: "shops",      emoji: "🏠", label: "Русские магазины",            color: "#96433D" },
+    { id: "schools",    emoji: "🏠", label: "Русские / рекомендованные школы", color: "#7A2E2A" },
+  ];
+
+  // ---------------------------------------------------------------
+  // Example / placeholder entries — clearly marked as demo data.
+  // Replace with verified listings via the feedback bot.
+  // ---------------------------------------------------------------
+  const PLACES = [
+    { cat: "dentists",    name: "Пример: стоматология «Улыбка»",     lat: 55.8770, lng: 26.5210, note: "Демонстрационная запись формата каталога" },
+    { cat: "doctors",     name: "Пример: семейная клиника",          lat: 55.8721, lng: 26.5305, note: "Демонстрационная запись формата каталога" },
+    { cat: "lawyers",     name: "Пример: юридическая консультация",  lat: 55.8695, lng: 26.5440, note: "Демонстрационная запись формата каталога" },
+    { cat: "translators", name: "Пример: бюро переводов",            lat: 55.8802, lng: 26.5390, note: "Демонстрационная запись формата каталога" },
+    { cat: "banks",       name: "Пример: финансовый консультант",    lat: 55.8748, lng: 26.5480, note: "Демонстрационная запись формата каталога" },
+    { cat: "visas",       name: "Пример: визовое агентство",         lat: 55.8660, lng: 26.5330, note: "Демонстрационная запись формата каталога" },
+    { cat: "realestate",  name: "Пример: агентство недвижимости",    lat: 55.8790, lng: 26.5150, note: "Демонстрационная запись формата каталога" },
+    { cat: "transfers",   name: "Пример: служба трансферов",         lat: 55.8715, lng: 26.5520, note: "Демонстрационная запись формата каталога" },
+    { cat: "sim",         name: "Пример: салон связи",               lat: 55.8735, lng: 26.5265, note: "Демонстрационная запись формата каталога" },
+    { cat: "shops",       name: "Пример: русский магазин",           lat: 55.8680, lng: 26.5390, note: "Демонстрационная запись формата каталога" },
+    { cat: "schools",     name: "Пример: рекомендованная школа",     lat: 55.8825, lng: 26.5280, note: "Демонстрационная запись формата каталога" },
+  ];
+
+  const catGrid = document.getElementById("catGrid");
+  const activeCats = new Set(CATEGORIES.map(c => c.id));
+
+  CATEGORIES.forEach(cat => {
+    const li = document.createElement("li");
+    const btn = document.createElement("button");
+    btn.className = "cat-btn";
+    btn.type = "button";
+    btn.style.setProperty("--cat-color", cat.color);
+    btn.setAttribute("aria-pressed", "true");
+    btn.innerHTML = `<span class="emoji">${cat.emoji}</span><span>${cat.label}</span>`;
+    btn.addEventListener("click", () => {
+      const pressed = btn.getAttribute("aria-pressed") === "true";
+      btn.setAttribute("aria-pressed", String(!pressed));
+      if (pressed) activeCats.delete(cat.id); else activeCats.add(cat.id);
+      renderMarkers();
+    });
+    li.appendChild(btn);
+    catGrid.appendChild(li);
+  });
+
+  const map = L.map("map", { scrollWheelZoom: false }).setView([55.8748, 26.5362], 13);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19
+  }).addTo(map);
+
+  map.on("focus", () => map.scrollWheelZoom.enable());
+  map.on("blur", () => map.scrollWheelZoom.disable());
+
+  let markerLayer = L.layerGroup().addTo(map);
+
+  function catColor(id){
+    const c = CATEGORIES.find(c => c.id === id);
+    return c ? c.color : "#C98A2C";
+  }
+  function catLabel(id){
+    const c = CATEGORIES.find(c => c.id === id);
+    return c ? `${c.emoji} ${c.label}` : id;
+  }
+
+  function renderMarkers(){
+    markerLayer.clearLayers();
+    PLACES.filter(p => activeCats.has(p.cat)).forEach(p => {
+      const marker = L.circleMarker([p.lat, p.lng], {
+        radius: 9,
+        color: catColor(p.cat),
+        weight: 2,
+        fillColor: catColor(p.cat),
+        fillOpacity: 0.85
+      });
+      marker.bindPopup(
+        `<b>${p.name}</b><br>${catLabel(p.cat)}<br><span class="popup-example-tag">${p.note}</span>`
+      );
+      marker.addTo(markerLayer);
+    });
+  }
+
+  renderMarkers();
+</script>
+
+</body>
+</html>

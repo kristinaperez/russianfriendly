@@ -127,3 +127,8 @@
    - <a href="/about.html">About</a> (или https://russianfriendly.netlify.app/about)
    - <a href="/contact.html">Contact</a> (или https://russianfriendly.netlify.app/contact)
    - <a href="/privacy-policy.html">Privacy Policy</a> (или https://russianfriendly.netlify.app/privacy-policy)
+
+
+  И если можешь, нарисуй для Open Graph файл og:image, ты ведь вставляешь ссылку og-preview.jpg 
+
+  Файл robots делать не надо, он уже есть в корне сайта 

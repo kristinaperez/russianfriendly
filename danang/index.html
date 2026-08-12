@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Русскоязычные специалисты и сервисы в Дананг — Russian Friendly Map</title>
+  <meta name="description" content="Интерактивная карта русскоязычных специалистов и сервисов в Дананг: стоматологи, врачи, юристы, переводчики, школы, жильё, визовые агентства, SIM/eSIM и другие услуги.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="icon" href="/favicon.ico">
+
+  <!-- ===================== SEO / GEO ===================== -->
+  <link rel="canonical" href="https://russianfriendly.netlify.app/da-nang">
+
+  <!-- Open Graph / preview for smartphones -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Русскоязычные специалисты и сервисы в Дананг — Карта Russian Friendly">
+  <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Дананг на одной интерактивной карте.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/da-nang">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/da-nang/og-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Russian Friendly — русскоязычные специалисты и сервисы в Дананг">
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Дананг">
+  <meta name="twitter:description" content="Интерактивная карта и каталог русскоязычных специалистов и сервисов в Дананг.">
+  <meta name="twitter:image" content="https://russianfriendly.netlify.app/da-nang/og-preview.jpg">
+
+  <!-- Mobile "add to home screen" -->
+  <meta name="theme-color" content="#0B3350">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIINfQ3t2eJ4G7w9W2Qh4e0WmK5w5w5w5w="
+        crossorigin="">
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');
+  </script>
+
+  <!-- JSON-LD: Map / WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Русскоязычные специалисты и сервисы в Дананг",
+    "url": "https://russianfriendly.netlify.app/da-nang",
+    "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Дананг."
+  }
+  </script>
+
+  <!-- JSON-LD: Person (автор) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Кристина Перез",
+    "url": "https://kristinaperez.netlify.app/",
+    "sameAs": [
+      "https://t.me/FeedbackCristinaBot",
+      "https://www.youtube.com/@Cristina-Perez-Monroe",
+      "https://kristinaperez.netlify.app/",
+      "https://pitermap.netlify.app/",
+      "https://aseosmadrid.netlify.app/"
+    ],
+    "jobTitle": "Автор проекта Russian Friendly"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage — прямые ответы на вопросы, которые задают в поиске и в чатах с ИИ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Где найти русскоязычного врача или стоматолога в Дананг?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "На карте Russian Friendly Дананг собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Как найти русские школы и сервисы в Дананг?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/da-nang для поиска школ, переводчиков, банковских консультантов и жилья."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --navy: #0B3350;
+      --navy-2: #0e4266;
+      --orange: #ff6600;
+      --orange-dark: #dc5200;
+      --bg: #f4f7f9;
+      --text: #17212b;
+      --muted: #667784;
+      --white: #fff;
+      --border: #dce5ea;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      background: var(--navy);
+      color: var(--white);
+      border-bottom: 4px solid var(--orange);
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      min-width: 0;
+    }
+
+    .brand-label {
+      display: block;
+      color: #a9c6d7;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.15;
+    }
+
+    .ad-banner {
+      flex: 0 1 560px;
+      border: 2px solid var(--orange);
+      border-radius: 12px;
+      padding: 11px 16px;
+      background: rgba(255,102,0,.08);
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 18px rgba(0,0,0,.15);
+    }
+
+    .ad-banner:hover,
+    .ad-banner:focus-visible {
+      background: var(--orange);
+      color: #fff;
+    }
+
+    .ad-accent { color: var(--orange); }
+
+    .ad-banner:hover .ad-accent,
+    .ad-banner:focus-visible .ad-accent { color: #fff; }
+
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .intro {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 20px rgba(11,51,80,.06);
+    }
+
+    .intro h2 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 25px;
+    }
+
+    .intro p { margin: 6px 0; }
+
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .category {
+      border: 1px solid #cbd9e1;
+      background: #f8fbfc;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .category:hover,
+    .category.active {
+      border-color: var(--orange);
+      background: #fff3eb;
+      color: var(--orange-dark);
+    }
+
+    .map-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 26px rgba(11,51,80,.08);
+    }
+
+    #map {
+      width: 100%;
+      height: min(68vh, 720px);
+      min-height: 480px;
+    }
+
+    .feedback {
+      display: flex;
+      justify-content: center;
+      padding: 16px;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+
+    .feedback a {
+      display: inline-block;
+      padding: 11px 18px;
+      border-radius: 10px;
+      background: var(--orange);
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .feedback a:hover,
+    .feedback a:focus-visible {
+      background: var(--orange-dark);
+    }
+
+    .directory {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 14px;
+    }
+
+    .directory-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 17px;
+    }
+
+    .directory-card h3 {
+      margin: 0 0 6px;
+      color: var(--navy);
+      font-size: 18px;
+    }
+
+    .directory-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .seo-geo-block {
+      margin-top: 28px;
+      padding: 24px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .seo-geo-block h2 {
+      color: var(--navy);
+      margin-top: 0;
+    }
+
+    .promo {
+      margin: 9px 0;
+      padding: 11px 14px;
+      border-left: 4px solid var(--orange);
+      background: #fff7f2;
+    }
+
+    .promo a {
+      color: var(--orange-dark);
+      font-weight: 700;
+    }
+
+    footer {
+      margin-top: 28px;
+      padding: 25px 24px;
+      background: var(--navy);
+      color: #d9e8f0;
+    }
+
+    .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 20px;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    footer a:hover,
+    footer a:focus-visible {
+      color: var(--orange);
+      text-decoration: underline;
+    }
+
+    .leaflet-popup-content {
+      min-width: 220px;
+      font-size: 14px;
+    }
+
+    .popup-title {
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .popup-category {
+      display: inline-block;
+      margin-bottom: 7px;
+      color: var(--orange-dark);
+      font-weight: 700;
+    }
+
+    .popup-note {
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    @media (max-width: 820px) {
+      .header-inner {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .ad-banner {
+        flex-basis: auto;
+      }
+
+      main { padding: 14px; }
+
+      #map {
+        min-height: 430px;
+        height: 62vh;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-label">Russian Friendly Map</span>
+        <h1>Дананг — Russian Friendly Map</h1>
+      </div>
+
+      <a class="ad-banner"
+         href="https://kristinaperez.netlify.app/"
+         target="_blank"
+         rel="noopener">
+        Переезжаешь в Испанию? Узнай, как заговорить
+        <span class="ad-accent">→ kristinaperez.netlify.app</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="intro-title">
+      <h2 id="intro-title">Русскоязычные специалисты и сервисы в Дананг</h2>
+      <p>
+        Интерактивная карта и каталог полезных контактов для русскоязычных
+        экспатов, релокантов и путешественников в Дананге.
+      </p>
+      <div class="categories" aria-label="Категории">
+        <button class="category active" type="button" data-category="all">Все</button>
+        <button class="category" type="button" data-category="dentist">🦷 Стоматологи</button>
+        <button class="category" type="button" data-category="doctor">👩‍⚕️ Врачи</button>
+        <button class="category" type="button" data-category="lawyer">⚖️ Юристы</button>
+        <button class="category" type="button" data-category="translator">📄 Переводчики</button>
+        <button class="category" type="button" data-category="finance">🏦 Банки / финансы</button>
+        <button class="category" type="button" data-category="visa">🛂 Визовые агентства</button>
+        <button class="category" type="button" data-category="housing">🏠 Аренда / риелторы</button>
+        <button class="category" type="button" data-category="transfer">🚕 Трансферы</button>
+        <button class="category" type="button" data-category="sim">📱 SIM / eSIM</button>
+        <button class="category" type="button" data-category="border-run">🚍 Border Run</button>
+        <button class="category" type="button" data-category="shop">🛍️ Русские магазины</button>
+        <button class="category" type="button" data-category="school">🏫 Школы</button>
+      </div>
+    </section>
+
+    <section class="map-card" aria-label="Интерактивная карта Дананга">
+      <div id="map"></div>
+      <div class="feedback">
+        <a href="https://t.me/RussianFriendlyFeedbackbot"
+           target="_blank"
+           rel="noopener">
+          Нашли неверные данные? Сообщите нам в бот
+        </a>
+      </div>
+    </section>
+
+    <section class="directory" aria-label="Каталог категорий">
+      <article class="directory-card">
+        <h3>🦷 Стоматологи и врачи</h3>
+        <p>Клиники и специалисты, где доступно русскоязычное сопровождение.</p>
+      </article>
+      <article class="directory-card">
+        <h3>⚖️ Юристы и переводчики</h3>
+        <p>Помощь с документами, переводами и юридическими вопросами.</p>
+      </article>
+      <article class="directory-card">
+        <h3>🛂 Визы и Border Run</h3>
+        <p>Визовые агентства и сервисы для организации выездов.</p>
+      </article>
+      <article class="directory-card">
+        <h3>🏠 Жильё</h3>
+        <p>Аренда квартир, домов и услуги риелторов.</p>
+      </article>
+      <article class="directory-card">
+        <h3>📱 SIM / eSIM</h3>
+        <p>Мобильная связь и подключение SIM/eSIM.</p>
+      </article>
+      <article class="directory-card">
+        <h3>🛍️ Магазины и 🏫 школы</h3>
+        <p>Русские магазины, русскоязычные школы и рекомендуемые учебные места.</p>
+      </article>
+    </section>
+
+    <section class="seo-geo-block">
+      <h2>Похожие запросы</h2>
+      <p class="promo">
+        Переезжаешь в Испанию? Узнай, как заговорить →
+        <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a>
+      </p>
+      <p class="promo">
+        Едешь в Мадрид? Выбери район для прогулки →
+        <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© Russian Friendly — Дананг</div>
+      <nav class="footer-links" aria-label="Информационные страницы">
+        <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+
+  <script>
+    // Дананг: центр города.
+    const map = L.map('map', {
+      scrollWheelZoom: true
+    }).setView([16.0544, 108.2022], 12);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'
+    }).addTo(map);
+
+    /*
+      Реальные карточки добавляйте в массив locations.
+      Координаты ниже — демонстрационные ориентиры по районам Дананга,
+      чтобы карта была интерактивной сразу после загрузки.
+    */
+    const locations = [
+      {
+        category: 'dentist',
+        icon: '🦷',
+        title: 'Стоматология — добавить проверенный контакт',
+        lat: 16.0678,
+        lng: 108.2208,
+        note: 'Карточка ожидает подтверждённые данные.'
+      },
+      {
+        category: 'doctor',
+        icon: '👩‍⚕️',
+        title: 'Врач / клиника — добавить контакт',
+        lat: 16.0471,
+        lng: 108.2068,
+        note: 'Добавьте русскоязычного специалиста после проверки.'
+      },
+      {
+        category: 'lawyer',
+        icon: '⚖️',
+        title: 'Юрист — добавить проверенный контакт',
+        lat: 16.0605,
+        lng: 108.2150,
+        note: 'Карточка ожидает подтверждённые данные.'
+      },
+      {
+        category: 'translator',
+        icon: '📄',
+        title: 'Переводчик — добавить контакт',
+        lat: 16.0627,
+        lng: 108.2090,
+        note: 'Добавьте имя, язык, телефон и ссылку.'
+      },
+      {
+        category: 'finance',
+        icon: '🏦',
+        title: 'Банки / финансовые консультации',
+        lat: 16.0690,
+        lng: 108.2160,
+        note: 'Рекомендуется указывать только проверенные услуги.'
+      },
+      {
+        category: 'visa',
+        icon: '🛂',
+        title: 'Визовое агентство — добавить контакт',
+        lat: 16.0520,
+        lng: 108.2200,
+        note: 'Добавьте проверенное агентство.'
+      },
+      {
+        category: 'housing',
+        icon: '🏠',
+        title: 'Аренда жилья / риелтор — добавить контакт',
+        lat: 16.0595,
+        lng: 108.2350,
+        note: 'Добавьте проверенного русскоязычного риелтора.'
+      },
+      {
+        category: 'transfer',
+        icon: '🚕',
+        title: 'Трансферы — добавить контакт',
+        lat: 16.0540,
+        lng: 108.2300,
+        note: 'Трансфер из аэропорта и по Данангу.'
+      },
+      {
+        category: 'sim',
+        icon: '📱',
+        title: 'SIM / eSIM — добавить сервис',
+        lat: 16.0555,
+        lng: 108.2020,
+        note: 'Добавьте проверенный сервис мобильной связи.'
+      },
+      {
+        category: 'border-run',
+        icon: '🚍',
+        title: 'Border Run — добавить организатора',
+        lat: 16.0500,
+        lng: 108.2100,
+        note: 'Организация выездов для визовых процедур.'
+      },
+      {
+        category: 'shop',
+        icon: '🛍️',
+        title: 'Русский магазин — добавить контакт',
+        lat: 16.0610,
+        lng: 108.2440,
+        note: 'Магазин с привычными русскоязычным клиентам товарами.'
+      },
+      {
+        category: 'school',
+        icon: '🏫',
+        title: 'Школа — добавить проверенный контакт',
+        lat: 16.0710,
+        lng: 108.2240,
+        note: 'Русскоязычная или рекомендованная школа.'
+      }
+    ];
+
+    const markers = [];
+
+    function addLocation(item) {
+      const marker = L.marker([item.lat, item.lng]).addTo(map);
+      marker.bindPopup(`
+        <div class="popup-title">${item.icon} ${escapeHtml(item.title)}</div>
+        <div class="popup-category">${escapeHtml(categoryName(item.category))}</div>
+        <div class="popup-note">${escapeHtml(item.note)}</div>
+      `);
+      marker._category = item.category;
+      markers.push(marker);
+    }
+
+    function categoryName(category) {
+      const names = {
+        dentist: 'Стоматологи',
+        doctor: 'Врачи',
+        lawyer: 'Юристы',
+        translator: 'Переводчики',
+        finance: 'Банки / финансы',
+        visa: 'Визовые агентства',
+        housing: 'Аренда / риелторы',
+        transfer: 'Трансферы',
+        sim: 'SIM / eSIM',
+        'border-run': 'Border Run',
+        shop: 'Русские магазины',
+        school: 'Школы'
+      };
+      return names[category] || 'Сервис';
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      }[char]));
+    }
+
+    locations.forEach(addLocation);
+
+    document.querySelectorAll('.category').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.category').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        const selected = button.dataset.category;
+
+        markers.forEach(marker => {
+          if (selected === 'all' || marker._category === selected) {
+            if (!map.hasLayer(marker)) marker.addTo(map);
+          } else {
+            if (map.hasLayer(marker)) map.removeLayer(marker);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

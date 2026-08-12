@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Русскоязычные специалисты и сервисы в Стамбул — Russian Friendly Map</title>
+  <meta name="description" content="Интерактивная карта русскоязычных специалистов, услуг и организаций в Стамбуле: врачи, стоматологи, юристы, переводчики, школы, жильё и сервисы.">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="/favicon.ico">
+
+  <!-- ===================== SEO / GEO ===================== -->
+  <link rel="canonical" href="https://russianfriendly.netlify.app/istanbul">
+
+  <!-- Open Graph / preview for smartphones -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Русскоязычные специалисты и сервисы в Стамбул — Карта Russian Friendly">
+  <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Стамбул на одной интерактивной карте.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/istanbul">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/istanbul/og-preview.jpg">
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Стамбул">
+
+  <!-- Mobile "add to home screen" -->
+  <meta name="theme-color" content="#0B3350">
+
+  <!-- JSON-LD: Map / WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Русскоязычные специалисты и сервисы в Стамбул",
+    "url": "https://russianfriendly.netlify.app/istanbul",
+    "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Стамбул."
+  }
+  </script>
+
+  <!-- JSON-LD: Person (автор) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Кристина Перез",
+    "url": "https://kristinaperez.netlify.app/",
+    "sameAs": [
+      "https://t.me/FeedbackCristinaBot",
+      "https://www.youtube.com/@Cristina-Perez-Monroe",
+      "https://kristinaperez.netlify.app/",
+      "https://pitermap.netlify.app/",
+      "https://aseosmadrid.netlify.app/"
+    ],
+    "jobTitle": "Автор проекта Russian Friendly"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage — прямые ответы на вопросы, которые задают в поиске и в чатах с ИИ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Где найти русскоязычного врача или стоматолога в Стамбул?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "На карте Russian Friendly Стамбул собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Как найти русские школы и сервисы в Стамбул?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/istanbul для поиска школ, переводчиков, банковских консультантов и жилья."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Tag Manager: замените GTM-XXXXXXX на ваш ID -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+  </script>
+  <!-- При наличии GTM ID раскомментируйте контейнер:
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+  -->
+
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://tile.openstreetmap.org">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIINfQ3iKc3kM3s7q4Q6x5jQ0QjY8Yv8j0="
+        crossorigin="">
+
+  <style>
+    :root {
+      --navy: #0B3350;
+      --navy-2: #124766;
+      --orange: #ff6600;
+      --orange-light: #fff1e8;
+      --bg: #f4f7f9;
+      --text: #173042;
+      --muted: #657785;
+      --white: #fff;
+      --border: #dce5ea;
+      --shadow: 0 8px 24px rgba(11,51,80,.10);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      background: linear-gradient(135deg, var(--navy), #0e405e);
+      color: white;
+      padding: 16px 20px;
+      box-shadow: 0 3px 18px rgba(0,0,0,.14);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      text-decoration: none;
+      min-width: 250px;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: clamp(20px, 3vw, 30px);
+      line-height: 1.15;
+    }
+
+    .brand span {
+      opacity: .78;
+      font-size: 13px;
+    }
+
+    .ad {
+      background: #fff;
+      color: var(--orange);
+      border: 2px solid var(--orange);
+      border-radius: 12px;
+      padding: 9px 13px;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      text-align: center;
+      transition: .2s;
+    }
+
+    .ad:hover {
+      background: var(--orange);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 16px 50px;
+    }
+
+    .intro {
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(25px, 4vw, 38px);
+      line-height: 1.15;
+    }
+
+    .intro p {
+      color: var(--muted);
+      margin: 0;
+      max-width: 850px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel, .map-card, .seo-geo-block, .faq {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: 16px;
+      position: sticky;
+      top: 92px;
+      max-height: calc(100vh - 110px);
+      overflow: auto;
+    }
+
+    .panel h2 {
+      font-size: 18px;
+      margin: 0 0 12px;
+    }
+
+    .search {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 12px;
+      font-size: 15px;
+      margin-bottom: 12px;
+      outline: none;
+    }
+
+    .search:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(255,102,0,.12);
+    }
+
+    .category-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    .category-btn {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      border-radius: 10px;
+      padding: 10px 11px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 14px;
+      transition: .18s;
+    }
+
+    .category-btn:hover, .category-btn.active {
+      background: var(--orange-light);
+      border-color: var(--orange);
+      color: #a53d00;
+      font-weight: 700;
+    }
+
+    .legend-note {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 14px 0 0;
+    }
+
+    .map-card {
+      overflow: hidden;
+    }
+
+    #map {
+      width: 100%;
+      height: min(70vh, 650px);
+      min-height: 460px;
+    }
+
+    .map-under {
+      padding: 13px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .feedback {
+      color: var(--orange);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .feedback:hover { text-decoration: underline; }
+
+    .count {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .seo-geo-block, .faq {
+      margin-top: 22px;
+      padding: 22px;
+    }
+
+    .seo-geo-block h2, .faq h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .promo {
+      margin: 9px 0;
+      padding: 10px 12px;
+      background: var(--orange-light);
+      border-left: 4px solid var(--orange);
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .promo a {
+      color: var(--orange);
+    }
+
+    .faq details {
+      border-top: 1px solid var(--border);
+      padding: 12px 0;
+    }
+
+    .faq summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    footer {
+      background: var(--navy);
+      color: #dcebf3;
+      padding: 26px 16px;
+    }
+
+    .footer-inner {
+      max-width: 1280px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    footer nav {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    footer a:hover { color: #ffad7c; }
+
+    .leaflet-popup-content-wrapper {
+      border-radius: 12px;
+    }
+
+    .popup-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+
+    .popup-category {
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .popup-desc {
+      margin: 5px 0;
+    }
+
+    .popup-link {
+      display: inline-block;
+      margin-top: 5px;
+      color: var(--orange);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    @media (max-width: 850px) {
+      .header-inner {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .brand { min-width: 0; }
+
+      .ad { display: block; }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        position: static;
+        max-height: none;
+      }
+
+      #map {
+        min-height: 430px;
+        height: 62vh;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Если подключаете GTM, разместите noscript-контейнер сразу после <body>. -->
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="https://russianfriendly.netlify.app/" aria-label="Russian Friendly — главная">
+        <strong>Стамбул — Russian Friendly Map</strong>
+        <span>Русскоязычные специалисты, услуги и полезные места</span>
+      </a>
+
+      <a class="ad"
+         href="https://kristinaperez.netlify.app/"
+         target="_blank"
+         rel="noopener">
+        Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Русскоязычные специалисты и сервисы в Стамбул</h1>
+      <p>
+        Интерактивная карта и каталог полезных контактов для русскоязычных жителей,
+        путешественников и тех, кто переезжает в Стамбул.
+      </p>
+    </section>
+
+    <section class="layout" aria-label="Карта и категории">
+      <aside class="panel">
+        <h2>Категории</h2>
+        <input id="search" class="search" type="search"
+               placeholder="Поиск по названию или описанию…"
+               aria-label="Поиск специалистов и сервисов">
+
+        <div id="categories" class="category-list"></div>
+        <p class="legend-note">
+          Выберите категорию или воспользуйтесь поиском. Нажмите на метку,
+          чтобы открыть информацию.
+        </p>
+      </aside>
+
+      <section class="map-card">
+        <div id="map" aria-label="Интерактивная карта Стамбула"></div>
+
+        <div class="map-under">
+          <a class="feedback"
+             href="https://t.me/RussianFriendlyFeedbackbot"
+             target="_blank"
+             rel="noopener">
+            Нашли неверные данные? Сообщите нам в бот
+          </a>
+          <span id="count" class="count"></span>
+        </div>
+      </section>
+    </section>
+
+    <section class="faq">
+      <h2>Частые вопросы</h2>
+      <details>
+        <summary>Где найти русскоязычного врача или стоматолога в Стамбул?</summary>
+        <p>
+          На карте Russian Friendly Стамбул собраны контакты врачей, стоматологов
+          и клиник с русскоязычным персоналом.
+        </p>
+      </details>
+      <details>
+        <summary>Как найти русские школы и сервисы в Стамбул?</summary>
+        <p>
+          Используйте интерактивный каталог для поиска школ, переводчиков,
+          банковских консультантов, жилья и других сервисов.
+        </p>
+      </details>
+    </section>
+
+    <!-- ===================== VISIBLE SEO / GEO ===================== -->
+    <section class="seo-geo-block">
+      <h2>Похожие запросы</h2>
+      <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить →
+        <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a>
+      </p>
+      <p class="promo">Едешь в Мадрид? Выбери район для прогулки →
+        <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© <span id="year"></span> Russian Friendly</div>
+      <nav aria-label="Информационные страницы">
+        <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+
+  <script>
+    /*
+      Данные карты.
+      Заменяйте/добавляйте реальные организации и контакты.
+      Координаты ниже — демонстрационные точки по районам Стамбула.
+      Не называйте их "проверенными", пока они не прошли вашу проверку.
+    */
+    const places = [
+      {
+        name: "Русскоязычный стоматолог — пример",
+        category: "🦷 Стоматологи",
+        lat: 41.0082, lng: 28.9784,
+        description: "Демонстрационная точка. Замените на реальную карточку.",
+        url: ""
+      },
+      {
+        name: "Русскоязычный врач — пример",
+        category: "👩‍⚕️ Врачи",
+        lat: 41.0602, lng: 28.9877,
+        description: "Демонстрационная точка. Добавьте реальные данные после проверки.",
+        url: ""
+      },
+      {
+        name: "Юрист — пример",
+        category: "⚖️ Юристы",
+        lat: 41.0430, lng: 29.0094,
+        description: "Юридические консультации на русском языке.",
+        url: ""
+      },
+      {
+        name: "Переводчик — пример",
+        category: "📄 Переводчики",
+        lat: 41.0328, lng: 28.9744,
+        description: "Письменный и устный перевод. Демонстрационная карточка.",
+        url: ""
+      },
+      {
+        name: "Банковские и финансовые консультации — пример",
+        category: "🏦 Банки / финансы",
+        lat: 41.0522, lng: 29.0021,
+        description: "Помощь с банковскими вопросами. Демонстрационная карточка.",
+        url: ""
+      },
+      {
+        name: "Визовое агентство — пример",
+        category: "🛂 Визовые агентства",
+        lat: 41.0274, lng: 28.9742,
+        description: "Визовые и миграционные услуги. Демонстрационная карточка.",
+        url: ""
+      },
+      {
+        name: "Риелтор / аренда жилья — пример",
+        category: "🏠 Аренда жилья / Риелторы",
+        lat: 41.0780, lng: 29.0300,
+        description: "Аренда и подбор жилья. Демонстрационная карточка.",
+        url: ""
+      },
+      {
+        name: "Трансферы — пример",
+        category: "🚕 Трансферы",
+        lat: 41.0955, lng: 28.8020,
+        description: "Трансферы из аэропортов и по Стамбулу.",
+        url: ""
+      },
+      {
+        name: "SIM / eSIM — пример",
+        category: "📱 SIM / eSIM",
+        lat: 41.0105, lng: 28.9680,
+        description: "Помощь с SIM/eSIM. Демонстрационная карточка.",
+        url: ""
+      },
+      {
+        name: "Border Run — пример",
+        category: "🚍 Border Run",
+        lat: 41.0086, lng: 29.0213,
+        description: "Организация выездов. Демонстрационная карточка; проверяйте актуальные правила въезда и пребывания.",
+        url: ""
+      },
+      {
+        name: "Русский магазин — пример",
+        category: "🛒 Русские магазины",
+        lat: 41.0470, lng: 28.9930,
+        description: "Товары привычного ассортимента. Демонстрационная карточка.",
+        url: ""
+      },
+      {
+        name: "Русскоязычная школа — пример",
+        category: "🏫 Школы",
+        lat: 41.0775, lng: 29.0155,
+        description: "Русскоязычная или рекомендованная школа. Демонстрационная карточка.",
+        url: ""
+      }
+    ];
+
+    const map = L.map("map", {
+      scrollWheelZoom: true,
+      zoomControl: true
+    }).setView([41.0082, 28.9784], 11);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    const markersLayer = L.layerGroup().addTo(map);
+
+    const categoriesEl = document.getElementById("categories");
+    const searchEl = document.getElementById("search");
+    const countEl = document.getElementById("count");
+
+    const categories = ["Все категории", ...new Set(places.map(p => p.category))];
+
+    let activeCategory = "Все категории";
+    let searchTerm = "";
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function renderCategories() {
+      categoriesEl.innerHTML = "";
+
+      categories.forEach(category => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "category-btn" + (category === activeCategory ? " active" : "");
+        button.textContent = category;
+
+        button.addEventListener("click", () => {
+          activeCategory = category;
+          renderCategories();
+          renderMarkers();
+        });
+
+        categoriesEl.appendChild(button);
+      });
+    }
+
+    function getFilteredPlaces() {
+      return places.filter(place => {
+        const categoryMatch =
+          activeCategory === "Все категории" || place.category === activeCategory;
+
+        const haystack = [
+          place.name,
+          place.category,
+          place.description
+        ].join(" ").toLowerCase();
+
+        return categoryMatch && haystack.includes(searchTerm);
+      });
+    }
+
+    function renderMarkers() {
+      markersLayer.clearLayers();
+
+      const filtered = getFilteredPlaces();
+
+      filtered.forEach(place => {
+        const marker = L.marker([place.lat, place.lng]);
+
+        const safeName = escapeHtml(place.name);
+        const safeCategory = escapeHtml(place.category);
+        const safeDescription = escapeHtml(place.description);
+
+        const link = place.url
+          ? `<a class="popup-link" href="${escapeHtml(place.url)}" target="_blank" rel="noopener">Открыть сайт →</a>`
+          : "";
+
+        marker.bindPopup(`
+          <div>
+            <div class="popup-title">${safeName}</div>
+            <div class="popup-category">${safeCategory}</div>
+            <div class="popup-desc">${safeDescription}</div>
+            ${link}
+          </div>
+        `);
+
+        marker.addTo(markersLayer);
+      });
+
+      countEl.textContent =
+        `Показано: ${filtered.length} из ${places.length}`;
+
+      if (filtered.length === 1) {
+        map.setView([filtered[0].lat, filtered[0].lng], 14, { animate: true });
+      }
+    }
+
+    searchEl.addEventListener("input", event => {
+      searchTerm = event.target.value.trim().toLowerCase();
+      renderMarkers();
+    });
+
+    renderCategories();
+    renderMarkers();
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

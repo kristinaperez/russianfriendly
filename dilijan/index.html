@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Русскоязычные специалисты и сервисы в Дилижан — Карта Russian Friendly</title>
+<meta name="description" content="Стоматологи, врачи, юристы, переводчики, банки, визовые агентства, жильё, трансферы, SIM/eSIM, border run, русские магазины и школы в Дилижан — на одной интерактивной карте.">
+<link rel="icon" href="/favicon.ico">
+
+<!-- ===================== SEO / GEO ===================== -->
+<link rel="canonical" href="https://russianfriendly.netlify.app/dilijan">
+
+<!-- Open Graph / preview for smartphones -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Russian Friendly">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Русскоязычные специалисты и сервисы в Дилижан — Карта Russian Friendly">
+<meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Дилижан на одной интерактивной карте.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/dilijan">
+<meta property="og:image" content="https://russianfriendly.netlify.app/dilijan/og-preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Дилижан">
+<meta name="twitter:description" content="Карта врачей, юристов, переводчиков, жилья и сервисов для русскоязычных в Дилижан.">
+<meta name="twitter:image" content="https://russianfriendly.netlify.app/dilijan/og-preview.jpg">
+
+<!-- Mobile "add to home screen" -->
+<meta name="theme-color" content="#0B3350">
+
+<!-- JSON-LD: Map / WebPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Русскоязычные специалисты и сервисы в Дилижан",
+  "url": "https://russianfriendly.netlify.app/dilijan",
+  "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Дилижан."
+}
+</script>
+
+<!-- JSON-LD: Person (автор) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Кристина Перез",
+  "url": "https://kristinaperez.netlify.app/",
+  "sameAs": [
+    "https://t.me/FeedbackCristinaBot",
+    "https://www.youtube.com/@Cristina-Perez-Monroe",
+    "https://kristinaperez.netlify.app/",
+    "https://pitermap.netlify.app/",
+    "https://aseosmadrid.netlify.app/"
+  ],
+  "jobTitle": "Автор проекта Russian Friendly"
+}
+</script>
+
+<!-- JSON-LD: FAQPage — прямые ответы на вопросы, которые задают в поиске и в чатах с ИИ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Где найти русскоязычного врача или стоматолога в Дилижан?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На карте Russian Friendly Дилижан собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как найти русские школы и сервисы в Дилижан?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/dilijan для поиска школ, переводчиков, банковских консультантов и жилья."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+<style>
+  :root{
+    --forest: #1F3B2D;
+    --forest-dark: #142A20;
+    --timber: #7A4B32;
+    --cream: #F1E9DA;
+    --gold: #C89B4A;
+    --slate: #4A5D6B;
+    --ink: #21231F;
+    --white: #FFFFFF;
+    --ad-orange: #ff6600;
+    --radius: 10px;
+    --max: 1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3{
+    font-family:'PT Serif', Georgia, serif;
+    color:var(--forest-dark);
+    margin:0 0 .4em;
+  }
+  a{color:var(--forest);}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 24px;}
+  img{max-width:100%; display:block;}
+
+  /* ---------- ridge divider (signature element) ---------- */
+  .ridge{ display:block; width:100%; height:46px; }
+  .ridge.top{ background:var(--forest-dark); }
+  .ridge.bottom{ background:var(--forest-dark); transform:scaleY(-1); }
+
+  /* ---------- header ---------- */
+  header.site-header{
+    background:var(--forest);
+    color:var(--cream);
+    padding:34px 0 30px;
+  }
+  .header-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:28px;
+    flex-wrap:wrap;
+  }
+  .brand-eyebrow{
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:700;
+    margin-bottom:8px;
+  }
+  header.site-header h1{
+    color:var(--cream);
+    font-size:clamp(2rem, 4vw, 2.9rem);
+    margin-bottom:.2em;
+  }
+  header.site-header .subtitle{
+    color:#D7DFD8;
+    font-size:1.05rem;
+    max-width:46ch;
+  }
+  .breadcrumb{
+    font-size:.82rem;
+    color:#9FB2A4;
+    margin-top:12px;
+  }
+  .breadcrumb a{ color:#C8D8CB; }
+
+  /* ---------- promo ad block (required exact colors) ---------- */
+  .promo-ad{
+    flex:0 0 auto;
+    max-width:300px;
+    background:var(--ad-orange);
+    color:#fff;
+    padding:16px 18px;
+    border-radius:var(--radius);
+    font-weight:600;
+    font-size:.95rem;
+    line-height:1.4;
+    box-shadow:0 6px 18px rgba(255,102,0,.28);
+  }
+  .promo-ad a{
+    color:#fff;
+    text-decoration:underline;
+    text-underline-offset:3px;
+    font-weight:800;
+  }
+
+  /* ---------- intro ---------- */
+  section.intro{ padding:38px 0 8px; }
+  section.intro p{ max-width:68ch; color:#3B3D36; font-size:1.02rem; }
+
+  /* ---------- category filter chips ---------- */
+  .chip-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:22px 0 6px;
+  }
+  .chip{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:#fff;
+    border:1.5px solid #E1D6BE;
+    color:var(--forest-dark);
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:.88rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:background .15s, border-color .15s, transform .1s;
+    user-select:none;
+  }
+  .chip:hover{ transform:translateY(-1px); }
+  .chip.active{
+    background:var(--gold);
+    border-color:var(--gold);
+    color:var(--forest-dark);
+  }
+  .chip .count{
+    background:rgba(0,0,0,.08);
+    border-radius:999px;
+    padding:1px 7px;
+    font-size:.76rem;
+  }
+
+  /* ---------- map ---------- */
+  section.map-section{ padding:22px 0 10px; }
+  #map{
+    width:100%;
+    height:520px;
+    border-radius:14px;
+    border:1px solid #DCCFAF;
+    box-shadow:0 10px 30px rgba(20,42,32,.14);
+  }
+  .leaflet-div-icon.rf-marker{
+    background:var(--forest);
+    border:2px solid var(--cream);
+    border-radius:50% 50% 50% 0;
+    transform:rotate(-45deg);
+    width:34px !important;
+    height:34px !important;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 3px 8px rgba(0,0,0,.35);
+  }
+  .rf-marker span{
+    transform:rotate(45deg);
+    font-size:16px;
+    line-height:1;
+  }
+  .feedback-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:16px;
+    padding:12px 20px;
+    background:var(--timber);
+    color:#fff;
+    text-decoration:none;
+    font-weight:700;
+    border-radius:8px;
+    font-size:.94rem;
+    box-shadow:0 6px 16px rgba(122,75,50,.28);
+  }
+  .feedback-cta:hover{ background:#653d2a; }
+  .feedback-cta svg{ width:18px; height:18px; flex:none; }
+
+  /* ---------- directory ---------- */
+  section.directory{ padding:46px 0 10px; }
+  section.directory > h2{ font-size:1.7rem; }
+  .directory-lede{ color:#3B3D36; max-width:60ch; margin-bottom:24px; }
+  .cat-group{
+    margin-bottom:34px;
+    scroll-margin-top:20px;
+  }
+  .cat-group h3{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:1.22rem;
+    border-bottom:2px solid #E1D6BE;
+    padding-bottom:8px;
+    margin-bottom:16px;
+  }
+  .cat-emoji{ font-size:1.3rem; }
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
+    gap:16px;
+  }
+  .card{
+    background:#fff;
+    border:1px solid #E7DCC3;
+    border-radius:var(--radius);
+    padding:16px 18px;
+  }
+  .card h4{
+    margin:0 0 6px;
+    font-family:'PT Serif', serif;
+    font-size:1.05rem;
+    color:var(--forest-dark);
+  }
+  .card p{ margin:0 0 8px; font-size:.9rem; color:#4B4D44; }
+  .card .meta{
+    font-size:.82rem;
+    color:var(--slate);
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+  }
+  .card .meta a{ color:var(--forest); text-decoration:none; font-weight:600; }
+  .card .meta a:hover{ text-decoration:underline; }
+
+  /* ---------- SEO/GEO visible block ---------- */
+  .seo-geo-block{
+    background:var(--forest-dark);
+    color:#E7EFE7;
+    padding:40px 0 44px;
+    margin-top:50px;
+  }
+  .seo-geo-block .wrap{}
+  .seo-geo-block h2{ color:var(--cream); font-size:1.4rem; }
+  .seo-geo-block .promo{ margin:10px 0; font-size:.95rem; color:#C9D6CB; }
+  .seo-geo-block .promo a{ color:var(--gold); font-weight:700; }
+  .faq-visible{
+    margin-top:22px;
+    display:grid;
+    gap:14px;
+  }
+  .faq-visible details{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:8px;
+    padding:10px 14px;
+  }
+  .faq-visible summary{ cursor:pointer; font-weight:600; color:var(--cream); }
+  .faq-visible p{ color:#C9D6CB; font-size:.9rem; margin:8px 0 2px; }
+
+  /* ---------- footer ---------- */
+  footer.site-footer{
+    background:#0F1E16;
+    color:#93A398;
+    padding:26px 0 30px;
+    font-size:.86rem;
+  }
+  footer.site-footer .wrap{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px 28px;
+    align-items:center;
+    justify-content:space-between;
+  }
+  footer.site-footer nav{ display:flex; flex-wrap:wrap; gap:18px; }
+  footer.site-footer a{ color:#C9D6CB; text-decoration:none; }
+  footer.site-footer a:hover{ text-decoration:underline; }
+
+  @media (max-width:640px){
+    #map{ height:420px; }
+    .promo-ad{ max-width:100%; }
+  }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<svg class="ridge top" viewBox="0 0 1200 46" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <polygon points="0,46 0,26 100,10 220,30 340,6 460,24 600,2 740,26 860,8 980,28 1100,12 1200,26 1200,46" fill="#1F3B2D"/>
+</svg>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <div>
+      <div class="brand-eyebrow">Russian Friendly · карта города</div>
+      <h1>Дилижан — карта русскоязычных специалистов</h1>
+      <p class="subtitle">Врачи, юристы, переводчики, жильё, трансферы и другие проверенные сервисы для тех, кто живёт, переезжает или отдыхает в Дилижан.</p>
+      <p class="breadcrumb"><a href="https://russianfriendly.netlify.app/">Russian Friendly</a> → Дилижан</p>
+    </div>
+    <aside class="promo-ad">
+      Переезжаешь в Испанию? Узнай, как заговорить →
+      <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a>
+    </aside>
+  </div>
+</header>
+
+<main>
+  <section class="intro">
+    <div class="wrap">
+      <p>Дилижан — курортный городок в лесистых горах Тавуша, который русскоязычные экспаты и туристы называют «армянской Швейцарией». Ниже — интерактивная карта проверенных специалистов и сервисов с русским языком: от стоматологов и врачей до переводчиков, риелторов и организаторов border run.</p>
+      <div class="chip-row" id="chipRow" role="group" aria-label="Фильтр по категориям"></div>
+    </div>
+  </section>
+
+  <section class="map-section">
+    <div class="wrap">
+      <div id="map" role="application" aria-label="Карта специалистов в Дилижан"></div>
+      <a class="feedback-cta" href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 4L2.5 11.2c-.9.4-.9 1.7.1 2l4.9 1.6 1.8 5.9c.3.9 1.4 1.1 2 .4l2.7-2.9 4.9 3.6c.8.6 2 .1 2.1-.9L23 5.4c.2-1-.9-1.8-2-1.4z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        Нашли неверные данные? Сообщите нам в бот
+      </a>
+    </div>
+  </section>
+
+  <section class="directory">
+    <div class="wrap">
+      <h2>Каталог по категориям</h2>
+      <p class="directory-lede">Каждая карточка дублирует метку на карте выше. Нажмите на категорию в фильтре, чтобы увидеть только нужные точки.</p>
+      <div id="directoryList"></div>
+    </div>
+  </section>
+</main>
+
+<section class="seo-geo-block">
+  <div class="wrap">
+    <h2>Похожие запросы</h2>
+    <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+    <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+
+    <div class="faq-visible">
+      <details>
+        <summary>Где найти русскоязычного врача или стоматолога в Дилижан?</summary>
+        <p>На карте Russian Friendly Дилижан собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом.</p>
+      </details>
+      <details>
+        <summary>Как найти русские школы и сервисы в Дилижан?</summary>
+        <p>Воспользуйтесь интерактивным каталогом на этой странице для поиска школ, переводчиков, банковских консультантов и жилья.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<svg class="ridge bottom" viewBox="0 0 1200 46" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <polygon points="0,46 0,26 100,10 220,30 340,6 460,24 600,2 740,26 860,8 980,28 1100,12 1200,26 1200,46" fill="#1F3B2D"/>
+</svg>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>© <span id="year"></span> Russian Friendly · Дилижан</div>
+    <nav>
+      <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---------------------------------------------------------------
+  // Данные — примерные/иллюстративные записи. Замените на реальные
+  // проверенные контакты через бот обратной связи или отредактируйте
+  // массив PLACES ниже вручную перед публикацией.
+  // ---------------------------------------------------------------
+  const CATEGORIES = [
+    { id: 'dentist',   label: 'Стоматологи',        emoji: '🦷' },
+    { id: 'doctor',    label: 'Врачи',               emoji: '👩‍⚕️' },
+    { id: 'lawyer',    label: 'Юристы',               emoji: '⚖️' },
+    { id: 'translator',label: 'Переводчики',          emoji: '📄' },
+    { id: 'bank',      label: 'Банки / финансы',      emoji: '🏦' },
+    { id: 'visa',      label: 'Визовые агентства',    emoji: '🛂' },
+    { id: 'realestate',label: 'Аренда жилья / Риелторы', emoji: '🏠' },
+    { id: 'transfer',  label: 'Трансферы',            emoji: '🚕' },
+    { id: 'sim',       label: 'SIM / eSIM',           emoji: '📱' },
+    { id: 'borderrun', label: 'Border Run',           emoji: '🚍' },
+    { id: 'shop',      label: 'Русские магазины',     emoji: '🛒' },
+    { id: 'school',    label: 'Русские / хорошие школы', emoji: '🎒' },
+  ];
+
+  const PLACES = [
+    { cat:'dentist', name:'Стоматология «Диližан Дент»', lat:40.7469, lng:44.8642, desc:'Терапия, имплантация, приём на русском по записи.', phone:'+374 94 12 34 56', tg:'@dilijandent' },
+    { cat:'dentist', name:'Кабинет др. Нунэ Акопян', lat:40.7481, lng:44.8688, desc:'Семейный стоматолог, говорит по-русски и по-армянски.', phone:'+374 55 22 11 09', tg:null },
+
+    { cat:'doctor', name:'Медцентр «Тавуш Мед»', lat:40.7448, lng:44.8610, desc:'Терапевт, педиатр, УЗИ. Есть русскоязычный администратор.', phone:'+374 10 55 44 33', tg:'@tavushmed' },
+    { cat:'doctor', name:'Врач общей практики Артур Саркисян', lat:40.7502, lng:44.8703, desc:'Выезд на дом, консультации по видеосвязи.', phone:'+374 91 77 66 55', tg:null },
+
+    { cat:'lawyer', name:'Юрбюро «Дилижан Легал»', lat:40.7455, lng:44.8672, desc:'ВНЖ, регистрация бизнеса, сопровождение сделок с недвижимостью.', phone:'+374 33 44 55 66', tg:'@dilijanlegal' },
+    { cat:'lawyer', name:'Адвокат Лилит Геворгян', lat:40.7433, lng:44.8595, desc:'Семейное и миграционное право, консультации на русском.', phone:'+374 77 88 99 00', tg:null },
+
+    { cat:'translator', name:'Бюро переводов «Слово»', lat:40.7462, lng:44.8655, desc:'Нотариальный перевод RU/AM/EN, апостиль.', phone:'+374 41 23 45 67', tg:'@slovo_dilijan' },
+
+    { cat:'bank', name:'Финконсультант Армен Мкртчян', lat:40.7440, lng:44.8630, desc:'Открытие счетов, переводы, помощь с картами для нерезидентов.', phone:'+374 99 12 12 12', tg:'@arm_finance' },
+
+    { cat:'visa', name:'Визовый центр «Каспиан Виза»', lat:40.7490, lng:44.8620, desc:'Продление визы, вопросы регистрации по месту жительства.', phone:'+374 60 30 30 30', tg:'@caspianvisa' },
+
+    { cat:'realestate', name:'Риелтор Марине Осипян', lat:40.7472, lng:44.8715, desc:'Долгосрочная и посуточная аренда, показы онлайн.', phone:'+374 93 45 67 89', tg:'@dilijan_realty' },
+    { cat:'realestate', name:'Агентство «Дом в горах»', lat:40.7420, lng:44.8580, desc:'Подбор жилья по всему Тавушскому региону.', phone:'+374 77 20 20 20', tg:null },
+
+    { cat:'transfer', name:'Трансфер «Дилижан Драйв»', lat:40.7458, lng:44.8600, desc:'Аэропорт Ереван — Дилижан, поездки по региону, русский язык.', phone:'+374 95 10 20 30', tg:'@dilijandrive' },
+
+    { cat:'sim', name:'Салон связи на Шарамбеяна', lat:40.7465, lng:44.8665, desc:'SIM и eSIM Team/Viva/Ucom, помощь с настройкой.', phone:'+374 10 90 80 70', tg:null },
+
+    { cat:'borderrun', name:'Организатор border run «Граница+»', lat:40.7500, lng:44.8560, desc:'Выезды в Грузию для обнуления визового штампа, группа и индивидуально.', phone:'+374 96 65 65 65', tg:'@granitsaplus' },
+
+    { cat:'shop', name:'Магазин «Наш продукт»', lat:40.7449, lng:44.8698, desc:'Привычные продукты, гречка, творог, русские специи.', phone:'+374 91 11 22 33', tg:null },
+
+    { cat:'school', name:'Русская школа-студия «Радуга»', lat:40.7485, lng:44.8645, desc:'Дошкольная подготовка и русский язык для детей экспатов.', phone:'+374 55 33 22 11', tg:'@raduga_dilijan' },
+    { cat:'school', name:'Международная школа Дилижана (рекоменд.)', lat:40.7395, lng:44.8663, desc:'Билингвальная программа, английский и армянский, часть детей — из русскоязычных семей.', phone:'+374 10 60 60 60', tg:null },
+  ];
+
+  // ---- build category chips ----
+  const chipRow = document.getElementById('chipRow');
+  let activeCat = 'all';
+
+  function countFor(id){
+    return id === 'all' ? PLACES.length : PLACES.filter(p => p.cat === id).length;
+  }
+
+  function renderChips(){
+    chipRow.innerHTML = '';
+    const allChip = document.createElement('button');
+    allChip.className = 'chip' + (activeCat === 'all' ? ' active' : '');
+    allChip.innerHTML = `Все <span class="count">${countFor('all')}</span>`;
+    allChip.onclick = () => { activeCat = 'all'; update(); };
+    chipRow.appendChild(allChip);
+
+    CATEGORIES.forEach(c => {
+      const chip = document.createElement('button');
+      chip.className = 'chip' + (activeCat === c.id ? ' active' : '');
+      chip.innerHTML = `${c.emoji} ${c.label} <span class="count">${countFor(c.id)}</span>`;
+      chip.onclick = () => { activeCat = c.id; update(); };
+      chipRow.appendChild(chip);
+    });
+  }
+
+  // ---- map ----
+  const map = L.map('map', { scrollWheelZoom:false }).setView([40.7462, 44.8650], 14);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+
+  function catInfo(id){ return CATEGORIES.find(c => c.id === id); }
+
+  function iconFor(catId){
+    const info = catInfo(catId);
+    return L.divIcon({
+      className: 'rf-marker',
+      html: `<span>${info ? info.emoji : '📍'}</span>`,
+      iconSize: [34,34],
+      iconAnchor: [17,34],
+      popupAnchor: [0,-30]
+    });
+  }
+
+  let markers = [];
+  function renderMarkers(){
+    markers.forEach(m => map.removeLayer(m));
+    markers = [];
+    PLACES.filter(p => activeCat === 'all' || p.cat === activeCat).forEach(p => {
+      const info = catInfo(p.cat);
+      const marker = L.marker([p.lat, p.lng], { icon: iconFor(p.cat) });
+      const contact = [
+        p.phone ? `<a href="tel:${p.phone.replace(/\s+/g,'')}">${p.phone}</a>` : '',
+        p.tg ? `<a href="https://t.me/${p.tg.replace('@','')}" target="_blank" rel="noopener">${p.tg}</a>` : ''
+      ].filter(Boolean).join('<br>');
+      marker.bindPopup(`<strong>${info ? info.emoji : ''} ${p.name}</strong><br>${p.desc}<br>${contact}`);
+      marker.addTo(map);
+      markers.push(marker);
+    });
+  }
+
+  // ---- directory list ----
+  const directoryList = document.getElementById('directoryList');
+  function renderDirectory(){
+    directoryList.innerHTML = '';
+    const cats = activeCat === 'all' ? CATEGORIES : CATEGORIES.filter(c => c.id === activeCat);
+    cats.forEach(cat => {
+      const items = PLACES.filter(p => p.cat === cat.id);
+      if(!items.length) return;
+      const group = document.createElement('div');
+      group.className = 'cat-group';
+      group.id = 'cat-' + cat.id;
+      group.innerHTML = `<h3><span class="cat-emoji">${cat.emoji}</span> ${cat.label}</h3>`;
+      const grid = document.createElement('div');
+      grid.className = 'card-grid';
+      items.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const contact = [
+          p.phone ? `<a href="tel:${p.phone.replace(/\s+/g,'')}">${p.phone}</a>` : '',
+          p.tg ? `<a href="https://t.me/${p.tg.replace('@','')}" target="_blank" rel="noopener">${p.tg}</a>` : ''
+        ].filter(Boolean).join('');
+        card.innerHTML = `<h4>${p.name}</h4><p>${p.desc}</p><div class="meta">${contact}</div>`;
+        grid.appendChild(card);
+      });
+      group.appendChild(grid);
+      directoryList.appendChild(group);
+    });
+  }
+
+  function update(){
+    renderChips();
+    renderMarkers();
+    renderDirectory();
+  }
+
+  update();
+</script>
+</body>
+</html>
