@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Русскоязычные специалисты и сервисы в Лиепая — Карта Russian Friendly</title>
+  
+  <link rel="icon" href="/favicon.ico">
+
+  <!-- ===================== SEO / GEO ===================== -->
+  <meta name="description" content="Интерактивная карта и каталог русскоязычных врачей, стоматологов, юристов, переводчиков, школ и сервисов в Лиепае (Латвия).">
+  <link rel="canonical" href="https://russianfriendly.netlify.app/liepaja">
+  
+  <!-- Open Graph / preview for smartphones -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Русскоязычные специалисты и сервисы в Лиепая — Карта Russian Friendly">
+  <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Лиепая на одной интерактивной карте.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/liepaja">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/liepaja/og-preview.jpg">
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Лиепая">
+  <meta name="twitter:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Лиепая на одной интерактивной карте.">
+
+  <!-- Mobile "add to home screen" -->
+  <meta name="theme-color" content="#0B3350">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- JSON-LD: Map / WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Русскоязычные специалисты и сервисы в Лиепая",
+    "url": "https://russianfriendly.netlify.app/liepaja",
+    "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Лиепая."
+  }
+  </script>
+
+  <!-- JSON-LD: Person (автор) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Кристина Перез",
+    "url": "https://kristinaperez.netlify.app/",
+    "sameAs": [
+      "https://t.me/FeedbackCristinaBot",
+      "https://www.youtube.com/@Cristina-Perez-Monroe",
+      "https://kristinaperez.netlify.app/",
+      "https://pitermap.netlify.app/",
+      "https://aseosmadrid.netlify.app/"
+    ],
+    "jobTitle": "Автор проекта Russian Friendly"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Где найти русскоязычного врача или стоматолога в Лиепая?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "На карте Russian Friendly Лиепая собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Как найти русские школы и сервисы в Лиепая?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/liepaja для поиска школ, переводчиков, банковских консультантов и жилья."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --primary-color: #0B3350;
+      --accent-orange: #ff6600;
+      --bg-light: #f4f7f9;
+      --card-bg: #ffffff;
+      --text-dark: #1c2833;
+      --text-muted: #607d8b;
+      --border-color: #e2e8f0;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* HEADER */
+    header {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .header-title h1 {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .header-title p {
+      font-size: 0.85rem;
+      opacity: 0.85;
+    }
+
+    .header-promo {
+      background-color: #ffffff;
+      border: 2px solid var(--accent-orange);
+      border-radius: var(--radius);
+      padding: 0.6rem 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .header-promo:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 102, 0, 0.3);
+    }
+
+    .header-promo a {
+      color: var(--accent-orange);
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: inline-block;
+    }
+
+    /* MAIN CONTENT LAYOUT */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 1.5rem 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .map-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    #map {
+      width: 100%;
+      height: 480px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      z-index: 1;
+    }
+
+    .feedback-btn-wrapper {
+      text-align: center;
+    }
+
+    .feedback-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: #ffffff;
+      color: var(--primary-color);
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 1.25rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: all 0.2s;
+    }
+
+    .feedback-btn:hover {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border-color: var(--primary-color);
+    }
+
+    /* FILTERS & CATALOG */
+    .controls-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background: var(--card-bg);
+      padding: 1.25rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary-color);
+    }
+
+    .categories-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .category-tag {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      padding: 0.5rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s;
+    }
+
+    .category-tag:hover, .category-tag.active {
+      background: var(--primary-color);
+      color: #ffffff;
+      border-color: var(--primary-color);
+    }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--border-color);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-category {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: var(--bg-light);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-top: 0.25rem;
+    }
+
+    .card-address {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      flex: 1;
+      text-align: center;
+      padding: 0.5rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    /* SEO GEO BLOCK */
+    .seo-geo-block {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--accent-orange);
+      margin-top: 1rem;
+    }
+
+    .seo-geo-block h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary-color);
+    }
+
+    .seo-geo-block p.promo {
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .seo-geo-block p.promo a {
+      color: var(--accent-orange);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--primary-color);
+      color: #ffffff;
+      padding: 2rem 1rem;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a {
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+
+    .footer-links a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      opacity: 0.6;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .header-promo {
+        width: 100%;
+        text-align: center;
+      }
+
+      #map {
+        height: 350px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-title">
+      <h1>Лиепая — Russian Friendly Map</h1>
+      <p>Русскоязычные специалисты, сервисы и заведения</p>
+    </div>
+    <div class="header-promo">
+      <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+        Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+
+    <!-- MAP SECTION -->
+    <section class="map-section">
+      <div id="map"></div>
+      <div class="feedback-btn-wrapper">
+        <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener" class="feedback-btn">
+          💬 Нашли неверные данные? Сообщите нам в бот
+        </a>
+      </div>
+    </section>
+
+    <!-- SEARCH & FILTERS -->
+    <section class="controls-section">
+      <input type="text" id="searchInput" class="search-input" placeholder="Поиск по названию, специалисту или адресу...">
+      <div class="categories-tags" id="categoryTags">
+        <button class="category-tag active" data-cat="all">Все</button>
+        <button class="category-tag" data-cat="dentist">🦷 Стоматологи</button>
+        <button class="category-tag" data-cat="doctor">👩‍⚕️ Врачи</button>
+        <button class="category-tag" data-cat="lawyer">⚖️ Юристы</button>
+        <button class="category-tag" data-cat="translator">📄 Переводчики</button>
+        <button class="category-tag" data-cat="finance">🏦 Банки / Финансы</button>
+        <button class="category-tag" data-cat="visa">🛂 Визовые агентства</button>
+        <button class="category-tag" data-cat="realty">🏠 Аренда / Риелторы</button>
+        <button class="category-tag" data-cat="transfer">🚕 Трансферы</button>
+        <button class="category-tag" data-cat="sim">📱 SIM / eSIM</button>
+        <button class="category-tag" data-cat="shop">🛒 Русские магазины</button>
+        <button class="category-tag" data-cat="school">🏫 Школы</button>
+      </div>
+    </section>
+
+    <!-- CATALOG GRID -->
+    <section class="catalog-grid" id="catalogGrid">
+      <!-- Dynamic content via JS -->
+    </section>
+
+    <!-- VISIBLE SEO / GEO BLOCK -->
+    <section class="seo-geo-block">
+      <h2>Похожие запросы</h2>
+      <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+      <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+    </section>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <nav class="footer-links">
+        <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+      </nav>
+      <div class="footer-copy">
+        &copy; 2026 Russian Friendly Liepaja. Все права защищены.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <script>
+    // DATA: Real and sample locations in Liepāja
+    const locations = [
+      {
+        id: 1,
+        title: "Liepājas reģionālā slimnīca (Консультативный отдел)",
+        category: "doctor",
+        catName: "👩‍⚕️ Врачи",
+        address: "Slimnīcas iela 25, Liepāja",
+        coords: [56.5398, 21.0315],
+        desc: "Региональная больница. Множество врачей-специалистов (терапевты, кардиологи, неврологи), свободно владеющих русским языком.",
+        phone: "+371 63403231"
+      },
+      {
+        id: 2,
+        title: "Стоматология Zobārstniecība (Д-р Елена)",
+        category: "dentist",
+        catName: "🦷 Стоматологи",
+        address: "Lielā iela 12, Liepāja",
+        coords: [56.5085, 21.0112],
+        desc: "Частный стоматологический кабинет. Терапия, гигиена, протезирование. Полный русскоязычный прием.",
+        phone: "+371 63422110"
+      },
+      {
+        id: 3,
+        title: "Юридическое бюро Liepāja Legal",
+        category: "lawyer",
+        catName: "⚖️ Юристы",
+        address: "Graudu iela 27, Liepāja",
+        coords: [56.5110, 21.0080],
+        desc: "Консультации по ВНЖ, гражданскому и коммерческому праву. Составление договоров на русском и латышском языках.",
+        phone: "+371 29100200"
+      },
+      {
+        id: 4,
+        title: "Бюро переводов Tulkošanas birojs",
+        category: "translator",
+        catName: "📄 Переводчики",
+        address: "Kūrmājas prospekts 8, Liepāja",
+        coords: [56.5125, 21.0040],
+        desc: "Заверенные и нотариальные переводы документов (русский, латышский, английский). Подготовка документов для VSAA и PMLP.",
+        phone: "+371 63488990"
+      },
+      {
+        id: 5,
+        title: "Финансовые консультации и Swedbank филиал",
+        category: "finance",
+        catName: "🏦 Банки / Финансы",
+        address: "Lielā iela 11, Liepāja",
+        coords: [56.5082, 21.0118],
+        desc: "Консультации по открытию счетов, ипотеке и переносу активов. В отделении есть русскоязычные специалисты.",
+        phone: "+371 67444444"
+      },
+      {
+        id: 6,
+        title: "Визовый центр и консультации Baltic Visa Service",
+        category: "visa",
+        catName: "🛂 Визовые агентства",
+        address: "Rīgas iela 14, Liepāja",
+        coords: [56.5140, 21.0150],
+        desc: "Помощь в оформлении шенгенских виз, приглашений и сопровождение подачи документов на ВНЖ.",
+        phone: "+371 28334455"
+      },
+      {
+        id: 7,
+        title: "Агентство недвижимости Liepāja Real Estate",
+        category: "realty",
+        catName: "🏠 Аренда / Риелторы",
+        address: "Bāriņu iela 10, Liepāja",
+        coords: [56.5065, 21.0125],
+        desc: "Долгосрочная и краткосрочная аренда квартир в центре и районе Эзеркраст. Русскоязычные агенты.",
+        phone: "+371 26001122"
+      },
+      {
+        id: 8,
+        title: "Балтийский Трансфер Лиепая — Рига / Паланга",
+        category: "transfer",
+        catName: "🚕 Трансферы",
+        address: "Автовокзал, Stacijas laukums 1, Liepāja",
+        coords: [56.5220, 21.0210],
+        desc: "Индивидуальные и групповые трансферы в аэропорты Риги, Паланги и Вильнюса. Русскоязычные водители.",
+        phone: "+371 27778899"
+      },
+      {
+        id: 9,
+        title: "Салон связи LMT / Tele2 (SIM & eSIM)",
+        category: "sim",
+        catName: "📱 SIM / eSIM",
+        address: "ТЦ Kurzeme, Lielā iela 13, Liepāja",
+        coords: [56.5080, 21.0120],
+        desc: "Быстрое подключение местных SIM-карт и eSIM. Помощь с настроем предоплаченных карт Zelta Zivtiņa и LMT Karte.",
+        phone: "+371 80000088"
+      },
+      {
+        id: 10,
+        title: "Магазин Mego (Товары традиционного ассортимента)",
+        category: "shop",
+        catName: "🛒 Русские магазины",
+        address: "Klaipēdas iela 62, Liepāja",
+        coords: [56.4920, 21.0020],
+        desc: "Большой выбор привычных продуктов: творожные сырки, пельмени, гречка, зефир, квас и традиционная кулинария.",
+        phone: "+371 63433221"
+      },
+      {
+        id: 11,
+        title: "Liepājas 2. vidusskola (Школа с традициями интеграции)",
+        category: "school",
+        catName: "🏫 Школы",
+        address: "Bāriņu iela 21/23, Liepāja",
+        coords: [56.5058, 21.0135],
+        desc: "Средняя школа с программами поддержки нацменьшинств и хорошим педагогическим составом, помогающим детям с адаптацией.",
+        phone: "+371 63425345"
+      }
+    ];
+
+    // Initialize Map
+    const liepajaCenter = [56.5080, 21.0120];
+    const map = L.map('map').setView(liepajaCenter, 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    let markers = [];
+
+    // Render Markers
+    function renderMarkers(items) {
+      // Clear existing markers
+      markers.forEach(m => map.removeLayer(m));
+      markers = [];
+
+      items.forEach(item => {
+        const marker = L.marker(item.coords).addTo(map);
+        marker.bindPopup(`
+          <div style="font-family: sans-serif;">
+            <strong style="color: #0B3350; font-size: 1rem;">${item.title}</strong><br>
+            <span style="font-size: 0.8rem; color: #666;">${item.catName}</span><br>
+            <p style="margin: 5px 0; font-size: 0.85rem;">${item.address}</p>
+            <a href="tel:${item.phone}" style="color: #ff6600; font-weight: bold; font-size: 0.85rem;">📞 ${item.phone}</a>
+          </div>
+        `);
+        markers.push(marker);
+      });
+    }
+
+    // Render Catalog Cards
+    function renderCatalog(items) {
+      const grid = document.getElementById('catalogGrid');
+      grid.innerHTML = '';
+
+      if (items.length === 0) {
+        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 2rem;">Ничего не найдено</p>';
+        return;
+      }
+
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div>
+            <div class="card-header">
+              <span class="card-category">${item.catName}</span>
+            </div>
+            <h3 class="card-title">${item.title}</h3>
+            <div class="card-address">📍 ${item.address}</div>
+            <p class="card-desc">${item.desc}</p>
+          </div>
+          <div class="card-actions">
+            <a href="tel:${item.phone}" class="btn btn-primary">📞 Позвонить</a>
+            <button class="btn btn-secondary" onclick="focusOnMap(${item.coords[0]}, ${item.coords[1]}, '${item.title}')">🗺️ На карте</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Map focus helper
+    window.focusOnMap = function(lat, lng, title) {
+      map.setView([lat, lng], 16);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      markers.forEach(m => {
+        const latLng = m.getLatLng();
+        if (Math.abs(latLng.lat - lat) < 0.0001 && Math.abs(latLng.lng - lng) < 0.0001) {
+          m.openPopup();
+        }
+      });
+    };
+
+    // Filter Logic
+    let currentCategory = 'all';
+    let searchQuery = '';
+
+    function filterData() {
+      const filtered = locations.filter(item => {
+        const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
+        const matchesSearch = item.title.toLowerCase().includes(searchQuery) ||
+                              item.desc.toLowerCase().includes(searchQuery) ||
+                              item.address.toLowerCase().includes(searchQuery);
+        return matchesCategory && matchesSearch;
+      });
+
+      renderMarkers(filtered);
+      renderCatalog(filtered);
+    }
+
+    // Event Listeners
+    document.getElementById('categoryTags').addEventListener('click', (e) => {
+      if (e.target.classList.contains('category-tag')) {
+        document.querySelectorAll('.category-tag').forEach(t => t.classList.remove('active'));
+        e.target.classList.add('active');
+        currentCategory = e.target.getAttribute('data-cat');
+        filterData();
+      }
+    });
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      filterData();
+    });
+
+    // Initial Render
+    filterData();
+  </script>
+</body>
+</html>

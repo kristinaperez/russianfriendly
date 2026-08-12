@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Русскоязычные специалисты и сервисы в Мадриде — Карта Russian Friendly</title>
+
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ===================== SEO / GEO ===================== -->
+    <link rel="canonical" href="https://russianfriendly.netlify.app/madrid">
+    
+    <!-- Open Graph / preview for smartphones -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Русскоязычные специалисты и сервисы в Мадрид — Карта Russian Friendly">
+    <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Мадрид на одной интерактивной карте.">
+    <meta property="og:url" content="https://russianfriendly.netlify.app/madrid">
+    <meta property="og:image" content="https://russianfriendly.netlify.app/madrid/og-preview.jpg">
+
+    <!-- Twitter / X card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Русскоязычные специалисты в Мадрид">
+
+    <!-- Mobile "add to home screen" -->
+    <meta name="theme-color" content="#0B3350">
+
+    <!-- JSON-LD: Map / WebPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Русскоязычные специалисты и сервисы в Мадрид",
+      "url": "https://russianfriendly.netlify.app/madrid",
+      "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Мадрид."
+    }
+    </script>
+
+    <!-- JSON-LD: Person (автор) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Кристина Перез",
+      "url": "https://kristinaperez.netlify.app/",
+      "sameAs": [
+        "https://t.me/FeedbackCristinaBot",
+        "https://www.youtube.com/@Cristina-Perez-Monroe",
+        "https://kristinaperez.netlify.app/",
+        "https://pitermap.netlify.app/",
+        "https://aseosmadrid.netlify.app/"
+      ],
+      "jobTitle": "Автор проекта Russian Friendly"
+    }
+    </script>
+
+    <!-- JSON-LD: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Где найти русскоязычного врача или стоматолога в Мадрид?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "На карте Russian Friendly Мадрид собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Как найти русские школы и сервисы в Мадрид?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/madrid для поиска школ, переводчиков, банковских консультантов и жилья."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --primary-bg: #0B3350;
+            --accent-orange: #ff6600;
+            --text-main: #2C3E50;
+            --bg-light: #F8FAFC;
+            --card-border: #E2E8F0;
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        /* HEADER */
+        header {
+            background-color: var(--primary-bg);
+            color: #ffffff;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header-title-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-title-box h1 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .header-title-box a {
+            color: #93C5FD;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .header-title-box a:hover {
+            color: #ffffff;
+        }
+
+        .header-promo {
+            background-color: rgba(255, 102, 0, 0.15);
+            border: 2px solid var(--accent-orange);
+            border-radius: var(--radius);
+            padding: 10px 18px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .header-promo a {
+            color: var(--accent-orange);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.2s;
+        }
+
+        .header-promo a:hover {
+            transform: translateX(2px);
+            text-decoration: underline;
+        }
+
+        /* MAIN LAYOUT */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 24px 16px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media (min-width: 992px) {
+            .main-grid {
+                grid-template-columns: 360px 1fr;
+            }
+        }
+
+        /* CATEGORIES & CONTROLS */
+        .sidebar {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: var(--radius);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            height: fit-content;
+        }
+
+        .sidebar h2 {
+            font-size: 1.1rem;
+            margin-bottom: 14px;
+            color: var(--primary-bg);
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 8px;
+        }
+
+        .category-filter {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 520px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .cat-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-light);
+            border: 1px solid var(--card-border);
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.92rem;
+            color: var(--text-main);
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .cat-btn:hover {
+            border-color: var(--primary-bg);
+            background: #EFF6FF;
+        }
+
+        .cat-btn.active {
+            background: var(--primary-bg);
+            color: #ffffff;
+            border-color: var(--primary-bg);
+        }
+
+        .cat-btn .count {
+            margin-left: auto;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            background: rgba(0,0,0,0.06);
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .cat-btn.active .count {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* MAP AREA */
+        .map-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        #map {
+            width: 100%;
+            height: 540px;
+            border-radius: var(--radius);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            z-index: 1;
+        }
+
+        /* FEEDBACK BUTTON */
+        .feedback-bar {
+            background: #ffffff;
+            padding: 14px 20px;
+            border-radius: var(--radius);
+            border: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+
+        .feedback-bar span {
+            font-size: 0.95rem;
+            color: #475569;
+        }
+
+        .btn-feedback {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #0088cc;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-feedback:hover {
+            background-color: #006699;
+        }
+
+        /* CARDS / LIST SECTION */
+        .places-list-section {
+            margin-top: 32px;
+        }
+
+        .places-list-section h2 {
+            font-size: 1.3rem;
+            color: var(--primary-bg);
+            margin-bottom: 16px;
+        }
+
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 18px;
+        }
+
+        .place-card {
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 18px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .place-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+        }
+
+        .card-category {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-bg);
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: #475569;
+            margin-bottom: 12px;
+            flex-grow: 1;
+        }
+
+        .card-info {
+            font-size: 0.85rem;
+            color: #64748B;
+            border-top: 1px dashed var(--card-border);
+            padding-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        /* SEO GEO BLOCK */
+        .seo-geo-block {
+            margin-top: 40px;
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+
+        .seo-geo-block h2 {
+            font-size: 1.2rem;
+            color: var(--primary-bg);
+            margin-bottom: 12px;
+        }
+
+        .seo-geo-block .promo {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .seo-geo-block .promo a {
+            color: var(--accent-orange);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .seo-geo-block .promo a:hover {
+            text-decoration: underline;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: 40px;
+            background-color: var(--primary-bg);
+            color: #94A3B8;
+            padding: 24px 16px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #E2E8F0;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-orange);
+        }
+
+        /* LEAFLET CUSTOM POPUP */
+        .leaflet-popup-content-wrapper {
+            border-radius: 8px;
+            padding: 4px;
+        }
+        .popup-card h3 {
+            font-size: 1rem;
+            color: var(--primary-bg);
+            margin-bottom: 4px;
+        }
+        .popup-card p {
+            font-size: 0.85rem;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+        .popup-card .contact {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-orange);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 2. ШАПКА САЙТА (HEADER) -->
+    <header>
+        <div class="header-title-box">
+            <h1>Мадрид — Russian Friendly Map</h1>
+            <a href="https://russianfriendly.netlify.app/">← Все города</a>
+        </div>
+        <div class="header-promo">
+            <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+                Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-grid">
+            <!-- SIDEBAR WITH CATEGORIES -->
+            <aside class="sidebar">
+                <h2>Категории сервисов</h2>
+                <div class="category-filter" id="categoryFilter">
+                    <button class="cat-btn active" data-cat="all">
+                        <span>🌐 Все категории</span>
+                        <span class="count" id="count-all">0</span>
+                    </button>
+                    <button class="cat-btn" data-cat="dentist">
+                        <span>🦷 Стоматологи</span>
+                        <span class="count" id="count-dentist">0</span>
+                    </button>
+                    <button class="cat-btn" data-cat="doctor">
+                        <span>👩‍⚕️ Врачи</span>
+                        <span class="count" id="count-doctor">0</span>
+                    </button>
+                    <button class="cat-btn" data-cat="lawyer">
+                        <span>⚖️ Юристы</span>
+                        <span class="count" id="count-lawyer">0</span>
+                    </button>
+                    <button class="cat-btn" data-cat="translator">
+                        <span>📄 Переводчики</span>
+                        <span class="count" id="count-translator">0</span>
+                    </button>
+                    <button class="cat-btn" data-cat="banking">
+                        <span>🏦 Банки и финансы</span>
+                        <span class="count" id="count-banking">0</span>
+                    </button>
+                    <button class="cat-btn" data-cat="visa">
+                        <span>🛂 Визовые агентства</span>
+                        <span class="count" id="count-visa">0</span>
+                    </button>
+                    <button class="cat-btn" data-cat="realestate">
+                        <span>🏠 Аренда жилья / Риелторы</span>
+                        <span class="count" id="count-realestate">0</span>
+                    </button>
+                    <button class="cat-btn" data-cat="transfer">
+                        <span>🚕 Трансферы</span>
+                        <span class="count" id="count-transfer">0</span>
+                    </button>
+                    <button class="cat-btn" data-cat="sim">
+                        <span>📱 SIM / eSIM</span>
+                        <span class="count" id="count-sim">0</span>
+                    </button>
+                    <button class="cat-btn" data-cat="shop">
+                        <span>🏠 Русские магазины</span>
+                        <span class="count" id="count-shop">0</span>
+                    </button>
+                    <button class="cat-btn" data-cat="school">
+                        <span>🏠 Школы и образование</span>
+                        <span class="count" id="count-school">0</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- MAP & FEEDBACK AREA -->
+            <main class="map-section">
+                <!-- 3. КАРТА -->
+                <div id="map"></div>
+
+                <!-- 3. ОБРАТНАЯ СВЯЗЬ -->
+                <div class="feedback-bar">
+                    <span>Нашли неверные данные или хотите добавить сервис?</span>
+                    <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener" class="btn-feedback">
+                        ✈️ Нашли неверные данные? Сообщите нам в бот
+                    </a>
+                </div>
+            </main>
+        </div>
+
+        <!-- LIST OF PLACES -->
+        <section class="places-list-section">
+            <h2 id="listTitle">Каталог специалистов и организаций в Мадриде</h2>
+            <div class="places-grid" id="placesGrid">
+                <!-- Cards will be populated by JS -->
+            </div>
+        </section>
+
+        <!-- 5. ВИДИМЫЙ SEO / GEO БЛОК ВНИЗУ СТРАНИЦЫ -->
+        <section class="seo-geo-block">
+            <h2>Похожие запросы</h2>
+            <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+            <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+        </section>
+    </div>
+
+    <!-- 6. ССЫЛКИ В ФУТЕРЕ (FOOTER) -->
+    <footer>
+        <div class="footer-links">
+            <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/privacy-policy.html">Privacy Policy</a>
+        </div>
+        <p>© 2026 Russian Friendly Madrid. Интерактивная карта и каталог услуг.</p>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script>
+        // DATA FOR MADRID SPECIALISTS AND SERVICES
+        const places = [
+            {
+                id: 1,
+                name: "Клиника стоматологии Clinica Dental Russa",
+                category: "dentist",
+                catLabel: "🦷 Стоматолог",
+                lat: 40.4285,
+                lng: -3.7020,
+                address: "Calle de Fuencarral, Madrid",
+                desc: "Терапевтическая и хирургическая стоматология, имплантология. Прием на русском языке.",
+                phone: "+34 910 123 456"
+            },
+            {
+                id: 2,
+                name: "Медицинский центр Sanitas & Русскоязычные Врачи",
+                category: "doctor",
+                catLabel: "👩‍⚕️ Врач",
+                lat: 40.4350,
+                lng: -3.6890,
+                address: "Calle de Velázquez, Madrid",
+                desc: "Терапевты, педиатры и семейные врачи с подтвержденной русскоязычной практикой.",
+                phone: "+34 911 234 567"
+            },
+            {
+                id: 3,
+                name: "Юридическое бюро 'Iberia Legal Help'",
+                category: "lawyer",
+                catLabel: "⚖️ Юрист",
+                lat: 40.4180,
+                lng: -3.6950,
+                address: "Paseo del Prado, Madrid",
+                desc: "Оформление ВНЖ, цифровое кочевничество (Nomad Visa), налоговое право Испания.",
+                phone: "+34 912 345 678"
+            },
+            {
+                id: 4,
+                name: "Присяжный переводчик (Traductor Jurado)",
+                category: "translator",
+                catLabel: "📄 Переводчик",
+                lat: 40.4150,
+                lng: -3.7070,
+                address: "Plaza Mayor, Madrid",
+                desc: "Официальные присяжные переводы документов с русского на испанский для легализации.",
+                phone: "+34 610 987 654"
+            },
+            {
+                id: 5,
+                name: "Финансовый консультант по банкам Испании",
+                category: "banking",
+                catLabel: "🏦 Помощь с банками",
+                lat: 40.4240,
+                lng: -3.6850,
+                address: "Calle de Serrano, Madrid",
+                desc: "Сопровождение при открытии счетов, подтверждение источников дохода, ипотека.",
+                phone: "+34 913 456 789"
+            },
+            {
+                id: 6,
+                name: "Визовый центр и иммиграционный сервис MadridVisas",
+                category: "visa",
+                catLabel: "🛂 Визовое агентство",
+                lat: 40.4300,
+                lng: -3.6980,
+                address: "Calle de Almagro, Madrid",
+                desc: "Консультации по студвизам, золотым визам и продлению документов.",
+                phone: "+34 914 567 890"
+            },
+            {
+                id: 7,
+                name: "Агентство недвижимости Madrid Real Estate",
+                category: "realestate",
+                catLabel: "🏠 Аренда / Риелтор",
+                lat: 40.4260,
+                lng: -3.6770,
+                address: "Barrio de Salamanca, Madrid",
+                desc: "Подбор долгосрочной аренды и покупка квартир без комиссии с русскоговорящими агентами.",
+                phone: "+34 622 111 222"
+            },
+            {
+                id: 8,
+                name: "Трансфер и авто с водителем Madrid AutoTransfer",
+                category: "transfer",
+                catLabel: "🚕 Трансфер",
+                lat: 40.4720,
+                lng: -3.5600,
+                address: "Аэропорт Мадрид-Барахас (MAD)",
+                desc: "Встречи в аэропорту Barajas, поездки по Мадриду и пригородам на комфортабельных авто.",
+                phone: "+34 633 444 555"
+            },
+            {
+                id: 9,
+                name: "Подключение SIM / eSIM Испания (Vodafone & Movistar)",
+                category: "sim",
+                catLabel: "📱 SIM / eSIM",
+                lat: 40.4195,
+                lng: -3.7035,
+                address: "Puerta del Sol, Madrid",
+                desc: "Оформление мобильной связи без завышенных тарифов для резидентов и туристов.",
+                phone: "+34 915 678 901"
+            },
+            {
+                id: 10,
+                name: "Русский магазин 'Балтика' (Мадрид)",
+                category: "shop",
+                catLabel: "🏠 Русские магазины",
+                lat: 40.4080,
+                lng: -3.6980,
+                address: "Calle de Atocha, Madrid",
+                desc: "Привычные продукты: гречка, творог, конфеты, сушки, пельмени и квас.",
+                phone: "+34 916 789 012"
+            },
+            {
+                id: 11,
+                name: "Русский образовательный центр и школа 'Мир'",
+                category: "school",
+                catLabel: "🏠 Русская школа",
+                lat: 40.4420,
+                lng: -3.6820,
+                address: "Calle de Chamartín, Madrid",
+                desc: "Занятия для детей, русский язык, литература, подготовка к интеграции в испанские школы.",
+                phone: "+34 917 890 123"
+            }
+        ];
+
+        // INITIALIZE LEAFLET MAP
+        const map = L.map('map').setView([40.416775, -3.703790], 12);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        let markers = [];
+
+        function renderMapAndList(filterCat = 'all') {
+            // Clear existing markers
+            markers.forEach(m => map.removeLayer(m));
+            markers = [];
+
+            const grid = document.getElementById('placesGrid');
+            grid.innerHTML = '';
+
+            const filtered = filterCat === 'all' ? places : places.filter(p => p.category === filterCat);
+
+            filtered.forEach(place => {
+                // Add marker to map
+                const marker = L.marker([place.lat, place.lng]).addTo(map);
+                marker.bindPopup(`
+                    <div class="popup-card">
+                        <h3>${place.name}</h3>
+                        <p>${place.desc}</p>
+                        <p class="contact">📍 ${place.address}</p>
+                        <p class="contact">📞 ${place.phone}</p>
+                    </div>
+                `);
+                markers.push(marker);
+
+                // Add card to grid
+                const card = document.createElement('div');
+                card.className = 'place-card';
+                card.innerHTML = `
+                    <div>
+                        <div class="card-category">${place.catLabel}</div>
+                        <div class="card-title">${place.name}</div>
+                        <div class="card-desc">${place.desc}</div>
+                    </div>
+                    <div class="card-info">
+                        <span>📍 ${place.address}</span>
+                        <span>📞 ${place.phone}</span>
+                    </div>
+                `;
+                card.addEventListener('click', () => {
+                    map.setView([place.lat, place.lng], 15);
+                    marker.openPopup();
+                    window.scrollTo({ top: document.getElementById('map').offsetTop - 20, behavior: 'smooth' });
+                });
+                grid.appendChild(card);
+            });
+
+            // Adjust view if markers exist
+            if (markers.length > 0 && filterCat !== 'all') {
+                const group = new L.featureGroup(markers);
+                map.fitBounds(group.getBounds().pad(0.1));
+            } else if (filterCat === 'all') {
+                map.setView([40.416775, -3.703790], 12);
+            }
+        }
+
+        // UPDATE COUNTS
+        function updateCounts() {
+            document.getElementById('count-all').innerText = places.length;
+            const categories = ['dentist', 'doctor', 'lawyer', 'translator', 'banking', 'visa', 'realestate', 'transfer', 'sim', 'shop', 'school'];
+            categories.forEach(cat => {
+                const cnt = places.filter(p => p.category === cat).length;
+                const el = document.getElementById(`count-${cat}`);
+                if (el) el.innerText = cnt;
+            });
+        }
+
+        // EVENT LISTENERS FOR FILTERS
+        document.querySelectorAll('.cat-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                const target = e.currentTarget;
+                target.classList.add('active');
+                const cat = target.getAttribute('data-cat');
+                renderMapAndList(cat);
+            });
+        });
+
+        // INIT
+        updateCounts();
+        renderMapAndList('all');
+    </script>
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Русскоязычные специалисты и сервисы в Рига — Карта Russian Friendly</title>
+<meta name="description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Рига на одной интерактивной карте.">
+<link rel="icon" href="/favicon.ico">
+
+<!-- ===================== SEO / GEO ===================== -->
+<link rel="canonical" href="https://russianfriendly.netlify.app/riga">
+
+<!-- Open Graph / preview for smartphones -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Русскоязычные специалисты и сервисы в Рига — Карта Russian Friendly">
+<meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Рига на одной интерактивной карте.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/riga">
+<meta property="og:image" content="https://russianfriendly.netlify.app/riga/og-preview.jpg">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Рига">
+
+<!-- Mobile "add to home screen" -->
+<meta name="theme-color" content="#0B3350">
+
+<!-- JSON-LD: Map / WebPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Русскоязычные специалисты и сервисы в Рига",
+  "url": "https://russianfriendly.netlify.app/riga",
+  "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Рига."
+}
+</script>
+
+<!-- JSON-LD: Person (автор) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Кристина Перез",
+  "url": "https://kristinaperez.netlify.app/",
+  "sameAs": [
+    "https://t.me/FeedbackCristinaBot",
+    "https://www.youtube.com/@Cristina-Perez-Monroe",
+    "https://kristinaperez.netlify.app/",
+    "https://pitermap.netlify.app/",
+    "https://aseosmadrid.netlify.app/"
+  ],
+  "jobTitle": "Автор проекта Russian Friendly"
+}
+</script>
+
+<!-- JSON-LD: FAQPage — прямые ответы на вопросы, которые задают в поиске и в чатах с ИИ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Где найти русскоязычного врача или стоматолога в Рига?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На карте Russian Friendly Рига собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как найти русские школы и сервисы в Рига?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/riga для поиска школ, переводчиков, банковских консультантов и жилья."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+<style>
+  :root{
+    --navy: #0B3350;
+    --navy-deep: #082740;
+    --navy-darker: #051a2b;
+    --cream: #F3EFE6;
+    --orange: #ff6600;
+    --orange-soft: #ffb066;
+    --line: rgba(243,239,230,0.14);
+    --font-display: Georgia, 'Times New Roman', serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--navy-darker);
+    color: var(--cream);
+    font-family: var(--font-body);
+    line-height:1.5;
+  }
+  a{color: var(--orange-soft);}
+  a:hover{color:var(--orange);}
+
+  /* ---------- Header ---------- */
+  header.site-header{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding: 20px 28px;
+    background: linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top:0;
+    z-index:1000;
+  }
+  .brand{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  .brand .eyebrow{
+    font-family: var(--font-body);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange-soft);
+    display:block;
+    margin-bottom:2px;
+  }
+  .brand h1{
+    font-family: var(--font-display);
+    font-size: 26px;
+    margin:0;
+    font-weight:700;
+    color: var(--cream);
+    letter-spacing: 0.01em;
+  }
+  .brand h1 span{ color: var(--orange); }
+
+  .promo-ad{
+    background: var(--orange);
+    color: #1a0900;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight:700;
+    font-size: 14px;
+    max-width: 360px;
+    text-align:center;
+    box-shadow: 0 4px 18px rgba(255,102,0,0.35);
+    text-decoration:none;
+    display:block;
+    transition: transform .15s ease;
+  }
+  .promo-ad:hover{ transform: translateY(-2px); color:#1a0900; }
+
+  /* ---------- Intro ---------- */
+  .intro{
+    max-width: 900px;
+    margin: 30px auto 6px;
+    padding: 0 24px;
+  }
+  .intro h2{
+    font-family: var(--font-display);
+    font-size: 22px;
+    margin: 0 0 8px;
+    color: var(--cream);
+  }
+  .intro p{
+    color: #c9d4dd;
+    font-size: 15px;
+    margin: 0;
+  }
+
+  /* ---------- Category filters ---------- */
+  .categories{
+    max-width: 1100px;
+    margin: 22px auto 0;
+    padding: 0 24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .cat-btn{
+    background: rgba(243,239,230,0.06);
+    border: 1px solid var(--line);
+    color: var(--cream);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13.5px;
+    cursor:pointer;
+    transition: all .15s ease;
+    white-space:nowrap;
+  }
+  .cat-btn:hover{ border-color: var(--orange-soft); }
+  .cat-btn.active{
+    background: var(--orange);
+    border-color: var(--orange);
+    color:#1a0900;
+    font-weight:700;
+  }
+
+  /* ---------- Map ---------- */
+  .map-wrap{
+    max-width: 1100px;
+    margin: 18px auto 0;
+    padding: 0 24px;
+  }
+  #map{
+    height: 560px;
+    width:100%;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  }
+  .leaflet-popup-content-wrapper{
+    background: var(--navy-deep);
+    color: var(--cream);
+    border-radius: 10px;
+  }
+  .leaflet-popup-tip{ background: var(--navy-deep); }
+  .popup-cat{ font-size:11px; text-transform:uppercase; letter-spacing:.06em; color: var(--orange-soft); }
+  .popup-name{ font-family: var(--font-display); font-size:16px; margin: 4px 0 6px; color: var(--cream); }
+  .popup-addr{ font-size: 13px; color:#c9d4dd; margin: 2px 0; }
+  .popup-phone{ font-size: 13px; margin-top:6px; }
+  .popup-phone a{ color: var(--orange-soft); text-decoration:none; font-weight:600; }
+
+  /* ---------- Feedback ---------- */
+  .feedback-row{
+    max-width: 1100px;
+    margin: 16px auto 0;
+    padding: 0 24px;
+    text-align:center;
+  }
+  .feedback-link{
+    display:inline-block;
+    margin-top: 4px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: rgba(255,102,0,0.12);
+    border: 1px solid var(--orange);
+    color: var(--orange-soft);
+    text-decoration:none;
+    font-size: 14px;
+    font-weight:600;
+  }
+  .feedback-link:hover{ background: var(--orange); color:#1a0900; }
+
+  /* ---------- Legend note ---------- */
+  .source-note{
+    max-width: 1100px;
+    margin: 14px auto 0;
+    padding: 0 24px;
+    font-size: 12.5px;
+    color: #8ea1af;
+    text-align:center;
+  }
+
+  /* ---------- SEO/GEO block ---------- */
+  .seo-geo-block{
+    max-width: 900px;
+    margin: 60px auto 20px;
+    padding: 24px 28px;
+    border-top: 1px solid var(--line);
+  }
+  .seo-geo-block h2{
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--cream);
+    margin-top:0;
+  }
+  .seo-geo-block .promo{
+    background: rgba(255,102,0,0.08);
+    border-left: 3px solid var(--orange);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin: 10px 0;
+  }
+  .seo-geo-block .promo a{ font-weight:700; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top: 1px solid var(--line);
+    background: var(--navy-darker);
+    padding: 26px 24px 40px;
+    text-align:center;
+    font-size: 13px;
+    color: #8ea1af;
+  }
+  footer nav{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap: 18px;
+    margin-bottom: 12px;
+  }
+  footer nav a{ color:#c9d4dd; text-decoration:none; }
+  footer nav a:hover{ color: var(--orange-soft); }
+
+  @media (max-width: 640px){
+    header.site-header{ padding: 14px 16px; }
+    .brand h1{ font-size: 20px; }
+    #map{ height: 460px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header class="site-header">
+  <div class="brand">
+    <div>
+      <span class="eyebrow">Russian Friendly Map</span>
+      <h1>Рига <span>— карта русскоязычных специалистов</span></h1>
+    </div>
+  </div>
+  <a class="promo-ad" href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+    Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+  </a>
+</header>
+
+<section class="intro">
+  <h2>Где найти своих в Риге</h2>
+  <p>Стоматологи, врачи, юристы, переводчики, банки, визы, жильё, трансферы, связь, магазины и школы — проверенные контакты русскоязычных специалистов и сервисов в Риге на одной карте.</p>
+</section>
+
+<div class="categories" id="categories">
+  <button class="cat-btn active" data-cat="all">Все</button>
+  <button class="cat-btn" data-cat="dentist">🦷 Стоматологи</button>
+  <button class="cat-btn" data-cat="doctor">👩‍⚕️ Врачи</button>
+  <button class="cat-btn" data-cat="lawyer">⚖️ Юристы</button>
+  <button class="cat-btn" data-cat="translator">📄 Переводчики</button>
+  <button class="cat-btn" data-cat="bank">🏦 Банки / финансы</button>
+  <button class="cat-btn" data-cat="visa">🛂 Визовые агентства</button>
+  <button class="cat-btn" data-cat="realestate">🏠 Аренда / риелторы</button>
+  <button class="cat-btn" data-cat="transfer">🚕 Трансферы</button>
+  <button class="cat-btn" data-cat="sim">📱 SIM / eSIM</button>
+  <button class="cat-btn" data-cat="shop">🏠 Русские магазины</button>
+  <button class="cat-btn" data-cat="school">🏠 Русские школы</button>
+</div>
+
+<div class="map-wrap">
+  <div id="map"></div>
+</div>
+
+<div class="feedback-row">
+  <a class="feedback-link" href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">
+    Нашли неверные данные? Сообщите нам в бот
+  </a>
+</div>
+<p class="source-note">Контакты собраны из открытых источников (официальные сайты специалистов и организаций) и могут меняться — уточняйте актуальные часы работы перед визитом.</p>
+
+<section class="seo-geo-block">
+  <h2>Похожие запросы</h2>
+  <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+  <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+</section>
+
+<footer>
+  <nav>
+    <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+    <a href="/privacy-policy.html">Privacy Policy</a>
+  </nav>
+  <div>© Russian Friendly Map — Рига</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+  const CATS = {
+    dentist:  { label: "Стоматологи", emoji: "🦷", color: "#ff6600" },
+    doctor:   { label: "Врачи", emoji: "👩‍⚕️", color: "#5aa9e6" },
+    lawyer:   { label: "Юристы", emoji: "⚖️", color: "#c084fc" },
+    translator:{ label: "Переводчики", emoji: "📄", color: "#f4d35e" },
+    bank:     { label: "Банки / финансы", emoji: "🏦", color: "#4caf7d" },
+    visa:     { label: "Визовые агентства", emoji: "🛂", color: "#e879f9" },
+    realestate:{ label: "Аренда жилья / риелторы", emoji: "🏠", color: "#ff9770" },
+    transfer: { label: "Трансферы", emoji: "🚕", color: "#ffd23f" },
+    sim:      { label: "SIM / eSIM", emoji: "📱", color: "#38bdf8" },
+    shop:     { label: "Русские магазины", emoji: "🏠", color: "#f97316" },
+    school:   { label: "Русские школы", emoji: "🏠", color: "#a3e635" }
+  };
+
+  // Verified points collected from open sources (official sites / business directories).
+  const POINTS = [
+    {cat:"dentist", name:"Laurus Dent Plus", addr:"Lastādijas iela 12-к-1, Rīga (Spīķeri), LV-1050", phone:"+371 22428688", lat:56.9483, lng:24.1198, note:"Стоматология в квартале Spīķeri, врачи с опытом от 20 лет."},
+    {cat:"dentist", name:"Denta", addr:"Brīvības gatve 230, Rīga, LV-1039", phone:"+371 20289289", lat:56.9812, lng:24.1690, note:"Полный спектр стоматологических услуг, дежурный врач."},
+    {cat:"dentist", name:"Sky Dream Clinic", addr:"Bērzaunes iela 7, Rīga (VEF), LV-1039", phone:"+371 20012559", lat:56.9660, lng:24.1660, note:"Стоматологическая клиника в районе VEF."},
+
+    {cat:"doctor", name:"Medical Center VALEO", addr:"Stirnu iela 8, Rīga, LV-1082", phone:"+371 67598616", lat:56.9955, lng:24.0670, note:"Семейный врач, педиатр, гинеколог и другие специалисты."},
+    {cat:"doctor", name:"МЦ МФД Ilgūciems", addr:"Bulļu iela 9, Rīga, LV-1055", phone:"+371 67131311", lat:56.9280, lng:24.0430, note:"Многопрофильный медицинский центр."},
+
+    {cat:"lawyer", name:"Tiesību Risinājumi LEX", addr:"Aleksandra Čaka iela 83/85, офис 9 (4-й этаж), Rīga", phone:"+371 67270292", lat:56.9558, lng:24.1330, note:"Юридическое бюро, есть бесплатные консультации по телефону."},
+    {cat:"lawyer", name:"Латвийский центр по правам человека", addr:"Alberta iela 13, 6-й этаж, Rīga, LV-1010", phone:"+371 67039290", lat:56.9605, lng:24.1155, note:"Бесплатные юридические консультации по правам человека (по записи)."},
+
+    {cat:"translator", name:"Translab", addr:"Elizabetes iela 45/57, 2-й этаж, Rīga, LV-1010", phone:"+371 28929965", lat:56.9585, lng:24.1180, note:"Переводы и нотариальные услуги в центре Риги."},
+    {cat:"translator", name:"Бюро переводов VERBO", addr:"ул. Vaļņu 30, офис 61, Rīga", phone:"+371 26566162", lat:56.9494, lng:24.1090, note:"Переводы документов с нотариальным заверением."},
+
+    {cat:"bank", name:"Swedbank (головной офис)", addr:"Balasta dambis 15, Rīga, LV-1048", phone:"", lat:56.9430, lng:24.0940, note:"Консультации по банковским услугам, обслуживание на русском в отделениях по всей Риге."},
+
+    {cat:"visa", name:"Avenju (турфирма, визовая поддержка)", addr:"Krišjāņa Barona iela 37, 2-й этаж, Rīga, LV-1010", phone:"+371 67243611", lat:56.9552, lng:24.1200, note:"Оформление виз, работает с 10:00 до 18:00."},
+    {cat:"visa", name:"E-VISA Strend", addr:"Merķeļa iela 3, 1-й этаж, Rīga", phone:"+371 29240035", lat:56.9540, lng:24.1130, note:"Визовая поддержка, консультации по WhatsApp/Viber/Telegram."},
+
+    {cat:"realestate", name:"City Real Estate", addr:"Bruņinieku iela 8-2, Rīga, LV-1010", phone:"+371 67114284", lat:56.9560, lng:24.1280, note:"Аренда и продажа квартир в Риге и Юрмале."},
+    {cat:"realestate", name:"Агентство недвижимости LOIKK A", addr:"Krāslavas iela 12-1, Rīga", phone:"+371 67205216", lat:56.9430, lng:24.1280, note:"Купля-продажа и аренда недвижимости в Латвии."},
+
+    {cat:"transfer", name:"Kiwitaxi — трансфер из/в аэропорт Риги", addr:"Онлайн-бронирование, встреча в аэропорту RIX", phone:"", lat:56.9236, lng:23.9711, note:"Русскоязычная поддержка 24/7, фиксированная цена, встреча с табличкой."},
+
+    {cat:"sim", name:"Tele2 (клиентский центр, Origo)", addr:"Stacijas laukums 2, ТЦ Origo, Rīga, LV-1050", phone:"", lat:56.9470, lng:24.1210, note:"Подключение SIM-карт, тарифы, продажа устройств."},
+
+    {cat:"shop", name:"Rīgas Centrāltirgus (Центральный рынок)", addr:"Nēģu iela 7, Rīga, LV-1050", phone:"", lat:56.9459, lng:24.1140, note:"Мясной, молочный, овощной и рыбный павильоны — привычные продукты и общение на русском."},
+
+    {cat:"school", name:"J.G.Herdera Rīgas Grīziņkalna vidusskola", addr:"Lauku iela 9, Rīga, LV-1009", phone:"+371 67848951", lat:56.9432, lng:24.1355, note:"Школа с программами для национальных меньшинств (обучение с элементами русского языка)."}
+  ];
+
+  const map = L.map('map', { scrollWheelZoom: false }).setView([56.9496, 24.1052], 12);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  function makeIcon(cat){
+    const c = CATS[cat];
+    return L.divIcon({
+      className: 'rf-marker',
+      html: `<div style="background:${c.color};width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.4);border:2px solid #0B3350;">
+               <span style="transform:rotate(45deg);font-size:14px;">${c.emoji}</span>
+             </div>`,
+      iconSize: [30,30],
+      iconAnchor: [15,28],
+      popupAnchor: [0,-26]
+    });
+  }
+
+  const markers = POINTS.map(p => {
+    const m = L.marker([p.lat, p.lng], { icon: makeIcon(p.cat) });
+    const phoneLine = p.phone
+      ? `<div class="popup-phone">📞 <a href="tel:${p.phone.replace(/\s+/g,'')}">${p.phone}</a></div>`
+      : '';
+    m.bindPopup(
+      `<div class="popup-cat">${CATS[p.cat].emoji} ${CATS[p.cat].label}</div>
+       <div class="popup-name">${p.name}</div>
+       <div class="popup-addr">📍 ${p.addr}</div>
+       <div class="popup-addr">${p.note}</div>
+       ${phoneLine}`
+    );
+    m.category = p.cat;
+    m.addTo(map);
+    return m;
+  });
+
+  document.getElementById('categories').addEventListener('click', (e) => {
+    const btn = e.target.closest('.cat-btn');
+    if(!btn) return;
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    markers.forEach(m => {
+      if(cat === 'all' || m.category === cat){
+        if(!map.hasLayer(m)) m.addTo(map);
+      } else {
+        if(map.hasLayer(m)) map.removeLayer(m);
+      }
+    });
+  });
+</script>
+</body>
+</html>

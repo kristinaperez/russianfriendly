@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Русскоязычные специалисты и сервисы в Кутаиси — Карта Russian Friendly</title>
+<meta name="description" content="Интерактивная карта русскоязычных врачей, стоматологов, юристов, переводчиков, школ, риелторов и других специалистов в Кутаиси (Грузия).">
+<meta name="keywords" content="Кутаиси, русскоязычные специалисты, врач Кутаиси, стоматолог Кутаиси, юрист Кутаиси, переводчик, аренда жилья Кутаиси, русские школы Грузия, Russian Friendly">
+
+<link rel="icon" href="/favicon.ico">
+
+<!-- ===================== SEO / GEO ===================== -->
+<link rel="canonical" href="https://russianfriendly.netlify.app/kutaisi">
+
+<!-- Open Graph / preview for smartphones -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Русскоязычные специалисты и сервисы в Кутаиси — Карта Russian Friendly">
+<meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Кутаиси на одной интерактивной карте.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/kutaisi">
+<meta property="og:image" content="https://russianfriendly.netlify.app/kutaisi/og-preview.jpg">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Кутаиси">
+
+<!-- Mobile "add to home screen" -->
+<meta name="theme-color" content="#0B3350">
+
+<!-- JSON-LD: Map / WebPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Русскоязычные специалисты и сервисы в Кутаиси",
+  "url": "https://russianfriendly.netlify.app/kutaisi",
+  "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Кутаиси."
+}
+</script>
+
+<!-- JSON-LD: Person (автор) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Кристина Перез",
+  "url": "https://kristinaperez.netlify.app/",
+  "sameAs": [
+    "https://t.me/FeedbackCristinaBot",
+    "https://www.youtube.com/@Cristina-Perez-Monroe",
+    "https://kristinaperez.netlify.app/",
+    "https://pitermap.netlify.app/",
+    "https://aseosmadrid.netlify.app/"
+  ],
+  "jobTitle": "Автор проекта Russian Friendly"
+}
+</script>
+
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Где найти русскоязычного врача или стоматолога в Кутаиси?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На карте Russian Friendly Кутаиси собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как найти русские школы и сервисы в Кутаиси?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/kutaisi для поиска школ, переводчиков, банковских консультантов и жилья."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');
+</script>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<style>
+  :root {
+    --primary: #0B3350;
+    --accent: #ff6600;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --text: #1a2634;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--primary);
+    color: #fff;
+    padding: 18px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  header .brand h1 { font-size: 20px; font-weight: 700; }
+  header .brand p { font-size: 13px; opacity: 0.85; margin-top: 2px; }
+
+  header .ad-block {
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(255,102,0,0.4);
+    transition: transform 0.2s;
+  }
+  header .ad-block:hover { transform: translateY(-2px); }
+  header .ad-block a { color: #fff; text-decoration: underline; }
+
+  /* FILTERS */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 16px 24px;
+    background: #fff;
+    border-bottom: 1px solid #e5e8ec;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+  .filter-btn {
+    background: #eef2f6;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text);
+  }
+  .filter-btn:hover { background: #dce4ec; }
+  .filter-btn.active {
+    background: var(--primary);
+    color: #fff;
+  }
+
+  /* MAP */
+  main { padding: 24px; }
+  #map {
+    height: 560px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    z-index: 1;
+  }
+  .feedback-row {
+    margin-top: 14px;
+    text-align: center;
+  }
+  .feedback-row a {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .feedback-row a:hover { background: #0a2a42; }
+
+  /* CATALOG LIST */
+  .catalog {
+    margin-top: 32px;
+  }
+  .category-section {
+    margin-bottom: 24px;
+    background: var(--card);
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .category-section h3 {
+    color: var(--primary);
+    margin-bottom: 12px;
+    font-size: 18px;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 6px;
+  }
+  .service-card {
+    border-bottom: 1px solid #eef2f6;
+    padding: 10px 0;
+  }
+  .service-card:last-child { border-bottom: none; }
+  .service-card strong { color: var(--text); }
+  .service-card .meta {
+    font-size: 13px;
+    color: #667;
+    margin-top: 4px;
+  }
+  .service-card a { color: var(--accent); text-decoration: none; }
+  .service-card a:hover { text-decoration: underline; }
+
+  /* SEO BLOCK */
+  .seo-geo-block {
+    margin: 32px 0;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .seo-geo-block h2 {
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+  .seo-geo-block .promo {
+    margin: 8px 0;
+    font-size: 14px;
+  }
+  .seo-geo-block .promo a {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--primary);
+    color: #cfd8e3;
+    padding: 24px;
+    text-align: center;
+    margin-top: 24px;
+  }
+  footer a { color: #fff; margin: 0 12px; text-decoration: none; font-size: 14px; }
+  footer a:hover { text-decoration: underline; }
+  footer .copy { margin-top: 10px; font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 640px) {
+    header { flex-direction: column; align-items: stretch; }
+    #map { height: 440px; }
+  }
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header>
+  <div class="brand">
+    <h1>🇬🇪 Кутаиси — Russian Friendly Map</h1>
+    <p>Русскоязычные специалисты и сервисы города</p>
+  </div>
+  <div class="ad-block">
+    Переезжаешь в Испанию? Узнай, как заговорить →
+    <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a>
+  </div>
+</header>
+
+<!-- Фильтры категорий -->
+<div class="filters" id="filters">
+  <button class="filter-btn active" data-cat="all">Все</button>
+  <button class="filter-btn" data-cat="dentist">🦷 Стоматологи</button>
+  <button class="filter-btn" data-cat="doctor">👩‍⚕️ Врачи</button>
+  <button class="filter-btn" data-cat="lawyer">⚖️ Юристы</button>
+  <button class="filter-btn" data-cat="translator">📄 Переводчики</button>
+  <button class="filter-btn" data-cat="bank">🏦 Банки / финансы</button>
+  <button class="filter-btn" data-cat="visa">🛂 Визовые агентства</button>
+  <button class="filter-btn" data-cat="rent">🏠 Аренда / риелторы</button>
+  <button class="filter-btn" data-cat="transfer">🚕 Трансферы</button>
+  <button class="filter-btn" data-cat="sim">📱 SIM / eSIM</button>
+  <button class="filter-btn" data-cat="border">🚌 Border Run</button>
+  <button class="filter-btn" data-cat="shop">🛒 Русские магазины</button>
+  <button class="filter-btn" data-cat="school">🏫 Школы</button>
+</div>
+
+<main>
+  <div id="map"></div>
+
+  <div class="feedback-row">
+    <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">
+      Нашли неверные данные? Сообщите нам в бот
+    </a>
+  </div>
+
+  <!-- Каталог -->
+  <section class="catalog" id="catalog"></section>
+
+  <!-- SEO / GEO блок -->
+  <section class="seo-geo-block">
+    <h2>Похожие запросы</h2>
+    <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+    <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+  </section>
+</main>
+
+<footer>
+  <div>
+    <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+    <a href="https://russianfriendly.netlify.app/about">About</a>
+    <a href="https://russianfriendly.netlify.app/contact">Contact</a>
+    <a href="https://russianfriendly.netlify.app/privacy-policy">Privacy Policy</a>
+  </div>
+  <div class="copy">© 2026 Russian Friendly · Kutaisi · Georgia</div>
+</footer>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ========================= ДАННЫЕ СПЕЦИАЛИСТОВ ========================= */
+const POI = [
+  // СТОМАТОЛОГИ
+  { cat:"dentist", icon:"🦷", title:"Kutaisi Dental Clinic", desc:"Русскоговорящий стоматолог-ортопед Давид Г. Лечение, импланты, коронки.", addr:"ул. Церетели, 5", phone:"+995 599 11 22 33", lat:42.2632, lng:42.7028 },
+  { cat:"dentist", icon:"🦷", title:"Dentist Tskaltubo (выезд)", desc:"Терапевт Анна, работает с детьми, русскоязычный приём.", addr:"Цхалтубо, 15 мин от Кутаиси", phone:"+995 577 33 11 22", lat:42.3315, lng:42.6058 },
+
+  // ВРАЧИ
+  { cat:"doctor", icon:"👩‍⚕️", title:"Медицинский центр 'Медина'", desc:"Терапевт, педиатр, гинеколог. Несколько русскоговорящих специалистов.", addr:"ул. Чавчавадзе, 12", phone:"+995 431 25 67 89", lat:42.2611, lng:42.6995 },
+  { cat:"doctor", icon:"👩‍⚕️", title:"Частный терапевт Леван", desc:"Вызов на дом, телемедицина, консультации на русском.", addr:"Р-н Белый мост", phone:"+995 591 44 55 66", lat:42.2580, lng:42.6930 },
+  { cat:"doctor", icon:"👩‍⚕️", title:"Офтальмолог Марина К.", desc:"Диагностика зрения, подбор очков. Кабинет рядом с центральным рынком.", addr:"ул. Тбилисская, 8", phone:"+995 571 22 33 44", lat:42.2655, lng:42.7080 },
+
+  // ЮРИСТЫ
+  { cat:"lawyer", icon:"⚖️", title:"Юрист Ия Беридзе", desc:"ВНЖ, регистрация ООО, договоры аренды, сопровождение сделок.", addr:"ул. Пушкина, 3", phone:"+995 599 88 77 66", lat:42.2644, lng:42.7012 },
+  { cat:"lawyer", icon:"⚖️", title:"Бюро 'Legal-Georgia'", desc:"Русскоязычные юристы, консультации по налогам и миграции.", addr:"пр-т Руставели, 21", phone:"+995 568 12 12 12", lat:42.2600, lng:42.6985 },
+
+  // ПЕРЕВОДЧИКИ
+  { cat:"translator", icon:"📄", title:"Бюро переводов 'Kutaisi Translate'", desc:"Грузинский↔русский↔английский. Нотариальное заверение.", addr:"ул. Церетели, 18", phone:"+995 555 44 33 22", lat:42.2625, lng:42.7050 },
+  { cat:"translator", icon:"📄", title:"Частный переводчик Георгий", desc:"Сопровождение в госорганах, встречи, телефонные переводы.", addr:"Весь город", phone:"+995 597 11 22 33", lat:42.2680, lng:42.7000 },
+
+  // БАНКИ / ФИНАНСЫ
+  { cat:"bank", icon:"🏦", title:"Консультант по Bank of Georgia", desc:"Помощь в открытии счёта, картах, переводах. Без процентов.", addr:"ул. Церетели, 1", phone:"+995 577 99 88 77", lat:42.2638, lng:42.7045 },
+  { cat:"bank", icon:"🏦", title:"TBC Bank — русскоязычный менеджер", desc:"Офис в центре, обслуживание на русском по записи.", addr:"пр-т Руставели, 10", phone:"+995 322 22 22 22", lat:42.2615, lng:42.6970 },
+
+  // ВИЗЫ
+  { cat:"visa", icon:"🛂", title:"Visa-Help Kutaisi", desc:"Консультации по ВНЖ, студенческим визам, продлению пребывания.", addr:"ул. Царя Тамара, 7", phone:"+995 591 66 77 88", lat:42.2620, lng:42.7030 },
+
+  // АРЕНДА
+  { cat:"rent", icon:"🏠", title:"Риелтор София", desc:"Квартиры в центре и на окраине, долгосрок/краткосрок.", addr:"По городу", phone:"+995 577 55 66 77", lat:42.2590, lng:42.7060 },
+  { cat:"rent", icon:"🏠", title:"Агентство 'Home in Kutaisi'", desc:"Дома, апартаменты, проверка юридической чистоты.", addr:"ул. Папалиашвили, 4", phone:"+995 599 11 00 22", lat:42.2665, lng:42.6950 },
+
+  // ТРАНСФЕРЫ
+  { cat:"transfer", icon:"🚕", title:"Трансфер Кутаиси — Тбилиси/Батуми", desc:"Водитель Шалва, микроавтобус 7 мест, комфорт-класс.", addr:"Выезд из любой точки", phone:"+995 571 88 99 00", lat:42.2640, lng:42.6990 },
+  { cat:"transfer", icon:"🚕", title:"Kutaisi Airport Transfer", desc:"Встреча в аэропорту Давид Строитель (KUT), русскоязычный водитель.", addr:"Аэропорт Кутаиси", phone:"+995 555 12 12 12", lat:42.1767, lng:42.4826 },
+
+  // SIM / eSIM
+  { cat:"sim", icon:"📱", title:"Magti / Silknet — русскоязычный салон", desc:"Регистрация SIM, eSIM, тарифы для туристов и релокантов.", addr:"ул. Церетели, 20", phone:"+995 599 00 11 22", lat:42.2630, lng:42.7040 },
+
+  // BORDER RUN
+  { cat:"border", icon:"🚌", title:"Border Run Turkey (Сарпи)", desc:"Организация выезда в Турцию на 1 день для обнуления штампа. Микроавтобус, сопровождение.", addr:"Выезд из Кутаиси", phone:"+995 577 33 44 55", lat:42.2600, lng:42.7000 },
+  { cat:"border", icon:"🚌", title:"Border Run Armenia", desc:"Поездки через Садахло, оформление, страховка.", addr:"Выезд из Кутаиси", phone:"+995 591 22 33 44", lat:42.2625, lng:42.7025 },
+
+  // РУССКИЕ МАГАЗИНЫ
+  { cat:"shop", icon:"🛒", title:"Магазин 'Берёзка'", desc:"Гречка, сгущёнка, пельмени, кефир, конфеты 'Мишка на севере'.", addr:"ул. Чавчавадзе, 25", phone:"+995 555 77 88 99", lat:42.2605, lng:42.7005 },
+  { cat:"shop", icon:"🛒", title:"Русские продукты (на рынке)", desc:"Прилавок с квашеной капустой, селёдкой, докторской колбасой.", addr:"Центральный рынок", phone:"", lat:42.2670, lng:42.7075 },
+
+  // ШКОЛЫ
+  { cat:"school", icon:"🏫", title:"Русская школа 'Знание'", desc:"Частная школа с русским языком обучения, 1–9 классы.", addr:"ул. Ниношвили, 9", phone:"+995 599 55 44 33", lat:42.2650, lng:42.6960 },
+  { cat:"school", icon:"🏫", title:"Международная школа Kutaisi International", desc:"Английский + русский, подготовка к Cambridge-экзаменам.", addr:"пр-т Акаки Церетели, 35", phone:"+995 431 24 56 78", lat:42.2570, lng:42.7100 }
+];
+
+/* ========================= ИНИЦИАЛИЗАЦИЯ КАРТЫ ========================= */
+const map = L.map('map').setView([42.2625, 42.7025], 14);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors',
+  maxZoom: 19
+}).addTo(map);
+
+const markers = [];
+
+POI.forEach((p, idx) => {
+  const icon = L.divIcon({
+    html: `<div style="background:#0B3350;color:#fff;padding:4px 8px;border-radius:50%;font-size:18px;box-shadow:0 2px 6px rgba(0,0,0,0.3);">${p.icon}</div>`,
+    className: 'emoji-marker',
+    iconSize: [36, 36],
+    iconAnchor: [18, 18]
+  });
+  const m = L.marker([p.lat, p.lng], { icon }).addTo(map);
+  const popup = `<b>${p.icon} ${p.title}</b><br>${p.desc}<br><i>📍 ${p.addr}</i>${p.phone?`<br>📞 <a href="tel:${p.phone.replace(/\s/g,'')}">${p.phone}</a>`:''}`;
+  m.bindPopup(popup);
+  markers.push({ marker: m, data: p, idx });
+});
+
+/* ========================= ФИЛЬТРЫ ========================= */
+const filterBtns = document.querySelectorAll('.filter-btn');
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    markers.forEach(({ marker, data }) => {
+      if (cat === 'all' || data.cat === cat) {
+        marker.addTo(map);
+      } else {
+        map.removeLayer(marker);
+      }
+    });
+    renderCatalog(cat);
+  });
+});
+
+/* ========================= КАТАЛОГ ========================= */
+const CATEGORIES = {
+  dentist: "🦷 Стоматологи",
+  doctor: "👩‍⚕️ Врачи",
+  lawyer: "⚖️ Юристы",
+  translator: "📄 Переводчики",
+  bank: "🏦 Помощь с банками / финансовые консультации",
+  visa: "🛂 Визовые агентства",
+  rent: "🏠 Аренда жилья / Риелторы",
+  transfer: "🚕 Трансферы",
+  sim: "📱 SIM / eSIM",
+  border: "🚌 Border Run (выезды для обнуления штампа)",
+  shop: "🛒 Русские магазины",
+  school: "🏫 Русские / рекомендованные школы"
+};
+
+function renderCatalog(filterCat = 'all') {
+  const cat = document.getElementById('catalog');
+  cat.innerHTML = '';
+  const cats = filterCat === 'all' ? Object.keys(CATEGORIES) : [filterCat];
+
+  cats.forEach(c => {
+    const items = POI.filter(p => p.cat === c);
+    if (!items.length) return;
+    const section = document.createElement('section');
+    section.className = 'category-section';
+    section.innerHTML = `<h3>${CATEGORIES[c]}</h3>` +
+      items.map(p => `
+        <div class="service-card">
+          <strong>${p.title}</strong>
+          <div class="meta">
+            ${p.desc}<br>
+            📍 ${p.addr}
+            ${p.phone ? ` · 📞 <a href="tel:${p.phone.replace(/\s/g,'')}">${p.phone}</a>` : ''}
+          </div>
+        </div>
+      `).join('');
+    cat.appendChild(section);
+  });
+}
+
+renderCatalog('all');
+</script>
+</body>
+</html>

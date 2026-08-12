@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Никшич — Russian Friendly Map | Русскоязычные специалисты и сервисы</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="canonical" href="https://russianfriendly.netlify.app/niksic">
+
+  <!-- Open Graph / preview for smartphones -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Русскоязычные специалисты и сервисы в Никшич — Карта Russian Friendly">
+  <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Никшич на одной интерактивной карте.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/niksic">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/niksic/og-preview.jpg">
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Никшич">
+
+  <!-- Mobile "add to home screen" -->
+  <meta name="theme-color" content="#0B3350">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #0B3350;
+      --primary-light: #1a4a6e;
+      --accent: #ff6600;
+      --accent-hover: #e55a00;
+      --bg: #f5f7fa;
+      --card-bg: #ffffff;
+      --text: #1a1a2e;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(11,51,80,0.3);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .logo-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-icon {
+      width: 48px; height: 48px;
+      background: white;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+
+    .logo-text h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .logo-text span {
+      font-size: 0.8rem;
+      opacity: 0.85;
+      font-weight: 400;
+    }
+
+    .promo-banner {
+      background: var(--accent);
+      color: white;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .promo-banner:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .promo-banner a {
+      color: white;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #0d3d5c 50%, var(--primary-light) 100%);
+      color: white;
+      padding: 50px 24px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(255,102,0,0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 50%, rgba(255,255,255,0.03) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .hero h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      position: relative;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      max-width: 600px;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-item .num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .stat-item .label {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== CATEGORY FILTERS ===== */
+    .filters {
+      max-width: 1200px;
+      margin: -20px auto 0;
+      padding: 0 24px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .filter-bar {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      background: var(--bg);
+      border: 2px solid transparent;
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--primary);
+      background: rgba(11,51,80,0.05);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* ===== MAP SECTION ===== */
+    .map-section {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+
+    .map-container {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    #map {
+      height: 520px;
+      width: 100%;
+    }
+
+    .map-feedback {
+      padding: 14px 20px;
+      background: #f8fafc;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .map-feedback a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .map-feedback a:hover { text-decoration: underline; }
+
+    /* ===== LIST SECTION ===== */
+    .list-section {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-sm);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      transition: all 0.25s ease;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--primary);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-category {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      margin-bottom: 10px;
+      background: rgba(255,102,0,0.08);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .card p strong {
+      color: var(--text);
+      min-width: 70px;
+      flex-shrink: 0;
+    }
+
+    .card-actions {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .card-btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .card-btn.primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .card-btn.primary:hover { background: var(--primary-light); }
+
+    .card-btn.secondary {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .card-btn.secondary:hover { background: var(--border); }
+
+    .card-btn.whatsapp {
+      background: #25d366;
+      color: white;
+    }
+
+    .card-btn.whatsapp:hover { background: #1da851; }
+
+    /* ===== SEO BLOCK ===== */
+    .seo-geo-block {
+      max-width: 1200px;
+      margin: 50px auto 30px;
+      padding: 30px 24px;
+      background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    .seo-geo-block h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--primary);
+    }
+
+    .seo-geo-block .promo {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .seo-geo-block .promo a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .seo-geo-block .promo a:hover { text-decoration: underline; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 40px 24px 30px;
+      margin-top: 40px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.9;
+    }
+
+    .footer-col a {
+      display: block;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 30px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      font-size: 0.8rem;
+      opacity: 0.6;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .header-inner { flex-direction: column; text-align: center; }
+      .hero h2 { font-size: 1.6rem; }
+      .hero-stats { gap: 24px; }
+      #map { height: 380px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .filter-bar { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; }
+    }
+
+    /* Leaflet popup styling */
+    .leaflet-popup-content-wrapper {
+      border-radius: 12px !important;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15) !important;
+    }
+
+    .leaflet-popup-content {
+      margin: 14px 16px !important;
+      font-family: 'Inter', sans-serif !important;
+    }
+
+    .popup-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 6px;
+      color: var(--primary);
+    }
+
+    .popup-cat {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .popup-info {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .popup-info a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .popup-info a:hover { text-decoration: underline; }
+  </style>
+
+  <!-- JSON-LD: Map / WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Русскоязычные специалисты и сервисы в Никшич",
+    "url": "https://russianfriendly.netlify.app/niksic",
+    "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Никшич."
+  }
+  </script>
+
+  <!-- JSON-LD: Person (автор) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Кристина Перез",
+    "url": "https://kristinaperez.netlify.app/",
+    "sameAs": [
+      "https://t.me/FeedbackCristinaBot",
+      "https://www.youtube.com/@Cristina-Perez-Monroe",
+      "https://kristinaperez.netlify.app/",
+      "https://pitermap.netlify.app/",
+      "https://aseosmadrid.netlify.app/"
+    ],
+    "jobTitle": "Автор проекта Russian Friendly"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Где найти русскоязычного врача или стоматолога в Никшич?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "На карте Russian Friendly Никшич собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Как найти русские школы и сервисы в Никшич?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/niksic для поиска школ, переводчиков, банковских консультантов и жилья."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-block">
+        <div class="logo-icon">🗺️</div>
+        <div class="logo-text">
+          <h1>Никшич — Russian Friendly Map</h1>
+          <span>Русскоязычные специалисты и сервисы в Черногории</span>
+        </div>
+      </div>
+      <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener" class="promo-banner">
+        🇪🇸 Переезжаешь в Испанию? Узнай, как заговорить → <span style="text-decoration:underline;">kristinaperez.netlify.app</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <h2>🗺️ Карта русскоязычных сервисов Никшича</h2>
+    <p>Врачи, стоматологи, юристы, переводчики, школы, банки, такси и многое другое — всё на одной карте</p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="num" id="stat-count">15+</div>
+        <div class="label">точек на карте</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">10</div>
+        <div class="label">категорий</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">24/7</div>
+        <div class="label">обновления</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FILTERS ===== -->
+  <div class="filters">
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-cat="all">📍 Все</button>
+      <button class="filter-btn" data-cat="dentist">🦷 Стоматологи</button>
+      <button class="filter-btn" data-cat="doctor">👩‍⚕️ Врачи</button>
+      <button class="filter-btn" data-cat="pharmacy">💊 Аптеки</button>
+      <button class="filter-btn" data-cat="bank">🏦 Банки</button>
+      <button class="filter-btn" data-cat="taxi">🚕 Такси</button>
+      <button class="filter-btn" data-cat="school">🏫 Школы</button>
+      <button class="filter-btn" data-cat="shop">🛒 Магазины</button>
+      <button class="filter-btn" data-cat="other">📋 Другое</button>
+    </div>
+  </div>
+
+  <!-- ===== MAP ===== -->
+  <section class="map-section">
+    <div class="map-container">
+      <div id="map"></div>
+      <div class="map-feedback">
+        <span>💡 Карта обновляется по мере поступления данных от сообщества</span>
+        <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">
+          Нашли неверные данные? Сообщите нам в бот →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LIST ===== -->
+  <section class="list-section">
+    <h2 class="section-title">📋 Каталог специалистов и сервисов</h2>
+    <div class="cards-grid" id="cardsGrid"></div>
+  </section>
+
+  <!-- ===== SEO BLOCK ===== -->
+  <section class="seo-geo-block">
+    <h2>Похожие запросы</h2>
+    <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+    <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>Проект</h4>
+        <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+        <a href="https://russianfriendly.netlify.app/about">About</a>
+        <a href="https://russianfriendly.netlify.app/contact">Contact</a>
+        <a href="https://russianfriendly.netlify.app/privacy-policy">Privacy Policy</a>
+      </div>
+      <div class="footer-col">
+        <h4>Города</h4>
+        <a href="https://russianfriendly.netlify.app/niksic">Никшич</a>
+        <a href="https://russianfriendly.netlify.app/podgorica">Подгорица</a>
+        <a href="https://russianfriendly.netlify.app/budva">Будва</a>
+        <a href="https://russianfriendly.netlify.app/kotor">Котор</a>
+      </div>
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank">Бот обратной связи</a>
+        <a href="https://t.me/FeedbackCristinaBot" target="_blank">Кристина Перез</a>
+        <a href="https://www.youtube.com/@Cristina-Perez-Monroe" target="_blank">YouTube канал</a>
+      </div>
+      <div class="footer-col">
+        <h4>Партнёры</h4>
+        <a href="https://kristinaperez.netlify.app/" target="_blank">Кристина Перез — Испания</a>
+        <a href="https://madridmap.netlify.app/" target="_blank">Madrid Map</a>
+        <a href="https://pitermap.netlify.app/" target="_blank">Piter Map</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Russian Friendly Map — Никшич, Черногория. Все данные взяты из открытых источников.
+    </div>
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <script>
+    // ===== DATA =====
+    const places = [
+      {
+        id: 1,
+        category: 'dentist',
+        icon: '🦷',
+        title: 'Dr Kulušić Dental Studio',
+        address: 'Serdara Šćepana bb, Nikšić',
+        phone: '+382 68 680 990',
+        phoneLink: 'tel:+38268680990',
+        whatsapp: 'https://wa.me/38268680990',
+        description: 'Современная стоматологическая клиника с 2014 года. Полный спектр стоматологических услуг: эстетическая стоматология, протезирование, хирургия. Работают по международным стандартам.',
+        hours: 'Пн–Пт: 09:00–20:00, Сб: 09:00–13:00',
+        lat: 42.7805,
+        lng: 18.9430,
+        website: 'https://www.drkulusic.me/'
+      },
+      {
+        id: 2,
+        category: 'doctor',
+        icon: '👩‍⚕️',
+        title: 'Milmedika Clinic Nikšić',
+        address: 'Nikšić (центр города)',
+        phone: '+382 67 287 610',
+        phoneLink: 'tel:+38267287610',
+        whatsapp: 'https://wa.me/38267287610',
+        description: 'Крупнейшая частная поликлиника в Никшиче. Более 30 лет на рынке. Услуги: терапия, педиатрия, гинекология, кардиология, ортопедия, гастроэнтерология, рентген, лаборатория.',
+        hours: 'Пн–Вс: 08:00–20:00',
+        lat: 42.7820,
+        lng: 18.9445,
+        website: 'https://milmedika.com/en/clinic-niksic'
+      },
+      {
+        id: 3,
+        category: 'doctor',
+        icon: '🏥',
+        title: 'General Hospital Nikšić',
+        address: 'Nikca od Rovina bb, Nikšić',
+        phone: '+382 40 231 204',
+        phoneLink: 'tel:+38240231204',
+        description: 'Городская больница Никшича. Государственное учреждение здравоохранения. Экстренная помощь, терапия, хирургия, родильное отделение.',
+        hours: 'Круглосуточно',
+        lat: 42.7750,
+        lng: 18.9380
+      },
+      {
+        id: 4,
+        category: 'doctor',
+        icon: '🏥',
+        title: 'Primary Health Care Centre Nikšić',
+        address: 'Dr Nika Miljanića bb, Nikšić',
+        phone: '+382 40 227 722',
+        phoneLink: 'tel:+38240227722',
+        description: 'Центр первичной медико-санитарной помощи. Участковые терапевты, педиатры, семейные врачи. Государственная клиника.',
+        hours: 'Пн–Пт: 07:00–15:00',
+        lat: 42.7830,
+        lng: 18.9400
+      },
+      {
+        id: 5,
+        category: 'pharmacy',
+        icon: '💊',
+        title: 'BENU Pharmacy',
+        address: 'Bulevar 13. jula bb, Nikšić',
+        phone: '',
+        description: 'Сеть аптек BENU. Широкий ассортимент лекарств, БАДов, косметики.',
+        hours: 'Пн–Сб: 08:00–21:00',
+        lat: 42.7840,
+        lng: 18.9420
+      },
+      {
+        id: 6,
+        category: 'pharmacy',
+        icon: '💊',
+        title: 'Cor Pharmacy',
+        address: 'Njegoševa 21, Nikšić',
+        phone: '',
+        description: 'Аптека в центре Никшича. Лекарства, медицинские товары, консультация фармацевта.',
+        hours: 'Пн–Сб: 08:00–20:00',
+        lat: 42.7815,
+        lng: 18.9435
+      },
+      {
+        id: 7,
+        category: 'pharmacy',
+        icon: '💊',
+        title: 'Farmedika Pharmacy',
+        address: 'Radoja Dakića 8, Nikšić',
+        phone: '',
+        description: 'Аптека Farmedika. Лекарственные препараты, медицинские изделия, витамины.',
+        hours: 'Пн–Сб: 08:00–20:00',
+        lat: 42.7800,
+        lng: 18.9450
+      },
+      {
+        id: 8,
+        category: 'bank',
+        icon: '🏦',
+        title: 'CKB Banka (Crnogorska komercijalna)',
+        address: 'Njegoševa 23, Nikšić',
+        phone: '+382 40 212 998',
+        phoneLink: 'tel:+38240212998',
+        description: 'Крупнейший банк Черногории (OTP Group). Открытие счетов, кредиты, обмен валют, банковские карты. Русскоязычный персонал возможен.',
+        hours: 'Пн–Пт: 08:00–16:00',
+        lat: 42.7825,
+        lng: 18.9440,
+        website: 'https://www.ckb.me/'
+      },
+      {
+        id: 9,
+        category: 'bank',
+        icon: '🏦',
+        title: 'CKB Banka — Филиал Trg slobode',
+        address: 'Trg slobode bb, Nikšić',
+        phone: '+382 40 212 998',
+        phoneLink: 'tel:+38240212998',
+        description: 'Филиал CKB на площади Свободы. Банковские услуги для физических и юридических лиц.',
+        hours: 'Пн–Пт: 08:00–16:00',
+        lat: 42.7835,
+        lng: 18.9415,
+        website: 'https://www.ckb.me/'
+      },
+      {
+        id: 10,
+        category: 'taxi',
+        icon: '🚕',
+        title: 'AS Taxi Nikšić',
+        address: 'Partizanski put, Nikšić',
+        phone: '+382 67 336 919',
+        phoneLink: 'tel:+38267336919',
+        whatsapp: 'https://wa.me/38267336919',
+        description: 'Такси-служба в Никшиче. Перевозки по городу и межгород. Возможен заказ через WhatsApp/Viber.',
+        hours: 'Круглосуточно',
+        lat: 42.7868,
+        lng: 18.9383
+      },
+      {
+        id: 11,
+        category: 'taxi',
+        icon: '🚕',
+        title: 'Monte Taxi — Transfers',
+        address: 'Niksic, Montenegro',
+        phone: '+382 67 336 919',
+        phoneLink: 'tel:+38267336919',
+        description: 'Трансферы из Никшича в любую точку Черногории. Аэропорт Подгорица, Тиват, Будва, Котор, Дубровник.',
+        hours: 'Круглосуточно, предварительный заказ',
+        lat: 42.7850,
+        lng: 18.9400,
+        website: 'https://monte-taxi.me/en/niksic-taxi'
+      },
+      {
+        id: 12,
+        category: 'school',
+        icon: '🏫',
+        title: 'Primary School "Mileva Lalović-Lalatović"',
+        address: 'Niksic, Montenegro',
+        phone: '',
+        description: 'Одна из старейших начальных школ в муниципалитете Никшич. Участвует в программе инклюзивного образования с 2002 года. Государственная школа, обучение на черногорском языке.',
+        hours: 'Пн–Пт: 08:00–14:00',
+        lat: 42.7780,
+        lng: 18.9460
+      },
+      {
+        id: 13,
+        category: 'school',
+        icon: '🏫',
+        title: 'Secondary School of Economics and Hospitality',
+        address: 'Niksic, Montenegro',
+        phone: '',
+        description: 'Средняя школа экономики и гостеприимства. Профессиональное образование: экономика, туризм, кулинария, IT. Современное оборудование при поддержке ЕС.',
+        hours: 'Пн–Пт: 08:00–14:00',
+        lat: 42.7810,
+        lng: 18.9470
+      },
+      {
+        id: 14,
+        category: 'shop',
+        icon: '🛒',
+        title: 'Niksic City Market (Gradska pijaca)',
+        address: 'Центр Никшича',
+        phone: '',
+        description: 'Городской рынок. Свежие фрукты, овощи, домашний сыр, пршут, мед, вино, ракия. Атмосфера настоящего черногорского базара.',
+        hours: 'Пн–Сб: 06:00–14:00',
+        lat: 42.7820,
+        lng: 18.9425
+      },
+      {
+        id: 15,
+        category: 'shop',
+        icon: '🛒',
+        title: 'Supermarket Voli / HDL',
+        address: 'Niksic (несколько точек)',
+        phone: '',
+        description: 'Крупные супермаркеты сетей Voli и HDL. Продукты, бытовая химия, косметика. Принимают карты Visa/Mastercard.',
+        hours: 'Пн–Вс: 07:00–22:00',
+        lat: 42.7845,
+        lng: 18.9430
+      },
+      {
+        id: 16,
+        category: 'other',
+        icon: '📱',
+        title: 'SIM / eSIM — One / Telenor / m:tel',
+        address: 'Niksic (салоны связи в центре)',
+        phone: '',
+        description: 'Операторы мобильной связи Черногории: One (Vip), Telenor, m:tel. SIM-карты можно купить в салонах связи, киосках и супермаркетах. Паспорт обязателен.',
+        hours: 'Пн–Сб: 08:00–20:00',
+        lat: 42.7830,
+        lng: 18.9440
+      },
+      {
+        id: 17,
+        category: 'other',
+        icon: '🛂',
+        title: 'Русское Генеральное Консульство',
+        address: 'Veletovska 2, 81000 Podgorica',
+        phone: '+382 20 272 460',
+        phoneLink: 'tel:+38220272460',
+        description: 'Ближайшее российское консульство к Никшичу (55 км). Визовый отдел, паспортные услуги, нотариат, помощь гражданам РФ.',
+        hours: 'Пн–Пт: 09:00–12:00 (визовый отдел)',
+        lat: 42.4415,
+        lng: 19.2630
+      },
+      {
+        id: 18,
+        category: 'other',
+        icon: '🚍',
+        title: 'Автовокзал / Ж/д вокзал Никшич',
+        address: 'Niksic',
+        phone: '',
+        description: 'Автобусы в Подгорицу, Будву, Котор, Херцег-Нови. Ж/д сообщение Никшич–Подгорица (живописный маршрут).',
+        hours: 'Ежедневно',
+        lat: 42.7870,
+        lng: 18.9360
+      }
+    ];
+
+    // ===== MAP INIT =====
+    const map = L.map('map').setView([42.782, 18.942], 14);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19
+    }).addTo(map);
+
+    const markers = [];
+    const categoryColors = {
+      dentist: '#e74c3c',
+      doctor: '#3498db',
+      pharmacy: '#2ecc71',
+      bank: '#f39c12',
+      taxi: '#9b59b6',
+      school: '#1abc9c',
+      shop: '#e67e22',
+      other: '#95a5a6'
+    };
+
+    function createCustomIcon(color, emoji) {
+      return L.divIcon({
+        className: 'custom-marker',
+        html: `<div style="background:${color};width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:18px;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);">${emoji}</div>`,
+        iconSize: [36, 36],
+        iconAnchor: [18, 18],
+        popupAnchor: [0, -20]
+      });
+    }
+
+    function renderMarkers(filter = 'all') {
+      markers.forEach(m => map.removeLayer(m));
+      markers.length = 0;
+
+      places.forEach(place => {
+        if (filter !== 'all' && place.category !== filter) return;
+
+        const color = categoryColors[place.category] || '#95a5a6';
+        const marker = L.marker([place.lat, place.lng], {
+          icon: createCustomIcon(color, place.icon)
+        }).addTo(map);
+
+        const popupContent = `
+          <div class="popup-cat">${place.icon} ${getCategoryName(place.category)}</div>
+          <div class="popup-title">${place.title}</div>
+          <div class="popup-info">
+            ${place.address ? `<div>📍 ${place.address}</div>` : ''}
+            ${place.phone ? `<div>📞 <a href="${place.phoneLink}">${place.phone}</a></div>` : ''}
+            ${place.hours ? `<div>🕐 ${place.hours}</div>` : ''}
+            ${place.description ? `<div style="margin-top:8px;font-size:0.8rem;">${place.description.substring(0, 120)}...</div>` : ''}
+          </div>
+        `;
+
+        marker.bindPopup(popupContent);
+        markers.push(marker);
+      });
+    }
+
+    function getCategoryName(cat) {
+      const names = {
+        dentist: 'Стоматология',
+        doctor: 'Медицина',
+        pharmacy: 'Аптека',
+        bank: 'Банк',
+        taxi: 'Такси',
+        school: 'Школа',
+        shop: 'Магазин',
+        other: 'Сервис'
+      };
+      return names[cat] || cat;
+    }
+
+    // ===== CARDS RENDER =====
+    function renderCards(filter = 'all') {
+      const grid = document.getElementById('cardsGrid');
+      grid.innerHTML = '';
+
+      const filtered = filter === 'all' ? places : places.filter(p => p.category === filter);
+
+      filtered.forEach(place => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.cat = place.category;
+
+        const actions = [];
+        if (place.phoneLink) {
+          actions.push(`<a href="${place.phoneLink}" class="card-btn primary">📞 Позвонить</a>`);
+        }
+        if (place.whatsapp) {
+          actions.push(`<a href="${place.whatsapp}" target="_blank" class="card-btn whatsapp">💬 WhatsApp</a>`);
+        }
+        if (place.website) {
+          actions.push(`<a href="${place.website}" target="_blank" class="card-btn secondary">🌐 Сайт</a>`);
+        }
+
+        card.innerHTML = `
+          <div class="card-category">${place.icon} ${getCategoryName(place.category)}</div>
+          <h3>${place.title}</h3>
+          ${place.address ? `<p><strong>📍 Адрес:</strong> ${place.address}</p>` : ''}
+          ${place.phone ? `<p><strong>📞 Тел:</strong> <a href="${place.phoneLink}" style="color:var(--accent);text-decoration:none;font-weight:500;">${place.phone}</a></p>` : ''}
+          ${place.hours ? `<p><strong>🕐 Часы:</strong> ${place.hours}</p>` : ''}
+          ${place.description ? `<p style="margin-top:10px;line-height:1.6;">${place.description}</p>` : ''}
+          <div class="card-actions">${actions.join('')}</div>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      document.getElementById('stat-count').textContent = filtered.length + '+';
+    }
+
+    // ===== FILTERS =====
+    document.getElementById('filterBar').addEventListener('click', e => {
+      if (!e.target.classList.contains('filter-btn')) return;
+
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      e.target.classList.add('active');
+
+      const cat = e.target.dataset.cat;
+      renderMarkers(cat);
+      renderCards(cat);
+    });
+
+    // ===== INIT =====
+    renderMarkers();
+    renderCards();
+  </script>
+</body>
+</html>

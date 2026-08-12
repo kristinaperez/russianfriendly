@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Русскоязычные специалисты и сервисы в Таллин — Карта Russian Friendly</title>
+<meta name="description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Таллин на одной интерактивной карте.">
+<link rel="icon" href="/favicon.ico">
+
+<!-- ===================== SEO / GEO ===================== -->
+<link rel="canonical" href="https://russianfriendly.netlify.app/tallinn">
+
+<!-- Open Graph / preview for smartphones -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Русскоязычные специалисты и сервисы в Таллин — Карта Russian Friendly">
+<meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Таллин на одной интерактивной карте.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/tallinn">
+<meta property="og:image" content="https://russianfriendly.netlify.app/tallinn/og-preview.jpg">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Таллин">
+
+<!-- Mobile "add to home screen" -->
+<meta name="theme-color" content="#0B3350">
+
+<!-- JSON-LD: Map / WebPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Русскоязычные специалисты и сервисы в Таллин",
+  "url": "https://russianfriendly.netlify.app/tallinn",
+  "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Таллин."
+}
+</script>
+
+<!-- JSON-LD: Person (автор) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Кристина Перез",
+  "url": "https://kristinaperez.netlify.app/",
+  "sameAs": [
+    "https://t.me/FeedbackCristinaBot",
+    "https://www.youtube.com/@Cristina-Perez-Monroe",
+    "https://kristinaperez.netlify.app/",
+    "https://pitermap.netlify.app/",
+    "https://aseosmadrid.netlify.app/"
+  ],
+  "jobTitle": "Автор проекта Russian Friendly"
+}
+</script>
+
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Где найти русскоязычного врача или стоматолога в Таллин?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На карте Russian Friendly Таллин собраны контакты врачей, стоматологов и клиник с русскоязычным персоналом. Часть точек проверена по открытым источникам, часть добавляется сообществом через бот обратной связи."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как найти русские школы и сервисы в Таллин?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/tallinn для поиска школ, переводчиков, банковских консультантов и жилья."
+      }
+    }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-badge">RF</span>
+      <div class="brand-text">
+        <h1>Таллин — Russian Friendly Map</h1>
+        <p>Русскоязычные специалисты и сервисы города</p>
+      </div>
+    </div>
+    <a class="promo-badge" href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+      Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="controls" aria-label="Фильтры по категориям">
+    <button class="filter-chip active" data-cat="all">Все категории</button>
+    <button class="filter-chip" data-cat="dentist">🦷 Стоматологи</button>
+    <button class="filter-chip" data-cat="doctor">👩‍⚕️ Врачи</button>
+    <button class="filter-chip" data-cat="lawyer">⚖️ Юристы</button>
+    <button class="filter-chip" data-cat="translator">📄 Переводчики</button>
+    <button class="filter-chip" data-cat="bank">🏦 Банки / Финансы</button>
+    <button class="filter-chip" data-cat="visa">🛂 Визовые агентства</button>
+    <button class="filter-chip" data-cat="realestate">🏠 Аренда / Риелторы</button>
+    <button class="filter-chip" data-cat="transfer">🚕 Трансферы</button>
+    <button class="filter-chip" data-cat="sim">📱 SIM / eSIM</button>
+    <button class="filter-chip" data-cat="shop">🛒 Русские магазины</button>
+    <button class="filter-chip" data-cat="school">🎓 Школы</button>
+  </section>
+
+  <section class="map-wrap">
+    <div id="map"></div>
+    <p class="map-note">
+      ⚠️ Часть точек на карте отмечена как «требует проверки» — это примеры-заглушки категорий,
+      контакты которых пока не подтверждены. Проверенные точки помечены значком ✅.
+    </p>
+    <a class="feedback-link" href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">
+      Нашли неверные данные? Сообщите нам в бот
+    </a>
+  </section>
+
+  <section class="listing" aria-label="Список точек">
+    <h2>Все точки списком</h2>
+    <div id="listing-grid" class="listing-grid"></div>
+  </section>
+
+  <section class="seo-geo-block">
+    <h2>Похожие запросы</h2>
+    <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+    <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <nav aria-label="Ссылки сайта">
+    <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+    <a href="/privacy-policy.html">Privacy Policy</a>
+  </nav>
+  <p class="footer-note">© Russian Friendly. Данные собираются из открытых источников и сообщений пользователей и могут быть неполными — проверяйте контакты перед визитом.</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="places.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

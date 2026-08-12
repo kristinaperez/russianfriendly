@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Русскоязычные специалисты и сервисы в Мельбурн — Карта Russian Friendly</title>
+    <meta name="description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Мельбурн на одной интерактивной карте.">
+    
+    <link rel="icon" href="/favicon.ico">
+
+    <link rel="canonical" href="https://russianfriendly.netlify.app/melbourne">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Русскоязычные специалисты и сервисы в Мельбурн — Карта Russian Friendly">
+    <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Мельбурн на одной интерактивной карте.">
+    <meta property="og:url" content="https://russianfriendly.netlify.app/melbourne">
+    <meta property="og:image" content="https://russianfriendly.netlify.app/melbourne/og-preview.jpg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Русскоязычные специалисты в Мельбурн">
+
+    <meta name="theme-color" content="#0B3350">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Русскоязычные специалисты и сервисы в Мельбурн",
+      "url": "https://russianfriendly.netlify.app/melbourne",
+      "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Мельбурн."
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Кристина Перез",
+      "url": "https://kristinaperez.netlify.app/",
+      "sameAs": [
+        "https://t.me/FeedbackCristinaBot",
+        "https://www.youtube.com/@Cristina-Perez-Monroe",
+        "https://kristinaperez.netlify.app/",
+        "https://pitermap.netlify.app/",
+        "https://aseosmadrid.netlify.app/"
+      ],
+      "jobTitle": "Автор проекта Russian Friendly"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Где найти русскоязычного врача или стоматолога в Мельбурн?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "На карте Russian Friendly Мельбурн собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Как найти русские школы и сервисы в Мельбурн?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/melbourne для поиска школ, переводчиков, банковских консультантов и жилья."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+    <style>
+        :root {
+            --primary-color: #0B3350;
+            --accent-orange: #ff6600;
+            --bg-light: #f4f7f9;
+            --text-dark: #2c3e50;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        header {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-title h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .header-title p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .header-ad {
+            background-color: var(--accent-orange);
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+
+        .header-ad:hover {
+            opacity: 0.9;
+        }
+
+        /* MAIN CONTENT */
+        main {
+            max-width: 1200px;
+            width: 100%;
+            margin: 20px auto;
+            padding: 0 15px;
+            flex: 1;
+        }
+
+        /* CATEGORIES FILTER */
+        .controls {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .filter-btn {
+            background: #ffffff;
+            border: 1px solid #ccc;
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+        }
+
+        /* MAP */
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+
+        /* FEEDBACK BUTTON */
+        .feedback-block {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .feedback-btn {
+            display: inline-block;
+            background-color: #ffffff;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .feedback-btn:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        /* SEO GEO BLOCK */
+        .seo-geo-block {
+            margin-top: 40px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .seo-geo-block h2 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .seo-geo-block .promo {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .seo-geo-block a {
+            color: var(--accent-orange);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .seo-geo-block a:hover {
+            text-decoration: underline;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-title">
+            <h1>Мельбурн — Russian Friendly Map</h1>
+            <p>Русскоязычные специалисты, организации и сервисы</p>
+        </div>
+        <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener" class="header-ad">
+            Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+        </a>
+    </header>
+
+    <main>
+        <div class="controls" id="filters">
+            <button class="filter-btn active" data-category="all">Все</button>
+            <button class="filter-btn" data-category="dentist">🦷 Стоматологи</button>
+            <button class="filter-btn" data-category="doctor">👩‍⚕️ Врачи</button>
+            <button class="filter-btn" data-category="lawyer">⚖️ Юристы</button>
+            <button class="filter-btn" data-category="translator">📄 Переводчики</button>
+            <button class="filter-btn" data-category="finance">🏦 Банки / Финансы</button>
+            <button class="filter-btn" data-category="visa">🛂 Визы</button>
+            <button class="filter-btn" data-category="realty">🏠 Риелторы / Жилье</button>
+            <button class="filter-btn" data-category="transfer">🚕 Трансферы</button>
+            <button class="filter-btn" data-category="sim">📱 SIM / eSIM</button>
+            <button class="filter-btn" data-category="shop">🛍️ Русские магазины</button>
+            <button class="filter-btn" data-category="school">🏫 Школы</button>
+        </div>
+
+        <div id="map"></div>
+
+        <div class="feedback-block">
+            <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener" class="feedback-btn">
+                Нашли неверные данные? Сообщите нам в бот
+            </a>
+        </div>
+
+        <section class="seo-geo-block">
+            <h2>Похожие запросы</h2>
+            <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+            <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <nav class="footer-links">
+            <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+            <a href="https://russianfriendly.netlify.app/about">About</a>
+            <a href="https://russianfriendly.netlify.app/contact">Contact</a>
+            <a href="https://russianfriendly.netlify.app/privacy-policy">Privacy Policy</a>
+        </nav>
+        <p class="copyright">© Russian Friendly Map — Мельбурн</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <script>
+        // Инициализация карты (центр: Мельбурн)
+        const map = L.map('map').setView([-37.8136, 144.9631], 11);
+
+        // Подключение OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Данные точек по Мельбурну
+        const locations = [
+            {
+                name: "Русская школа «Пушкинский лицей»",
+                category: "school",
+                lat: -37.8860,
+                lng: 145.0080,
+                desc: "🏫 Субботняя школа русского языка и культуры в Carnegie."
+            },
+            {
+                name: "Русский магазин «Гастроном» (Bentos)",
+                category: "shop",
+                lat: -37.8785,
+                lng: 145.0021,
+                desc: "🛍️ Привычные продукты, импортные товары и кулинария (Elsternwick)."
+            },
+            {
+                name: "Клиника стоматологии и общей медицины",
+                category: "dentist",
+                lat: -37.8682,
+                lng: 144.9805,
+                desc: "🦷 Консультации на русском языке в районе St Kilda."
+            },
+            {
+                name: "Медицинский центр Caulfield",
+                category: "doctor",
+                lat: -37.8770,
+                lng: 145.0220,
+                desc: "👩‍⚕️ Русскоязычные терапевты и специалисты широкого профиля."
+            },
+            {
+                name: "Иммиграционный юрист & Визы",
+                category: "visa",
+                lat: -37.8140,
+                lng: 144.9633,
+                desc: "🛂 Визовое агентство и юридическая помощь в CBD Melbourne."
+            },
+            {
+                name: "Сертифицированный переводчик NAATI",
+                category: "translator",
+                lat: -37.8180,
+                lng: 144.9670,
+                desc: "📄 Официальный перевод документов для виз и ведомств Australia."
+            },
+            {
+                name: "Агентство недвижимости & Риелтор",
+                category: "realty",
+                lat: -37.8500,
+                lng: 144.9900,
+                desc: "🏠 Помощь с долгосрочной арендой и покупкой жилья."
+            },
+            {
+                name: "Финансовые консультации и бухгалтерия",
+                category: "finance",
+                lat: -37.8155,
+                lng: 144.9580,
+                desc: "🏦 Консультации по налогообложению и открытию счетов."
+            },
+            {
+                name: "Трансфер Melbourne Airport (Tullamarine)",
+                category: "transfer",
+                lat: -37.6690,
+                lng: 144.8410,
+                desc: "🚕 Встреча в аэропорту и русскоязычные водители."
+            },
+            {
+                name: "Связь и eSIM консультации",
+                category: "sim",
+                lat: -37.8130,
+                lng: 144.9650,
+                desc: "📱 Помощь в подборе выгодных тарифов местной связи и eSIM."
+            }
+        ];
+
+        // Массив для хранения всех маркеров
+        const markers = [];
+
+        // Отрисовка меток на карте
+        locations.forEach(loc => {
+            const marker = L.marker([loc.lat, loc.lng])
+                .bindPopup(`<b>${loc.name}</b><br>${loc.desc}`);
+            
+            marker.category = loc.category;
+            marker.addTo(map);
+            markers.push(marker);
+        });
+
+        // Фильтрация меток
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const selectedCategory = btn.getAttribute('data-category');
+
+                markers.forEach(marker => {
+                    if (selectedCategory === 'all' || marker.category === selectedCategory) {
+                        map.addLayer(marker);
+                    } else {
+                        map.removeLayer(marker);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

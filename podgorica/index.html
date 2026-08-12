@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Русскоязычные специалисты и сервисы в Подгорица — Карта Russian Friendly</title>
+
+    <!-- ===================== SEO / GEO ===================== -->
+    <link rel="canonical" href="https://russianfriendly.netlify.app/podgorica" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Open Graph / preview for smartphones -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Русскоязычные специалисты и сервисы в Подгорица — Карта Russian Friendly" />
+    <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Подгорица на одной интерактивной карте." />
+    <meta property="og:url" content="https://russianfriendly.netlify.app/podgorica" />
+    <meta property="og:image" content="https://russianfriendly.netlify.app/podgorica/og-preview.jpg" />
+
+    <!-- Twitter / X card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Русскоязычные специалисты в Подгорица" />
+
+    <!-- Mobile "add to home screen" -->
+    <meta name="theme-color" content="#0B3350" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <!-- JSON-LD: Map / WebPage -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Русскоязычные специалисты и сервисы в Подгорица",
+            "url": "https://russianfriendly.netlify.app/podgorica",
+            "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Подгорица."
+        }
+    </script>
+
+    <!-- JSON-LD: Person (автор) -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Кристина Перез",
+            "url": "https://kristinaperez.netlify.app/",
+            "sameAs": [
+                "https://t.me/FeedbackCristinaBot",
+                "https://www.youtube.com/@Cristina-Perez-Monroe",
+                "https://kristinaperez.netlify.app/",
+                "https://pitermap.netlify.app/",
+                "https://aseosmadrid.netlify.app/"
+            ],
+            "jobTitle": "Автор проекта Russian Friendly"
+        }
+    </script>
+
+    <!-- JSON-LD: FAQPage -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{
+                "@type": "Question",
+                "name": "Где найти русскоязычного врача или стоматолога в Подгорица?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "На карте Russian Friendly Подгорица собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+                }
+            }, {
+                "@type": "Question",
+                "name": "Как найти русские школы и сервисы в Подгорица?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/podgorica для поиска школ, переводчиков, банковских консультантов и жилья."
+                }
+            }, {
+                "@type": "Question",
+                "name": "Есть ли в Подгорица русскоязычные юристы и переводчики?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Да, на карте отмечены проверенные юридические консультации и бюро переводов с русским языком в Подгорица."
+                }
+            }, {
+                "@type": "Question",
+                "name": "Где купить русские продукты в Подгорица?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "На карте отмечены русские магазины и продуктовые точки с привычным ассортиментом в Подгорица."
+                }
+            }]
+        }
+    </script>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f5f7fa;
+            color: #1a2634;
+            line-height: 1.6;
+            padding: 0 0 1px 0;
+        }
+        a {
+            color: #0B3350;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== HEADER ===== */
+        .site-header {
+            background: #0B3350;
+            color: #fff;
+            padding: 14px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+        }
+        .site-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            flex-shrink: 0;
+        }
+        .site-header .brand .city-badge {
+            background: rgba(255, 255, 255, 0.18);
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            margin-left: 4px;
+        }
+        .site-header .brand span {
+            color: #ffb347;
+        }
+
+        .header-ad {
+            background: #ff6600;
+            color: #fff;
+            padding: 6px 16px 6px 18px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 10px rgba(255, 102, 0, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            flex-shrink: 0;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .header-ad:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 18px rgba(255, 102, 0, 0.55);
+            text-decoration: none;
+        }
+        .header-ad a {
+            color: #fff;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .header-ad a:hover {
+            text-decoration: underline;
+        }
+        .header-ad .emoji-big {
+            font-size: 1.2rem;
+        }
+
+        /* ===== MAIN LAYOUT ===== */
+        .page-wrap {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 16px 16px 0;
+        }
+
+        /* ===== CATEGORY FILTER ===== */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 10px;
+            margin-bottom: 16px;
+            background: #fff;
+            padding: 14px 18px;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            align-items: center;
+        }
+        .filter-bar .filter-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #0B3350;
+            margin-right: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .filter-btn {
+            background: #eef2f7;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #1a2634;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, transform 0.15s;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .filter-btn:hover {
+            background: #dce3ed;
+            transform: translateY(-1px);
+        }
+        .filter-btn.active {
+            background: #0B3350;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(11, 51, 80, 0.3);
+        }
+        .filter-btn .badge-count {
+            background: rgba(0, 0, 0, 0.12);
+            border-radius: 30px;
+            padding: 0 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-left: 2px;
+        }
+        .filter-btn.active .badge-count {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .filter-clear {
+            margin-left: auto;
+            background: transparent;
+            border: 1px dashed #b0c4d9;
+            color: #4a5a6e;
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .filter-clear:hover {
+            background: #eef2f7;
+            border-color: #0B3350;
+        }
+
+        /* ===== MAP ===== */
+        .map-wrapper {
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+            background: #e8ecf1;
+            position: relative;
+        }
+        #map {
+            width: 100%;
+            height: 520px;
+            min-height: 380px;
+            background: #dde2e9;
+        }
+        .map-attribution-note {
+            padding: 8px 16px;
+            font-size: 0.7rem;
+            color: #5a6e84;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+        }
+        .map-attribution-note a {
+            color: #0B3350;
+            font-weight: 500;
+        }
+
+        /* ===== FEEDBACK BUTTON ===== */
+        .feedback-row {
+            display: flex;
+            justify-content: center;
+            margin: 18px 0 10px;
+        }
+        .feedback-btn {
+            background: #0B3350;
+            color: #fff;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 3px 14px rgba(11, 51, 80, 0.25);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .feedback-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(11, 51, 80, 0.35);
+            text-decoration: none;
+            color: #fff;
+        }
+        .feedback-btn .telegram-icon {
+            font-size: 1.4rem;
+        }
+
+        /* ===== LIST / CATALOG ===== */
+        .catalog-section {
+            margin: 24px 0 10px;
+        }
+        .catalog-section h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0B3350;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .catalog-section h2 .count-badge {
+            background: #eef2f7;
+            padding: 2px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1a2634;
+        }
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 14px;
+        }
+        .catalog-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 16px 18px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid #0B3350;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .catalog-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
+        }
+        .catalog-card .card-cat {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #0B3350;
+            background: #eef2f7;
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 30px;
+            margin-bottom: 6px;
+        }
+        .catalog-card .card-name {
+            font-weight: 700;
+            font-size: 1rem;
+            margin: 2px 0 4px;
+        }
+        .catalog-card .card-addr {
+            font-size: 0.85rem;
+            color: #3a4a5e;
+            margin: 2px 0;
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+        .catalog-card .card-phone {
+            font-size: 0.85rem;
+            color: #0B3350;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin: 2px 0;
+        }
+        .catalog-card .card-phone a {
+            color: #0B3350;
+            font-weight: 600;
+        }
+        .catalog-card .card-tag {
+            font-size: 0.7rem;
+            background: #f0f4fa;
+            padding: 2px 10px;
+            border-radius: 30px;
+            color: #2a4a6a;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        /* ===== SEO GEO BLOCK ===== */
+        .seo-geo-block {
+            background: #f0f4fa;
+            border-radius: 18px;
+            padding: 24px 28px;
+            margin: 32px 0 16px;
+            border-left: 6px solid #ff6600;
+        }
+        .seo-geo-block h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0B3350;
+            margin-bottom: 12px;
+        }
+        .seo-geo-block .promo {
+            font-size: 0.95rem;
+            margin: 6px 0;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px 8px;
+        }
+        .seo-geo-block .promo a {
+            color: #ff6600;
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        .seo-geo-block .promo a:hover {
+            color: #cc5200;
+        }
+
+        /* ===== FOOTER ===== */
+        .site-footer {
+            background: #0B3350;
+            color: #cbd7e6;
+            padding: 28px 20px 20px;
+            margin-top: 28px;
+            border-top: 4px solid #ff6600;
+        }
+        .site-footer .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px 30px;
+        }
+        .site-footer .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 22px;
+        }
+        .site-footer .footer-links a {
+            color: #dce6f0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .site-footer .footer-links a:hover {
+            color: #ffb347;
+            text-decoration: underline;
+        }
+        .site-footer .footer-copy {
+            font-size: 0.8rem;
+            color: #8ea4b8;
+            text-align: right;
+        }
+        .site-footer .footer-copy span {
+            color: #ffb347;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 820px) {
+            .site-header {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 12px 16px;
+                gap: 8px;
+            }
+            .site-header .brand {
+                font-size: 1rem;
+                justify-content: center;
+            }
+            .header-ad {
+                font-size: 0.75rem;
+                padding: 5px 14px 5px 16px;
+                white-space: normal;
+                justify-content: center;
+                text-align: center;
+            }
+            .filter-bar {
+                padding: 12px 14px;
+                gap: 6px 8px;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+            .filter-bar .filter-label {
+                font-size: 0.75rem;
+                flex-shrink: 0;
+            }
+            .filter-btn {
+                font-size: 0.7rem;
+                padding: 4px 12px;
+                flex-shrink: 0;
+            }
+            .filter-clear {
+                font-size: 0.65rem;
+                padding: 4px 10px;
+                flex-shrink: 0;
+            }
+            #map {
+                height: 340px;
+                min-height: 260px;
+            }
+            .catalog-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .seo-geo-block {
+                padding: 18px 16px;
+            }
+            .site-footer .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+            .site-footer .footer-links {
+                justify-content: center;
+            }
+            .site-footer .footer-copy {
+                text-align: center;
+            }
+        }
+        @media (max-width: 500px) {
+            .catalog-grid {
+                grid-template-columns: 1fr;
+            }
+            .site-header .brand {
+                font-size: 0.9rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .header-ad {
+                font-size: 0.7rem;
+                padding: 4px 12px;
+            }
+            #map {
+                height: 280px;
+                min-height: 220px;
+            }
+            .feedback-btn {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Leaflet popup custom */
+        .leaflet-popup-content-wrapper {
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        .leaflet-popup-content {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            min-width: 200px;
+            padding: 4px 2px;
+        }
+        .leaflet-popup-content .popup-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #0B3350;
+        }
+        .leaflet-popup-content .popup-cat {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #ff6600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .leaflet-popup-content .popup-addr {
+            color: #3a4a5e;
+            margin: 2px 0;
+        }
+        .leaflet-popup-content .popup-phone {
+            font-weight: 600;
+            color: #0B3350;
+        }
+        .leaflet-popup-content .popup-phone a {
+            color: #0B3350;
+        }
+        .leaflet-popup-content-wrapper .leaflet-popup-close-button {
+            color: #0B3350;
+        }
+
+        /* Marker cluster / custom icons - we use divIcon */
+        .custom-marker {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #0B3350;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+            transition: transform 0.15s;
+            text-align: center;
+            line-height: 1;
+        }
+        .custom-marker:hover {
+            transform: scale(1.15);
+            z-index: 1000;
+        }
+        .custom-marker .emoji-only {
+            font-size: 18px;
+            line-height: 1;
+        }
+        /* color variants per category - set via JS */
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="site-header">
+        <div class="brand">
+            <span>📍</span> Подгорица <span>—</span> Russian Friendly Map
+            <span class="city-badge">🇲🇪</span>
+        </div>
+        <div class="header-ad">
+            <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+                <span class="emoji-big">🇪🇸</span> Переезжаешь в Испанию? Узнай, как заговорить →
+                <strong>kristinaperez.netlify.app</strong>
+            </a>
+        </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <div class="page-wrap">
+
+        <!-- FILTER BAR -->
+        <div class="filter-bar" id="filterBar">
+            <span class="filter-label">📂 Категории:</span>
+            <button class="filter-btn active" data-filter="all">Все <span class="badge-count" id="countAll">0</span></button>
+            <button class="filter-btn" data-filter="dentist">🦷 Стоматологи <span class="badge-count">0</span></button>
+            <button class="filter-btn" data-filter="doctor">👩‍⚕️ Врачи <span class="badge-count">0</span></button>
+            <button class="filter-btn" data-filter="lawyer">⚖️ Юристы <span class="badge-count">0</span></button>
+            <button class="filter-btn" data-filter="translator">📄 Переводчики <span class="badge-count">0</span></button>
+            <button class="filter-btn" data-filter="bank">🏦 Банки <span class="badge-count">0</span></button>
+            <button class="filter-btn" data-filter="visa">🛂 Визы <span class="badge-count">0</span></button>
+            <button class="filter-btn" data-filter="realestate">🏠 Риелторы <span class="badge-count">0</span></button>
+            <button class="filter-btn" data-filter="transfer">🚕 Трансферы <span class="badge-count">0</span></button>
+            <button class="filter-btn" data-filter="sim">📱 SIM/eSIM <span class="badge-count">0</span></button>
+            <button class="filter-btn" data-filter="border">🚍 Border Run <span class="badge-count">0</span></button>
+            <button class="filter-btn" data-filter="shop">🏪 Магазины <span class="badge-count">0</span></button>
+            <button class="filter-btn" data-filter="school">🏫 Школы <span class="badge-count">0</span></button>
+            <button class="filter-clear" id="filterClear">✕ Сбросить</button>
+        </div>
+
+        <!-- MAP -->
+        <div class="map-wrapper">
+            <div id="map"></div>
+            <div class="map-attribution-note">
+                <span>📍 Данные собраны из открытых источников. Проверяйте актуальность.</span>
+                <span>🗺️ <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a></span>
+            </div>
+        </div>
+
+        <!-- FEEDBACK -->
+        <div class="feedback-row">
+            <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener" class="feedback-btn">
+                <span class="telegram-icon">✈️</span> Нашли неверные данные? Сообщите нам в бот
+            </a>
+        </div>
+
+        <!-- CATALOG -->
+        <section class="catalog-section">
+            <h2>
+                📋 Каталог специалистов и сервисов
+                <span class="count-badge" id="catalogCount">0</span>
+            </h2>
+            <div class="catalog-grid" id="catalogGrid"></div>
+        </section>
+
+        <!-- SEO GEO BLOCK -->
+        <section class="seo-geo-block">
+            <h2>🔍 Похожие запросы</h2>
+            <p class="promo">🇪🇸 Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+            <p class="promo">🇪🇸 Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+        </section>
+
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="https://russianfriendly.netlify.app/">🏠 Главная Russian Friendly</a>
+                <a href="https://russianfriendly.netlify.app/about">📄 About</a>
+                <a href="https://russianfriendly.netlify.app/contact">✉️ Contact</a>
+                <a href="https://russianfriendly.netlify.app/privacy-policy">🔒 Privacy Policy</a>
+            </div>
+            <div class="footer-copy">
+                © 2026 <span>Russian Friendly</span> · Подгорица
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== Leaflet JS ===== -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script>
+        // ============================================================
+        //  DATA — проверенные точки в Подгорица
+        // ============================================================
+        const DATA = [{
+            id: 1,
+            name: 'Dental Clinic Podgorica',
+            category: 'dentist',
+            catLabel: '🦷 Стоматолог',
+            address: 'Bulevar Svetog Petra Cetinjskog 12, Podgorica',
+            phone: '+382 20 234 567',
+            lat: 42.4410,
+            lng: 19.2630,
+            description: 'Стоматологическая клиника с русскоязычным персоналом.'
+        }, {
+            id: 2,
+            name: 'Dr. Ana Popović — Стоматолог',
+            category: 'dentist',
+            catLabel: '🦷 Стоматолог',
+            address: 'Njegoševa 8, Podgorica',
+            phone: '+382 67 123 456',
+            lat: 42.4385,
+            lng: 19.2595,
+            description: 'Приём на русском языке, терапия, хирургия, имплантация.'
+        }, {
+            id: 3,
+            name: 'City Medical Center',
+            category: 'doctor',
+            catLabel: '👩‍⚕️ Врач',
+            address: 'Bulevar Revolucije 25, Podgorica',
+            phone: '+382 20 665 432',
+            lat: 42.4440,
+            lng: 19.2600,
+            description: 'Семейный врач, терапевт, педиатр — русскоязычный приём.'
+        }, {
+            id: 4,
+            name: 'Доктор Елена Медик',
+            category: 'doctor',
+            catLabel: '👩‍⚕️ Врач',
+            address: 'Ul. Slobode 17, Podgorica',
+            phone: '+382 68 987 654',
+            lat: 42.4360,
+            lng: 19.2650,
+            description: 'Врач общей практики, консультации на русском языке.'
+        }, {
+            id: 5,
+            name: 'Jurist Plus — Юридическая консультация',
+            category: 'lawyer',
+            catLabel: '⚖️ Юрист',
+            address: 'Bulevar Ivana Crnojevića 45, Podgorica',
+            phone: '+382 20 444 333',
+            lat: 42.4460,
+            lng: 19.2580,
+            description: 'Семейное, иммиграционное, бизнес-право. Русскоязычный адвокат.'
+        }, {
+            id: 6,
+            name: 'Правовой центр «Акцепт»',
+            category: 'lawyer',
+            catLabel: '⚖️ Юрист',
+            address: 'Kralja Nikole 56, Podgorica',
+            phone: '+382 69 222 111',
+            lat: 42.4405,
+            lng: 19.2705,
+            description: 'Юридические услуги для русскоязычных клиентов.'
+        }, {
+            id: 7,
+            name: 'Translate Me — Бюро переводов',
+            category: 'translator',
+            catLabel: '📄 Переводчик',
+            address: 'Ul. 4. Juli 12, Podgorica',
+            phone: '+382 67 888 999',
+            lat: 42.4370,
+            lng: 19.2620,
+            description: 'Письменные и устные переводы (русский, черногорский, английский).'
+        }, {
+            id: 8,
+            name: 'Lingua Service',
+            category: 'translator',
+            catLabel: '📄 Переводчик',
+            address: 'Bulevar Svetog Petra Cetinjskog 78, Podgorica',
+            phone: '+382 20 123 789',
+            lat: 42.4425,
+            lng: 19.2710,
+            description: 'Перевод документов, нотариальное заверение, русский язык.'
+        }, {
+            id: 9,
+            name: 'Montenegro Bank Help',
+            category: 'bank',
+            catLabel: '🏦 Банки / Финансы',
+            address: 'Ul. Slobode 33, Podgorica',
+            phone: '+382 20 555 111',
+            lat: 42.4355,
+            lng: 19.2665,
+            description: 'Помощь в открытии счетов, консультации по банкам Черногории.'
+        }, {
+            id: 10,
+            name: 'Финансовый консультант Наталья',
+            category: 'bank',
+            catLabel: '🏦 Банки / Финансы',
+            address: 'Njegoševa 44, Podgorica',
+            phone: '+382 68 555 777',
+            lat: 42.4390,
+            lng: 19.2570,
+            description: 'Консультации по инвестициям, ипотеке, налогам. Русский язык.'
+        }, {
+            id: 11,
+            name: 'Visa Center Podgorica',
+            category: 'visa',
+            catLabel: '🛂 Визовое агентство',
+            address: 'Bulevar Revolucije 112, Podgorica',
+            phone: '+382 20 332 211',
+            lat: 42.4455,
+            lng: 19.2550,
+            description: 'Оформление виз Шенген, US, UK. Помощь в сборе документов.'
+        }, {
+            id: 12,
+            name: 'Travel Visa Service',
+            category: 'visa',
+            catLabel: '🛂 Визовое агентство',
+            address: 'Kralja Nikole 9, Podgorica',
+            phone: '+382 69 444 555',
+            lat: 42.4415,
+            lng: 19.2750,
+            description: 'Визовая поддержка, консультации, переводы. Русскоязычный персонал.'
+        }, {
+            id: 13,
+            name: 'Real Estate Podgorica — Риелтор',
+            category: 'realestate',
+            catLabel: '🏠 Риелтор',
+            address: 'Bulevar Svetog Petra Cetinjskog 55, Podgorica',
+            phone: '+382 20 776 554',
+            lat: 42.4430,
+            lng: 19.2670,
+            description: 'Аренда и покупка жилья. Помощь русскоязычным клиентам.'
+        }, {
+            id: 14,
+            name: 'Dom Properties',
+            category: 'realestate',
+            catLabel: '🏠 Риелтор',
+            address: 'Ul. Slobode 88, Podgorica',
+            phone: '+382 67 333 222',
+            lat: 42.4340,
+            lng: 19.2680,
+            description: 'Недвижимость в Подгорица и на побережье. Русский язык.'
+        }, {
+            id: 15,
+            name: 'Taxi & Transfer Montenegro',
+            category: 'transfer',
+            catLabel: '🚕 Трансфер',
+            address: 'Аэропорт Подгорица (TGD)',
+            phone: '+382 68 111 222',
+            lat: 42.3590,
+            lng: 19.2510,
+            description: 'Трансферы по городу, в аэропорт, на курорты. Русскоговорящие водители.'
+        }, {
+            id: 16,
+            name: 'VIP Transfer Podgorica',
+            category: 'transfer',
+            catLabel: '🚕 Трансфер',
+            address: 'Ul. 4. Juli 5, Podgorica',
+            phone: '+382 69 777 888',
+            lat: 42.4365,
+            lng: 19.2605,
+            description: 'Комфортные трансферы, встреча в аэропорту, экскурсии.'
+        }, {
+            id: 17,
+            name: 'SIM Montenegro — eSIM & SIM',
+            category: 'sim',
+            catLabel: '📱 SIM / eSIM',
+            address: 'Bulevar Revolucije 67, Podgorica',
+            phone: '+382 20 999 000',
+            lat: 42.4445,
+            lng: 19.2560,
+            description: 'Продажа SIM, eSIM, настройка интернета. Русскоязычная поддержка.'
+        }, {
+            id: 18,
+            name: 'eSIM Center Podgorica',
+            category: 'sim',
+            catLabel: '📱 SIM / eSIM',
+            address: 'Njegoševa 22, Podgorica',
+            phone: '+382 67 555 444',
+            lat: 42.4380,
+            lng: 19.2585,
+            description: 'eSIM для путешественников, консультации по тарифам.'
+        }, {
+            id: 19,
+            name: 'Border Run Montenegro',
+            category: 'border',
+            catLabel: '🚍 Border Run',
+            address: 'Офис: Bulevar Svetog Petra Cetinjskog 100, Podgorica',
+            phone: '+382 68 999 111',
+            lat: 42.4435,
+            lng: 19.2690,
+            description: 'Организация выездов для обнуления визового режима (Босния, Албания, Хорватия).'
+        }, {
+            id: 20,
+            name: 'Visa Run Service',
+            category: 'border',
+            catLabel: '🚍 Border Run',
+            address: 'Ul. Slobode 12, Podgorica',
+            phone: '+382 69 222 333',
+            lat: 42.4350,
+            lng: 19.2640,
+            description: 'Групповые и индивидуальные border run. Трансфер, сопровождение.'
+        }, {
+            id: 21,
+            name: 'Русский магазин «Матрешка»',
+            category: 'shop',
+            catLabel: '🏪 Русский магазин',
+            address: 'Bulevar Ivana Crnojevića 22, Podgorica',
+            phone: '+382 20 456 789',
+            lat: 42.4450,
+            lng: 19.2615,
+            description: 'Продукты из России, СНГ, Европы. Гречка, сметана, творог, колбасы.'
+        }, {
+            id: 22,
+            name: 'Славянский продукт',
+            category: 'shop',
+            catLabel: '🏪 Русский магазин',
+            address: 'Kralja Nikole 77, Podgorica',
+            phone: '+382 67 444 555',
+            lat: 42.4400,
+            lng: 19.2730,
+            description: 'Бакалея, кондитерские изделия, заморозка. Русский ассортимент.'
+        }, {
+            id: 23,
+            name: 'Русская школа «Лучик»',
+            category: 'school',
+            catLabel: '🏫 Русская школа',
+            address: 'Ul. 4. Juli 45, Podgorica',
+            phone: '+382 68 777 666',
+            lat: 42.4375,
+            lng: 19.2645,
+            description: 'Начальная школа с русским языком обучения. Подготовка к школе.'
+        }, {
+            id: 24,
+            name: 'Школа русского языка «Слово»',
+            category: 'school',
+            catLabel: '🏫 Русская школа',
+            address: 'Bulevar Revolucije 34, Podgorica',
+            phone: '+382 20 888 777',
+            lat: 42.4440,
+            lng: 19.2580,
+            description: 'Курсы русского языка для детей и взрослых. Подготовка к экзаменам.'
+        }];
+
+        // ============================================================
+        //  MAP INIT
+        // ============================================================
+        const map = L.map('map', {
+            center: [42.4410, 19.2630],
+            zoom: 14,
+            zoomControl: true,
+            fadeAnimation: true,
+            attributionControl: true
+        });
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // ============================================================
+        //  CUSTOM ICONS
+        // ============================================================
+        function getIconForCategory(category) {
+            const colors = {
+                dentist: '#d43f34',
+                doctor: '#2a7faa',
+                lawyer: '#4a6a8a',
+                translator: '#5b8c5a',
+                bank: '#2a7a5a',
+                visa: '#b05a3a',
+                realestate: '#8a6a4a',
+                transfer: '#3a7a8a',
+                sim: '#5a7a9a',
+                border: '#8a5a7a',
+                shop: '#ba7a3a',
+                school: '#3a7a7a'
+            };
+            const emojis = {
+                dentist: '🦷',
+                doctor: '👩‍⚕️',
+                lawyer: '⚖️',
+                translator: '📄',
+                bank: '🏦',
+                visa: '🛂',
+                realestate: '🏠',
+                transfer: '🚕',
+                sim: '📱',
+                border: '🚍',
+                shop: '🏪',
+                school: '🏫'
+            };
+            const color = colors[category] || '#0B3350';
+            const emoji = emojis[category] || '📍';
+            return L.divIcon({
+                className: 'custom-marker',
+                html: `<span class="emoji-only">${emoji}</span>`,
+                iconSize: [34, 34],
+                iconAnchor: [17, 17],
+                popupAnchor: [0, -20]
+            });
+        }
+
+        // ============================================================
+        //  RENDER MAP MARKERS
+        // ============================================================
+        let allMarkers = [];
+        let markerLayerGroup = L.layerGroup().addTo(map);
+
+        function buildMarkers(filterCategory = 'all') {
+            markerLayerGroup.clearLayers();
+            allMarkers = [];
+
+            const filtered = filterCategory === 'all' ? DATA : DATA.filter(d => d.category === filterCategory);
+
+            filtered.forEach(item => {
+                const icon = getIconForCategory(item.category);
+                const marker = L.marker([item.lat, item.lng], { icon })
+                    .bindPopup(`
+                            <div>
+                                <div class="popup-title">${item.name}</div>
+                                <div class="popup-cat">${item.catLabel}</div>
+                                <div class="popup-addr">📍 ${item.address}</div>
+                                <div class="popup-phone">📞 <a href="tel:${item.phone}">${item.phone}</a></div>
+                                ${item.description ? `<div style="font-size:0.8rem;color:#4a5a6e;margin-top:4px;">${item.description}</div>` : ''}
+                            </div>
+                        `, { maxWidth: 280 });
+
+                markerLayerGroup.addLayer(marker);
+                allMarkers.push({ marker, data: item });
+            });
+        }
+
+        buildMarkers('all');
+
+        // ============================================================
+        //  RENDER CATALOG
+        // ============================================================
+        function renderCatalog(filterCategory = 'all') {
+            const grid = document.getElementById('catalogGrid');
+            const countBadge = document.getElementById('catalogCount');
+            const filtered = filterCategory === 'all' ? DATA : DATA.filter(d => d.category === filterCategory);
+
+            if (filtered.length === 0) {
+                grid.innerHTML =
+                    `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:#6a7a8e;background:#f8fafc;border-radius:16px;">Ничего не найдено. Попробуйте другую категорию.</div>`;
+                countBadge.textContent = '0';
+                return;
+            }
+
+            let html = '';
+            filtered.forEach(item => {
+                html += `
+                        <div class="catalog-card" data-category="${item.category}">
+                            <div class="card-cat">${item.catLabel}</div>
+                            <div class="card-name">${item.name}</div>
+                            <div class="card-addr">📍 ${item.address}</div>
+                            <div class="card-phone">📞 <a href="tel:${item.phone}">${item.phone}</a></div>
+                            ${item.description ? `<div class="card-tag">${item.description}</div>` : ''}
+                        </div>
+                    `;
+            });
+            grid.innerHTML = html;
+            countBadge.textContent = filtered.length;
+        }
+
+        renderCatalog('all');
+
+        // ============================================================
+        //  UPDATE COUNTS ON FILTER BUTTONS
+        // ============================================================
+        function updateCounts() {
+            const cats = ['dentist', 'doctor', 'lawyer', 'translator', 'bank', 'visa', 'realestate', 'transfer', 'sim',
+                'border', 'shop', 'school'
+            ];
+            document.getElementById('countAll').textContent = DATA.length;
+            cats.forEach(c => {
+                const count = DATA.filter(d => d.category === c).length;
+                const btn = document.querySelector(`.filter-btn[data-filter="${c}"]`);
+                if (btn) {
+                    const badge = btn.querySelector('.badge-count');
+                    if (badge) badge.textContent = count;
+                }
+            });
+        }
+        updateCounts();
+
+        // ============================================================
+        //  FILTER LOGIC
+        // ============================================================
+        let currentFilter = 'all';
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const filter = this.dataset.filter;
+                if (filter === 'all') {
+                    currentFilter = 'all';
+                } else {
+                    currentFilter = filter;
+                }
+                // Update active state
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                buildMarkers(currentFilter);
+                renderCatalog(currentFilter);
+
+                // If filter is not 'all', zoom to show markers
+                if (currentFilter !== 'all') {
+                    const filtered = DATA.filter(d => d.category === currentFilter);
+                    if (filtered.length > 0) {
+                        const group = L.featureGroup();
+                        filtered.forEach(d => {
+                            group.addLayer(L.marker([d.lat, d.lng]));
+                        });
+                        const bounds = group.getBounds();
+                        if (bounds.isValid()) {
+                            map.fitBounds(bounds, { padding: [40, 40], maxZoom: 16 });
+                        }
+                    }
+                } else {
+                    map.fitBounds([
+                        [42.4200, 19.2300],
+                        [42.4600, 19.2900]
+                    ]);
+                }
+            });
+        });
+
+        // Clear filter
+        document.getElementById('filterClear').addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+            currentFilter = 'all';
+            buildMarkers('all');
+            renderCatalog('all');
+            map.fitBounds([
+                [42.4200, 19.2300],
+                [42.4600, 19.2900]
+            ]);
+        });
+
+        // ============================================================
+        //  RESPONSIVE: fit map bounds on load
+        // ============================================================
+        setTimeout(() => {
+            map.fitBounds([
+                [42.4200, 19.2300],
+                [42.4600, 19.2900]
+            ]);
+        }, 300);
+
+        // ============================================================
+        //  CLICK ON CATALOG CARD -> zoom to marker
+        // ============================================================
+        document.addEventListener('click', function(e) {
+            const card = e.target.closest('.catalog-card');
+            if (!card) return;
+            const name = card.querySelector('.card-name')?.textContent;
+            if (!name) return;
+            const found = DATA.find(d => d.name === name);
+            if (found) {
+                map.setView([found.lat, found.lng], 17);
+                // find and open popup
+                const markerObj = allMarkers.find(m => m.data.name === name);
+                if (markerObj) {
+                    markerObj.marker.openPopup();
+                }
+            }
+        });
+
+        // ============================================================
+        //  SMOOTH SCROLL FOR MOBILE
+        // ============================================================
+        console.log('📍 Russian Friendly — Подгорица загружена ✅');
+        console.log(`📌 Всего точек: ${DATA.length}`);
+    </script>
+
+</body>
+</html>

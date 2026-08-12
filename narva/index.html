@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Нарва — Russian Friendly Map</title>
+  <meta name="description" content="Русскоязычные специалисты и сервисы в Нарва: стоматологи, врачи, юристы, переводчики, школы, жильё и другие услуги на интерактивной карте.">
+  <link rel="icon" href="/favicon.ico">
+
+  <!-- ===================== SEO / GEO ===================== -->
+  <link rel="canonical" href="https://russianfriendly.netlify.app/narva">
+
+  <!-- Open Graph / preview for smartphones -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Русскоязычные специалисты и сервисы в Нарва — Карта Russian Friendly">
+  <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Нарва на одной интерактивной карте.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/narva">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/narva/og-preview.jpg">
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Нарва">
+
+  <!-- Mobile "add to home screen" -->
+  <meta name="theme-color" content="#0B3350">
+
+  <!-- JSON-LD: Map / WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Русскоязычные специалисты и сервисы в Нарва",
+    "url": "https://russianfriendly.netlify.app/narva",
+    "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Нарва."
+  }
+  </script>
+
+  <!-- JSON-LD: Person (автор) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Кристина Перез",
+    "url": "https://kristinaperez.netlify.app/",
+    "sameAs": [
+      "https://t.me/FeedbackCristinaBot",
+      "https://www.youtube.com/@Cristina-Perez-Monroe",
+      "https://kristinaperez.netlify.app/",
+      "https://pitermap.netlify.app/",
+      "https://aseosmadrid.netlify.app/"
+    ],
+    "jobTitle": "Автор проекта Russian Friendly"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage — прямые ответы на вопросы, которые задают в поиске и в чатах с ИИ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Где найти русскоязычного врача или стоматолога в Нарва?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "На карте Russian Friendly Нарва собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Как найти русские школы и сервисы в Нарва?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/narva для поиска школ, переводчиков, банковских консультантов и жилья."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Tag Manager: вставь свой контейнер GTM сюда GTM-XXXXXXX -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+  </script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    :root { --navy: #0B3350; --orange: #ff6600; --bg: #f5f7f9; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: var(--bg); color: #17212b; }
+    header {
+      background: var(--navy);
+      color: #fff;
+      padding: 18px 5%;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+    }
+    header h1 { margin: 0; font-size: clamp(22px, 4vw, 34px); }
+    header p { margin: 5px 0 0; opacity: .85; }
+    .ad {
+      display: block;
+      color: var(--orange);
+      border: 2px solid var(--orange);
+      padding: 12px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      background: #fff;
+    }
+    main { max-width: 1200px; margin: auto; padding: 22px 16px; }
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+    .cat {
+      border: 0;
+      border-radius: 20px;
+      padding: 9px 13px;
+      background: #fff;
+      cursor: pointer;
+      box-shadow: 0 1px 5px #0001;
+    }
+    .cat.active { background: var(--navy); color: #fff; }
+    #map {
+      height: 65vh;
+      min-height: 450px;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #0002;
+    }
+    .feedback {
+      display: inline-block;
+      margin: 14px 0;
+      color: #fff;
+      background: var(--orange);
+      padding: 12px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .seo-geo-block {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+    .promo { font-weight: 700; }
+    .promo a { color: var(--orange); }
+    footer {
+      background: var(--navy);
+      color: #fff;
+      padding: 25px 5%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+    footer a { color: #fff; }
+    @media (max-width: 700px) {
+      header { align-items: stretch; flex-direction: column; }
+      .ad { text-align: center; }
+      #map { height: 58vh; min-height: 400px; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Нарва — Russian Friendly Map</h1>
+    <p>Русскоязычные специалисты, сервисы и полезные места</p>
+  </div>
+  <a class="ad" href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app</a>
+</header>
+
+<main>
+  <div class="categories" aria-label="Категории">
+    <button class="cat active" data-cat="all">Все</button>
+    <button class="cat" data-cat="Стоматологи">🦷 Стоматологи</button>
+    <button class="cat" data-cat="Врачи">👩‍⚕️ Врачи</button>
+    <button class="cat" data-cat="Юристы">⚖️ Юристы</button>
+    <button class="cat" data-cat="Переводчики">📄 Переводчики</button>
+    <button class="cat" data-cat="Банки">🏦 Банки / финансы</button>
+    <button class="cat" data-cat="Визы">🛂 Визы</button>
+    <button class="cat" data-cat="Жильё">🏠 Жильё / риелторы</button>
+    <button class="cat" data-cat="Трансферы">🚕 Трансферы</button>
+    <button class="cat" data-cat="SIM">📱 SIM / eSIM</button>
+    <button class="cat" data-cat="Магазины">🛒 Русские магазины</button>
+    <button class="cat" data-cat="Школы">🏫 Школы</button>
+  </div>
+
+  <div id="map"></div>
+  <a class="feedback" href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">Нашли неверные данные? Сообщите нам в бот</a>
+
+  <section class="seo-geo-block">
+    <h2>Похожие запросы</h2>
+    <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+    <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+  </section>
+</main>
+
+<footer>
+  <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+  <a href="/about.html">About</a>
+  <a href="/contact.html">Contact</a>
+  <a href="/privacy-policy.html">Privacy Policy</a>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map = L.map('map').setView([59.3794, 28.1791], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// Источники: evodent.ee, diostom.ee, vitadent.ee, demident.ee, advokatuur.ee,
+// vandetolk.ee, narvahaigla.ee, politsei.ee, narvakinnisvara.ee, visitnarva.ee,
+// narva.ee, coop.ee, swedbank.ee, seb.ee, maxima.ee (2026)
+const places = [
+  {
+    name: 'Evodent — стоматологическая клиника',
+    cat: 'Стоматологи',
+    lat: 59.3790322, lng: 28.1669737,
+    address: 'Soldina tn 14, 21003 Narva',
+    phone: '+372 357 2073',
+    info: 'Русский, Eesti · Tervisekassa · evodent.ee'
+  },
+  {
+    name: 'Diostom Hambakliinik',
+    cat: 'Стоматологи',
+    lat: 59.3893687, lng: 28.1669167,
+    address: 'Rahu tn 26-89, 20608 Narva',
+    phone: '+372 357 0171',
+    info: 'Русский, Eesti · договор с Haigekassa · diostom.ee'
+  },
+  {
+    name: 'Vitadent — стоматология',
+    cat: 'Стоматологи',
+    lat: 59.3632457, lng: 28.1933815,
+    address: 'Haigla tn 6, 20104 Narva',
+    phone: '+372 58 508 890',
+    info: 'Русский персонал · запись по телефону · vitadent.ee'
+  },
+  {
+    name: 'Demident — стоматологическая клиника',
+    cat: 'Стоматологи',
+    lat: 59.3768800, lng: 28.1994805,
+    address: 'Koidula tn 2-12, Narva',
+    phone: '+372 56 938 600',
+    info: 'Русский, Eesti · Tervisekassa · demident.ee'
+  },
+  {
+    name: 'Dr Nikolai Pripechko (Aladeks OÜ)',
+    cat: 'Стоматологи',
+    lat: 59.3805003, lng: 28.1677918,
+    address: 'Tallinna mnt 48-41, 21005 Narva',
+    phone: '+372 51 916 712',
+    info: 'Частный стоматологический кабинет · Русский'
+  },
+  {
+    name: 'SA Narva Haigla — поликлиника',
+    cat: 'Врачи',
+    lat: 59.3794960, lng: 28.1962666,
+    address: 'Vestervalli tn 15, 20307 Narva',
+    phone: '+372 35 72 778',
+    info: 'Русский, Eesti · терапевты, специалисты, женская консультация · narvahaigla.ee'
+  },
+  {
+    name: 'SA Narva Haigla — регистратура',
+    cat: 'Врачи',
+    lat: 59.3623308, lng: 28.1936010,
+    address: 'Haigla tn 1, Narva',
+    phone: '+372 35 61 144',
+    info: 'Запись к врачам · E–R 7:30–18:00 · narvahaigla.ee'
+  },
+  {
+    name: 'Narva Esimene Advokaadibüroo',
+    cat: 'Юристы',
+    lat: 59.3746339, lng: 28.1911355,
+    address: 'Kosmonaudi tn 9, 20309 Narva',
+    phone: '+372 5615 5983',
+    info: 'Русский, Eesti · vandeadvokaat Deniss Matvejev · advokatuur.ee'
+  },
+  {
+    name: 'Narlex Law Firm — офис Нарва',
+    cat: 'Юристы',
+    lat: 59.3799411, lng: 28.1862942,
+    address: 'Tallinna mnt 19C, 4-й этаж, Narva',
+    phone: '+372 506 2428',
+    info: 'English, Русский · корпоративное и миграционное право · narlex.com'
+  },
+  {
+    name: 'Natalja Maslennikova — вандетõlk',
+    cat: 'Переводчики',
+    lat: 59.3755878, lng: 28.1922660,
+    address: 'Paul Kerese tn 4, 20304 Narva (notaribüroo)',
+    phone: '+372 5349 8789',
+    info: 'Eesti→Vene · приём E–R 9–14, Ч 13–17 · vandetolk.ee'
+  },
+  {
+    name: 'Valeriy Gimaev — вандетõlk',
+    cat: 'Переводчики',
+    lat: 59.3746339, lng: 28.1911355,
+    address: 'Kosmonaudi tn 9, Narva',
+    phone: '+372 5615 5983',
+    info: 'Eesti→Vene · приём по записи · vandetolk.ee'
+  },
+  {
+    name: 'Swedbank — офис Нарва',
+    cat: 'Банки',
+    lat: 59.3799411, lng: 28.1862942,
+    address: 'Tallinna mnt 19C, 20303 Narva',
+    phone: '+372 6310 310',
+    info: 'Русский, Eesti, English · только по записи · swedbank.ee'
+  },
+  {
+    name: 'SEB — офис Нарва',
+    cat: 'Банки',
+    lat: 59.3812569, lng: 28.1757068,
+    address: 'Tallinna mnt 41, 20605 Narva',
+    phone: '+372 665 5100',
+    info: 'Русский, Eesti · банковские услуги по записи · seb.ee'
+  },
+  {
+    name: 'PBGB — миграционная служба Нарва',
+    cat: 'Визы',
+    lat: 59.3785842, lng: 28.1614068,
+    address: 'Vahtra tn 3, 21003 Narva',
+    phone: '+372 612 3000',
+    info: 'ВНЖ, визы, продление пребывания · E, Ч, П 9–17 · politsei.ee'
+  },
+  {
+    name: 'Narva Kinnisvarabüroo — недвижимость',
+    cat: 'Жильё',
+    lat: 59.3775798, lng: 28.1873102,
+    address: 'Tallinna mnt 8-1, 20304 Narva',
+    phone: '+372 503 8371',
+    info: 'Русский, Eesti · аренда и продажа с 1996 г. · narvakinnisvara.ee'
+  },
+  {
+    name: 'Seti Takso OÜ — такси Нарва',
+    cat: 'Трансферы',
+    lat: 59.3804720, lng: 28.1702674,
+    address: 'Tallinna mnt 42-111, 21006 Narva',
+    phone: '+372 5590 6090',
+    info: 'Русский · по городу от 3 € · visitnarva.ee'
+  },
+  {
+    name: 'Ida Takso OÜ — такси Нарва',
+    cat: 'Трансферы',
+    lat: 59.3796099, lng: 28.1871406,
+    address: 'Fama kaubanduskeskus, Narva (стоянка такси)',
+    phone: '+372 5590 9090',
+    info: 'Русский · трансферы по городу и области · visitnarva.ee'
+  },
+  {
+    name: 'Telia — салон связи Fama',
+    cat: 'SIM',
+    lat: 59.3796099, lng: 28.1871406,
+    address: 'Fama 10, Narva (Fama Keskus)',
+    phone: '+372 639 7130',
+    info: 'SIM и eSIM · Русский, Eesti · telia.ee'
+  },
+  {
+    name: 'Elisa — салон связи',
+    cat: 'SIM',
+    lat: 59.3812569, lng: 28.1757068,
+    address: 'Tallinna mnt 41, Narva (1 этаж)',
+    phone: '+372 660 0600',
+    info: 'SIM и eSIM · Русский, Eesti · elisa.ee'
+  },
+  {
+    name: 'Coop Narva Maksimarket',
+    cat: 'Магазины',
+    lat: 59.3789489, lng: 28.1769886,
+    address: 'Tallinna mnt 30B, 20303 Narva',
+    phone: '+372 5347 0825',
+    info: 'Русский, Eesti · продукты, банкомат · coop.ee'
+  },
+  {
+    name: 'Grossi — супермаркет',
+    cat: 'Магазины',
+    lat: 59.3871940, lng: 28.1728370,
+    address: 'Pähklimäe tn 2A, Narva',
+    phone: '+372 322 3560',
+    info: 'Русский · продукты повседневного спроса'
+  },
+  {
+    name: 'Maxima XX — Kreenholmi',
+    cat: 'Магазины',
+    lat: 59.3665278, lng: 28.1880999,
+    address: 'Kreenholmi tn 39h, Narva',
+    phone: '+372 8002 121',
+    info: 'Русский, Eesti · крупный супермаркет · maxima.ee'
+  },
+  {
+    name: 'Fama kaubanduskeskus',
+    cat: 'Магазины',
+    lat: 59.3796099, lng: 28.1871406,
+    address: 'Fama 10 / Hariduse 5, Narva',
+    phone: '',
+    info: 'Торговый центр · русскоязычные продавцы, бытовая химия, одежда'
+  },
+  {
+    name: 'Narva Gümnaasium',
+    cat: 'Школы',
+    lat: 59.3825450, lng: 28.1901136,
+    address: 'A. Puškini tn 31, 20305 Narva',
+    phone: '+372 532 37127',
+    info: 'Русский, Eesti · государственная гимназия · narva.ee'
+  },
+  {
+    name: 'Narva Eesti Gümnaasium',
+    cat: 'Школы',
+    lat: 59.3807796, lng: 28.1968112,
+    address: 'Hariduse tn 3, Narva',
+    phone: '+372 567 26320',
+    info: 'Eesti, Русский · эстонская гимназия · narva.ee'
+  },
+  {
+    name: 'Narva Õigeusu Gümnaasium',
+    cat: 'Школы',
+    lat: 59.3717952, lng: 28.1941364,
+    address: 'Madise tn 4, Narva',
+    phone: '+372 5646 4517',
+    info: 'Русский · частная православная гимназия · narvaog.eu'
+  }
+];
+
+let markers = [];
+
+function popupHtml(p) {
+  let html = `<strong>${p.name}</strong><br><em>${p.cat}</em>`;
+  if (p.address) html += `<br>📍 ${p.address}`;
+  if (p.phone) {
+    const tel = p.phone.replace(/\s/g, '');
+    html += `<br>📞 <a href="tel:${tel}">${p.phone}</a>`;
+  }
+  if (p.info) html += `<br>${p.info}`;
+  return html;
+}
+
+function render(filter = 'all') {
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+  const filtered = places.filter(p => filter === 'all' || p.cat === filter);
+  filtered.forEach(p => {
+    const m = L.marker([p.lat, p.lng]).addTo(map).bindPopup(popupHtml(p));
+    markers.push(m);
+  });
+  if (filtered.length === 1) {
+    map.setView([filtered[0].lat, filtered[0].lng], 15);
+  } else if (filtered.length > 1) {
+    map.fitBounds(L.featureGroup(markers).getBounds().pad(0.08));
+  } else {
+    map.setView([59.3794, 28.1791], 13);
+  }
+}
+
+document.querySelectorAll('.cat').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.cat').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render(btn.dataset.cat);
+  });
+});
+
+render();
+</script>
+</body>
+</html>

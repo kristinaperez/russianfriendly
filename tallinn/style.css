@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap');
+
+:root {
+  --navy: #0B3350;
+  --navy-deep: #072238;
+  --parchment: #F6F1E4;
+  --parchment-dim: #ECE4D2;
+  --ink: #16232E;
+  --orange: #FF6600;
+  --teal: #2F8F82;
+  --amber: #C97A2B;
+  --line: #D8CDB3;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  margin: 0;
+}
+
+a { color: var(--navy); }
+
+/* ---------- Header ---------- */
+.site-header {
+  background: var(--navy);
+  background-image:
+    radial-gradient(circle at 92% -20%, rgba(255,255,255,0.06), transparent 55%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 42px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 42px);
+  color: var(--parchment);
+  border-bottom: 4px solid var(--orange);
+}
+
+.header-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.brand { display: flex; align-items: center; gap: 14px; }
+
+.brand-badge {
+  width: 44px; height: 44px;
+  border: 2px solid var(--orange);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--orange);
+  flex-shrink: 0;
+}
+
+.brand-text h1 {
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.brand-text p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #C7D3DC;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.3px;
+}
+
+.promo-badge {
+  background: var(--orange);
+  color: #1a1200;
+  font-weight: 700;
+  font-size: 13.5px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 2px solid #ffb27a;
+  box-shadow: 0 3px 0 #b34700;
+  transition: transform .12s ease;
+  max-width: 360px;
+}
+.promo-badge:hover { transform: translateY(-2px); }
+
+/* ---------- Controls ---------- */
+.controls {
+  max-width: 1180px;
+  margin: 28px auto 0;
+  padding: 0 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-chip {
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.filter-chip:hover { border-color: var(--navy); }
+.filter-chip.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--parchment);
+}
+
+/* ---------- Map ---------- */
+.map-wrap {
+  max-width: 1180px;
+  margin: 18px auto 0;
+  padding: 0 24px;
+}
+
+#map {
+  height: 480px;
+  border-radius: var(--radius);
+  border: 3px solid var(--navy);
+  box-shadow: 0 6px 0 var(--line);
+}
+
+.map-note {
+  font-size: 13px;
+  color: #6B5E3E;
+  margin: 12px 0 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.feedback-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: 600;
+  color: var(--navy);
+  text-decoration: none;
+  border-bottom: 2px dashed var(--orange);
+  padding-bottom: 2px;
+}
+.feedback-link:hover { color: var(--orange); }
+
+.pin { width: 16px; height: 16px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 2px solid #fff; }
+.pin-verified { background: var(--teal); }
+.pin-partial { background: var(--amber); }
+
+.popup strong { font-family: 'Fraunces', serif; font-size: 15px; }
+.popup p { margin: 4px 0; font-size: 13px; }
+.badge { font-size: 11px; padding: 2px 8px; border-radius: 999px; font-weight: 600; margin-left: 6px; }
+.badge-ok { background: #DFF1EC; color: var(--teal); }
+.badge-warn { background: #FBEAD6; color: var(--amber); }
+.popup-note { color: #6B5E3E; font-style: italic; }
+
+/* ---------- Listing ---------- */
+.listing {
+  max-width: 1180px;
+  margin: 40px auto 0;
+  padding: 0 24px;
+}
+.listing h2 {
+  font-size: 24px;
+  border-bottom: 2px solid var(--line);
+  padding-bottom: 12px;
+}
+.listing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+.listing-section { grid-column: 1 / -1; display: contents; }
+.listing-section h3 {
+  grid-column: 1 / -1;
+  font-size: 16px;
+  margin-top: 18px;
+  color: var(--navy);
+}
+.place-card {
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+.place-card strong { font-family: 'Fraunces', serif; display: block; margin-bottom: 4px; }
+.place-card p { font-size: 13px; margin: 6px 0; color: #4a4030; }
+.place-card a { font-size: 13px; font-weight: 600; }
+.empty-note {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  color: #6B5E3E;
+  background: var(--parchment-dim);
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.empty-note a { color: var(--orange); font-weight: 600; }
+
+/* ---------- SEO block ---------- */
+.seo-geo-block {
+  max-width: 1180px;
+  margin: 44px auto 0;
+  padding: 20px 24px;
+  border-top: 1px dashed var(--line);
+}
+.seo-geo-block h2 { font-size: 18px; color: var(--navy); }
+.seo-geo-block .promo {
+  font-size: 14px;
+  margin: 8px 0;
+}
+.seo-geo-block .promo a { color: var(--orange); font-weight: 700; }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  margin-top: 50px;
+  background: var(--navy-deep);
+  color: #C7D3DC;
+  padding: 26px 24px 34px;
+}
+.site-footer nav {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.site-footer nav a {
+  color: var(--parchment);
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.site-footer nav a:hover { color: var(--orange); }
+.footer-note {
+  max-width: 1180px;
+  margin: 16px auto 0;
+  font-size: 12px;
+  color: #8FA0AD;
+}
+
+@media (max-width: 640px) {
+  #map { height: 360px; }
+  .promo-badge { max-width: 100%; }
+}

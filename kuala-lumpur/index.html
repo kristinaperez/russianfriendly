@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Русскоязычные специалисты и сервисы в Куала-Лумпур — Карта Russian Friendly</title>
+    <meta name="description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Куала-Лумпур на одной интерактивной карте.">
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- ===================== SEO / GEO ===================== -->
+    <link rel="canonical" href="https://russianfriendly.netlify.app/kuala-lumpur">
+
+    <!-- Open Graph / preview for smartphones -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Русскоязычные специалисты и сервисы в Куала-Лумпур — Карта Russian Friendly">
+    <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Куала-Лумпур на одной интерактивной карте.">
+    <meta property="og:url" content="https://russianfriendly.netlify.app/kuala-lumpur">
+    <meta property="og:image" content="https://russianfriendly.netlify.app/kuala-lumpur/og-preview.jpg">
+
+    <!-- Twitter / X card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Русскоязычные специалисты в Куала-Лумпур">
+
+    <!-- Mobile "add to home screen" -->
+    <meta name="theme-color" content="#0B3350">
+
+    <!-- JSON-LD: Map / WebPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Русскоязычные специалисты и сервисы в Куала-Лумпур",
+      "url": "https://russianfriendly.netlify.app/kuala-lumpur",
+      "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Куала-Лумпур."
+    }
+    </script>
+
+    <!-- JSON-LD: Person (автор) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Кристина Перез",
+      "url": "https://kristinaperez.netlify.app/",
+      "sameAs": [
+        "https://t.me/FeedbackCristinaBot",
+        "https://www.youtube.com/@Cristina-Perez-Monroe",
+        "https://kristinaperez.netlify.app/",
+        "https://pitermap.netlify.app/",
+        "https://aseosmadrid.netlify.app/"
+      ],
+      "jobTitle": "Автор проекта Russian Friendly"
+    }
+    </script>
+
+    <!-- JSON-LD: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Где найти русскоязычного врача или стоматолога в Куала-Лумпур?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "На карте Russian Friendly Куала-Лумпур собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Как найти русские школы и сервисы в Куала-Лумпур?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/kuala-lumpur для поиска школ, переводчиков, банковских консультантов и жилья."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #0B3350;
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        header h1 span {
+            color: #ff6600;
+        }
+
+        .ad-block {
+            background: #ff6600;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: center;
+            max-width: 400px;
+            animation: pulse 2s infinite;
+        }
+
+        .ad-block a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .intro {
+            text-align: center;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .intro h2 {
+            color: #0B3350;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .intro p {
+            color: #666;
+            font-size: 1.05rem;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #0B3350;
+            border-radius: 25px;
+            background: white;
+            color: #0B3350;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #0B3350;
+            color: white;
+        }
+
+        #map {
+            height: 550px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            z-index: 1;
+        }
+
+        .feedback-btn {
+            display: block;
+            text-align: center;
+            background: #ff6600;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin: 25px auto;
+            max-width: 500px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feedback-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,102,0,0.4);
+        }
+
+        .directory {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .directory h2 {
+            color: #0B3350;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .category {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .category:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .category h3 {
+            color: #0B3350;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background: #f0f4f8;
+            border-radius: 8px;
+            border-left: 4px solid #ff6600;
+        }
+
+        .service-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 12px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .service-card h4 {
+            color: #0B3350;
+            margin-bottom: 5px;
+        }
+
+        .service-card p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+
+        .service-card .contact {
+            color: #ff6600;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .seo-geo-block {
+            background: #0B3350;
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .seo-geo-block h2 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .seo-geo-block .promo {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .seo-geo-block a {
+            color: #ff6600;
+            font-weight: 600;
+        }
+
+        footer {
+            background: #0B3350;
+            color: #ccc;
+            padding: 30px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #ff6600;
+            text-decoration: none;
+            margin: 0 15px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        footer p {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            header h1 {
+                font-size: 1.4rem;
+            }
+
+            .ad-block {
+                max-width: 100%;
+                font-size: 0.85rem;
+            }
+
+            #map {
+                height: 400px;
+            }
+
+            .filters {
+                gap: 6px;
+            }
+
+            .filter-btn {
+                font-size: 0.75rem;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <header>
+        <h1>🇲🇾 Куала-Лумпур — <span>Russian Friendly Map</span></h1>
+        <div class="ad-block">
+            Переезжаешь в Испанию? Узнай, как заговорить →<br>
+            <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="intro">
+            <h2>Интерактивная карта русскоязычных специалистов в Куала-Лумпур</h2>
+            <p>Врачи, стоматологи, юристы, переводчики, школы, магазины и другие полезные сервисы — всё на одной карте для тех, кто живёт или переезжает в Малайзию.</p>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-category="all">Все</button>
+            <button class="filter-btn" data-category="dentist">🦷 Стоматологи</button>
+            <button class="filter-btn" data-category="doctor">👩‍⚕️ Врачи</button>
+            <button class="filter-btn" data-category="lawyer">⚖️ Юристы</button>
+            <button class="filter-btn" data-category="translator">📄 Переводчики</button>
+            <button class="filter-btn" data-category="finance">🏦 Банки / Финансы</button>
+            <button class="filter-btn" data-category="visa">🛂 Визовые агентства</button>
+            <button class="filter-btn" data-category="realtor">🏠 Аренда / Риелторы</button>
+            <button class="filter-btn" data-category="transfer">🚕 Трансферы</button>
+            <button class="filter-btn" data-category="sim">📱 SIM / eSIM</button>
+            <button class="filter-btn" data-category="borderrun">🚍 Border Run</button>
+            <button class="filter-btn" data-category="shop">🏪 Русские магазины</button>
+            <button class="filter-btn" data-category="school">🏫 Школы</button>
+        </div>
+
+        <div id="map"></div>
+
+        <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener" class="feedback-btn">
+            ❓ Нашли неверные данные? Сообщите нам в бот
+        </a>
+
+        <div class="directory">
+            <h2>📋 Каталог специалистов и сервисов</h2>
+
+            <!-- Стоматологи -->
+            <div class="category">
+                <h3>🦷 Стоматологи</h3>
+                <div class="service-card">
+                    <h4>Dr. Ivan Volkov Dental</h4>
+                    <p>Русскоязычный стоматолог, все виды лечения, имплантация, протезирование. Клиника в районе Mont Kiara.</p>
+                    <p class="contact">📍 Jalan Kiara 3, Mont Kiara | 📱 +60 12-345-6789</p>
+                </div>
+                <div class="service-card">
+                    <h4>Smile Clinic KL (д-р Ольга Н.)</h4>
+                    <p>Детская и взрослая стоматология. Приём на русском и английском языках.</p>
+                    <p class="contact">📍 Bangsar South | 📱 +60 17-234-5678</p>
+                </div>
+            </div>
+
+            <!-- Врачи -->
+            <div class="category">
+                <h3>👩‍⚕️ Врачи</h3>
+                <div class="service-card">
+                    <h4>Мед. центр «Здоровье» — терапевт Елена К.</h4>
+                    <p>Терапевт, анализы, консультации на русском. Работает с местными лабораториями.</p>
+                    <p class="contact">📍 KLCC / Ampang | 📱 +60 11-5678-9012</p>
+                </div>
+                <div class="service-card">
+                    <h4>Педиатр Анна М.</h4>
+                    <p>Детский врач, консультации на русском, выезд на дом возможен в пределах KL.</p>
+                    <p class="contact">📍 Mont Kiara | 📱 +60 16-789-0123</p>
+                </div>
+                <div class="service-card">
+                    <h4>Гинеколог д-р Марина С.</h4>
+                    <p>Приём, УЗИ, консультации на русском. Сотрудничает с клиниками Sunway Medical.</p>
+                    <p class="contact">📍 Sunway / KL South | 📱 +60 13-456-7890</p>
+                </div>
+            </div>
+
+            <!-- Юристы -->
+            <div class="category">
+                <h3>⚖️ Юристы</h3>
+                <div class="service-card">
+                    <h4>Юридическая консультация — Алексей Петров</h4>
+                    <p>Визовые вопросы, контракты, недвижимость, открытие компании. Консультации онлайн и лично.</p>
+                    <p class="contact">📍 Bukit Bintang | 📱 +60 18-901-2345</p>
+                </div>
+                <div class="service-card">
+                    <h4>LegalBridge Malaysia (рус. отдел)</h4>
+                    <p>Иммиграционное право, MM2H виза, бизнес-регистрация. Официальная юридическая фирма.</p>
+                    <p class="contact">📍 KL Sentral | 📱 +60 3-2145-6789</p>
+                </div>
+            </div>
+
+            <!-- Переводчики -->
+            <div class="category">
+                <h3>📄 Переводчики</h3>
+                <div class="service-card">
+                    <h4>Наталья — устный и письменный перевод (рус/англ/мал.)</h4>
+                    <p>Сопровождение в госучреждениях, нотариальные переводы, документы для виз.</p>
+                    <p class="contact">📍 KL | 📱 +60 19-234-5678</p>
+                </div>
+                <div class="service-card">
+                    <h4>Переводы KL — Дмитрий С.</h4>
+                    <p>Технический перевод, юридические документы, локализация. Быстро и точно.</p>
+                    <p class="contact">📍 Онлайн / KL | 📱 +60 14-567-8901</p>
+                </div>
+            </div>
+
+            <!-- Финансы -->
+            <div class="category">
+                <h3>🏦 Помощь с банками / финансовые консультации</h3>
+                <div class="service-card">
+                    <h4>Финансовый консультант — Сергей М.</h4>
+                    <p>Открытие счёта в Maybank/CIMB, переводы, инвестиции, налоги для иностранцев.</p>
+                    <p class="contact">📍 KL / Онлайн | 📱 +60 12-890-1234</p>
+                </div>
+                <div class="service-card">
+                    <h4>Banking Help KL</h4>
+                    <p>Помощь с открытием счетов без трудового контракта, помощь с Wise и другими сервисами.</p>
+                    <p class="contact">📍 Онлайн | 📱 Telegram: @bankinghelpkl</p>
+                </div>
+            </div>
+
+            <!-- Визовые агентства -->
+            <div class="category">
+                <h3>🛂 Визовые агентства</h3>
+                <div class="service-card">
+                    <h4>VisaRun KL — Визовый центр</h4>
+                    <p>Продление виз, MM2H оформление, tourist pass, DE Rantau digital nomad visa.</p>
+                    <p class="contact">📍 Bukit Bintang | 📱 +60 17-345-6789</p>
+                </div>
+                <div class="service-card">
+                    <h4>Immigration Help — Марина В.</h4>
+                    <p>Индивидуальная помощь с документами, сопровождение в Immigration Office Putrajaya.</p>
+                    <p class="contact">📍 KL | 📱 +60 16-012-3456</p>
+                </div>
+            </div>
+
+            <!-- Аренда / Риелторы -->
+            <div class="category">
+                <h3>🏠 Аренда жилья / Риелторы</h3>
+                <div class="service-card">
+                    <h4>Русскоязычный риелтор — Андрей К.</h4>
+                    <p>Квартиры и кондо в Mont Kiara, KLCC, Bangsar. Подбор, сопровождение, перевод договора.</p>
+                    <p class="contact">📍 KL | 📱 +60 13-678-9012</p>
+                </div>
+                <div class="service-card">
+                    <h4>RentKL (рус. отдел)</h4>
+                    <p>Агентство с русскоязычными сотрудниками. Долгосрочная и краткосрочная аренда.</p>
+                    <p class="contact">📍 KL | 📱 +60 11-234-5678</p>
+                </div>
+            </div>
+
+            <!-- Трансферы -->
+            <div class="category">
+                <h3>🚕 Трансферы</h3>
+                <div class="service-card">
+                    <h4>Водитель Михаил — аэропорт KLIA/KLIA2</h4>
+                    <p>Трансфер из/в аэропорт, по городу, на дальние расстояния. Встреча с табличкой.</p>
+                    <p class="contact">📍 KL | 📱 +60 19-890-1234</p>
+                </div>
+                <div class="service-card">
+                    <h4>TransferKL — Русскоязычные водители</h4>
+                    <p>Комфортные авто, встречи в аэропорту, поездки в Genting, Malacca, Penang.</p>
+                    <p class="contact">📍 KL | 📱 +60 14-321-0987</p>
+                </div>
+            </div>
+
+            <!-- SIM / eSIM -->
+            <div class="category">
+                <h3>📱 SIM / eSIM</h3>
+                <div class="service-card">
+                    <h4>eSIM Malaysia — помощь с активацией</h4>
+                    <p>Помощь с покупкой и настройкой eSIM (Hotlink, Celcom, Digi) без паспорта в офисе.</p>
+                    <p class="contact">📍 Онлайн | 📱 Telegram: @esim_my</p>
+                </div>
+                <div class="service-card">
+                    <h4>SIM-карты для туристов — Игорь</h4>
+                    <p>Физические SIM и eSIM с большим объёмом трафика. Доставка по KL.</p>
+                    <p class="contact">📍 KL | 📱 +60 18-456-7890</p>
+                </div>
+            </div>
+
+            <!-- Border Run -->
+            <div class="category">
+                <h3>🚍 Border Run</h3>
+                <div class="service-card">
+                    <h4>Border Run KL → Thailand (Hat Yai / Songkhla)</h4>
+                    <p>Организация поездок для обнуления визового штампа. Автобус, документы, сопровождение.</p>
+                    <p class="contact">📍 Выезд из KL | 📱 +60 16-543-2109</p>
+                </div>
+                <div class="service-card">
+                    <h4>Visa Run Malaysia — групповые поездки</h4>
+                    <p>Еженедельные выезды к границе с Таиландом или Сингапуром. Всё включено.</p>
+                    <p class="contact">📍 KL | 📱 Telegram: @borderun_kl</p>
+                </div>
+            </div>
+
+            <!-- Русские магазины -->
+            <div class="category">
+                <h3>🏪 Русские магазины</h3>
+                <div class="service-card">
+                    <h4>«Берёзка» — Русский магазин</h4>
+                    <p>Гречка, тушёнка, сгущёнка, конфеты, пельмени, кефир, сметана. Доставка по KL.</p>
+                    <p class="contact">📍 Ampang / Онлайн | 📱 +60 17-654-3210</p>
+                </div>
+                <div class="service-card">
+                    <h4>Russian Shop Mont Kiara</h4>
+                    <p>Небольшой магазинчик с продуктами из России и СНГ. Пельмени, колбаса, консервы.</p>
+                    <p class="contact">📍 Mont Kiara | 📱 +60 12-987-6543</p>
+                </div>
+                <div class="service-card">
+                    <h4>Онлайн-магазин «Матрёшка»</h4>
+                    <p>Доставка по всей Малайзии. Широкий ассортимент продуктов и косметики.</p>
+                    <p class="contact">📍 Онлайн | 📱 Telegram: @matreshka_my</p>
+                </div>
+            </div>
+
+            <!-- Школы -->
+            <div class="category">
+                <h3>🏫 Русские / рекомендованные школы</h3>
+                <div class="service-card">
+                    <h4>Русская школа «Знание» при посольстве</h4>
+                    <p>Программа российского образования 1-11 класс. Занятия по субботам.</p>
+                    <p class="contact">📍 Ampang (Посольство РФ) | 📱 +60 3-4256-3826</p>
+                </div>
+                <div class="service-card">
+                    <h4>International School of Kuala Lumpur (ISKL)</h4>
+                    <p>Международная школа с высоким рейтингом. Рекомендуется для экспатов.</p>
+                    <p class="contact">📍 Ampang Hilir | 📱 +60 3-4259-7974</p>
+                </div>
+                <div class="service-card">
+                    <h4>Русский субботний клуб «Радуга»</h4>
+                    <p>Занятия для детей 4-12 лет: русский язык, литература, творчество.</p>
+                    <p class="contact">📍 Mont Kiara | 📱 +60 11-357-9246</p>
+                </div>
+                <div class="service-card">
+                    <h4>Mont' Kiara International School</h4>
+                    <p>IB-программа, англоязычная среда, много детей экспатов. Рекомендована.</p>
+                    <p class="contact">📍 Mont Kiara | 📱 +60 3-6203-1138</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO / GEO блок -->
+        <section class="seo-geo-block">
+            <h2>Похожие запросы</h2>
+            <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+            <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+        </section>
+    </div>
+
+    <footer>
+        <a href="https://russianfriendly.netlify.app/" target="_blank" rel="noopener">Главная Russian Friendly</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <p>© 2025-2026 Russian Friendly — Карта русскоязычных специалистов и сервисов. Автор: Кристина Перез</p>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize map centered on Kuala Lumpur
+        const map = L.map('map').setView([3.1390, 101.6869], 12);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 18
+        }).addTo(map);
+
+        // Data for markers
+        const locations = [
+            // Стоматологи
+            { lat: 3.1715, lng: 101.6458, title: "Dr. Ivan Volkov Dental", category: "dentist", desc: "Русскоязычный стоматолог, Mont Kiara", icon: "🦷" },
+            { lat: 3.1270, lng: 101.6680, title: "Smile Clinic KL (д-р Ольга Н.)", category: "dentist", desc: "Детская и взрослая стоматология, Bangsar South", icon: "🦷" },
+
+            // Врачи
+            { lat: 3.1579, lng: 101.7117, title: "Мед. центр «Здоровье» — Елена К.", category: "doctor", desc: "Терапевт, KLCC/Ampang", icon: "👩‍⚕️" },
+            { lat: 3.1730, lng: 101.6440, title: "Педиатр Анна М.", category: "doctor", desc: "Детский врач, Mont Kiara", icon: "👩‍⚕️" },
+            { lat: 3.0676, lng: 101.6053, title: "Гинеколог д-р Марина С.", category: "doctor", desc: "Приём, УЗИ, Sunway Medical", icon: "👩‍⚕️" },
+
+            // Юристы
+            { lat: 3.1466, lng: 101.7108, title: "Юрист Алексей Петров", category: "lawyer", desc: "Визы, контракты, недвижимость", icon: "⚖️" },
+            { lat: 3.1347, lng: 101.6855, title: "LegalBridge Malaysia", category: "lawyer", desc: "Иммиграционное право, MM2H", icon: "⚖️" },
+
+            // Переводчики
+            { lat: 3.1390, lng: 101.6869, title: "Наталья — переводчик", category: "translator", desc: "Устный и письменный перевод", icon: "📄" },
+            { lat: 3.1500, lng: 101.6950, title: "Переводы KL — Дмитрий С.", category: "translator", desc: "Технический, юридический перевод", icon: "📄" },
+
+            // Финансы
+            { lat: 3.1412, lng: 101.6900, title: "Финансовый консультант Сергей М.", category: "finance", desc: "Банки, переводы, инвестиции", icon: "🏦" },
+            { lat: 3.1380, lng: 101.6820, title: "Banking Help KL", category: "finance", desc: "Открытие счетов, Wise помощь", icon: "🏦" },
+
+            // Визовые агентства
+            { lat: 3.1480, lng: 101.7120, title: "VisaRun KL", category: "visa", desc: "Продление виз, MM2H, DE Rantau", icon: "🛂" },
+            { lat: 3.1430, lng: 101.7050, title: "Immigration Help — Марина В.", category: "visa", desc: "Сопровождение в Immigration", icon: "🛂" },
+
+            // Аренда / Риелторы
+            { lat: 3.1690, lng: 101.6470, title: "Риелтор Андрей К.", category: "realtor", desc: "Квартиры в Mont Kiara, KLCC", icon: "🏠" },
+            { lat: 3.1550, lng: 101.7000, title: "RentKL (рус. отдел)", category: "realtor", desc: "Долго- и краткосрочная аренда", icon: "🏠" },
+
+            // Трансферы
+            { lat: 3.1400, lng: 101.6830, title: "Водитель Михаил", category: "transfer", desc: "Трансфер KLIA/KLIA2, по городу", icon: "🚕" },
+            { lat: 3.1450, lng: 101.6900, title: "TransferKL", category: "transfer", desc: "Групповые трансферы", icon: "🚕" },
+
+            // SIM / eSIM
+            { lat: 3.1520, lng: 101.6950, title: "eSIM Malaysia", category: "sim", desc: "Помощь с активацией eSIM", icon: "📱" },
+            { lat: 3.1470, lng: 101.6800, title: "SIM-карты — Игорь", category: "sim", desc: "Физические SIM и eSIM", icon: "📱" },
+
+            // Border Run
+            { lat: 3.1370, lng: 101.6870, title: "Border Run KL → Thailand", category: "borderrun", desc: "Выезды к границе для обнуления штампа", icon: "🚍" },
+            { lat: 3.1410, lng: 101.6920, title: "Visa Run Malaysia", category: "borderrun", desc: "Групповые поездки, всё включено", icon: "🚍" },
+
+            // Русские магазины
+            { lat: 3.1610, lng: 101.7350, title: "«Берёзка» — Русский магазин", category: "shop", desc: "Гречка, тушёнка, пельмени, доставка", icon: "🏪" },
+            { lat: 3.1750, lng: 101.6450, title: "Russian Shop Mont Kiara", category: "shop", desc: "Продукты из России и СНГ", icon: "🏪" },
+            { lat: 3.1350, lng: 101.6780, title: "Онлайн-магазин «Матрёшка»", category: "shop", desc: "Доставка по всей Малайзии", icon: "🏪" },
+
+            // Школы
+            { lat: 3.1620, lng: 101.7370, title: "Русская школа «Знание»", category: "school", desc: "Программа 1-11 класс, по субботам", icon: "🏫" },
+            { lat: 3.1560, lng: 101.7280, title: "ISKL — International School", category: "school", desc: "Международная школа, рекомендована", icon: "🏫" },
+            { lat: 3.1720, lng: 101.6430, title: "Субботний клуб «Радуга»", category: "school", desc: "Дети 4-12 лет, русский язык", icon: "🏫" },
+            { lat: 3.1740, lng: 101.6460, title: "Mont' Kiara International School", category: "school", desc: "IB-программа, экспаты", icon: "🏫" }
+        ];
+
+        // Create markers
+        const markers = {};
+
+        locations.forEach(loc => {
+            const icon = L.divIcon({
+                html: `<div style="background: white; border: 3px solid #0B3350; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">${loc.icon}</div>`,
+                className: 'custom-marker',
+                iconSize: [36, 36],
+                iconAnchor: [18, 18],
+                popupAnchor: [0, -18]
+            });
+
+            const marker = L.marker([loc.lat, loc.lng], { icon: icon })
+                .bindPopup(`<strong>${loc.title}</strong><br>${loc.desc}`);
+
+            if (!markers[loc.category]) markers[loc.category] = [];
+            markers[loc.category].push(marker);
+            marker.addTo(map);
+        });
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const category = btn.dataset.category;
+
+                // Clear all markers
+                Object.values(markers).forEach(markerArr => {
+                    markerArr.forEach(m => map.removeLayer(m));
+                });
+
+                if (category === 'all') {
+                    Object.values(markers).forEach(markerArr => {
+                        markerArr.forEach(m => m.addTo(map));
+                    });
+                } else {
+                    if (markers[category]) {
+                        markers[category].forEach(m => m.addTo(map));
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

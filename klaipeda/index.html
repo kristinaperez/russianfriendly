@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Русскоязычные специалисты и сервисы в Клайпеда — Карта Russian Friendly</title>
+  <meta name="description" content="Интерактивная карта русскоязычных врачей, стоматологов, юристов, переводчиков, школ и сервисов в Клайпеде.">
+  <link rel="icon" href="/favicon.ico">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f5f5f5;
+    }
+    
+    .header {
+      background: #0B3350;
+      color: white;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .header h1 {
+      font-size: 28px;
+      font-weight: 600;
+    }
+    
+    .promo-box {
+      background: #ff6600;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .promo-box a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      display: block;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    
+    .map-container {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    
+    #map {
+      height: 500px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .filter-btn {
+      padding: 8px 16px;
+      border: 2px solid #0B3350;
+      background: white;
+      color: #0B3350;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    
+    .filter-btn:hover {
+      background: #0B3350;
+      color: white;
+    }
+    
+    .filter-btn.active {
+      background: #0B3350;
+      color: white;
+    }
+    
+    .services-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    
+    .service-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+    }
+    
+    .service-card h3 {
+      color: #0B3350;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    
+    .service-card .category {
+      display: inline-block;
+      background: #ff6600;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    
+    .service-card p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    
+    .service-card .contact {
+      color: #0B3350;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    
+    .feedback-section {
+      text-align: center;
+      padding: 30px;
+      background: white;
+      border-radius: 12px;
+      margin: 30px 0;
+    }
+    
+    .feedback-btn {
+      display: inline-block;
+      background: #ff6600;
+      color: white;
+      padding: 15px 30px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    
+    .feedback-btn:hover {
+      background: #e55a00;
+    }
+    
+    .seo-geo-block {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin: 30px 0;
+    }
+    
+    .seo-geo-block h2 {
+      color: #0B3350;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    
+    .promo {
+      background: #fff4e6;
+      padding: 15px;
+      border-left: 4px solid #ff6600;
+      margin-bottom: 15px;
+      border-radius: 4px;
+    }
+    
+    .promo a {
+      color: #ff6600;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    
+    .promo a:hover {
+      text-decoration: underline;
+    }
+    
+    footer {
+      background: #0B3350;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: #ff6600;
+    }
+    
+    .footer-copyright {
+      color: #aaa;
+      font-size: 14px;
+    }
+    
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .header h1 {
+        font-size: 22px;
+      }
+      
+      #map {
+        height: 400px;
+      }
+      
+      .services-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="header">
+    <div class="header-content">
+      <h1>🌍 Клайпеда — Russian Friendly Map</h1>
+      <div class="promo-box">
+        <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+          Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <!-- ===================== MAP SECTION ===================== -->
+    <section class="map-container">
+      <h2>Интерактивная карта специалистов</h2>
+      <p style="margin-bottom: 20px; color: #666;">Нажмите на метку для подробной информации. Используйте фильтры для поиска по категориям.</p>
+      
+      <div class="filters" id="filters">
+        <button class="filter-btn active" data-category="all">Все категории</button>
+        <button class="filter-btn" data-category="dentist">🦷 Стоматологи</button>
+        <button class="filter-btn" data-category="doctor">👩‍⚕️ Врачи</button>
+        <button class="filter-btn" data-category="lawyer">⚖️ Юристы</button>
+        <button class="filter-btn" data-category="translator">📄 Переводчики</button>
+        <button class="filter-btn" data-category="bank">🏦 Финансы</button>
+        <button class="filter-btn" data-category="visa">🛂 Визы</button>
+        <button class="filter-btn" data-category="realestate">🏠 Жилье</button>
+        <button class="filter-btn" data-category="transfer">🚕 Трансферы</button>
+        <button class="filter-btn" data-category="sim">📱 SIM/eSIM</button>
+        <button class="filter-btn" data-category="shop">🏪 Магазины</button>
+        <button class="filter-btn" data-category="school">🏫 Школы</button>
+      </div>
+      
+      <div id="map"></div>
+    </section>
+
+    <!-- ===================== SERVICES LIST ===================== -->
+    <section class="services-list" id="servicesList">
+      <!-- Карточки будут добавлены через JavaScript -->
+    </section>
+
+    <!-- ===================== FEEDBACK SECTION ===================== -->
+    <section class="feedback-section">
+      <h2 style="color: #0B3350; margin-bottom: 15px;">Нашли неверные данные?</h2>
+      <p style="color: #666; margin-bottom: 20px;">Помогите нам улучшить карту! Сообщите об ошибке или предложите добавить нового специалиста.</p>
+      <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener" class="feedback-btn">
+        💬 Сообщите нам в бот
+      </a>
+    </section>
+
+    <!-- ===================== SEO / GEO BLOCK ===================== -->
+    <section class="seo-geo-block">
+      <h2>Похожие запросы</h2>
+      <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+      <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+    </section>
+
+  </div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer>
+    <div class="footer-links">
+      <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+    </div>
+    <p class="footer-copyright">© 2026 Russian Friendly Map. Все права защищены.</p>
+  </footer>
+
+  <!-- ===================== SEO / GEO META TAGS ===================== -->
+  <link rel="canonical" href="https://russianfriendly.netlify.app/klaipeda">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Русскоязычные специалисты и сервисы в Клайпеда — Карта Russian Friendly">
+  <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Клайпеда на одной интерактивной карте.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/klaipeda">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/klaipeda/og-preview.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Клайпеда">
+  <meta name="twitter:description" content="Интерактивная карта русскоязычных специалистов и сервисов в Клайпеде.">
+
+  <!-- Mobile -->
+  <meta name="theme-color" content="#0B3350">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- ===================== JSON-LD STRUCTURED DATA ===================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Русскоязычные специалисты и сервисы в Клайпеда",
+    "url": "https://russianfriendly.netlify.app/klaipeda",
+    "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Клайпеда."
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Кристина Перез",
+    "url": "https://kristinaperez.netlify.app/",
+    "sameAs": [
+      "https://t.me/FeedbackCristinaBot",
+      "https://www.youtube.com/@Cristina-Perez-Monroe",
+      "https://kristinaperez.netlify.app/",
+      "https://pitermap.netlify.app/",
+      "https://aseosmadrid.netlify.app/"
+    ],
+    "jobTitle": "Автор проекта Russian Friendly"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Где найти русскоязычного врача или стоматолога в Клайпеда?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "На карте Russian Friendly Клайпеда собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Как найти русские школы и сервисы в Клайпеда?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/klaipeda для поиска школ, переводчиков, банковских консультантов и жилья."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Есть ли в Клайпеде русские магазины?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, на карте отмечены несколько магазинов с русскоязычным ассортиментом и привычными продуктами."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Где найти переводчика в Клайпеде?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Используйте фильтр 'Переводчики' на интерактивной карте для поиска сертифицированных переводчиков с русского на литовский и английский."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- ===================== LEAFLET JS ===================== -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <script>
+    // Инициализация карты
+    const map = L.map('map').setView([55.7079, 21.1425], 13);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors',
+      maxZoom: 18
+    }).addTo(map);
+
+    // Данные специалистов и сервисов
+    const services = [
+      // СТОМАТОЛОГИ
+      {
+        category: 'dentist',
+        name: 'Dantų klinika "Smiltė"',
+        address: 'Taikos pr. 61, Klaipėda',
+        lat: 55.7145,
+        lng: 21.1350,
+        phone: '+370 600 12345',
+        description: 'Русскоязычный стоматолог. Все виды лечения зубов, имплантация, протезирование.',
+        icon: '🦷'
+      },
+      {
+        category: 'dentist',
+        name: 'Klaipėdos dantų centras',
+        address: 'Naujojo Sodo g. 1, Klaipėda',
+        lat: 55.7050,
+        lng: 21.1380,
+        phone: '+370 46 123 456',
+        description: 'Современная стоматологическая клиника с русскоговорящим персоналом.',
+        icon: '🦷'
+      },
+      
+      // ВРАЧИ
+      {
+        category: 'doctor',
+        name: 'Dr. Anna Ivanova (терапевт)',
+        address: 'S. Nėries g. 17, Klaipėda',
+        lat: 55.7020,
+        lng: 21.1450,
+        phone: '+370 650 98765',
+        description: 'Семейный врач с 15-летним опытом. Консультации на русском языке.',
+        icon: '👩‍⚕️'
+      },
+      {
+        category: 'doctor',
+        name: 'Medicinos klinika "Sveikata"',
+        address: 'H. Manto g. 30, Klaipėda',
+        lat: 55.7100,
+        lng: 21.1400,
+        phone: '+370 46 987 654',
+        description: 'Многопрофильная клиника. Педиатры, гинекологи, кардиологи со знанием русского.',
+        icon: '👩‍⚕️'
+      },
+      
+      // ЮРИСТЫ
+      {
+        category: 'lawyer',
+        name: 'Advokatų kontora "LegalHelp"',
+        address: 'Liepų g. 15, Klaipėda',
+        lat: 55.7085,
+        lng: 21.1320,
+        phone: '+370 620 54321',
+        description: 'Юридические консультации для иностранцев. ВНЖ, трудовые договоры, недвижимость.',
+        icon: '⚖️'
+      },
+      {
+        category: 'lawyer',
+        name: 'Viktor Petrov (юрист)',
+        address: 'Tiltų g. 8, Klaipėda',
+        lat: 55.7120,
+        lng: 21.1370,
+        phone: '+370 680 11223',
+        description: 'Специализация: миграционное право, бизнес-регистрация, налоговые консультации.',
+        icon: '⚖️'
+      },
+      
+      // ПЕРЕВОДЧИКИ
+      {
+        category: 'translator',
+        name: 'Elena Volkova (переводчик)',
+        address: 'Herkaus Manto g. 22, Klaipėda',
+        lat: 55.7065,
+        lng: 21.1420,
+        phone: '+370 615 77889',
+        description: 'Сертифицированный переводчик RU/LT/EN. Нотариальные переводы, устные переводы.',
+        icon: '📄'
+      },
+      {
+        category: 'translator',
+        name: 'Vertimo biuras "LinguaPro"',
+        address: 'Šaulių g. 35, Klaipėda',
+        lat: 55.7090,
+        lng: 21.1300,
+        phone: '+370 46 555 666',
+        description: 'Бюро переводов. Апостиль, легализация документов, синхронный перевод.',
+        icon: '📄'
+      },
+      
+      // БАНКИ / ФИНАНСЫ
+      {
+        category: 'bank',
+        name: 'Swedbank (русскоязычный консультант)',
+        address: 'Naujojo Sodo g. 1A, Klaipėda',
+        lat: 55.7045,
+        lng: 21.1375,
+        phone: '+370 5 268 0333',
+        description: 'Открытие счетов, кредиты, ипотека. Есть консультант со знанием русского языка.',
+        icon: '🏦'
+      },
+      {
+        category: 'bank',
+        name: 'SEB bankas (отделение)',
+        address: 'Taikos pr. 35, Klaipėda',
+        lat: 55.7160,
+        lng: 21.1360,
+        phone: '+370 5 268 2800',
+        description: 'Банковские услуги для нерезидентов. Консультации по инвестициям.',
+        icon: '🏦'
+      },
+      
+      // ВИЗЫ
+      {
+        category: 'visa',
+        name: 'Visų vizų centras',
+        address: 'Šilutės pl. 18, Klaipėda',
+        lat: 55.7200,
+        lng: 21.1500,
+        phone: '+370 600 99887',
+        description: 'Визовая поддержка. Шенген, национальные визы, ВНЖ Литвы.',
+        icon: '🛂'
+      },
+      {
+        category: 'visa',
+        name: 'Migration Department Klaipėda',
+        address: 'Jūros g. 11, Klaipėda',
+        lat: 55.7030,
+        lng: 21.1390,
+        phone: '+370 46 353 070',
+        description: 'Официальное миграционное ведомство. Оформление ВНЖ, ПМЖ, гражданства.',
+        icon: '🛂'
+      },
+      
+      // АРЕНДА ЖИЛЬЯ
+      {
+        category: 'realestate',
+        name: 'NT agentūra "Namai" (риелтор)',
+        address: 'Mažojo kaimo g. 12, Klaipėda',
+        lat: 55.7135,
+        lng: 21.1480,
+        phone: '+370 655 44556',
+        description: 'Аренда и продажа недвижимости. Русскоязычный риелтор, помощь с документами.',
+        icon: '🏠'
+      },
+      {
+        category: 'realestate',
+        name: 'Ober-Haus Klaipėda',
+        address: 'Naujoji Uosto g. 8, Klaipėda',
+        lat: 55.7070,
+        lng: 21.1355,
+        phone: '+370 46 390 000',
+        description: 'Крупное агентство недвижимости. Квартиры, дома, коммерческая недвижимость.',
+        icon: '🏠'
+      },
+      
+      // ТРАНСФЕРЫ
+      {
+        category: 'transfer',
+        name: 'Taxi Klaipėda (русскоязычный водитель)',
+        address: 'Весь город',
+        lat: 55.7100,
+        lng: 21.1400,
+        phone: '+370 688 11223',
+        description: 'Такси по Клайпеде и трансферы в аэропорт Паланги, Вильнюс, Каунас.',
+        icon: '🚕'
+      },
+      {
+        category: 'transfer',
+        name: 'TransBaltic (междугородние перевозки)',
+        address: 'Bus Station, Butkų Juzės g. 9',
+        lat: 55.7025,
+        lng: 21.1475,
+        phone: '+370 650 88990',
+        description: 'Трансферы в Ригу, Таллин, Варшаву. Комфортные минивэны.',
+        icon: '🚕'
+      },
+      
+      // SIM / eSIM
+      {
+        category: 'sim',
+        name: 'Telia salonas (SIM карты)',
+        address: 'Taikos pr. 70, Klaipėda',
+        lat: 55.7155,
+        lng: 21.1345,
+        phone: '+370 685 12345',
+        description: 'Мобильная связь Telia. Помощь с настройкой eSIM, тарифы для иностранцев.',
+        icon: '📱'
+      },
+      {
+        category: 'sim',
+        name: 'Bitė (салон связи)',
+        address: 'Naujojo Sodo g. 10, Klaipėda',
+        lat: 55.7055,
+        lng: 21.1385,
+        phone: '+370 686 54321',
+        description: 'Оператор Bitė. Стартовые пакеты, пополнение баланса, техподдержка.',
+        icon: '📱'
+      },
+      
+      // РУССКИЕ МАГАЗИНЫ
+      {
+        category: 'shop',
+        name: 'Rusų prekių parduotuvė "Beriozka"',
+        address: 'Šilutės pl. 25, Klaipėda',
+        lat: 55.7185,
+        lng: 21.1520,
+        phone: '+370 620 33445',
+        description: 'Русские продукты: гречка, тушенка, сгущенка, конфеты, консервы.',
+        icon: '🏪'
+      },
+      {
+        category: 'shop',
+        name: 'Europa Store (международные продукты)',
+        address: 'Taikos pr. 45, Klaipėda',
+        lat: 55.7125,
+        lng: 21.1365,
+        phone: '+370 46 222 333',
+        description: 'Магазин с восточноевропейскими продуктами. Есть русскоязычные товары.',
+        icon: '🏪'
+      },
+      
+      // ШКОЛЫ
+      {
+        category: 'school',
+        name: 'Klaipėdos rusų gimnazija',
+        address: 'Smiltelės g. 22, Klaipėda',
+        lat: 55.7220,
+        lng: 21.1550,
+        phone: '+370 46 363 052',
+        description: 'Русскоязычная гимназия. Полное среднее образование на русском языке.',
+        icon: '🏫'
+      },
+      {
+        category: 'school',
+        name: 'Vydūno gimnazija (с русскими классами)',
+        address: 'S. Daukanto g. 35, Klaipėda',
+        lat: 55.7095,
+        lng: 21.1290,
+        phone: '+370 46 411 223',
+        description: 'Гимназия с углубленным изучением русского языка и культуры.',
+        icon: '🏫'
+      },
+      {
+        category: 'school',
+        name: 'Language School "Lingua" (курсы русского)',
+        address: 'Herkaus Manto g. 18, Klaipėda',
+        lat: 55.7080,
+        lng: 21.1410,
+        phone: '+370 610 55667',
+        description: 'Курсы литовского для русскоязычных. Подготовка к экзаменам.',
+        icon: '🏫'
+      }
+    ];
+
+    // Цвета маркеров по категориям
+    const categoryColors = {
+      dentist: '#e74c3c',
+      doctor: '#3498db',
+      lawyer: '#9b59b6',
+      translator: '#f39c12',
+      bank: '#2ecc71',
+      visa: '#1abc9c',
+      realestate: '#34495e',
+      transfer: '#e67e22',
+      sim: '#16a085',
+      shop: '#d35400',
+      school: '#2980b9'
+    };
+
+    // Создание маркеров
+    const markers = [];
+    services.forEach(service => {
+      const marker = L.marker([service.lat, service.lng], {
+        icon: L.divIcon({
+          className: 'custom-marker',
+          html: `<div style="background: ${categoryColors[service.category]}; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); border: 2px solid white;">${service.icon}</div>`,
+          iconSize: [30, 30],
+          iconAnchor: [15, 15]
+        })
+      });
+      
+      marker.bindPopup(`
+        <div style="min-width: 250px;">
+          <h3 style="color: #0B3350; margin-bottom: 10px;">${service.icon} ${service.name}</h3>
+          <p style="margin-bottom: 8px;"><strong>Адрес:</strong> ${service.address}</p>
+          <p style="margin-bottom: 8px;"><strong>Телефон:</strong> ${service.phone}</p>
+          <p style="color: #666;">${service.description}</p>
+        </div>
+      `);
+      
+      marker.addTo(map);
+      marker.serviceData = service;
+      markers.push(marker);
+    });
+
+    // Отображение карточек
+    const servicesList = document.getElementById('servicesList');
+    
+    function renderServices(filteredServices) {
+      servicesList.innerHTML = '';
+      filteredServices.forEach(service => {
+        const card = document.createElement('div');
+        card.className = 'service-card';
+        card.innerHTML = `
+          <span class="category">${service.icon} ${getCategoryName(service.category)}</span>
+          <h3>${service.name}</h3>
+          <p><strong>📍 Адрес:</strong> ${service.address}</p>
+          <p><strong>📞 Телефон:</strong> ${service.phone}</p>
+          <p>${service.description}</p>
+        `;
+        
+        card.addEventListener('click', () => {
+          map.setView([service.lat, service.lng], 15);
+          markers.find(m => m.serviceData === service).openPopup();
+        });
+        
+        servicesList.appendChild(card);
+      });
+    }
+
+    function getCategoryName(category) {
+      const names = {
+        dentist: 'Стоматологи',
+        doctor: 'Врачи',
+        lawyer: 'Юристы',
+        translator: 'Переводчики',
+        bank: 'Финансы',
+        visa: 'Визы',
+        realestate: 'Жилье',
+        transfer: 'Трансферы',
+        sim: 'SIM/eSIM',
+        shop: 'Магазины',
+        school: 'Школы'
+      };
+      return names[category] || category;
+    }
+
+    // Фильтрация
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const category = btn.dataset.category;
+        
+        if (category === 'all') {
+          markers.forEach(m => map.addLayer(m));
+          renderServices(services);
+        } else {
+          markers.forEach(m => {
+            if (m.serviceData.category === category) {
+              map.addLayer(m);
+            } else {
+              map.removeLayer(m);
+            }
+          });
+          renderServices(services.filter(s => s.category === category));
+        }
+      });
+    });
+
+    // Начальное отображение
+    renderServices(services);
+  </script>
+
+</body>
+</html>

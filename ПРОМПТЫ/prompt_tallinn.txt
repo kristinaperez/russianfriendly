@@ -1,5 +1,5 @@
 Создай веб-страницу index.html для интерактивной карты локальных русскоязычных специалистов и сервисов в городе Таллин.
-
+     Добавь проверенные точки с адресами и телефонами из открытых источников.
 ОСНОВНАЯ КОНЦЕПЦИЯ И СТРУКТУРА:
 1. Тематика: Карта и каталог русскоязычных специалистов, услуг и организаций в городском пространстве (Таллин).
 2. Городской URL проекта: https://russianfriendly.netlify.app/tallinn
@@ -126,3 +126,11 @@
    - <a href="/about.html">About</a> (или https://russianfriendly.netlify.app/about)
    - <a href="/contact.html">Contact</a> (или https://russianfriendly.netlify.app/contact)
    - <a href="/privacy-policy.html">Privacy Policy</a> (или https://russianfriendly.netlify.app/privacy-policy)
+
+ 
+ 
+  И если можешь, нарисуй для Open Graph файл image, чтобы положить по ссылке og-preview.jpg.
+  Надпись делай только на латинице - "Russian Friendly Map " + название города на латинице,
+     например,  "Russian Friendly Map Kaunas"  (если помнишь, 1200 на 630 точек)
+
+  Файл robots делать не надо, он уже есть в корне сайта 

@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Русскоязычные специалисты и сервисы в Мехико — Карта Russian Friendly</title>
+  <meta name="description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Мехико на одной интерактивной карте. Проверенные контакты и полезные места.">
+  <meta name="keywords" content="Мехико, Mexico City, CDMX, русскоязычные врачи, стоматолог Мехико, юрист Мексика, ВНЖ Мексика, переводчик Мехико, русские школы Мехико, аренда жилья Condesa Polanco, трансфер аэропорт Мехико">
+  <meta name="author" content="Russian Friendly">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <!-- ===================== SEO / GEO ===================== -->
+  <link rel="canonical" href="https://russianfriendly.netlify.app/mexico-city">
+  
+  <!-- Open Graph / preview for smartphones -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Русскоязычные специалисты и сервисы в Мехико — Карта Russian Friendly">
+  <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Мехико на одной интерактивной карте.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/mexico-city">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/mexico-city/og-preview.jpg">
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Мехико">
+  <meta name="twitter:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Мехико на одной интерактивной карте.">
+  <meta name="twitter:image" content="https://russianfriendly.netlify.app/mexico-city/og-preview.jpg">
+
+  <!-- Mobile "add to home screen" -->
+  <meta name="theme-color" content="#0B3350">
+
+  <!-- JSON-LD: Map / WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Русскоязычные специалисты и сервисы в Мехико",
+    "url": "https://russianfriendly.netlify.app/mexico-city",
+    "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Мехико."
+  }
+  </script>
+
+  <!-- JSON-LD: Person (автор) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Кристина Перез",
+    "url": "https://kristinaperez.netlify.app/",
+    "sameAs": [
+      "https://t.me/FeedbackCristinaBot",
+      "https://www.youtube.com/@Cristina-Perez-Monroe",
+      "https://kristinaperez.netlify.app/",
+      "https://pitermap.netlify.app/",
+      "https://aseosmadrid.netlify.app/"
+    ],
+    "jobTitle": "Автор проекта Russian Friendly"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage — прямые ответы на вопросы, которые задают в поиске и в чатах с ИИ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Где найти русскоязычного врача или стоматолога в Мехико?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "На карте Russian Friendly Мехико собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Как найти русские школы и сервисы в Мехико?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/mexico-city для поиска школ, переводчиков, банковских консультантов и жилья."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  
+  <style>
+    :root {
+      --navy-primary: #0B3350;
+      --navy-dark: #072236;
+      --orange-accent: #ff6600;
+      --orange-hover: #e55d00;
+      --bg-color: #f5f7fa;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Header Styling */
+    .site-header {
+      background: var(--navy-primary);
+      color: white;
+      padding: 18px 0;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    }
+
+    .header-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand .sub {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ad-block {
+      background: var(--orange-accent);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 40px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(255,102,0,0.35);
+      font-size: 0.95rem;
+      white-space: normal;
+      max-width: 480px;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .ad-block:hover {
+      background: var(--orange-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255,102,0,0.45);
+    }
+
+    /* Map Container */
+    .map-section {
+      margin: 24px 0 16px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border: 1px solid #e2e8f0;
+    }
+
+    #map {
+      height: 520px;
+      width: 100%;
+      z-index: 1;
+    }
+
+    .feedback-bar {
+      background: #f8fafc;
+      padding: 16px 20px;
+      text-align: center;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .feedback-btn {
+      background: var(--navy-primary);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.1s;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 10px rgba(11,51,80,0.2);
+    }
+
+    .feedback-btn:hover {
+      background: #0e4068;
+      transform: scale(1.02);
+    }
+
+    /* Categories Panel */
+    .categories-panel {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 22px;
+      margin: 20px 0;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+      border: 1px solid #e2e8f0;
+    }
+
+    .categories-panel h2 {
+      font-size: 1.3rem;
+      margin-bottom: 14px;
+      color: var(--navy-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      background: #f1f5f9;
+      color: #334155;
+      padding: 9px 16px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid #cbd5e1;
+      user-select: none;
+    }
+
+    .chip:hover {
+      background: #e2e8f0;
+      border-color: #94a3b8;
+    }
+
+    .chip.active {
+      background: var(--navy-primary);
+      color: white;
+      border-color: var(--navy-primary);
+      box-shadow: 0 3px 8px rgba(11,51,80,0.25);
+    }
+
+    /* SEO / GEO Block */
+    .seo-geo-block {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 24px;
+      margin: 30px 0 20px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+      border: 1px solid #e2e8f0;
+    }
+
+    .seo-geo-block h2 {
+      font-size: 1.35rem;
+      margin-bottom: 12px;
+      color: var(--navy-primary);
+    }
+
+    .promo {
+      margin: 10px 0;
+      font-size: 1rem;
+    }
+
+    .promo a {
+      color: var(--orange-accent);
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 1px dashed var(--orange-accent);
+      transition: color 0.2s;
+    }
+
+    .promo a:hover {
+      color: var(--orange-hover);
+    }
+
+    /* Footer */
+    .site-footer {
+      background: var(--navy-primary);
+      color: #e2e8f0;
+      padding: 28px 0;
+      margin-top: 40px;
+      font-size: 0.95rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+      color: #ffcc80;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .ad-block {
+        width: 100%;
+        max-width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
+      #map {
+        height: 420px;
+      }
+      .footer-links {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ШАПКА САЙТА (HEADER) -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <h1>🗺️ Мехико — Russian Friendly Map</h1>
+        <div class="sub">🇲🇽 Интерактивная карта и каталог русскоязычных специалистов и сервисов</div>
+      </div>
+      <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener" class="ad-block">
+        Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- КАРТА И ОБРАТНАЯ СВЯЗЬ -->
+    <section class="map-section">
+      <div id="map"></div>
+      <div class="feedback-bar">
+        <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener" class="feedback-btn">
+          💬 Нашли неверные данные? Сообщите нам в бот
+        </a>
+      </div>
+    </section>
+
+    <!-- ПАНЕЛЬ КАТЕГОРИЙ -->
+    <div class="categories-panel">
+      <h2>📌 Категории на карте</h2>
+      <div class="chip-list" id="categoryFilters">
+        <span class="chip active" data-category="all">🌐 Все</span>
+        <span class="chip" data-category="dentist">🦷 Стоматологи</span>
+        <span class="chip" data-category="doctor">👩‍⚕️ Врачи</span>
+        <span class="chip" data-category="lawyer">⚖️ Юристы</span>
+        <span class="chip" data-category="translator">📄 Переводчики</span>
+        <span class="chip" data-category="finance">🏦 Помощь с банками / Финансы</span>
+        <span class="chip" data-category="visa">🛂 Визовые агентства</span>
+        <span class="chip" data-category="realtor">🏠 Аренда жилья / Риелторы</span>
+        <span class="chip" data-category="transfer">🚕 Трансферы</span>
+        <span class="chip" data-category="sim">📱 SIM / eSIM</span>
+        <span class="chip" data-category="shop">🛒 Русские магазины</span>
+        <span class="chip" data-category="school">🏫 Школы</span>
+      </div>
+    </div>
+
+    <!-- ВИДИМЫЙ SEO / GEO БЛОК ВНИЗУ СТРАНИЦЫ -->
+    <section class="seo-geo-block">
+      <h2>Похожие запросы</h2>
+      <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+      <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+    </section>
+  </main>
+
+  <!-- ССЫЛКИ В ФУТЕРЕ (FOOTER) -->
+  <footer class="site-footer">
+    <div class="container footer-links">
+      <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+    </div>
+    <div style="text-align: center; margin-top: 16px; opacity: 0.75; font-size: 0.85rem;">
+      © 2026 Russian Friendly · Мехико (Mexico City)
+    </div>
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    (function() {
+      // Центр Мехико (CDMX)
+      const MEXICO_CITY_CENTER = [19.4326, -99.1332];
+      const map = L.map('map').setView(MEXICO_CITY_CENTER, 12);
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; CartoDB',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(map);
+
+      // Конфигурация иконок и цветов по категориям
+      const categoryIcons = {
+        dentist: { emoji: '🦷', color: '#e91e63', label: 'Стоматологи' },
+        doctor: { emoji: '👩‍⚕️', color: '#2e7d32', label: 'Врачи' },
+        lawyer: { emoji: '⚖️', color: '#1565c0', label: 'Юристы' },
+        translator: { emoji: '📄', color: '#ef6c00', label: 'Переводчики' },
+        finance: { emoji: '🏦', color: '#00838f', label: 'Банки / Финансы' },
+        visa: { emoji: '🛂', color: '#6a1b9a', label: 'Визовые агентства' },
+        realtor: { emoji: '🏠', color: '#4e342e', label: 'Аренда жилья / Риелторы' },
+        transfer: { emoji: '🚕', color: '#37474f', label: 'Трансферы' },
+        sim: { emoji: '📱', color: '#0097a7', label: 'SIM / eSIM' },
+        shop: { emoji: '🛒', color: '#558b2f', label: 'Русские магазины' },
+        school: { emoji: '🏫', color: '#0288d1', label: 'Школы' }
+      };
+
+      // Локальные данные специалистов и сервисов в Мехико (CDMX)
+      const places = [
+        {
+          id: 1,
+          name: "Dental Arte Polanco",
+          lat: 19.4336,
+          lng: -99.1912,
+          category: "dentist",
+          desc: "Стоматологическая клиника в Polanco. Русскоязычные врачи, ортодонтия, имплантология, отбеливание."
+        },
+        {
+          id: 2,
+          name: "Dr. Alexey Smirnov · Семейный врач",
+          lat: 19.4172,
+          lng: -99.1645,
+          category: "doctor",
+          desc: "Терапевт и семейный врач в Roma Norte. Вызов на дом, консультации, помощь при акклиматизации."
+        },
+        {
+          id: 3,
+          name: "Abogados & Legales CDMX",
+          lat: 19.4270,
+          lng: -99.1678,
+          category: "lawyer",
+          desc: "Юридическая помощь в Cuauhtémoc (Reforma). ВНЖ Мексики (TR/PR), регистрация бизнеса (S.A. de C.V.), нотариат."
+        },
+        {
+          id: 4,
+          name: "Traducciones CDMX Pro",
+          lat: 19.4120,
+          lng: -99.1720,
+          category: "translator",
+          desc: "Присяжные переводы (русский, испанский, английский) в Condesa. Апостиль, сопровождение в INM и SAT."
+        },
+        {
+          id: 5,
+          name: "FinConsult Mexico",
+          lat: 19.4265,
+          lng: -99.1605,
+          category: "finance",
+          desc: "Финансовое консультирование в Juárez. Помощь с открытием банковских счетов (BBVA, Banorte), получение CURP и RFC."
+        },
+        {
+          id: 6,
+          name: "Visa & Migration Mexico",
+          lat: 19.4295,
+          lng: -99.1570,
+          category: "visa",
+          desc: "Визовое сопровождение в Cuauhtémoc. Продление туристических виз FMM, подача в INM, гуманитарные статусы."
+        },
+        {
+          id: 7,
+          name: "Rieltor CDMX Condesa",
+          lat: 19.4105,
+          lng: -99.1690,
+          category: "realtor",
+          desc: "Аренда квартир в Condesa, Roma, Polanco, Coyoacán. Заключение договоров без мексиканского поручителя (fiador)."
+        },
+        {
+          id: 8,
+          name: "Transfer CDMX Express",
+          lat: 19.4363,
+          lng: -99.0721,
+          category: "transfer",
+          desc: "Трансфер из аэропорта Мехико (MEX / NLU). Русскоязычные водители, комфортные авто, встретит с табличкой."
+        },
+        {
+          id: 9,
+          name: "eSIM & Telecom Mexico",
+          lat: 19.4310,
+          lng: -99.1860,
+          category: "sim",
+          desc: "Быстрое подключение мобильной связи Telcel / AT&T, виртуальные eSIM для резидентов и туристов в Polanco."
+        },
+        {
+          id: 10,
+          name: "Гастроном «Берёзка»",
+          lat: 19.3498,
+          lng: -99.1620,
+          category: "shop",
+          desc: "Магазин привычных продуктов в Coyoacán. Гречка, творог, пельмени, бородинский хлеб, квас, сладости."
+        },
+        {
+          id: 11,
+          name: "Международная Школа «Horizonte»",
+          lat: 19.3620,
+          lng: -99.1760,
+          category: "school",
+          desc: "Двуязычная школа и детский центр в Del Valle. Обучение с русскоязычной поддержкой и развивающими секциями."
+        },
+        {
+          id: 12,
+          name: "Dr. Marina Volkova · Педиатр",
+          lat: 19.3645,
+          lng: -99.2610,
+          category: "doctor",
+          desc: "Русскоязычный врач-педиатр в Santa Fe. Прием детей любого возраста, вакцинация, плановые осмотры."
+        },
+        {
+          id: 13,
+          name: "Clínica Dental San Ángel",
+          lat: 19.3450,
+          lng: -99.1900,
+          category: "dentist",
+          desc: "Современная детская и взрослая стоматология в San Ángel. Русскоязычный персональный координатор."
+        },
+        {
+          id: 14,
+          name: "Boutique Gourmet Slavica",
+          lat: 19.4185,
+          lng: -99.1580,
+          category: "shop",
+          desc: "Домашняя кулинария и славянская выпечка в Roma Norte. Сырки, пирожки, блинчики, вареники."
+        }
+      ];
+
+      // Функция создания круглых кастомных эмодзи-иконок
+      function createIcon(emoji, bgColor) {
+        return L.divIcon({
+          html: `<div style="background:${bgColor}; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 3px 10px rgba(0,0,0,0.3); border:2px solid white;">${emoji}</div>`,
+          className: '',
+          iconSize: [38, 38],
+          popupAnchor: [0, -19]
+        });
+      }
+
+      const markersLayer = L.layerGroup().addTo(map);
+      const allMarkers = [];
+
+      // Создаём и добавляем маркеры
+      places.forEach(place => {
+        const cat = categoryIcons[place.category] || { emoji: '📍', color: '#999', label: place.category };
+        const icon = createIcon(cat.emoji, cat.color);
+        const marker = L.marker([place.lat, place.lng], { icon, category: place.category })
+          .bindPopup(`
+            <div style="font-family:system-ui, sans-serif; padding:4px;">
+              <h3 style="margin:0 0 6px 0; color:#0B3350; font-size:1.05rem;">${place.name}</h3>
+              <p style="margin:0 0 8px 0; font-size:0.9rem; color:#334155;">${place.desc}</p>
+              <div style="font-size:0.8rem; background:#f1f5f9; padding:4px 8px; border-radius:6px; display:inline-block; font-weight:600; color:#475569;">
+                ${cat.emoji} ${cat.label}
+              </div>
+            </div>
+          `);
+        allMarkers.push(marker);
+        markersLayer.addLayer(marker);
+      });
+
+      // Фильтрация меток по клику на категорию
+      const chips = document.querySelectorAll('#categoryFilters .chip');
+      chips.forEach(chip => {
+        chip.addEventListener('click', function() {
+          const selectedCategory = this.dataset.category;
+
+          chips.forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+
+          markersLayer.clearLayers();
+          if (selectedCategory === 'all') {
+            allMarkers.forEach(m => markersLayer.addLayer(m));
+          } else {
+            allMarkers.forEach(m => {
+              if (m.options.category === selectedCategory) {
+                markersLayer.addLayer(m);
+              }
+            });
+          }
+        });
+      });
+
+      // Подгоняем масштабирование под созданные точки
+      const bounds = L.latLngBounds(allMarkers.map(m => m.getLatLng()));
+      if (bounds.isValid()) {
+        map.fitBounds(bounds, { padding: [40, 40], maxZoom: 14 });
+      }
+    })();
+  </script>
+</body>
+</html>

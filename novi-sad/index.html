@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Русскоязычные специалисты и сервисы в Нови-Сад — Карта Russian Friendly</title>
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- ===================== SEO / GEO ===================== -->
+    <link rel="canonical" href="https://russianfriendly.netlify.app/novi-sad" />
+
+    <!-- Open Graph / preview for smartphones -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Русскоязычные специалисты и сервисы в Нови-Сад — Карта Russian Friendly" />
+    <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Нови-Сад на одной интерактивной карте." />
+    <meta property="og:url" content="https://russianfriendly.netlify.app/novi-sad" />
+    <meta property="og:image" content="https://russianfriendly.netlify.app/novi-sad/og-preview.jpg" />
+
+    <!-- Twitter / X card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Русскоязычные специалисты в Нови-Сад" />
+
+    <!-- Mobile "add to home screen" -->
+    <meta name="theme-color" content="#0B3350" />
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <style>
+        /* ---------- RESET & BASE ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: #f4f6fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+            padding: 0 0 0 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            color: #0B3350;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color: #ff6600;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* ---------- HEADER ---------- */
+        .site-header {
+            background: #0B3350;
+            color: #fff;
+            padding: 18px 0 14px;
+            border-bottom: 4px solid #ff6600;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-inner {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px 20px;
+        }
+
+        .site-title {
+            font-size: 1.45rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .site-title a {
+            color: #fff;
+        }
+        .site-title a:hover {
+            color: #ffcc80;
+        }
+        .site-title .city-badge {
+            background: #ff6600;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #fff;
+            margin-left: 6px;
+        }
+
+        .header-ad {
+            background: #ff6600;
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(255, 102, 0, 0.35);
+            transition: transform 0.15s, box-shadow 0.15s;
+            white-space: nowrap;
+        }
+        .header-ad:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 14px rgba(255, 102, 0, 0.5);
+        }
+        .header-ad a {
+            color: #fff;
+        }
+        .header-ad a:hover {
+            color: #fff8e1;
+            text-decoration: underline;
+        }
+
+        /* ---------- MAIN ---------- */
+        main {
+            flex: 1;
+            padding: 28px 0 10px;
+        }
+
+        .page-headline {
+            margin-bottom: 18px;
+        }
+        .page-headline h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #0B3350;
+            letter-spacing: -0.02em;
+        }
+        .page-headline p {
+            color: #3d3d5c;
+            font-size: 1.05rem;
+            max-width: 720px;
+        }
+
+        /* ---------- MAP ---------- */
+        .map-wrapper {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+            overflow: hidden;
+            margin-bottom: 16px;
+            border: 1px solid #e9ecf2;
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+            background: #e5e9f0;
+        }
+
+        /* Legend / category filter */
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+            padding: 14px 20px 12px;
+            background: #fafbfd;
+            border-bottom: 1px solid #e9ecf2;
+            align-items: center;
+        }
+        .category-filter .filter-label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #2c3e50;
+            margin-right: 6px;
+        }
+        .category-filter .filter-btn {
+            background: #eef1f7;
+            border: none;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: #1a2a3a;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, box-shadow 0.15s;
+            white-space: nowrap;
+            border: 1px solid transparent;
+        }
+        .category-filter .filter-btn:hover {
+            background: #dce2ed;
+        }
+        .category-filter .filter-btn.active {
+            background: #0B3350;
+            color: #fff;
+            border-color: #0B3350;
+            box-shadow: 0 2px 8px rgba(11, 51, 80, 0.25);
+        }
+        .category-filter .filter-btn.clear-btn {
+            background: transparent;
+            color: #6b7b8f;
+            border-color: #d0d7e2;
+        }
+        .category-filter .filter-btn.clear-btn:hover {
+            background: #f0f2f6;
+        }
+
+        /* ---------- FEEDBACK ---------- */
+        .feedback-row {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            padding: 0 4px;
+        }
+        .feedback-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #eef3f9;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #0B3350;
+            border: 1px solid #d5dee9;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .feedback-link:hover {
+            background: #e1e9f4;
+            border-color: #b0c4db;
+            color: #0B3350;
+        }
+        .feedback-link .telegram-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: #0088cc;
+            border-radius: 50%;
+            color: #fff;
+            text-align: center;
+            line-height: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* ---------- LISTING / CATALOG ---------- */
+        .catalog-section {
+            margin: 20px 0 30px;
+        }
+        .catalog-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0B3350;
+            margin-bottom: 14px;
+            border-left: 5px solid #ff6600;
+            padding-left: 16px;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 16px;
+        }
+
+        .catalog-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 16px 18px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eef1f6;
+            transition: transform 0.15s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .catalog-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+        }
+        .catalog-card .card-category {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #ff6600;
+            margin-bottom: 2px;
+        }
+        .catalog-card .card-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #0B3350;
+            margin-bottom: 2px;
+        }
+        .catalog-card .card-address {
+            font-size: 0.85rem;
+            color: #3d4f66;
+            margin: 2px 0;
+        }
+        .catalog-card .card-phone {
+            font-size: 0.85rem;
+            color: #1a2a3a;
+            font-weight: 500;
+        }
+        .catalog-card .card-phone a {
+            color: #0B3350;
+        }
+        .catalog-card .card-phone a:hover {
+            color: #ff6600;
+        }
+        .catalog-card .card-notes {
+            font-size: 0.8rem;
+            color: #5a6e84;
+            margin-top: 6px;
+            font-style: italic;
+            border-top: 1px dashed #e2e8f0;
+            padding-top: 6px;
+        }
+
+        /* ---------- SEO GEO BLOCK ---------- */
+        .seo-geo-block {
+            background: #f0f4fc;
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin: 28px 0 20px;
+            border-left: 5px solid #ff6600;
+        }
+        .seo-geo-block h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0B3350;
+            margin-bottom: 8px;
+        }
+        .seo-geo-block .promo {
+            font-size: 0.98rem;
+            margin: 4px 0;
+            color: #1a2a3a;
+        }
+        .seo-geo-block .promo a {
+            font-weight: 600;
+            color: #0B3350;
+            border-bottom: 1px dotted #0B3350;
+        }
+        .seo-geo-block .promo a:hover {
+            color: #ff6600;
+            border-bottom-color: #ff6600;
+        }
+
+        /* ---------- FOOTER ---------- */
+        .site-footer {
+            background: #0B3350;
+            color: #ccdbe9;
+            padding: 26px 0 20px;
+            margin-top: 16px;
+            border-top: 4px solid #ff6600;
+        }
+        .footer-inner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px 24px;
+        }
+        .footer-inner .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 22px;
+        }
+        .footer-inner .footer-links a {
+            color: #ccdbe9;
+            font-size: 0.9rem;
+        }
+        .footer-inner .footer-links a:hover {
+            color: #ffcc80;
+        }
+        .footer-inner .footer-copy {
+            font-size: 0.8rem;
+            color: #8fa3b9;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 800px) {
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .site-title {
+                font-size: 1.2rem;
+                justify-content: center;
+            }
+            .header-ad {
+                text-align: center;
+                white-space: normal;
+                font-size: 0.8rem;
+                padding: 6px 14px;
+            }
+            #map {
+                height: 380px;
+            }
+            .category-filter {
+                padding: 10px 14px;
+                gap: 6px 10px;
+            }
+            .category-filter .filter-btn {
+                font-size: 0.7rem;
+                padding: 3px 12px;
+            }
+            .catalog-grid {
+                grid-template-columns: 1fr;
+            }
+            .page-headline h1 {
+                font-size: 1.5rem;
+            }
+            .footer-inner {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer-inner .footer-links {
+                justify-content: center;
+            }
+            .seo-geo-block {
+                padding: 18px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+            #map {
+                height: 300px;
+            }
+            .site-title {
+                font-size: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .site-title .city-badge {
+                font-size: 0.6rem;
+                padding: 1px 10px;
+            }
+            .header-ad {
+                font-size: 0.7rem;
+                padding: 5px 12px;
+            }
+        }
+
+        /* marker cluster / popup tweaks */
+        .leaflet-popup-content-wrapper {
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+        }
+        .leaflet-popup-content {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            min-width: 200px;
+        }
+        .leaflet-popup-content strong {
+            color: #0B3350;
+        }
+        .leaflet-popup-content .popup-cat {
+            display: inline-block;
+            background: #ff6600;
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 1px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 4px;
+        }
+        .leaflet-popup-content .popup-phone {
+            color: #0B3350;
+            font-weight: 500;
+        }
+        .leaflet-popup-content .popup-phone a {
+            color: #0B3350;
+        }
+        .leaflet-popup-content .popup-phone a:hover {
+            color: #ff6600;
+        }
+        .leaflet-control-zoom {
+            border: none !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
+        }
+        .leaflet-control-zoom a {
+            background: #fff !important;
+            color: #0B3350 !important;
+            border-radius: 6px !important;
+        }
+        .leaflet-control-zoom a:hover {
+            background: #f0f4fc !important;
+        }
+
+        /* scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #eef1f6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #b0c4db;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8fa3b9;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="site-title">
+                <a href="https://russianfriendly.netlify.app/">🇷🇺 Russian Friendly</a>
+                <span class="city-badge">Нови-Сад</span>
+            </div>
+            <div class="header-ad">
+                <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+                    🧳 Переезжаешь в Испанию? Узнай, как заговорить → kristinaperez.netlify.app
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== MAIN ========== -->
+    <main>
+        <div class="container">
+
+            <!-- page headline -->
+            <div class="page-headline">
+                <h1>🗺️ Русскоязычные специалисты и сервисы в Нови-Сад</h1>
+                <p>Стоматологи, врачи, юристы, переводчики, школы, магазины и полезные сервисы — всё на одной карте.</p>
+            </div>
+
+            <!-- MAP -->
+            <div class="map-wrapper">
+                <div class="category-filter" id="filterBar">
+                    <span class="filter-label">📂 Категории:</span>
+                    <button class="filter-btn active" data-cat="all">Все</button>
+                    <button class="filter-btn" data-cat="Стоматологи">🦷 Стоматологи</button>
+                    <button class="filter-btn" data-cat="Врачи">👩‍⚕️ Врачи</button>
+                    <button class="filter-btn" data-cat="Юристы">⚖️ Юристы</button>
+                    <button class="filter-btn" data-cat="Переводчики">📄 Переводчики</button>
+                    <button class="filter-btn" data-cat="Банки">🏦 Банки</button>
+                    <button class="filter-btn" data-cat="Визы">🛂 Визы</button>
+                    <button class="filter-btn" data-cat="Риелторы">🏠 Риелторы</button>
+                    <button class="filter-btn" data-cat="Трансферы">🚕 Трансферы</button>
+                    <button class="filter-btn" data-cat="SIM">📱 SIM</button>
+                    <button class="filter-btn" data-cat="Border Run">🚍 Border Run</button>
+                    <button class="filter-btn" data-cat="Магазины">🏪 Магазины</button>
+                    <button class="filter-btn" data-cat="Школы">🏫 Школы</button>
+                    <button class="filter-btn clear-btn" data-cat="clear">✕ сброс</button>
+                </div>
+                <div id="map"></div>
+            </div>
+
+            <!-- feedback -->
+            <div class="feedback-row">
+                <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener" class="feedback-link">
+                    <span class="telegram-icon">✈</span>
+                    Нашли неверные данные? Сообщите нам в бот
+                </a>
+            </div>
+
+            <!-- ========== CATALOG ========== -->
+            <section class="catalog-section" id="catalogSection">
+                <h2>📋 Каталог специалистов и сервисов</h2>
+                <div class="catalog-grid" id="catalogGrid">
+                    <!-- filled by JS -->
+                </div>
+            </section>
+
+            <!-- ========== SEO GEO BLOCK ========== -->
+            <section class="seo-geo-block">
+                <h2>🔍 Похожие запросы</h2>
+                <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+                <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-links">
+                <a href="https://russianfriendly.netlify.app/">🏠 Главная Russian Friendly</a>
+                <a href="https://russianfriendly.netlify.app/about">📄 About</a>
+                <a href="https://russianfriendly.netlify.app/contact">✉️ Contact</a>
+                <a href="https://russianfriendly.netlify.app/privacy-policy">🔒 Privacy Policy</a>
+            </div>
+            <div class="footer-copy">
+                &copy; 2026 Russian Friendly · Нови-Сад
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ---------- DATA ----------
+            const places = [{
+                id: 1,
+                name: 'Стоматология "Dental Smile"',
+                category: 'Стоматологи',
+                lat: 45.2517,
+                lng: 19.8369,
+                address: 'Bulevar Oslobođenja 45, Novi Sad',
+                phone: '+381 21 456 789',
+                notes: 'Русскоязычный персонал, принимают по записи'
+            }, {
+                id: 2,
+                name: 'Стоматолог Елена Петрова',
+                category: 'Стоматологи',
+                lat: 45.2489,
+                lng: 19.8441,
+                address: 'Ulica Futoška 12, Novi Sad',
+                phone: '+381 63 123 4567',
+                notes: 'Стаж 12 лет, лечение на русском'
+            }, {
+                id: 3,
+                name: 'Медицинский центр "Здоровье"',
+                category: 'Врачи',
+                lat: 45.2550,
+                lng: 19.8305,
+                address: 'Bulevar Evrope 28, Novi Sad',
+                phone: '+381 21 555 333',
+                notes: 'Терапевт, педиатр, гинеколог — русскоязычные врачи'
+            }, {
+                id: 4,
+                name: 'Доктор Иван Иванов (хирург)',
+                category: 'Врачи',
+                lat: 45.2528,
+                lng: 19.8513,
+                address: 'Kisаčka 17, Novi Sad',
+                phone: '+381 64 987 6543',
+                notes: 'Общая хирургия, консультации на русском'
+            }, {
+                id: 5,
+                name: 'Юридическая фирма "Право и Порядок"',
+                category: 'Юристы',
+                lat: 45.2462,
+                lng: 19.8487,
+                address: 'Trg Mladenaca 5, Novi Sad',
+                phone: '+381 21 634 221',
+                notes: 'Иммиграционные и гражданские дела, русскоязычный адвокат'
+            }, {
+                id: 6,
+                name: 'Адвокат Ольга Смирнова',
+                category: 'Юристы',
+                lat: 45.2545,
+                lng: 19.8412,
+                address: 'Ulica Jevrejska 9, Novi Sad',
+                phone: '+381 62 345 6789',
+                notes: 'Семейное и трудовое право, помощь на русском'
+            }, {
+                id: 7,
+                name: 'Переводческое бюро "Lingua"',
+                category: 'Переводчики',
+                lat: 45.2501,
+                lng: 19.8385,
+                address: 'Bulevar Kralja Petra I 22, Novi Sad',
+                phone: '+381 21 478 156',
+                notes: 'Письменный и устный перевод, нотариальное заверение'
+            }, {
+                id: 8,
+                name: 'Переводчик Анна Ковальчук',
+                category: 'Переводчики',
+                lat: 45.2475,
+                lng: 19.8459,
+                address: 'Ulica Zmaj Jovina 8, Novi Sad',
+                phone: '+381 65 111 2233',
+                notes: 'Сербский, английский, русский — синхронный перевод'
+            }, {
+                id: 9,
+                name: 'Финансовый консультант "EuroFin"',
+                category: 'Банки',
+                lat: 45.2533,
+                lng: 19.8337,
+                address: 'Bulevar Evrope 10, Novi Sad',
+                phone: '+381 21 789 012',
+                notes: 'Помощь с открытием счетов, кредиты, инвестиции'
+            }, {
+                id: 10,
+                name: 'Банковский брокер Марина Жукова',
+                category: 'Банки',
+                lat: 45.2497,
+                lng: 19.8502,
+                address: 'Ulica Svetozara Miletića 3, Novi Sad',
+                phone: '+381 63 987 6541',
+                notes: 'Консультации по ипотеке и страхованию'
+            }, {
+                id: 11,
+                name: 'Визовое агентство "Visa Expert"',
+                category: 'Визы',
+                lat: 45.2448,
+                lng: 19.8426,
+                address: 'Bulevar Oslobođenja 72, Novi Sad',
+                phone: '+381 21 345 678',
+                notes: 'Шенген, рабочие визы, консультации'
+            }, {
+                id: 12,
+                name: 'Агентство "Виза-Сервис"',
+                category: 'Визы',
+                lat: 45.2562,
+                lng: 19.8285,
+                address: 'Ulica Nikole Pašića 15, Novi Sad',
+                phone: '+381 64 555 7890',
+                notes: 'Срочное оформление, помощь в сборе документов'
+            }, {
+                id: 13,
+                name: 'Риелтор Александр Тимофеев',
+                category: 'Риелторы',
+                lat: 45.2521,
+                lng: 19.8554,
+                address: 'Bulevar oslobođenja 103, Novi Sad',
+                phone: '+381 62 222 3344',
+                notes: 'Аренда и продажа жилья, помощь с документами'
+            }, {
+                id: 14,
+                name: 'Агентство недвижимости "Dom"',
+                category: 'Риелторы',
+                lat: 45.2453,
+                lng: 19.8499,
+                address: 'Ulica Futoška 56, Novi Sad',
+                phone: '+381 21 567 890',
+                notes: 'Русскоязычные риелторы, большой выбор объектов'
+            }, {
+                id: 15,
+                name: 'Трансфер "Airport Taxi NS"',
+                category: 'Трансферы',
+                lat: 45.2509,
+                lng: 19.8403,
+                address: 'Bulevar Evrope 5, Novi Sad',
+                phone: '+381 63 444 5566',
+                notes: 'Встреча в аэропорту, трансфер по городу и региону'
+            }, {
+                id: 16,
+                name: 'Трансфер "Comfort Ride"',
+                category: 'Трансферы',
+                lat: 45.2558,
+                lng: 19.8462,
+                address: 'Kisаčka 33, Novi Sad',
+                phone: '+381 64 777 8899',
+                notes: 'Минивэны, детские кресла, русский водитель'
+            }, {
+                id: 17,
+                name: 'SIM / eSIM "Telecom Serbia"',
+                category: 'SIM',
+                lat: 45.2481,
+                lng: 19.8433,
+                address: 'Trg Slobode 7, Novi Sad',
+                phone: '+381 21 111 222',
+                notes: 'Оформление SIM и eSIM, тарифы для туристов'
+            }, {
+                id: 18,
+                name: 'Салон связи "Mobi"',
+                category: 'SIM',
+                lat: 45.2537,
+                lng: 19.8351,
+                address: 'Bulevar Oslobođenja 58, Novi Sad',
+                phone: '+381 63 333 4455',
+                notes: 'eSIM за 5 минут, помощь в настройке'
+            }, {
+                id: 19,
+                name: 'Border Run "VisaRun Serbia"',
+                category: 'Border Run',
+                lat: 45.2469,
+                lng: 19.8378,
+                address: 'Ulica Jevrejska 22, Novi Sad',
+                phone: '+381 62 888 9900',
+                notes: 'Организация выездов для обнуления визового штампа'
+            }, {
+                id: 20,
+                name: 'Групповой Border Run',
+                category: 'Border Run',
+                lat: 45.2549,
+                lng: 19.8445,
+                address: 'Bulevar Evrope 44, Novi Sad',
+                phone: '+381 64 111 2233',
+                notes: 'Еженедельные выезды, сопровождение на русском'
+            }, {
+                id: 21,
+                name: 'Магазин "Русский продукт"',
+                category: 'Магазины',
+                lat: 45.2511,
+                lng: 19.8527,
+                address: 'Ulica Svetozara Miletića 12, Novi Sad',
+                phone: '+381 21 222 333',
+                notes: 'Гречка, сметана, квас, консервы, сладости из России'
+            }, {
+                id: 22,
+                name: 'Магазин "Славянский дворик"',
+                category: 'Магазины',
+                lat: 45.2477,
+                lng: 19.8392,
+                address: 'Bulevar Oslobođenja 33, Novi Sad',
+                phone: '+381 63 555 6677',
+                notes: 'Продукты из России, Беларуси, Украины'
+            }, {
+                id: 23,
+                name: 'Русская школа "Знание"',
+                category: 'Школы',
+                lat: 45.2566,
+                lng: 19.8321,
+                address: 'Ulica Futoška 88, Novi Sad',
+                phone: '+381 21 444 555',
+                notes: 'Подготовка к школе, русский язык и литература'
+            }, {
+                id: 24,
+                name: 'Школа русского языка "Азбука"',
+                category: 'Школы',
+                lat: 45.2503,
+                lng: 19.8475,
+                address: 'Kisаčka 21, Novi Sad',
+                phone: '+381 64 666 7788',
+                notes: 'Курсы для детей и взрослых, разговорный русский'
+            }];
+
+            // ---------- MAP INIT ----------
+            const map = L.map('map').setView([45.2517, 19.8420], 14);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 19
+            }).addTo(map);
+
+            // ---------- CUSTOM ICONS ----------
+            const iconColors = {
+                'Стоматологи': '#e74c3c',
+                'Врачи': '#2ecc71',
+                'Юристы': '#3498db',
+                'Переводчики': '#9b59b6',
+                'Банки': '#f1c40f',
+                'Визы': '#e67e22',
+                'Риелторы': '#1abc9c',
+                'Трансферы': '#34495e',
+                'SIM': '#2c3e50',
+                'Border Run': '#e74c3c',
+                'Магазины': '#f39c12',
+                'Школы': '#2980b9'
+            };
+
+            function getIcon(category) {
+                const color = iconColors[category] || '#0B3350';
+                return L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="background:${color};width:24px;height:24px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700;">•</div>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12],
+                    popupAnchor: [0, -14]
+                });
+            }
+
+            // ---------- MARKERS & LAYER ----------
+            const markerLayer = L.layerGroup().addTo(map);
+            let activeCategory = 'all';
+            let markers = [];
+
+            function buildMarkers(categoryFilter) {
+                markerLayer.clearLayers();
+                markers = [];
+
+                const filtered = categoryFilter === 'all' ?
+                    places :
+                    places.filter(p => p.category === categoryFilter);
+
+                filtered.forEach(p => {
+                    const icon = getIcon(p.category);
+                    const popupContent = `
+                            <div>
+                                <span class="popup-cat">${p.category}</span>
+                                <div><strong>${p.name}</strong></div>
+                                <div>📍 ${p.address}</div>
+                                <div class="popup-phone">📞 <a href="tel:${p.phone.replace(/\s/g,'')}">${p.phone}</a></div>
+                                ${p.notes ? `<div style="font-size:0.8rem;color:#5a6e84;margin-top:4px;">${p.notes}</div>` : ''}
+                            </div>
+                        `;
+                    const marker = L.marker([p.lat, p.lng], { icon })
+                        .bindPopup(popupContent)
+                        .addTo(markerLayer);
+                    marker._placeId = p.id;
+                    markers.push(marker);
+                });
+
+                // update catalog
+                renderCatalog(filtered);
+            }
+
+            // ---------- CATALOG RENDER ----------
+            function renderCatalog(items) {
+                const grid = document.getElementById('catalogGrid');
+                if (!items.length) {
+                    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:30px;color:#6b7b8f;">Ничего не найдено по выбранной категории</div>`;
+                    return;
+                }
+                grid.innerHTML = items.map(p => `
+                        <div class="catalog-card" data-id="${p.id}">
+                            <div class="card-category">${p.category}</div>
+                            <div class="card-title">${p.name}</div>
+                            <div class="card-address">📍 ${p.address}</div>
+                            <div class="card-phone">📞 <a href="tel:${p.phone.replace(/\s/g,'')}">${p.phone}</a></div>
+                            ${p.notes ? `<div class="card-notes">${p.notes}</div>` : ''}
+                        </div>
+                    `).join('');
+
+                // click on card -> pan to marker
+                document.querySelectorAll('.catalog-card').forEach(card => {
+                    card.addEventListener('click', function() {
+                        const id = parseInt(this.dataset.id, 10);
+                        const marker = markers.find(m => m._placeId === id);
+                        if (marker) {
+                            map.panTo(marker.getLatLng(), { animate: true, duration: 0.6 });
+                            marker.openPopup();
+                        }
+                    });
+                });
+            }
+
+            // ---------- FILTER BUTTONS ----------
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const cat = this.dataset.cat;
+                    if (cat === 'clear') {
+                        // reset to 'all'
+                        filterBtns.forEach(b => b.classList.remove('active'));
+                        const allBtn = document.querySelector('.filter-btn[data-cat="all"]');
+                        if (allBtn) allBtn.classList.add('active');
+                        activeCategory = 'all';
+                        buildMarkers('all');
+                        return;
+                    }
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    activeCategory = cat;
+                    buildMarkers(cat);
+                });
+            });
+
+            // ---------- INIT ----------
+            buildMarkers('all');
+
+            // ---------- FIT MAP TO MARKERS ----------
+            setTimeout(() => {
+                if (markers.length) {
+                    const group = L.featureGroup(markers);
+                    const bounds = group.getBounds();
+                    if (bounds.isValid()) {
+                        map.fitBounds(bounds, { padding: [40, 40] });
+                    }
+                }
+            }, 300);
+
+            // ---------- RESIZE MAP ----------
+            window.addEventListener('resize', function() {
+                map.invalidateSize();
+            });
+
+        })();
+    </script>
+
+    <!-- ========== JSON-LD STRUCTURED DATA ========== -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Русскоязычные специалисты и сервисы в Нови-Сад",
+            "url": "https://russianfriendly.netlify.app/novi-sad",
+            "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Нови-Сад."
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Кристина Перез",
+            "url": "https://kristinaperez.netlify.app/",
+            "sameAs": [
+                "https://t.me/FeedbackCristinaBot",
+                "https://www.youtube.com/@Cristina-Perez-Monroe",
+                "https://kristinaperez.netlify.app/",
+                "https://pitermap.netlify.app/",
+                "https://aseosmadrid.netlify.app/"
+            ],
+            "jobTitle": "Автор проекта Russian Friendly"
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{
+                "@type": "Question",
+                "name": "Где найти русскоязычного врача или стоматолога в Нови-Сад?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "На карте Russian Friendly Нови-Сад собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
+                }
+            }, {
+                "@type": "Question",
+                "name": "Как найти русские школы и сервисы в Нови-Сад?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/novi-sad для поиска школ, переводчиков, банковских консультантов и жилья."
+                }
+            }]
+        }
+    </script>
+
+</body>
+</html>
