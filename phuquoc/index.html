@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Русскоязычные специалисты и сервисы на Фукуоке — Карта Russian Friendly</title>
+<meta name="description" content="Стоматологи, врачи, юристы, переводчики, визовая помощь, жильё и сервисы для русскоязычных на острове Фукуок (Phu Quoc), Вьетнам — на одной интерактивной карте.">
+<link rel="icon" href="/favicon.ico">
+
+<!-- ===================== SEO / GEO ===================== -->
+<link rel="canonical" href="https://russianfriendly.netlify.app/PhuQuoc">
+
+<!-- Open Graph / preview for smartphones -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Русскоязычные специалисты и сервисы на Фукуоке — Карта Russian Friendly">
+<meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, визовая помощь, жильё и сервисы на острове Фукуок на одной интерактивной карте.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/PhuQuoc">
+<meta property="og:image" content="https://russianfriendly.netlify.app/PhuQuoc/og-preview.jpg">
+<meta property="og:site_name" content="Russian Friendly Map">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты на Фукуоке">
+<meta name="twitter:description" content="Карта и каталог русскоязычных сервисов на острове Фукуок, Вьетнам.">
+<meta name="twitter:image" content="https://russianfriendly.netlify.app/PhuQuoc/og-preview.jpg">
+
+<!-- Mobile "add to home screen" -->
+<meta name="theme-color" content="#0B3350">
+
+<!-- JSON-LD: Map / WebPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Русскоязычные специалисты и сервисы на Фукуоке",
+  "url": "https://russianfriendly.netlify.app/PhuQuoc",
+  "description": "Интерактивная карта и каталог русскоязычных врачей, стоматологов, юристов, переводчиков и сервисов на острове Фукуок (Phu Quoc), Вьетнам.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Russian Friendly Map",
+    "url": "https://russianfriendly.netlify.app"
+  }
+}
+</script>
+
+<!-- JSON-LD: Person (автор) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Кристина Перез",
+  "url": "https://kristinaperez.netlify.app/",
+  "sameAs": [
+    "https://t.me/FeedbackCristinaBot",
+    "https://www.youtube.com/@Cristina-Perez-Monroe",
+    "https://kristinaperez.netlify.app/",
+    "https://pitermap.netlify.app/",
+    "https://aseosmadrid.netlify.app/"
+  ],
+  "jobTitle": "Автор проекта Russian Friendly"
+}
+</script>
+
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Где найти русскоязычного врача или стоматолога на Фукуоке?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На карте Russian Friendly Фукуок собраны проверенные клиники и стоматологии острова, включая англоязычные международные клиники сети Vinmec и стоматологии Зыонгдонга."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как продлить визу или сделать border run с острова Фукуок?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На Фукуоке доступен безвизовый въезд на 30 дней, а для дальнейшего пребывания используется выезд на пароме до Ха Тьена с последующим пересечением границы. Подробности и проверенные контакты собираются в разделе Border Run на странице https://russianfriendly.netlify.app/PhuQuoc."
+      }
+    }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --navy:#0B3350;
+    --navy-deep:#082436;
+    --lagoon:#1C6E7D;
+    --sand:#F3E9D5;
+    --sand-dark:#E7D8B8;
+    --coral:#E8613F;
+    --coral-dark:#C94A2C;
+    --ad-orange:#ff6600;
+    --ink:#182A32;
+    --paper:#FFFDF8;
+    --line:rgba(11,51,80,0.14);
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Manrope',system-ui,sans-serif;
+    line-height:1.5;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',Georgia,serif;
+    margin:0 0 .3em 0;
+    color:var(--navy-deep);
+  }
+  a{color:var(--lagoon);}
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:.72rem;
+    color:var(--lagoon);
+  }
+
+  /* ===== HEADER ===== */
+  header.site-header{
+    background:linear-gradient(160deg,var(--navy) 0%,var(--navy-deep) 100%);
+    color:#fff;
+    padding:22px 5vw 26px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    border-bottom:4px solid var(--coral);
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .brand .mark{
+    width:46px;height:46px;border-radius:50%;
+    background:var(--coral);
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;flex:none;
+  }
+  .brand h1{color:#fff;font-size:1.55rem;margin:0;}
+  .brand .sub{font-family:'Space Mono',monospace;font-size:.78rem;color:#BFD9E3;letter-spacing:.04em;}
+
+  .promo-block{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:rgba(255,102,0,0.14);
+    border:1.5px solid var(--ad-orange);
+    border-radius:999px;
+    padding:8px 18px 8px 8px;
+    max-width:420px;
+  }
+  .promo-block img{
+    width:64px;height:78px;object-fit:cover;
+    border-radius:50%/46%;
+    flex:none;
+    background:var(--sand);
+  }
+  .promo-block a{
+    color:var(--ad-orange);
+    font-weight:700;
+    text-decoration:none;
+    font-size:.95rem;
+    line-height:1.25;
+  }
+  .promo-block a:hover{text-decoration:underline;}
+  .promo-block .promo-eyebrow{
+    display:block;font-family:'Space Mono',monospace;
+    font-size:.65rem;color:#ffb98a;letter-spacing:.08em;
+    text-transform:uppercase;margin-bottom:2px;
+  }
+
+  /* ===== INTRO / DEPARTURE BOARD FILTER ===== */
+  .intro{
+    max-width:880px;
+    margin:34px auto 8px;
+    padding:0 5vw;
+  }
+  .intro p{color:#33474F;font-size:1.02rem;}
+
+  .board{
+    max-width:1180px;
+    margin:22px auto;
+    padding:0 5vw;
+  }
+  .board-label{
+    font-family:'Space Mono',monospace;
+    font-size:.75rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--navy);
+    margin-bottom:10px;
+    display:block;
+  }
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+  }
+  .chip{
+    font-family:'Space Mono',monospace;
+    font-size:.82rem;
+    background:var(--paper);
+    border:1.5px solid var(--line);
+    border-radius:8px;
+    padding:9px 14px;
+    cursor:pointer;
+    display:flex;align-items:center;gap:8px;
+    color:var(--ink);
+    transition:transform .12s ease, background .12s ease, color .12s ease;
+    user-select:none;
+  }
+  .chip:hover{transform:translateY(-1px);}
+  .chip.active{
+    background:var(--navy);
+    color:#fff;
+    border-color:var(--navy);
+  }
+  .chip .count{
+    font-size:.72rem;
+    opacity:.7;
+  }
+
+  /* ===== MAP ===== */
+  .map-wrap{
+    max-width:1180px;
+    margin:20px auto 6px;
+    padding:0 5vw;
+  }
+  #map{
+    width:100%;
+    height:460px;
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    box-shadow:0 10px 26px rgba(11,51,80,0.16);
+  }
+  .feedback-cta{
+    max-width:1180px;
+    margin:16px auto 0;
+    padding:0 5vw;
+    text-align:center;
+  }
+  .feedback-cta a{
+    display:inline-block;
+    background:var(--coral);
+    color:#fff;
+    text-decoration:none;
+    font-weight:700;
+    padding:11px 22px;
+    border-radius:999px;
+    font-size:.95rem;
+  }
+  .feedback-cta a:hover{background:var(--coral-dark);}
+
+  /* ===== LISTINGS ===== */
+  .listings{
+    max-width:1180px;
+    margin:44px auto;
+    padding:0 5vw;
+  }
+  .cat-group{margin-bottom:34px;}
+  .cat-group h2{
+    font-size:1.25rem;
+    display:flex;align-items:center;gap:10px;
+    border-bottom:2px solid var(--sand-dark);
+    padding-bottom:8px;
+  }
+  .cat-group .emoji{font-size:1.3rem;}
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:14px;
+    margin-top:14px;
+  }
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:16px 18px;
+  }
+  .card h3{font-size:1.02rem;margin-bottom:4px;}
+  .card .addr{font-size:.86rem;color:#4C6067;margin-bottom:6px;}
+  .card .note{font-size:.88rem;color:#33474F;}
+  .card a.ext{font-size:.82rem;display:inline-block;margin-top:8px;}
+  .empty-card{
+    border:1.5px dashed var(--line);
+    background:transparent;
+  }
+  .empty-card .note{color:#5b6d74;}
+  .empty-card a{font-weight:600;}
+
+  /* ===== SEO / GEO block ===== */
+  .seo-geo-block{
+    max-width:880px;
+    margin:10px auto 44px;
+    padding:22px 5vw;
+    text-align:center;
+  }
+  .seo-geo-block h2{font-size:1.15rem;}
+  .seo-geo-block .promo{
+    font-size:.95rem;
+    margin:6px 0;
+  }
+  .seo-geo-block .promo a{font-weight:700;}
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:var(--navy-deep);
+    color:#BFD9E3;
+    padding:26px 5vw 34px;
+    font-size:.86rem;
+  }
+  footer .foot-links{
+    display:flex;flex-wrap:wrap;gap:18px;
+    margin-bottom:10px;
+  }
+  footer a{color:#DCEEF3;text-decoration:none;}
+  footer a:hover{text-decoration:underline;}
+  footer .copy{opacity:.65;font-family:'Space Mono',monospace;font-size:.75rem;}
+
+  @media (max-width:640px){
+    header.site-header{padding:18px 5vw;}
+    .brand h1{font-size:1.25rem;}
+    .promo-block{max-width:100%;}
+    #map{height:360px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <div class="mark">🏝️</div>
+    <div>
+      <h1>Russian Friendly Map — Фукуок</h1>
+      <div class="sub">Phu Quoc, Việt Nam · russianfriendly.netlify.app</div>
+    </div>
+  </div>
+
+  <div class="promo-block">
+    <img src="face-cristina.png" alt="Кристина Перез">
+    <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+      <span class="promo-eyebrow">Переезжаешь в Испанию?</span>
+      Узнай, как заговорить → kristinaperez.netlify.app
+    </a>
+  </div>
+</header>
+
+<section class="intro">
+  <span class="eyebrow">Каталог и карта</span>
+  <h2>Русскоязычные специалисты и сервисы на Фукуоке</h2>
+  <p>Стоматологи, врачи, юристы, переводчики, помощь с визами и банками, аренда жилья, трансферы, SIM/eSIM и другие сервисы для тех, кто живёт, зимует или отдыхает на острове Фукуок. Часть категорий пока не заполнена проверенными точками — карта пополняется, и вы можете помочь её улучшить.</p>
+</section>
+
+<section class="board">
+  <span class="board-label">Фильтр по категориям</span>
+  <div class="chips" id="chips"></div>
+</section>
+
+<section class="map-wrap">
+  <div id="map"></div>
+</section>
+
+<div class="feedback-cta">
+  <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">Нашли неверные данные? Сообщите нам в бот</a>
+</div>
+
+<section class="listings" id="listings"></section>
+
+<section class="seo-geo-block">
+  <h2>Похожие запросы</h2>
+  <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+  <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+</section>
+
+<footer>
+  <div class="foot-links">
+    <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+    <a href="/privacy-policy.html">Privacy Policy</a>
+  </div>
+  <div class="copy">Russian Friendly Map · Phu Quoc · данные собраны из открытых источников и сообщений пользователей</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+// ===================== DATA =====================
+// Verified points (address confirmed via public sources). Coordinates are
+// approximate street-level placements for Duong Dong / An Thoi.
+// Categories with an empty "points" array have no verified Russian-friendly
+// contact yet — please submit one via the feedback bot.
+const CATEGORIES = [
+  { key:'dental',    emoji:'🦷', label:'Стоматологи',
+    points:[
+      { name:'KLAVA Dental', addr:'129 Nguyễn Trung Trực, TT Dương Đông, Phú Quốc', note:'Современная стоматология в центре Зыонгдонга, врачи говорят на английском.', lat:10.2189, lng:103.9654 },
+      { name:'Sài Gòn Dental (Nha khoa Sài Gòn Quốc Tế Phú Quốc)', addr:'Дыонг Донг, напротив городской больницы, Фукуок', note:'Филиал сайгонской сети стоматологий, гарантия действует во всех клиниках сети по Вьетнаму.', lat:10.2176, lng:103.9668 },
+      { name:'Cali Dental (Nha Khoa Cali Dentist)', addr:'Дыонг Донг, Фукуок', note:'Клиника с современным дизайном и оборудованием.', lat:10.2161, lng:103.9636 },
+      { name:'Tâm An Dental (Nha Khoa Tâm An)', addr:'Ан Тхой / Сансет Таун, юг острова, Фукуок', note:'Небольшой стоматологический кабинет по разумным ценам.', lat:10.0331, lng:104.0091 }
+    ]},
+  { key:'doctors',   emoji:'👩‍⚕️', label:'Врачи',
+    points:[
+      { name:'Vinmec Phu Quoc International Hospital', addr:'Bãi Dài, Gành Dầu, Phú Quốc (рядом с Vinpearl)', note:'Единственная частная международная больница острова, JCI-аккредитация, англоязычные врачи и переводчики.', lat:10.3520, lng:103.8560, link:'https://www.vinmec.com/eng/hospital/vinmec-phu-quoc-hospital' },
+      { name:'Vinmec Dương Đông International Clinic', addr:'114 Nguyễn Trung Trực, Dương Đông, Phú Quốc', note:'Городская клиника сети Vinmec: приём специалистов, анализы, УЗИ, диагностика.', lat:10.2192, lng:103.9653, link:'https://www.vinmec.com/eng/hospital/vinmec-duong-dong-clinic-phu-quoc' }
+    ]},
+  { key:'lawyers',   emoji:'⚖️', label:'Юристы', points:[] },
+  { key:'translators', emoji:'📄', label:'Переводчики', points:[] },
+  { key:'banks',     emoji:'🏦', label:'Помощь с банками / финансы', points:[] },
+  { key:'visa',      emoji:'🛂', label:'Визовые агентства', points:[] },
+  { key:'realestate',emoji:'🏠', label:'Аренда жилья / Риелторы', points:[] },
+  { key:'transfer',  emoji:'🚕', label:'Трансферы', points:[] },
+  { key:'sim',       emoji:'📱', label:'SIM / eSIM', points:[] },
+  { key:'borderrun', emoji:'🚍', label:'Border Run', points:[],
+    infoOnly:'Виза-ран с Фукуока чаще всего делают паромом до Ха Тьена с пересечением границы в Камбоджу и обратным штампом при возвращении. Проверенных русскоязычных компаний, организующих такие поездки на острове, пока не собрано — если вы знаете такую, сообщите в бот обратной связи.' },
+  { key:'shops',     emoji:'🏠', label:'Русские магазины', points:[] },
+  { key:'schools',   emoji:'🏠', label:'Русские / рекомендованные школы', points:[] }
+];
+
+// ===================== MAP =====================
+const map = L.map('map').setView([10.2202, 103.9660], 12);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 18,
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+const markerIcon = (emoji) => L.divIcon({
+  html: `<div style="background:#0B3350;border:2px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);width:34px;height:34px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,.3);"><span style="transform:rotate(45deg);font-size:16px;">${emoji}</span></div>`,
+  className:'', iconSize:[34,34], iconAnchor:[17,32]
+});
+
+const markerLayers = {};
+const allMarkers = [];
+
+CATEGORIES.forEach(cat => {
+  const layerPoints = [];
+  cat.points.forEach(p => {
+    const m = L.marker([p.lat, p.lng], { icon: markerIcon(cat.emoji) });
+    const linkHtml = p.link ? `<br><a href="${p.link}" target="_blank" rel="noopener">официальный сайт</a>` : '';
+    m.bindPopup(`<strong>${cat.emoji} ${p.name}</strong><br>${p.addr}<br><span style="color:#556">${p.note}</span>${linkHtml}`);
+    layerPoints.push(m);
+    allMarkers.push(m);
+  });
+  markerLayers[cat.key] = L.layerGroup(layerPoints).addTo(map);
+});
+
+// ===================== CHIPS =====================
+const chipsEl = document.getElementById('chips');
+let activeFilter = 'all';
+
+function renderChips(){
+  const totalCount = CATEGORIES.reduce((n,c)=>n+c.points.length,0);
+  let html = `<div class="chip ${activeFilter==='all'?'active':''}" data-key="all">🗺️ Все <span class="count">${totalCount}</span></div>`;
+  CATEGORIES.forEach(c=>{
+    html += `<div class="chip ${activeFilter===c.key?'active':''}" data-key="${c.key}">${c.emoji} ${c.label} <span class="count">${c.points.length}</span></div>`;
+  });
+  chipsEl.innerHTML = html;
+  chipsEl.querySelectorAll('.chip').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      activeFilter = el.dataset.key;
+      applyFilter();
+      renderChips();
+    });
+  });
+}
+
+function applyFilter(){
+  CATEGORIES.forEach(cat=>{
+    const show = activeFilter==='all' || activeFilter===cat.key;
+    if(show){ if(!map.hasLayer(markerLayers[cat.key])) markerLayers[cat.key].addTo(map); }
+    else { if(map.hasLayer(markerLayers[cat.key])) map.removeLayer(markerLayers[cat.key]); }
+  });
+  document.querySelectorAll('.cat-group').forEach(g=>{
+    g.style.display = (activeFilter==='all' || activeFilter===g.dataset.key) ? '' : 'none';
+  });
+}
+
+renderChips();
+
+// ===================== LISTINGS =====================
+const listingsEl = document.getElementById('listings');
+let listHtml = '';
+CATEGORIES.forEach(cat=>{
+  listHtml += `<div class="cat-group" data-key="${cat.key}"><h2><span class="emoji">${cat.emoji}</span> ${cat.label}</h2><div class="cards">`;
+  if(cat.points.length){
+    cat.points.forEach(p=>{
+      listHtml += `<div class="card"><h3>${p.name}</h3><div class="addr">${p.addr}</div><div class="note">${p.note}</div>${p.link?`<a class="ext" href="${p.link}" target="_blank" rel="noopener">официальный сайт →</a>`:''}</div>`;
+    });
+  } else {
+    const info = cat.infoOnly ? cat.infoOnly : 'Проверенных контактов в этой категории пока нет.';
+    listHtml += `<div class="card empty-card"><div class="note">${info} <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">Предложить точку →</a></div></div>`;
+  }
+  listHtml += `</div></div>`;
+});
+listingsEl.innerHTML = listHtml;
+</script>
+</body>
+</html>

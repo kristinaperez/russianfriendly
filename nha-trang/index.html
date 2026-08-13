@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Интерактивная карта русскоязычных специалистов, школ, недвижимости, визовых и бытовых сервисов в Нячанге, Вьетнам. Адреса и телефоны из открытых источников.">
+  <meta name="keywords" content="Нячанг русские, русскоязычные Нячанг, Нячанг стоматолог русский, Нячанг врач русский, Нячанг юрист, Нячанг виза, Нячанг визаран, Нячанг недвижимость, Нячанг русская школа, Нячанг русские продукты, Nha Trang Russian services">
+  <meta name="author" content="Кристина Перез">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <title>Нячанг — русскоязычные специалисты и сервисы | Russian Friendly Map</title>
+
+  <!-- REQUIRED FAVICON LINE -->
+  <link rel="icon" href="/favicon.ico">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIINfQ3KJmZqvXcRjY8v3a2y5x0p1n5v2jM="
+        crossorigin="">
+
+  <!-- ===================== SEO / GEO ===================== -->
+  <link rel="canonical" href="https://russianfriendly.netlify.app/NhaTrang">
+
+  <!-- Open Graph / preview for smartphones -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Русскоязычные специалисты и сервисы в Нячанге — Карта Russian Friendly">
+  <meta property="og:description" content="Стоматолог, врачи, юристы, визовые сервисы, недвижимость, школы, трансферы, SIM и магазины с привычными товарами — на одной карте Нячанга.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/NhaTrang">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/NhaTrang/og-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ru_RU">
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Нячанге">
+  <meta name="twitter:description" content="Карта Russian Friendly: сервисы и специалисты для русскоязычных жителей и гостей Нячанга.">
+  <meta name="twitter:image" content="https://russianfriendly.netlify.app/NhaTrang/og-preview.jpg">
+
+  <!-- Mobile "add to home screen" -->
+  <meta name="theme-color" content="#0B3350">
+
+  <!-- Google Tag Manager: replace GTM-XXXXXXX with your real container ID -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');
+  </script>
+
+  <!-- JSON-LD: WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Русскоязычные специалисты и сервисы в Нячанге",
+    "url": "https://russianfriendly.netlify.app/NhaTrang",
+    "description": "Интерактивная карта и каталог русскоязычных врачей, стоматологов, юристов, переводчиков, школ, недвижимости, визовых и бытовых сервисов в Нячанге.",
+    "inLanguage": "ru",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Russian Friendly",
+      "url": "https://russianfriendly.netlify.app/"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD: Person (автор) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Кристина Перез",
+    "url": "https://kristinaperez.netlify.app/",
+    "sameAs": [
+      "https://t.me/FeedbackCristinaBot",
+      "https://www.youtube.com/@Cristina-Perez-Monroe",
+      "https://kristinaperez.netlify.app/",
+      "https://pitermap.netlify.app/",
+      "https://aseosmadrid.netlify.app/"
+    ],
+    "jobTitle": "Автор проекта Russian Friendly"
+  }
+  </script>
+
+
+  <!-- JSON-LD: ItemList of mapped services -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Русскоязычные и Russian-friendly сервисы в Нячанге",
+    "url": "https://russianfriendly.netlify.app/NhaTrang",
+    "numberOfItems": 10,
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Russian Information Center","url":"https://rusinfocenter.com/"},
+      {"@type":"ListItem","position":2,"name":"HMS Consulting & Service","url":"https://hms-vietnam.com/"},
+      {"@type":"ListItem","position":3,"name":"ZIMAVTEPLE — Зима в тепле","url":"https://zimavteple.ru/"},
+      {"@type":"ListItem","position":4,"name":"Happy Tooth Dental Clinic","url":"https://m.facebook.com/HappyTooth99"},
+      {"@type":"ListItem","position":5,"name":"Vinmec Nha Trang International Hospital","url":"https://www.vinmec.com/"},
+      {"@type":"ListItem","position":6,"name":"The First Academy","url":"https://t.me/tfa_nhatrang"},
+      {"@type":"ListItem","position":7,"name":"Частная школа и детский центр «Горизонт»","url":"https://gorizontkids.ru/"},
+      {"@type":"ListItem","position":8,"name":"Moonmilk — Nha Trang","url":"https://moonmilk.vn/"},
+      {"@type":"ListItem","position":9,"name":"Nha Trang Fast Track","url":"https://fasttrack-nhatrang.com/"},
+      {"@type":"ListItem","position":10,"name":"Russian Friendly Map Nha Trang","url":"https://russianfriendly.netlify.app/NhaTrang"}
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Где найти русскоязычного врача или стоматолога в Нячанге?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "На карте Russian Friendly Нячанг собраны контакты медицинских организаций и стоматологии. Для Happy Tooth Dental Clinic открытые источники указывают русскоязычных врачей; перед визитом рекомендуется подтвердить язык и запись по телефону."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Где найти русскоязычного юриста или визового специалиста в Нячанге?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "В Нячанге на карте отмечены HMS Consulting & Service и Russian Information Center. HMS публикует услуги по визовой, юридической и финансовой поддержке, а Russian Information Center — русскоязычную информационную поддержку, визовые услуги и SIM-карты."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Где найти русскую школу в Нячанге?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "На карте отмечены The First Academy и частный образовательный центр «Горизонт». Их открытые страницы публикуют адреса и контакты в Нячанге."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Где купить привычные русские продукты в Нячанге?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "В каталоге отмечены точки Moonmilk. Открытый сайт сети публикует несколько адресов в Нячанге и телефоны магазинов; ассортимент может меняться."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --navy:#0B3350;
+      --blue:#0f5f82;
+      --orange:#ff6600;
+      --bg:#f4f7f9;
+      --card:#fff;
+      --text:#183040;
+      --muted:#667784;
+      --line:#dce5ea;
+      --green:#2d8a62;
+      --shadow:0 8px 28px rgba(11,51,80,.10);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+    a{color:var(--blue);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1400px;margin:auto;padding:0 20px}
+    header{background:linear-gradient(120deg,var(--navy),#104d6c);color:white;box-shadow:0 4px 20px rgba(0,0,0,.12)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 0}
+    .brand{display:flex;align-items:center;gap:14px;min-width:260px}
+    .pin-logo{width:44px;height:44px;border-radius:50%;background:var(--orange);display:grid;place-items:center;font-size:22px;box-shadow:0 4px 12px rgba(255,102,0,.35)}
+    .brand h1{font-size:20px;line-height:1.15;margin:0}
+    .brand p{margin:4px 0 0;color:#d7e8f0;font-size:13px}
+    .ad{display:flex;align-items:center;gap:12px;border:2px solid var(--orange);border-radius:16px;padding:8px 14px;background:rgba(255,102,0,.10);max-width:600px}
+    .ad img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--orange);flex:none}
+    .ad strong{display:block;color:#ffb06d;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+    .ad a{color:#fff;font-weight:800}
+    .ad .arrow{color:#ff8a3d;font-weight:900}
+    .hero{padding:28px 0 18px}
+    .hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:18px}
+    .hero-card,.info-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+    .hero h2{margin:0 0 8px;font-size:clamp(26px,4vw,42px);color:var(--navy)}
+    .hero p{margin:0;color:var(--muted);max-width:900px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+    .chip{background:#eef5f8;border:1px solid #d8e7ee;border-radius:999px;padding:7px 11px;font-size:13px}
+    .info-card h3{margin:0 0 10px;color:var(--navy)}
+    .status{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--muted);margin:8px 0}
+    .dot{width:10px;height:10px;border-radius:50%;background:var(--green);margin-top:5px;flex:none}
+    .map-section{padding:0 0 18px}
+    #map{height:650px;border-radius:20px;border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}
+    .map-note{margin-top:10px;color:var(--muted);font-size:12px}
+    .controls{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+    .filter{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 14px;cursor:pointer;color:var(--text);font-weight:700}
+    .filter.active,.filter:hover{background:var(--navy);color:white;border-color:var(--navy)}
+    .content-grid{display:grid;grid-template-columns:1fr;gap:18px;padding:0 0 28px}
+    .catalog{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .place{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:0 4px 16px rgba(11,51,80,.06);display:flex;flex-direction:column}
+    .place-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+    .place h3{font-size:18px;line-height:1.25;margin:0 0 5px;color:var(--navy)}
+    .category{font-size:12px;font-weight:800;color:var(--orange)}
+    .badge{font-size:10px;border-radius:999px;padding:5px 8px;background:#eaf6ef;color:#26704f;white-space:nowrap}
+    .badge.warn{background:#fff3e9;color:#a54d08}
+    .place p{margin:8px 0;color:var(--muted);font-size:13px}
+    .place .phone{font-weight:800;color:var(--navy)}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:12px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:800;background:#eef5f8}
+    .btn.primary{background:var(--orange);color:#fff}
+    .btn:hover{text-decoration:none;filter:brightness(.96)}
+    .feedback{background:linear-gradient(135deg,#fff3e9,#fff);border:1px solid #ffd2b2;border-radius:18px;padding:20px;margin:0 0 30px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .feedback h2{margin:0 0 5px;color:var(--navy);font-size:22px}
+    .feedback p{margin:0;color:var(--muted)}
+    .feedback a{background:var(--orange);color:#fff;padding:11px 16px;border-radius:11px;font-weight:800;white-space:nowrap}
+    .seo-geo-block{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:28px}
+    .seo-geo-block h2{margin:0 0 12px;color:var(--navy)}
+    .promo{margin:8px 0}
+    footer{background:var(--navy);color:#d9e7ee;padding:28px 0}
+    footer .footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    footer a{color:#fff}
+    footer p{margin:0;color:#a9c0cc;font-size:13px}
+    .leaflet-popup-content-wrapper{border-radius:14px}
+    .popup h3{margin:0 0 4px;color:var(--navy)}
+    .popup .cat{color:var(--orange);font-size:12px;font-weight:800}
+    .popup .phone{font-weight:800}
+    .source{font-size:11px;color:#84929b;margin-top:8px}
+    @media(max-width:1050px){.catalog{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-grid{grid-template-columns:1fr}}
+    @media(max-width:720px){
+      .header-inner{align-items:flex-start;flex-direction:column}
+      .ad{max-width:none;width:100%}
+      #map{height:520px}
+      .catalog{grid-template-columns:1fr}
+      .feedback{align-items:flex-start;flex-direction:column}
+      .feedback a{width:100%;text-align:center}
+      .wrap{padding:0 13px}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) — replace GTM-XXXXXXX -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <header>
+    <div class="wrap header-inner">
+      <div class="brand">
+        <div class="pin-logo">📍</div>
+        <div>
+          <h1>Нячанг — Russian Friendly Map</h1>
+          <p>Вьетнам · Nha Trang · карта русскоязычных и Russian-friendly сервисов</p>
+        </div>
+      </div>
+
+      <div class="ad" aria-label="Реклама">
+        <img src="cristina-face.jpg" alt="Кристина Перез">
+        <div>
+          <strong>Реклама</strong>
+          <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+            Переезжаешь в Испанию? Узнай, как заговорить <span class="arrow">→</span> kristinaperez.netlify.app
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-card">
+          <h2>Русскоязычные специалисты и сервисы в Нячанге</h2>
+          <p>
+            Карта и каталог для русскоязычных жителей, зимовщиков и путешественников.
+            Здесь собраны точки с опубликованными адресами и телефонами: медицина,
+            стоматология, визовые услуги, юридическая и финансовая поддержка,
+            недвижимость, школы, трансферы, SIM и магазины с привычными товарами.
+          </p>
+          <div class="chips">
+            <span class="chip">🦷 Стоматология</span>
+            <span class="chip">👩‍⚕️ Медицина</span>
+            <span class="chip">⚖️ Юристы</span>
+            <span class="chip">🛂 Визы / Border Run</span>
+            <span class="chip">🏠 Недвижимость</span>
+            <span class="chip">📚 Школы</span>
+            <span class="chip">🛒 Русские продукты</span>
+            <span class="chip">🚕 Трансферы</span>
+            <span class="chip">📱 SIM</span>
+          </div>
+        </div>
+        <div class="info-card">
+          <h3>Как читать карту</h3>
+          <div class="status"><span class="dot"></span><span><b>Проверено по открытому источнику</b> — адрес и контакт опубликованы организацией или актуальным публичным справочником.</span></div>
+          <div class="status"><span class="dot" style="background:#ff6600"></span><span><b>Язык подтверждён отдельно</b> — если источник прямо говорит о русском языке, это указано в карточке.</span></div>
+          <div class="status"><span class="dot" style="background:#78909c"></span><span><b>Перед визитом позвоните</b> — расписание, сотрудники, номера телефонов и наличие русскоязычного персонала могут меняться.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="map-section">
+      <div class="wrap">
+        <div class="controls" id="filters"></div>
+        <div id="map" aria-label="Интерактивная карта Нячанга"></div>
+        <div class="map-note">
+          Карта: © OpenStreetMap contributors. Точки и контакты собраны из открытых источников.
+          Если информация изменилась, сообщите нам через бот.
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="feedback">
+        <div>
+          <h2>Нашли неверные данные?</h2>
+          <p>Сообщите нам об изменившемся телефоне, адресе или закрытии точки.</p>
+        </div>
+        <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">Сообщите нам в бот →</a>
+      </div>
+
+      <div class="content-grid">
+        <div>
+          <div class="catalog" id="catalog"></div>
+        </div>
+      </div>
+
+      <section class="seo-geo-block">
+        <h2>Похожие запросы</h2>
+        <p class="promo">Русскоязычные специалисты в Нячанге — <a href="https://russianfriendly.netlify.app/NhaTrang">Russian Friendly Map Nha Trang</a></p>
+        <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+        <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div>
+        <p>© Russian Friendly · Nha Trang</p>
+        <p>Информационный каталог. Проверяйте актуальность контактов перед обращением.</p>
+      </div>
+      <nav aria-label="Служебные страницы">
+        <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a> ·
+        <a href="/about.html">About</a> ·
+        <a href="/contact.html">Contact</a> ·
+        <a href="/privacy-policy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+
+  <script>
+    const places = [
+      {
+        id:"ric",
+        name:"Russian Information Center",
+        category:"🛂 Визы · 📱 SIM · 📄 Перевод · 💱 Финансы",
+        filters:["visa","sim","translation","finance"],
+        lat:12.2382, lng:109.1946,
+        address:"28 Biệt Thự, Nha Trang, Khánh Hòa, Vietnam",
+        phone:"+84 901 907 700",
+        lang:"Русскоязычная информационная поддержка",
+        note:"В открытых источниках указаны информационная поддержка на русском, визовые услуги, SIM-карты, пополнение связи и обмен валюты.",
+        source:"Tripadvisor / Yandex Maps",
+        url:"https://rusinfocenter.com/"
+      },
+      {
+        id:"hms",
+        name:"HMS Consulting & Service",
+        category:"⚖️ Юристы · 🛂 Визы · 🏦 Финансы · Бизнес",
+        filters:["law","visa","finance"],
+        lat:12.2414, lng:109.1958,
+        address:"9 Floor, 50 Le Thanh Ton, Nha Trang, Khanh Hoa, Vietnam",
+        phone:"+84 961 645 143 · +84 906 900 008",
+        lang:"Русский / English / другие языки",
+        note:"Официальный сайт публикует визовую поддержку, юридические и финансовые услуги, сопровождение открытия компаний.",
+        source:"Официальный сайт HMS",
+        url:"https://hms-vietnam.com/"
+      },
+      {
+        id:"zimavteple",
+        name:"ZIMAVTEPLE — Зима в тепле",
+        category:"🏠 Недвижимость · Аренда · Юридическая поддержка",
+        filters:["realestate","law"],
+        lat:12.2480, lng:109.1907,
+        address:"36 Pasteur Street, Nha Trang, Vietnam",
+        phone:"+7 999 333 9247",
+        lang:"RU / VI / EN",
+        note:"Русскоязычное агентство недвижимости. Публичные источники указывают работу в Нячанге и русскоязычный персонал.",
+        source:"ZimavTeple / Vtoroidom",
+        url:"https://zimavteple.ru/"
+      },
+      {
+        id:"happytooth",
+        name:"Happy Tooth Dental Clinic",
+        category:"🦷 Стоматология",
+        filters:["dentist","doctor"],
+        lat:12.2465, lng:109.1952,
+        address:"99 Đ. Hoàng Hoa Thám, Lộc Thọ, Nha Trang, Khánh Hòa 650000, Vietnam",
+        phone:"+84 377 432 666",
+        lang:"Русскоязычные врачи упоминались в русскоязычных отзывах",
+        note:"Адрес и телефон подтверждаются открытыми справочниками. Русскоязычные путешественники отдельно отмечали русскоговорящих врачей; язык лучше подтвердить при записи.",
+        source:"TravelAsk / публичные справочники",
+        url:"https://m.facebook.com/HappyTooth99"
+      },
+      {
+        id:"vinmec",
+        name:"Vinmec Nha Trang International Hospital",
+        category:"👩‍⚕️ Врачи · Международная клиника",
+        filters:["doctor"],
+        lat:12.2170, lng:109.2100,
+        address:"42 Tran Phu Street, Nha Trang, Khanh Hoa, Vietnam",
+        phone:"+84 258 390 0168",
+        lang:"Переводчик / иностранные пациенты — уточнять при записи",
+        note:"Международная больница. Открытые источники указывают адрес и телефон; наличие именно русскоязычного переводчика в конкретный день лучше подтвердить заранее.",
+        source:"Public healthcare network listing",
+        url:"https://www.vinmec.com/"
+      },
+      {
+        id:"firstacademy",
+        name:"The First Academy",
+        category:"📚 Русская школа / образование",
+        filters:["school"],
+        lat:12.2692, lng:109.2020,
+        address:"16A Hòn Chồng, Nha Trang, Vietnam",
+        phone:"+84 365 697 379 · +84 866 213 379",
+        lang:"Русская образовательная среда",
+        note:"Публичные страницы описывают школу с атмосферой России и обучение по российским образовательным стандартам.",
+        source:"The First Academy public listing",
+        url:"https://t.me/tfa_nhatrang"
+      },
+      {
+        id:"horizon",
+        name:"Частная школа и детский центр «Горизонт»",
+        category:"📚 Русская школа · 👶 Детский центр",
+        filters:["school"],
+        lat:12.2748, lng:109.1928,
+        address:"77/6 BacSon, Nha Trang, Vietnam",
+        phone:"+7 902 975 05 71",
+        lang:"Русский",
+        note:"Официальный сайт публикует адрес, телефон и образовательные программы в Нячанге.",
+        source:"Официальный сайт «Горизонт»",
+        url:"https://gorizontkids.ru/"
+      },
+      {
+        id:"moonmilk-central",
+        name:"Moonmilk — 15 Trần Hưng Đạo",
+        category:"🛒 Импортные и привычные продукты",
+        filters:["shop"],
+        lat:12.2448, lng:109.1949,
+        address:"15 Trần Hưng Đạo, Nha Trang, Vietnam",
+        phone:"+84 917 523 288",
+        lang:"Russian-friendly ассортимент — уточняйте наличие",
+        note:"Сеть Moonmilk публикует несколько точек в Нячанге. Ассортимент импортных продуктов меняется.",
+        source:"Официальный сайт Moonmilk",
+        url:"https://moonmilk.vn/"
+      },
+      {
+        id:"moonmilk-north",
+        name:"Moonmilk — 18–19 Phạm Văn Đồng",
+        category:"🛒 Импортные и привычные продукты",
+        filters:["shop"],
+        lat:12.2678, lng:109.2015,
+        address:"18–19 Phạm Văn Đồng, Nha Trang, Vietnam",
+        phone:"+84 935 937 537",
+        lang:"Russian-friendly ассортимент — уточняйте наличие",
+        note:"Официальный сайт сети публикует адрес и телефон точки в северной части Нячанга.",
+        source:"Официальный сайт Moonmilk",
+        url:"https://moonmilk.vn/"
+      },
+      {
+        id:"fasttrack",
+        name:"Nha Trang Fast Track",
+        category:"🚕 Трансфер · ✈️ Аэропорт · Russian support",
+        filters:["transfer"],
+        lat:11.9982, lng:109.2190,
+        address:"Cam Ranh International Airport (CXR), Khanh Hoa, Vietnam",
+        phone:"+84 070 557 7005",
+        lang:"Русский — по запросу",
+        note:"Сервис работает в аэропорту Камрань, предлагает airport transfer и сообщает о возможности обслуживания русскоязычных путешественников.",
+        source:"Официальный сайт Nha Trang Fast Track",
+        url:"https://fasttrack-nhatrang.com/"
+      }
+    ];
+
+    const filterLabels = {
+      all:"Все",
+      dentist:"🦷 Стоматологи",
+      doctor:"👩‍⚕️ Врачи",
+      law:"⚖️ Юристы",
+      translation:"📄 Переводчики",
+      finance:"🏦 Финансы",
+      visa:"🛂 Визы",
+      realestate:"🏠 Недвижимость",
+      transfer:"🚕 Трансферы",
+      sim:"📱 SIM / eSIM",
+      shop:"🛒 Магазины",
+      school:"📚 Школы"
+    };
+
+    const map = L.map("map", {scrollWheelZoom:true}).setView([12.245,109.195], 13);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom:19,
+      attribution:'&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const markers = new Map();
+
+    function popup(place){
+      return `
+        <div class="popup">
+          <h3>${place.name}</h3>
+          <div class="cat">${place.category}</div>
+          <p>${place.address}</p>
+          <div class="phone">📞 ${place.phone}</div>
+          <p><b>Язык:</b> ${place.lang}</p>
+          <p>${place.note}</p>
+          <div class="source">Источник: ${place.source}</div>
+          <p><a href="${place.url}" target="_blank" rel="noopener">Открыть источник →</a></p>
+        </div>
+      `;
+    }
+
+    places.forEach(place => {
+      const marker = L.marker([place.lat, place.lng]).bindPopup(popup(place));
+      marker.addTo(map);
+      markers.set(place.id, marker);
+    });
+
+    const filtersEl = document.getElementById("filters");
+    const catalogEl = document.getElementById("catalog");
+
+    let activeFilter = "all";
+
+    Object.entries(filterLabels).forEach(([key,label]) => {
+      const btn = document.createElement("button");
+      btn.className = "filter" + (key === "all" ? " active" : "");
+      btn.textContent = label;
+      btn.type = "button";
+      btn.addEventListener("click", () => {
+        activeFilter = key;
+        document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        render();
+      });
+      filtersEl.appendChild(btn);
+    });
+
+    function matches(place){
+      return activeFilter === "all" || place.filters.includes(activeFilter);
+    }
+
+    function render(){
+      catalogEl.innerHTML = "";
+      places.forEach(place => {
+        const marker = markers.get(place.id);
+        const visible = matches(place);
+        if(visible) marker.addTo(map); else map.removeLayer(marker);
+
+        if(!visible) return;
+
+        const article = document.createElement("article");
+        article.className = "place";
+        const isStrong = /русскоязыч|русскоязычн|Русский|RU \//i.test(place.lang + " " + place.note);
+        article.innerHTML = `
+          <div class="place-top">
+            <div>
+              <div class="category">${place.category}</div>
+              <h3>${place.name}</h3>
+            </div>
+            <span class="badge ${isStrong ? "" : "warn"}">${isStrong ? "RU / подтверждение" : "уточнить язык"}</span>
+          </div>
+          <p>📍 ${place.address}</p>
+          <p class="phone">📞 ${place.phone}</p>
+          <p><b>Язык:</b> ${place.lang}</p>
+          <p>${place.note}</p>
+          <div class="actions">
+            <a class="btn primary" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.address)}" target="_blank" rel="noopener">Маршрут</a>
+            <a class="btn" href="tel:${(place.phone.match(/\+?\d[\d\s().-]*/)||[place.phone])[0].replace(/[^\d+]/g,'')}" aria-label="Позвонить">Позвонить</a>
+            <a class="btn" href="${place.url}" target="_blank" rel="noopener">Источник</a>
+          </div>
+        `;
+        article.addEventListener("click", e => {
+          if(e.target.closest("a")) return;
+          map.setView([place.lat, place.lng], 16);
+          marker.openPopup();
+        });
+        catalogEl.appendChild(article);
+      });
+    }
+
+    render();
+  </script>
+</body>
+</html>

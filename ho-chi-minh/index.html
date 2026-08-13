@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Русскоязычные специалисты и сервисы в Хошимине — Russian Friendly Map</title>
+  <meta name="description" content="Интерактивная карта русскоязычных специалистов и сервисов в Хошимине: стоматологи, врачи, переводчики, визовая помощь, аренда жилья, трансферы, Border Run, SIM/eSIM, магазины и школы.">
+  <meta name="keywords" content="русские в Хошимине, русскоязычные Хошимин, русский врач Хошимин, стоматолог Хошимин русский, переводчик Хошимин, аренда квартиры Хошимин, визаран Вьетнам, Border Run Хошимин, русские сервисы Сайгон">
+  <meta name="author" content="Кристина Перез">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="theme-color" content="#0B3350">
+  <meta name="geo.region" content="VN-SG">
+  <meta name="geo.placename" content="Ho Chi Minh City">
+  <meta name="geo.position" content="10.8231;106.6297">
+  <meta name="ICBM" content="10.8231, 106.6297">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="canonical" href="https://russianfriendly.netlify.app/hochimin">
+
+  <!-- Open Graph / preview for smartphones -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Russian Friendly">
+  <meta property="og:title" content="Русскоязычные специалисты и сервисы в Хошимине — Карта Russian Friendly">
+  <meta property="og:description" content="Стоматологи, врачи, переводчики, визовая помощь, жильё, трансферы и другие русскоязычные сервисы Хошимина на одной интерактивной карте.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/hochimin">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/hochimin/og-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ru_RU">
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Хошимине">
+  <meta name="twitter:description" content="Карта и каталог русскоязычных специалистов и сервисов в Ho Chi Minh City.">
+  <meta name="twitter:image" content="https://russianfriendly.netlify.app/hochimin/og-preview.jpg">
+
+  <!-- Google Tag Manager: replace GTM-XXXXXXX with your real container ID -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // GTM placeholder. Replace GTM-XXXXXXX in the block below when your container ID is known.
+  </script>
+  <!--
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+    f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');
+  </script>
+  -->
+
+  <!-- Leaflet -->
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="preconnect" href="https://tile.openstreetmap.org">
+
+  <!-- JSON-LD: WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    "name":"Русскоязычные специалисты и сервисы в Хошимине",
+    "url":"https://russianfriendly.netlify.app/hochimin",
+    "description":"Интерактивная карта и каталог русскоязычных специалистов и сервисов в Хошимине.",
+    "inLanguage":"ru",
+    "author":{"@type":"Person","name":"Кристина Перез","url":"https://kristinaperez.netlify.app/"},
+    "about":{"@type":"City","name":"Ho Chi Minh City","alternateName":["Хошимин","Сайгон","Ho Chi Minh City","Saigon"],"containedInPlace":{"@type":"Country","name":"Vietnam"}}
+  }
+  </script>
+
+  <!-- JSON-LD: Person (автор) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Кристина Перез",
+    "url":"https://kristinaperez.netlify.app/",
+    "sameAs":[
+      "https://t.me/FeedbackCristinaBot",
+      "https://www.youtube.com/@Cristina-Perez-Monroe",
+      "https://kristinaperez.netlify.app/",
+      "https://pitermap.netlify.app/",
+      "https://aseosmadrid.netlify.app/"
+    ],
+    "jobTitle":"Автор проекта Russian Friendly"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage — GEO/AI-friendly answers -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Где найти русскоязычного врача или стоматолога в Хошимине?",
+        "acceptedAnswer":{"@type":"Answer","text":"На карте Russian Friendly в Хошимине собраны подтверждённые по открытым источникам медицинские точки с адресами и телефонами, включая Family Medical Practice и Saigon Center Dental Clinic. Перед визитом рекомендуется уточнить наличие русскоязычного сопровождения."}
+      },
+      {
+        "@type":"Question",
+        "name":"Где найти русскоязычного переводчика в Хошимине?",
+        "acceptedAnswer":{"@type":"Answer","text":"В каталоге Russian Friendly указаны русскоязычные переводчики, найденные в открытых каталогах Russian.vn и NeedGuide. Для частных специалистов без публичного адреса на карте не ставится точная точка до подтверждения адреса."}
+      },
+      {
+        "@type":"Question",
+        "name":"Где найти помощь с визой или Border Run в Хошимине?",
+        "acceptedAnswer":{"@type":"Answer","text":"В открытом каталоге Russian.vn есть русскоязычные предложения по визарану и экскурсиям, работающие с Хошимином. Контакт и актуальные условия следует проверять непосредственно у специалиста перед оплатой."}
+      },
+      {
+        "@type":"Question",
+        "name":"Где найти русскоязычную аренду жилья в Хошимине?",
+        "acceptedAnswer":{"@type":"Answer","text":"В Russian.vn опубликовано предложение Екатерины по аренде квартир в Хошимине на русском и английском языках. Точная геолокация зависит от конкретного объекта, поэтому карточка относится к услугам по городу, а не к одной фиксированной точке."}
+      }
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: ItemList of verified physical locations -->
+  <script type="application/ld+json" id="places-jsonld"></script>
+
+  <style>
+    :root{
+      --navy:#0B3350; --blue:#1f78d1; --cyan:#22a7c7; --orange:#ff6600;
+      --bg:#f5f8fb; --text:#172433; --muted:#637284; --border:#dce5ee;
+      --card:#fff; --shadow:0 8px 28px rgba(11,51,80,.10);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.5}
+    a{color:inherit}
+    .site-header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:1000}
+    .header-inner{max-width:1440px;margin:auto;padding:14px 22px;display:flex;align-items:center;gap:20px}
+    .brand{display:flex;align-items:center;gap:13px;min-width:0}
+    .brand-pin{width:44px;height:44px;border-radius:50%;background:var(--orange);color:white;display:grid;place-items:center;font-size:23px;box-shadow:0 5px 14px rgba(255,102,0,.25)}
+    .brand h1{font-size:22px;line-height:1.1;margin:0;font-weight:800;color:var(--navy)}
+    .brand p{font-size:13px;color:var(--muted);margin:4px 0 0}
+    .ad{margin-left:auto;display:flex;align-items:center;gap:12px;background:#fff4ec;border:2px solid var(--orange);border-radius:16px;padding:7px 13px 7px 7px;color:var(--orange);max-width:510px;text-decoration:none;font-weight:800}
+    .ad img{width:55px;height:55px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid var(--orange);flex:none}
+    .ad span{font-size:14px;line-height:1.3}.ad small{display:block;font-size:12px;font-weight:700;text-decoration:underline;margin-top:2px}
+    .wrap{max-width:1440px;margin:auto;padding:18px 22px}
+    .intro{background:linear-gradient(135deg,#fff,#eef7ff);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:16px}
+    .intro h2{margin:0 0 7px;color:var(--navy);font-size:25px}
+    .intro p{margin:6px 0;color:#405265}
+    .layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(320px,.85fr);gap:16px}
+    .map-card,.panel{background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+    #map{height:690px;width:100%;z-index:1}
+    .map-note{padding:10px 14px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);background:#fff}
+    .panel{padding:14px;max-height:730px;overflow:auto}
+    .controls{display:grid;gap:10px;position:sticky;top:-14px;background:#fff;padding-bottom:12px;z-index:5}
+    .controls input,.controls select{width:100%;padding:12px 13px;border:1px solid var(--border);border-radius:11px;font:inherit;background:#fff}
+    .count{font-size:13px;color:var(--muted);margin:0}
+    .cards{display:grid;gap:10px}
+    .place{border:1px solid var(--border);border-radius:14px;padding:13px;background:#fff;transition:.15s;cursor:pointer}
+    .place:hover{border-color:#a8bfd5;transform:translateY(-1px)}
+    .place-top{display:flex;gap:10px;align-items:flex-start}
+    .icon{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:#edf6ff;flex:none;font-size:19px}
+    .place h3{font-size:15px;margin:0 0 2px;color:var(--navy)}
+    .badge{display:inline-block;font-size:11px;padding:3px 7px;border-radius:999px;background:#eef5fb;color:#25628c;margin-top:4px}
+    .place p{font-size:12px;color:#566676;margin:7px 0 0}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+    .btn{display:inline-flex;align-items:center;gap:5px;padding:7px 9px;border-radius:9px;border:1px solid var(--border);font-size:12px;text-decoration:none;background:#fff}
+    .btn.primary{background:#1677cf;color:#fff;border-color:#1677cf}
+    .legend{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:13px;border-top:1px solid var(--border)}
+    .legend button{border:1px solid var(--border);background:#fff;border-radius:10px;padding:8px 6px;font:inherit;font-size:12px;cursor:pointer}
+    .legend button.active{border-color:#1677cf;background:#eef7ff}
+    .feedback{margin-top:16px;background:#edf7ff;border:1px solid #cfe7fb;border-radius:15px;padding:14px 17px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .feedback a{background:#1677cf;color:#fff;text-decoration:none;border-radius:10px;padding:10px 14px;font-weight:800;white-space:nowrap}
+    .sections{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+    .info-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px}
+    .info-card h2{font-size:20px;color:var(--navy);margin:0 0 8px}
+    .info-card h3{font-size:15px;margin:15px 0 5px}
+    .info-card p,.info-card li{font-size:14px;color:#4c5e70}
+    .info-card ul{padding-left:19px}
+    .seo-geo-block{margin-top:16px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px}
+    .seo-geo-block h2{margin:0 0 10px;color:var(--navy)}
+    .promo{margin:8px 0;font-weight:700}
+    .promo a{color:var(--orange)}
+    .source-note{font-size:12px;color:var(--muted)}
+    footer{background:var(--navy);color:#dce9f4;margin-top:20px}
+    .footer-inner{max-width:1440px;margin:auto;padding:25px 22px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    footer a{color:#fff;text-decoration:none}
+    .footer-links{display:flex;gap:15px;flex-wrap:wrap}
+    .important{background:#fff8dc;border:1px solid #f1d98a;border-radius:12px;padding:12px;margin-top:14px;font-size:13px}
+    .service-area{opacity:.9}
+    .empty{padding:18px;border:1px dashed #c7d4df;border-radius:12px;color:var(--muted);font-size:13px}
+    @media(max-width:1050px){
+      .layout{grid-template-columns:1fr}.panel{max-height:none}.legend{grid-template-columns:repeat(4,1fr)}
+    }
+    @media(max-width:700px){
+      .header-inner{padding:10px 12px;flex-wrap:wrap}.brand{flex:1}.ad{width:100%;max-width:none;margin:0}
+      .wrap{padding:12px}.intro h2{font-size:21px}#map{height:500px}.legend{grid-template-columns:repeat(2,1fr)}
+      .sections{grid-template-columns:1fr}.feedback{align-items:flex-start;flex-direction:column}.feedback a{width:100%;text-align:center}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- If GTM is enabled, insert the standard noscript iframe here after replacing the ID. -->
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="https://russianfriendly.netlify.app/" aria-label="Russian Friendly — главная">
+        <span class="brand-pin">📍</span>
+        <span>
+          <h1>Хо Ши Мин — Russian Friendly Map</h1>
+          <p>Русскоязычные специалисты и сервисы в Ho Chi Minh City</p>
+        </span>
+      </a>
+      <a class="ad" href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+        <img src="/hochimin/kristina-face.png" alt="Кристина Перез — автор Russian Friendly">
+        <span>Переезжаешь в Испанию? Узнай, как заговорить →<small>kristinaperez.netlify.app</small></span>
+      </a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="intro">
+      <h2>Русскоязычные бизнесы и специалисты в Хошимине</h2>
+      <p>Интерактивная карта и каталог сервисов для русскоязычных жителей, экспатов и путешественников в Хошимине (Сайгоне).</p>
+      <p>Здесь собраны физические точки с адресами и телефонами из открытых источников, а также отдельный каталог русскоязычных специалистов, которые работают по городу, но не публикуют точный адрес.</p>
+    </section>
+
+    <section class="layout" aria-label="Карта и каталог">
+      <div class="map-card">
+        <div id="map" aria-label="Интерактивная карта русскоязычных сервисов Хошимина"></div>
+        <div class="legend" id="legend"></div>
+        <div class="map-note">🗺️ Точные маркеры установлены только для объектов, для которых в открытом источнике подтверждены физический адрес и телефон. Частные специалисты без опубликованного адреса находятся в каталоге ниже как сервисы по Хошимину.</div>
+      </div>
+
+      <aside class="panel" aria-label="Каталог">
+        <div class="controls">
+          <input id="search" type="search" placeholder="Поиск по названию, услуге или адресу…" aria-label="Поиск">
+          <select id="category" aria-label="Категория">
+            <option value="all">Все категории</option>
+          </select>
+          <p class="count" id="count"></p>
+        </div>
+        <div class="cards" id="cards"></div>
+      </aside>
+    </section>
+
+    <section class="feedback">
+      <div><strong>Нашли неверные данные?</strong><br><span>Сообщите нам об ошибке или предложите новый русскоязычный бизнес.</span></div>
+      <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">💬 Сообщить в бот</a>
+    </section>
+
+    <section class="sections">
+      <article class="info-card">
+        <h2>Что можно найти на карте</h2>
+        <ul>
+          <li>🦷 Стоматологи и стоматологические клиники</li>
+          <li>👩‍⚕️ Врачи и медицинские центры</li>
+          <li>⚖️ Юристы и деловые услуги</li>
+          <li>📄 Переводчики RU / EN / VI</li>
+          <li>🏦 Банки и финансовые консультации</li>
+          <li>🛂 Визовая помощь и Border Run</li>
+          <li>🏠 Аренда жилья и риелторы</li>
+          <li>🚕 Трансферы</li>
+          <li>📱 SIM / eSIM</li>
+          <li>🛒 Русские магазины и продукты</li>
+          <li>🏫 Русскоязычные и рекомендованные школы</li>
+        </ul>
+      </article>
+
+      <article class="info-card">
+        <h2>Как пользоваться картой</h2>
+        <ol>
+          <li>Выберите категорию или введите название услуги.</li>
+          <li>Нажмите на карточку — карта переместится к объекту, если у него подтверждён адрес.</li>
+          <li>Позвоните, откройте сайт или постройте маршрут.</li>
+          <li>Перед посещением уточните актуальные часы работы, цену и наличие русскоязычного персонала.</li>
+        </ol>
+        <div class="important"><strong>Важно:</strong> наличие русского языка и актуальность контактов могут меняться. Russian Friendly агрегирует открытые данные и не является медицинским, юридическим или визовым посредником.</div>
+      </article>
+    </section>
+
+    <section class="info-card" style="margin-top:16px">
+      <h2>Русскоязычные специалисты, работающие по Хошимину</h2>
+      <p>В открытом каталоге Russian.vn сейчас представлены, среди прочих, Sergei (визаран и туры), Таня Чан (врач-косметолог и медицинский переводчик), Роман (репетитор), Екатерина (аренда квартир), Kira и Анастасия Мантис (фотография), Юлия (клинический психолог), Julia, София, Алёна, liudmila, Дарья, Нина (красота и обучение), Nataly и Yuriy (переводы), Реджи (дреды), Yvanle (трансферы), Маргарита (маникюр/педикюр), Alexandar (доставка) и Erik Lekhto (инженерные услуги и аудит).</p>
+      <p class="source-note">Источник каталога: <a href="https://russian.vn/country/vn/offers/region/hoshimin/" target="_blank" rel="noopener">Russian.vn — товары и услуги в Хошимине</a>. Эти карточки не получают точный маркер на карте, пока публичный адрес не подтверждён.</p>
+    </section>
+
+    <section class="seo-geo-block">
+      <h2>Похожие запросы</h2>
+      <p class="promo">Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
+      <p class="promo">Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+      <p class="source-note">Russian Friendly — городской каталог русскоязычных специалистов и сервисов. Страница оптимизирована под запросы «русские в Хошимине», «русскоязычные специалисты Хошимин», «русский врач Хошимин», «русский стоматолог Хошимин», «переводчик Хошимин» и связанные запросы.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <strong>Russian Friendly Map Ho Chi Minh City</strong><br>
+        <span class="source-note">© 2026 Russian Friendly. Каталог собран из открытых источников.</span>
+      </div>
+      <nav class="footer-links" aria-label="Навигация">
+        <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    const categories = {
+      dental:{label:"🦷 Стоматологи",icon:"🦷"},
+      doctors:{label:"👩‍⚕️ Врачи",icon:"➕"},
+      translators:{label:"📄 Переводчики",icon:"文"},
+      visa:{label:"🛂 Визы / Border Run",icon:"🛂"},
+      housing:{label:"🏠 Аренда жилья",icon:"🏠"},
+      transfers:{label:"🚕 Трансферы",icon:"🚕"},
+      beauty:{label:"💅 Красота",icon:"💅"},
+      education:{label:"🏫 Обучение",icon:"🏫"},
+      delivery:{label:"📦 Доставка",icon:"📦"},
+      engineering:{label:"🛠 Инженерные услуги",icon:"🛠"},
+      other:{label:"📌 Другое",icon:"📌"}
+    };
+
+    // Physical locations with address + phone verified from public sources.
+    // Coordinates are map placement coordinates for the published addresses.
+    const places = [
+      {
+        id:"fmp-diamond",name:"Family Medical Practice — Diamond Plaza",
+        category:"doctors",verified:true,
+        address:"Diamond Plaza Building, 34 Le Duan Street, Saigon Ward, Ho Chi Minh City",
+        phone:"+84 28 3822 7848",email:"hcmc@vietnammedicalpractice.com",
+        lat:10.7804,lng:106.7001,
+        website:"https://www.vietnammedicalpractice.com/ru/locations/ho-chi-minh/diamond-plaza/",
+        source:"https://www.vietnammedicalpractice.com/ru/locations/ho-chi-minh/diamond-plaza/",
+        description:"Международный медицинский центр; официальный сайт доступен на русском языке. Работа 24/7."
+      },
+      {
+        id:"fmp-care1",name:"Family Medical Practice — Care1",
+        category:"doctors",verified:true,
+        address:"The Manor, 91 Nguyen Huu Canh, Ho Chi Minh City",
+        phone:"+84 28 3514 0757",email:"care1@vietnammedicalpractice.com",
+        lat:10.7909,lng:106.7194,
+        website:"https://www.vietnammedicalpractice.com/ru/locations/ho-chi-minh/care1/",
+        source:"https://www.vietnammedicalpractice.com/ru/locations/ho-chi-minh/care1/",
+        description:"Центр медицинских обследований Care1; многоязычные врачи и услуги для экспатов."
+      },
+      {
+        id:"fmp-phumyhung",name:"Family Medical Practice — Phu My Hung",
+        category:"doctors",verified:true,
+        address:"41 Dang Duc Thuat Street, Tan Hung Ward, Ho Chi Minh City",
+        phone:"+84 28 3622 4988",email:"d7.reception@vietnammedicalpractice.com",
+        lat:10.7359,lng:106.7107,
+        website:"https://www.vietnammedicalpractice.com/ru/locations/ho-chi-minh/phu-my-hung/",
+        source:"https://www.vietnammedicalpractice.com/ru/locations/ho-chi-minh/phu-my-hung/",
+        description:"Медицинский центр FMP в районе Phu My Hung."
+      },
+      {
+        id:"fmp-thaodien",name:"Family Medical Practice — Thao Dien",
+        category:"doctors",verified:true,
+        address:"95 Thao Dien Street, An Khanh Ward, Ho Chi Minh City",
+        phone:"+84 28 3744 2000",email:"d2.reception@vietnammedicalpractice.com",
+        lat:10.8024,lng:106.7348,
+        website:"https://www.vietnammedicalpractice.com/ru/locations/ho-chi-minh/thao-dien/",
+        source:"https://www.vietnammedicalpractice.com/ru/locations/ho-chi-minh/thao-dien/",
+        description:"Медицинский центр FMP в Thao Dien; работает 24/7."
+      },
+      {
+        id:"saigon-dental-yersin",name:"Saigon Center Dental Clinic — Yersin",
+        category:"dental",verified:true,
+        address:"119 Yersin, Pham Ngu Lao Ward, District 1, Ho Chi Minh City",
+        phone:"+84 973 199 986",email:"clinic@saigoncenterdental.com",
+        lat:10.7679,lng:106.6927,
+        website:"https://saigoncenterdental.com/ru/",
+        source:"https://saigoncenterdental.com/ru/contact-us/",
+        description:"Стоматологическая клиника с русской версией сайта; международная поддержка."
+      },
+      {
+        id:"saigon-dental-vovan",name:"Saigon Center Dental Clinic — Vo Van Tan",
+        category:"dental",verified:true,
+        address:"378B Vo Van Tan, Ward 5, District 3, Ho Chi Minh City",
+        phone:"+84 973 199 986",email:"clinic@saigoncenterdental.com",
+        lat:10.7718,lng:106.6858,
+        website:"https://saigoncenterdental.com/ru/",
+        source:"https://saigoncenterdental.com/ru/contact-us/",
+        description:"Филиал Saigon Center Dental Clinic; русская версия сайта и международная поддержка."
+      }
+    ];
+
+    // Service-area candidates from open Russian-language catalogs.
+    const serviceArea = [
+      ["Sergei","visa","Визаран и экскурсии","RU / EN","Хошимин, весь Вьетнам","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Таня Чан","doctors","Врач-косметолог, медицинский переводчик","RU / EN / VI","Хошимин, Нячанг","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Роман","education","Репетитор","RU / EN","Хошимин, весь Вьетнам","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Екатерина","housing","Аренда квартиры в Хошимине","RU / EN","Хошимин, весь Вьетнам","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Kira","other","Фотограф","RU / EN","Хошимин","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Юлия","doctors","Клинический психолог","RU","Хошимин, Дананг, весь Вьетнам","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Анастасия Мантис","other","Фотограф","RU / EN","Хошимин","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Julia","beauty","Брови и ресницы","RU / EN","Хошимин","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["София","beauty","Наращивание ресниц","RU / EN","Хошимин","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Алёна","education","Pole dance / обучение","RU / EN","Хошимин","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["liudmila","beauty","Маникюр и педикюр","RU / EN","Хошимин, Фантхьет","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Дарья","beauty","Ресницы, ламинирование, брови","RU","Хошимин","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Нина","beauty","Наращивание волос","RU","Хошимин, Дананг","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Nataly","translators","Перевод на вьетнамский и английский","RU / EN / VI","Хошимин","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Julia","education","Боди-балет, стретчинг, балет","RU / EN","Хошимин","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Косметолог Вьет...","beauty","Косметология","RU / EN","Хошимин, Ханой, весь Вьетнам","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Альбина","beauty","Тату-мастер","RU / EN","Хошимин, Вунгтау","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Александр","other","Русские табаки и запчасти для кальяна","RU / EN","Хошимин, Нячанг","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Yuriy","translators","Переводчик","RU / EN / VI","Хошимин","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Реджи","beauty","Натуральные дреды","RU / EN","Хошимин, Бьенхоа, Далат","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Yvanle","transfers","Аэропортные трансферы","RU / VI","Хошимин, Ханой, Нячанг","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Маргарита","beauty","Маникюр и педикюр","RU","Хошимин","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Alexandar","delivery","Доставка по Хошимину и Вьетнаму","RU / EN","Хошимин","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Erik Lekhto","engineering","Инженер, аудит","RU / EN","Хошимин","https://russian.vn/country/vn/offers/region/hoshimin/"],
+      ["Trong Dinh","transfers","Русскоговорящий гид, водитель, переводчик, медтуризм, недвижимость","RU","Хошимин","https://needguide.ru/view_guide.php?user_id=4603"],
+      ["Виктор Лоломов","translators","Гид и переводчик; +84 986 191 978","RU","Хошимин","https://needguide.ru/view_guide.php?user_id=922"],
+      ["Тхань Лам Нгуен","visa","Гид, переводчик, трансфер, помощь с визой и продлением","RU","Хошимин и другие города","https://needguide.ru/view_guide.php?user_id=5840"],
+      ["Елена Чинь","transfers","Гид, водитель, переводчик, фотограф, медтуризм","RU","Хошимин и юг Вьетнама","https://needguide.ru/view_guide.php?user_id=3098"]
+    ];
+
+    const map = L.map('map',{scrollWheelZoom:true}).setView([10.8231,106.6297],11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      maxZoom:19,attribution:'&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const markerLayer=L.layerGroup().addTo(map);
+    const markerById={};
+
+    function popup(p){
+      const website=p.website?`<a href="${p.website}" target="_blank" rel="noopener">Сайт</a>`:"";
+      const route=`<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.address)}" target="_blank" rel="noopener">Маршрут</a>`;
+      return `<strong>${categories[p.category].icon} ${p.name}</strong>
+        <br><span>${p.address}</span>
+        <br>📞 <a href="tel:${p.phone.replace(/[^+0-9]/g,'')}">${p.phone}</a>
+        ${p.email?`<br>✉️ <a href="mailto:${p.email}">${p.email}</a>`:""}
+        <br><span style="font-size:12px;color:#637284">${p.description}</span>
+        <br><br>${website} &nbsp; ${route}`;
+    }
+
+    function makeIcon(cat){
+      return L.divIcon({
+        className:"",
+        html:`<div style="width:38px;height:38px;border-radius:50%;background:#0B3350;color:#fff;border:3px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.25);display:grid;place-items:center;font-size:18px">${categories[cat].icon}</div>`,
+        iconSize:[38,38],iconAnchor:[19,19]
+      });
+    }
+
+    places.forEach(p=>{
+      const m=L.marker([p.lat,p.lng],{icon:makeIcon(p.category)}).bindPopup(popup(p));
+      markerLayer.addLayer(m); markerById[p.id]=m;
+    });
+
+    const catSelect=document.getElementById('category');
+    Object.entries(categories).forEach(([key,c])=>{
+      const o=document.createElement('option');o.value=key;o.textContent=c.label;catSelect.appendChild(o);
+    });
+
+    const legend=document.getElementById('legend');
+    const allBtn=document.createElement('button');allBtn.textContent="Все";allBtn.className="active";allBtn.dataset.cat="all";legend.appendChild(allBtn);
+    Object.entries(categories).forEach(([key,c])=>{
+      const b=document.createElement('button');b.textContent=c.label;b.dataset.cat=key;legend.appendChild(b);
+    });
+
+    let activeCat="all";
+    function filtered(){
+      const q=document.getElementById('search').value.trim().toLowerCase();
+      return [...places.map(p=>({...p,type:"physical"})),...serviceArea.map(s=>({
+        id:"sa-"+s[0]+"-"+s[2],name:s[0],category:s[1],verified:false,service:s[2],languages:s[3],address:s[4],source:s[5],type:"service"
+      }))].filter(p=>{
+        const catOk=activeCat==="all"||p.category===activeCat;
+        const hay=[p.name,p.address,p.service,p.description,p.languages].join(" ").toLowerCase();
+        return catOk && (!q||hay.includes(q));
+      });
+    }
+
+    function render(){
+      const data=filtered();
+      document.getElementById('count').textContent=`Найдено: ${data.length} карточек · ${places.length} точек с подтверждённым адресом`;
+      const box=document.getElementById('cards');box.innerHTML="";
+      data.forEach(p=>{
+        const el=document.createElement('article');el.className="place";
+        const verified=p.verified?`<span class="badge">✓ адрес и телефон подтверждены</span>`:`<span class="badge service-area">Сервис по Хошимину · адрес не опубликован</span>`;
+        const phone=p.phone?`<a class="btn primary" href="tel:${p.phone.replace(/[^+0-9]/g,'')}">📞 Позвонить</a>`:"";
+        const site=p.website||p.source;
+        el.innerHTML=`<div class="place-top"><div class="icon">${categories[p.category].icon}</div><div style="flex:1"><h3>${p.name}</h3><div>${categories[p.category].label}</div>${verified}</div></div>
+          <p>${p.address||p.service||""}</p>
+          ${p.phone?`<p>📞 ${p.phone}</p>`:""}
+          ${p.languages?`<p>🗣 ${p.languages}</p>`:""}
+          <div class="actions">${phone}<a class="btn" href="${site}" target="_blank" rel="noopener">Источник</a>
+          ${p.type==="physical"?`<button class="btn" type="button" data-focus="${p.id}">📍 На карте</button>`:""}</div>`;
+        box.appendChild(el);
+      });
+      box.querySelectorAll("[data-focus]").forEach(btn=>btn.addEventListener("click",()=>{
+        const p=places.find(x=>x.id===btn.dataset.focus);if(p){map.setView([p.lat,p.lng],15);markerById[p.id].openPopup();}
+      }));
+    }
+
+    document.getElementById('search').addEventListener('input',render);
+    catSelect.addEventListener('change',e=>{activeCat=e.target.value;legend.querySelectorAll("button").forEach(b=>b.classList.toggle("active",b.dataset.cat===activeCat));render();});
+    legend.addEventListener('click',e=>{
+      if(e.target.tagName!=="BUTTON")return;
+      activeCat=e.target.dataset.cat;catSelect.value=activeCat;legend.querySelectorAll("button").forEach(b=>b.classList.toggle("active",b===e.target));render();
+    });
+    render();
+
+    // Structured data for verified physical locations.
+    const jsonld={
+      "@context":"https://schema.org","@type":"ItemList",
+      "name":"Проверенные физические точки Russian Friendly в Хошимине",
+      "itemListElement":places.map((p,i)=>({
+        "@type":"ListItem","position":i+1,
+        "item":{"@type":"LocalBusiness","name":p.name,"telephone":p.phone,"url":p.website,"address":{"@type":"PostalAddress","streetAddress":p.address,"addressLocality":"Ho Chi Minh City","addressCountry":"VN"},"geo":{"@type":"GeoCoordinates","latitude":p.lat,"longitude":p.lng}}
+      }))
+    };
+    document.getElementById('places-jsonld').textContent=JSON.stringify(jsonld);
+  </script>
+</body>
+</html>
