@@ -1,0 +1,48 @@
+  
+ Казахстан, Армения, Сербия, ОАЭ, Франция,
+   Германия, Польша, и столицы по ВОсточной
++Израиль
+
+ Варшава
+ Тирана
+
+ New York City
+Brooklyn
+Brighton Beach
+Queens
+Staten Island
+Los Angeles
+San Francisco
+San Diego
+Chicago
+Miami
+Sunny Isles Beach
+Fort Lauderdale
+Boston
+Newton
+Cambridge
+Philadelphia
+Washington, D.C.
+Seattle
+Bellevue
+Portland
+Denver
+Dallas
+Houston
+Austin
+Atlanta
+Charlotte
+Tampa
+Orlando
+Phoenix
+Las Vegas
+Sacramento
+San Jose
+Palo Alto
+Minneapolis
+Cleveland
+Detroit
+Pittsburgh
+Baltimore
+Buffalo
+Columbus

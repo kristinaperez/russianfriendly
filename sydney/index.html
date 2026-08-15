@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Русскоязычные специалисты в Сиднее — врачи, юристы, переводчики, жильё | Russian Friendly</title>
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" sizes="32x32" href="https://russianfriendly.netlify.app/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://russianfriendly.netlify.app/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://russianfriendly.netlify.app/apple-touch-icon.png">
+<link rel="manifest" href="https://russianfriendly.netlify.app/site.webmanifest">
+<meta name="theme-color" content="#ffffff">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://russianfriendly.netlify.app/sydney">
+
+<!-- SEO Meta -->
+<meta name="description" content="Русскоязычные специалисты и сервисы в Сиднее: врачи, стоматологи, юристы, переводчики, банки, миграционные услуги, жильё, трансферы, SIM/eSIM, русские магазины и школы.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Кристина Перез — Russian Friendly">
+<meta name="keywords" content="русскоязычные специалисты Сидней, русский врач Сидней, русский стоматолог Сидней, русский юрист Сидней, русский переводчик Сидней, русский риелтор Сидней, аренда жилья Сидней русский, миграционный консультант Сидней, русский магазин Сидней, русская школа Сидней">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Русскоязычные специалисты в Сиднее — Russian Friendly">
+<meta property="og:description" content="Русскоязычные врачи, стоматологи, юристы, переводчики, жильё, миграционные услуги, магазины и школы в Сиднее на одной интерактивной карте.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/sydney">
+<meta property="og:image" content="https://russianfriendly.netlify.app/sydney/og-preview.jpg">
+
+<!-- Twitter/X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Сиднее">
+<meta name="twitter:description" content="Russian Friendly — карта русскоязычных специалистов и сервисов в Сиднее.">
+<meta name="twitter:image" content="https://russianfriendly.netlify.app/sydney/og-preview.jpg">
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "Russian Friendly",
+      "url": "https://russianfriendly.netlify.app/"
+    },
+    {
+      "@type": "WebPage",
+      "name": "Русскоязычные специалисты в Сиднее — Russian Friendly",
+      "url": "https://russianfriendly.netlify.app/sydney",
+      "description": "Интерактивная карта и каталог русскоязычных специалистов и сервисов в Сиднее, Австралия."
+    },
+    {
+      "@type": "City",
+      "name": "Сидней",
+      "alternateName": "Sydney",
+      "country": "Australia"
+    },
+    {
+      "@type": "Person",
+      "name": "Кристина Перез",
+      "url": "https://kristinaperez.netlify.app/",
+      "jobTitle": "Автор проекта Russian Friendly"
+    },
+    {
+      "@type": "ItemList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Стоматологи", "description": "Русскоязычные стоматологи в Сиднее"},
+        {"@type": "ListItem", "position": 2, "name": "Врачи", "description": "Русскоязычные врачи и клиники в Сиднее"},
+        {"@type": "ListItem", "position": 3, "name": "Юристы", "description": "Русскоязычные юристы и адвокаты в Сиднее"},
+        {"@type": "ListItem", "position": 4, "name": "Переводчики", "description": "Русскоязычные переводчики и нотариусы в Сиднее"},
+        {"@type": "ListItem", "position": 5, "name": "Банки и финансы", "description": "Банковские и финансовые консультации на русском в Сиднее"},
+        {"@type": "ListItem", "position": 6, "name": "Визы и миграция", "description": "Миграционные агенты и визовые услуги на русском в Сиднее"},
+        {"@type": "ListItem", "position": 7, "name": "Недвижимость", "description": "Риелторы и аренда жилья в Сиднее"},
+        {"@type": "ListItem", "position": 8, "name": "Трансферы", "description": "Русскоязычные водители и трансферы в Сиднее"},
+        {"@type": "ListItem", "position": 9, "name": "SIM и eSIM", "description": "Мобильная связь в Сиднее"},
+        {"@type": "ListItem", "position": 10, "name": "Русские магазины", "description": "Русские продукты и магазины в Сиднее"},
+        {"@type": "ListItem", "position": 11, "name": "Русские школы", "description": "Русскоязычные школы и образование в Сиднее"}
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Где найти русскоязычного врача или стоматолога в Сиднее?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "В Сиднее работают русскоязычные врачи общей практики и стоматологи. Например, доктор Галина Палачевская получила медицинское образование в Санкт-Петербурге и ведёт приём в Сиднее. Доктор Наталия Кот принимает в North Sydney и говорит на русском и украинском. Среди стоматологов известна доктор Елена Донец, которая управляет клиникой Bridge Street Dental Clinic в центре Сиднея с 2008 года и имеет российское образование."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Есть ли в Сиднее русскоязычные юристы и переводчики?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Да, в Сиднее есть юристы, говорящие на русском языке. Vadym Malakhov ведёт практику MALAKHOFF & KOLOYAROFF LEGAL и специализируется на коммерческом и семейном праве. BlueLine Legal также предоставляет услуги русскоязычного юриста. Pavuk Legal консультирует по вопросам трансграничного права, включая Россию и Украину. Что касается переводчиков, в Сиднее работают сертифицированные переводчики с русского языка, в том числе при миграционных агентствах и юридических фирмах."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Где найти русского риелтора и аренду жилья в Сиднее?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Русскоязычные риелторы и консультанты по недвижимости работают в Сиднее, помогая с арендой и покупкой жилья. Многие из них размещают объявления в русскоязычных сообществах и социальных сетях. Для поиска рекомендуется обращаться к местным русскоязычным группам в Facebook и Telegram, а также к миграционным агентствам, которые часто сотрудничают с риелторами."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Как найти помощь с банком, визой и миграционными документами в Сиднее на русском?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "В Сиднее несколько миграционных агентств предлагают консультации на русском языке. SydneyVisa специализируется на визах всех категорий и имеет русскоязычных консультантов. VisaEnvoy с офисом в Парраматте предоставляет услуги миграционного агента Надежды Здельник, которая говорит на русском. AU Visa также обслуживает клиентов на русском и украинском языках по всей Австралии, включая Сидней. По вопросам банковских счетов многие крупные банки Сиднея имеют русскоязычных сотрудников в отделениях с высокой долей иностранных клиентов."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Где купить русские продукты в Сиднее?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "В Сиднее есть несколько специализированных магазинов с русскими продуктами. Russkis Deli на 131 Bondi Road в Бонди предлагает европейские деликатесы и русские продукты. Stolichniy Minimart в торговом центре Eastlakes специализируется на российских, белорусских и украинских товарах, включая красную икру и квас. Babushkas в Darling Harbour предлагает русские сувениры, игрушки и традиционные изделия."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Есть ли в Сиднее русские школы и школы на русском языке?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Да, в Сиднее работают несколько русских школ. St Alexander Nevsky Russian School, основанная в 1971 году, — одна из старейших и крупнейших в штате Новый Южный Уэльс, расположена в Конкорде на территории Concord High School. Central Russian School проводит занятия по субботам в Ultimo на Harris Street. Maroubra Russian School работает в La Perouse. Harmony Russian School of Sydney (Sydney Russian School) расположена в Bellevue Hill. Эти школы предлагают занятия по русскому языку, литературе, истории и культуре для детей от 3 до 18 лет."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --accent: #ff6600;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px rgba(0,0,0,0.1);
+  --radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+
+/* Header */
+header {
+  background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+  color: #fff;
+  padding: 24px 0;
+  position: relative;
+}
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+header .subtitle {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+.promo-block {
+  background: #fff;
+  color: var(--accent);
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s;
+  border-left: 4px solid var(--accent);
+}
+.promo-block:hover { transform: translateY(-2px); }
+.promo-block a { color: var(--accent); text-decoration: none; }
+
+/* Intro */
+.intro {
+  background: var(--card);
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border);
+}
+.intro p {
+  max-width: 800px;
+  color: var(--text-light);
+  font-size: 1.05rem;
+}
+
+/* Filters */
+.filters {
+  background: var(--card);
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.filter-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.filter-btn {
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* Map */
+.map-section { padding: 24px 0; }
+#map {
+  height: 500px;
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  z-index: 1;
+}
+
+/* Feedback */
+.feedback {
+  text-align: center;
+  padding: 16px;
+  background: #fffbeb;
+  border-radius: var(--radius);
+  margin: 16px 0;
+  font-size: 0.95rem;
+}
+.feedback a { color: var(--primary-dark); font-weight: 600; }
+
+/* Catalog */
+.catalog { padding: 32px 0; }
+.catalog h2 { margin-bottom: 20px; font-size: 1.5rem; }
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.2s;
+  cursor: pointer;
+}
+.card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.card h3 { font-size: 1.1rem; margin-bottom: 4px; }
+.card .cat-label {
+  font-size: 0.75rem;
+  background: #eef2ff;
+  color: var(--primary-dark);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+.card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 6px; }
+.card a { color: var(--primary); text-decoration: none; font-size: 0.9rem; }
+.card a:hover { text-decoration: underline; }
+
+/* SEO Text */
+.seo-text {
+  background: var(--card);
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+}
+.seo-text h2 { font-size: 1.4rem; margin-bottom: 16px; }
+.seo-text p {
+  color: var(--text-light);
+  margin-bottom: 12px;
+  max-width: 900px;
+}
+
+/* Semantic Keywords */
+.semantic-block {
+  background: #f1f5f9;
+  padding: 40px 0;
+}
+.semantic-block h2 { font-size: 1.4rem; margin-bottom: 20px; }
+.query-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+.query {
+  background: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* FAQ */
+.faq {
+  background: var(--card);
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+}
+.faq h2 { font-size: 1.4rem; margin-bottom: 20px; }
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+}
+.faq-item h3 {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  color: var(--text);
+  cursor: pointer;
+}
+.faq-item p { color: var(--text-light); font-size: 0.95rem; }
+
+/* Cities Links */
+.cities {
+  background: #f1f5f9;
+  padding: 32px 0;
+}
+.cities h2 { font-size: 1.2rem; margin-bottom: 12px; }
+.cities-list { display: flex; flex-wrap: wrap; gap: 10px; }
+.cities-list a {
+  background: #fff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+.cities-list a:hover { border-color: var(--primary); color: var(--primary); }
+
+/* Footer */
+footer {
+  background: #0f172a;
+  color: #94a3b8;
+  padding: 32px 0;
+  font-size: 0.9rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.footer-col h4 { color: #e2e8f0; margin-bottom: 10px; font-size: 0.95rem; }
+.footer-col a {
+  display: block;
+  color: #94a3b8;
+  text-decoration: none;
+  margin-bottom: 6px;
+}
+.footer-col a:hover { color: #fff; }
+.footer-bottom {
+  border-top: 1px solid #1e293b;
+  padding-top: 16px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  header h1 { font-size: 1.2rem; }
+  .header-inner { flex-direction: column; align-items: flex-start; }
+  #map { height: 350px; }
+  .catalog-grid { grid-template-columns: 1fr; }
+  .query-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="container header-inner">
+    <div>
+      <h1>📍 Русскоязычные специалисты в Сиднее — Russian Friendly Map</h1>
+      <div class="subtitle">Каталог русскоязычных врачей, юристов, школ и магазинов в Сиднее</div>
+    </div>	
+	 <div class="promo-block">
+      <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">Переезжаешь в Испанию? Узнай, как заговорить →</a>
+    </div>	
+  </div>
+</header>
+
+<!-- Intro -->
+<section class="intro">
+  <div class="container">
+    <p>Russian Friendly Map — это открытый каталог русскоязычных специалистов, сервисов и организаций в Сиднее. Здесь собраны контакты врачей, стоматологов, юристов, миграционных агентов, школ и магазинов, найденные в открытых источниках. Интерактивная карта поможет найти нужную организацию рядом с вами.</p>
+  </div>
+</section>
+
+<!-- Filters -->
+<section class="filters">
+  <div class="container">
+    <div class="filter-list" id="filterList">
+      <button class="filter-btn active" data-cat="all">Все</button>
+      <button class="filter-btn" data-cat="dentist">🦷 Стоматологи</button>
+      <button class="filter-btn" data-cat="doctor">👩‍⚕️ Врачи</button>
+      <button class="filter-btn" data-cat="lawyer">⚖️ Юристы</button>
+      <button class="filter-btn" data-cat="translator">📄 Переводчики</button>
+      <button class="filter-btn" data-cat="bank">🏦 Банки / финансы</button>
+      <button class="filter-btn" data-cat="migration">🛂 Визы / миграция</button>
+      <button class="filter-btn" data-cat="realestate">🏠 Недвижимость</button>
+      <button class="filter-btn" data-cat="transfer">🚕 Трансферы</button>
+      <button class="filter-btn" data-cat="sim">📱 SIM / eSIM</button>
+      <button class="filter-btn" data-cat="shop">🛒 Русские магазины</button>
+      <button class="filter-btn" data-cat="school">🏫 Русские школы</button>
+    </div>
+  </div>
+</section>
+
+<!-- Map -->
+<section class="map-section">
+  <div class="container">
+    <div id="map"></div>
+  </div>
+</section>
+
+<!-- Feedback -->
+<section class="container">
+  <div class="feedback">
+    Нашли неверные данные? <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">Сообщите нам в бот</a>
+  </div>
+</section>
+
+<!-- Catalog -->
+<section class="catalog">
+  <div class="container">
+    <h2>Каталог организаций</h2>
+    <div class="catalog-grid" id="catalog"></div>
+  </div>
+</section>
+
+<!-- SEO / GEO Text -->
+<section class="seo-text">
+  <div class="container">
+    <h2>Русскоязычные специалисты и сервисы в Сиднее, Австралия</h2>
+    <p>Сидней — один из крупнейших мультикультурных городов Австралии, где проживает значительное число русскоязычных жителей. Для новоприбывших и местных жителей важно иметь доступ к медицинским, юридическим и бытовым услугам на родном языке. В Сиднее работают русскоязычные врачи общей практики, в том числе с российским медицинским образованием, которые понимают особенности пациентов из русскоязычных стран.</p>
+    <p>Стоматологические услуги на русском языке предоставляют специалисты в центре Сиднея и пригородах. Русскоязычные юристы консультируют по вопросам миграционного права, семейных споров, недвижимости и коммерческих сделок. Переводчики с русского языка помогают с заверением документов и нотариальными переводами.</p>
+    <p>Миграционные агенты в Сиднее, говорящие на русском, сопровождают клиентов на всех этапах получения визы — от студенческой до партнёрской и рабочей. Многие из них сами прошли иммиграционный путь и понимают тонкости австралийской системы. По вопросам открытия банковских счетов и финансового планирования также можно найти консультантов, говорящих на русском.</p>
+    <p>Русскоязычные риелторы помогают с арендой и покупкой жилья в Сиднее, объясняя особенности местного рынка недвижимости. Трансферы из аэропорта Сиднея и русскоязычные водители делают первые дни в городе комфортнее. Для подключения мобильной связи можно обратиться в офисы крупных операторов, где часто есть русскоязычные сотрудники.</p>
+    <p>Русские магазины в Сиднее предлагают привычные продукты — от красной икры и кваса до кондитерских изделий и замороженных пельменей. Русские школы работают по субботам, обучая детей языку, литературе, истории и культуре. Это помогает сохранить связь с родной культурой в условиях австралийского образовательного пространства.</p>
+  </div>
+</section>
+
+<!-- Semantic Keywords -->
+<section class="semantic-block">
+  <div class="container">
+    <h2>Поисковые темы Russian Friendly Сидней</h2>
+    <div class="query-grid">
+      <div class="query">русскоязычные специалисты Сидней</div>
+      <div class="query">русскоязычные специалисты в Сиднее</div>
+      <div class="query">русские сервисы Сидней</div>
+      <div class="query">русские услуги Сидней</div>
+      <div class="query">русские компании Сидней</div>
+      <div class="query">русскоязычные услуги Сидней</div>
+      <div class="query">русскоязычный сервис Сидней</div>
+      <div class="query">русский бизнес Сидней</div>
+      <div class="query">русские в Сиднее услуги</div>
+      <div class="query">помощь русским в Сиднее</div>
+      <div class="query">русский врач Сидней</div>
+      <div class="query">русскоязычный врач Сидней</div>
+      <div class="query">врач на русском Сидней</div>
+      <div class="query">русскоязычная клиника Сидней</div>
+      <div class="query">русская клиника Сидней</div>
+      <div class="query">русский стоматолог Сидней</div>
+      <div class="query">русскоязычный стоматолог Сидней</div>
+      <div class="query">стоматолог на русском Сидней</div>
+      <div class="query">русская стоматология Сидней</div>
+      <div class="query">русский юрист Сидней</div>
+      <div class="query">русскоязычный юрист Сидней</div>
+      <div class="query">юрист на русском Сидней</div>
+      <div class="query">адвокат русский Сидней</div>
+      <div class="query">русский переводчик Сидней</div>
+      <div class="query">русскоязычный переводчик Сидней</div>
+      <div class="query">переводчик с русского Сидней</div>
+      <div class="query">нотариус русский Сидней</div>
+      <div class="query">русский риелтор Сидней</div>
+      <div class="query">русскоязычный риелтор Сидней</div>
+      <div class="query">аренда жилья Сидней русский</div>
+      <div class="query">аренда квартиры Сидней русские</div>
+      <div class="query">недвижимость Сидней русский</div>
+      <div class="query">агентство недвижимости Сидней русский</div>
+      <div class="query">помощь с банком Сидней русский</div>
+      <div class="query">открыть счет в банке Сидней русский</div>
+      <div class="query">банковский консультант Сидней русский</div>
+      <div class="query">релокация Сидней русский</div>
+      <div class="query">помощь с документами Сидней русский</div>
+      <div class="query">миграционный консультант Сидней русский</div>
+      <div class="query">помощь с визой Сидней русский</div>
+      <div class="query">визовое агентство Сидней русский</div>
+      <div class="query">трансфер Сидней русский</div>
+      <div class="query">русский водитель Сидней</div>
+      <div class="query">трансфер аэропорт Сидней русский</div>
+      <div class="query">SIM карта Сидней русский</div>
+      <div class="query">eSIM Сидней русский</div>
+      <div class="query">мобильная связь Сидней русский</div>
+      <div class="query">русский трансфер аэропорт Сидней</div>
+      <div class="query">русский магазин Сидней</div>
+      <div class="query">русские продукты Сидней</div>
+      <div class="query">где купить русские продукты Сидней</div>
+      <div class="query">русская школа Сидней</div>
+      <div class="query">русские школы Сидней</div>
+      <div class="query">школа на русском Сидней</div>
+      <div class="query">русскоязычные школы Сидней</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <h2>Часто задаваемые вопросы</h2>
+    <div class="faq-item">
+      <h3>Где найти русскоязычного врача или стоматолога в Сиднее?</h3>
+      <p>В Сиднее работают русскоязычные врачи общей практики и стоматологи. Например, доктор Галина Палачевская получила медицинское образование в Санкт-Петербурге и ведёт приём в Сиднее. Доктор Наталия Кот принимает в North Sydney и говорит на русском и украинском. Среди стоматологов известна доктор Елена Донец, которая управляет клиникой Bridge Street Dental Clinic в центре Сиднея с 2008 года и имеет российское образование.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Есть ли в Сиднее русскоязычные юристы и переводчики?</h3>
+      <p>Да, в Сиднее есть юристы, говорящие на русском языке. Vadym Malakhov ведёт практику MALAKHOFF & KOLOYAROFF LEGAL и специализируется на коммерческом и семейном праве. BlueLine Legal также предоставляет услуги русскоязычного юриста. Pavuk Legal консультирует по вопросам трансграничного права, включая Россию и Украину. Что касается переводчиков, в Сиднее работают сертифицированные переводчики с русского языка, в том числе при миграционных агентствах и юридических фирмах.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Где найти русского риелтора и аренду жилья в Сиднее?</h3>
+      <p>Русскоязычные риелторы и консультанты по недвижимости работают в Сиднее, помогая с арендой и покупкой жилья. Многие из них размещают объявления в русскоязычных сообществах и социальных сетях. Для поиска рекомендуется обращаться к местным русскоязычным группам в Facebook и Telegram, а также к миграционным агентствам, которые часто сотрудничают с риелторами.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Как найти помощь с банком, визой и миграционными документами в Сиднее на русском?</h3>
+      <p>В Сиднее несколько миграционных агентств предлагают консультации на русском языке. SydneyVisa специализируется на визах всех категорий и имеет русскоязычных консультантов. VisaEnvoy с офисом в Парраматте предоставляет услуги миграционного агента Надежды Здельник, которая говорит на русском. AU Visa также обслуживает клиентов на русском и украинском языках по всей Австралии, включая Сидней. По вопросам банковских счетов многие крупные банки Сиднея имеют русскоязычных сотрудников в отделениях с высокой долей иностранных клиентов.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Где купить русские продукты в Сиднее?</h3>
+      <p>В Сиднее есть несколько специализированных магазинов с русскими продуктами. Russkis Deli на 131 Bondi Road в Бонди предлагает европейские деликатесы и русские продукты. Stolichniy Minimart в торговом центре Eastlakes специализируется на российских, белорусских и украинских товарах, включая красную икру и квас. Babushkas в Darling Harbour предлагает русские сувениры, игрушки и традиционные изделия.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Есть ли в Сиднее русские школы и школы на русском языке?</h3>
+      <p>Да, в Сиднее работают несколько русских школ. St Alexander Nevsky Russian School, основанная в 1971 году, — одна из старейших и крупнейших в штате Новый Южный Уэльс, расположена в Конкорде на территории Concord High School. Central Russian School проводит занятия по субботам в Ultimo на Harris Street. Maroubra Russian School работает в La Perouse. Harmony Russian School of Sydney (Sydney Russian School) расположена в Bellevue Hill. Эти школы предлагают занятия по русскому языку, литературе, истории и культуре для детей от 3 до 18 лет.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Cities Links -->
+<section class="cities">
+  <div class="container">
+    <h2>Другие города Russian Friendly</h2>
+    <div class="cities-list">
+      <a href="https://russianfriendly.netlify.app/">Главная</a>
+      <a href="https://russianfriendly.netlify.app/melbourne">Мельбурн</a>
+      <a href="https://russianfriendly.netlify.app/brisbane">Брисбен</a>
+      <a href="https://russianfriendly.netlify.app/perth">Перт</a>
+      <a href="https://russianfriendly.netlify.app/adelaide">Аделаида</a>
+      <a href="https://russianfriendly.netlify.app/goldcoast">Голд-Кост</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Russian Friendly</h4>
+        <a href="https://russianfriendly.netlify.app/">Главная</a>
+        <a href="https://russianfriendly.netlify.app/about.html">About</a>
+        <a href="https://russianfriendly.netlify.app/contact.html">Contact</a>
+        <a href="https://russianfriendly.netlify.app/privacy-policy.html">Privacy Policy</a>
+      </div>
+      <div class="footer-col">
+        <h4>Сидней</h4>
+        <a href="#faq">FAQ</a>
+        <a href="https://t.me/RussianFriendlyFeedbackbot">Сообщить об ошибке</a>
+      </div>
+      <div class="footer-col">
+        <h4>Автор</h4>
+        <a href="https://kristinaperez.netlify.app/">Кристина Перез</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © Russian Friendly. Контакты найдены в открытых источниках. Информация предоставляется справочно.
+    </div>
+  </div>
+</footer>
+
+<script>
+// DATA — verified organizations from open sources
+const DATA = [
+  {
+    name: "Bridge Street Dental Clinic — Dr Elena Donets",
+    category: "dentist",
+    catLabel: "🦷 Стоматологи",
+    address: "Unit 102, Level 1, 4 Bridge Street, Sydney NSW 2000",
+    phone: "(02) 9247 5254",
+    lat: -33.8633,
+    lng: 151.2090,
+    website: "https://sydneycbd.dentist",
+    description: "Доктор Елена Донец получила образование в Санкт-Петербургском государственном университете и в University of Adelaide. Управляет клиникой с 2008 года."
+  },
+  {
+    name: "Art of Smiles — Dr Artur Shirokov",
+    category: "dentist",
+    catLabel: "🦷 Стоматологи",
+    address: "Canterbury / Alexandria, Sydney",
+    phone: "",
+    lat: -33.9115,
+    lng: 151.1945,
+    website: "https://artofsmiles.com.au",
+    description: "Доктор Артур Широков начал карьеру стоматолога в России, в 2018 году переехал в Сиднее."
+  },
+  {
+    name: "Dr Nataliya Kot — Qualitas Medical Practice",
+    category: "doctor",
+    catLabel: "👩‍⚕️ Врачи",
+    address: "North Sydney NSW 2060",
+    phone: "",
+    lat: -33.8330,
+    lng: 151.2070,
+    website: "https://www.hotdoc.com.au/medical-centres/north-sydney-NSW-2060/qualitas-medical-practice-north-sydney/doctors/dr-nataliya-kot-1",
+    description: "Доктор Наталия Кот говорит на украинском и русском. Специализация: здоровье женщин и детей, семейная медицина, косметическая медицина."
+  },
+  {
+    name: "Dr Natalie Torbolov",
+    category: "doctor",
+    catLabel: "👩‍⚕️ Врачи",
+    address: "Sydney NSW",
+    phone: "",
+    lat: -33.8688,
+    lng: 151.2093,
+    website: "https://www.myhealth.net.au/doctors/dr-natalie-torbolov/",
+    description: "Доктор Натали Торболов окончила медицинский факультет University of Sydney в 1997 году. Говорит на русском языке."
+  },
+  {
+    name: "Dr Galina Palachevskaia",
+    category: "doctor",
+    catLabel: "👩‍⚕️ Врачи",
+    address: "Sydney NSW",
+    phone: "",
+    lat: -33.8700,
+    lng: 151.2100,
+    website: "https://healthengine.com.au/doctor/nsw/sydney/dr-galina-palachevskaia/p45714",
+    description: "Доктор Галина Палачевская получила медицинское образование в Санкт-Петербурге. Работала врачом-терапевтом в России до переезда в Австралию."
+  },
+  {
+    name: "MALAKHOFF & KOLOYAROFF LEGAL — Vadym Malakhov",
+    category: "lawyer",
+    catLabel: "⚖️ Юристы",
+    address: "Sydney NSW",
+    phone: "",
+    lat: -33.8680,
+    lng: 151.2080,
+    website: "https://www.mklegal.com.au",
+    description: "Vadym Malakhov — русскоязычный австралийский юрист, допущенный к практике в Верховном суде Нового Южного Уэльса. Специализация: коммерческое право, семейное право, завещания и наследство, недвижимость, административное право."
+  },
+  {
+    name: "BlueLine Legal",
+    category: "lawyer",
+    catLabel: "⚖️ Юристы",
+    address: "Sydney NSW",
+    phone: "(02) 9664 3760",
+    lat: -33.8800,
+    lng: 151.2000,
+    website: "https://www.bluelinelegal.com.au",
+    description: "Русскоязычный юрист в Сиднее. Консультации для частных лиц и малого бизнеса."
+  },
+  {
+    name: "Pavuk Legal",
+    category: "lawyer",
+    catLabel: "⚖️ Юристы",
+    address: "Sydney NSW",
+    phone: "",
+    lat: -33.8650,
+    lng: 151.2050,
+    website: "https://www.pavuklegal.com",
+    description: "Юристы по трансграничному праву. Консультации по вопросам недвижимости, наследства и коммерческих сделок в России, Украине и Австралии."
+  },
+  {
+    name: "SydneyVisa",
+    category: "migration",
+    catLabel: "🛂 Визы / миграция",
+    address: "Sydney NSW",
+    phone: "",
+    lat: -33.8730,
+    lng: 151.1950,
+    website: "https://sydneyvisas.com",
+    description: "Миграционное агентство с поддержкой на русском языке. Помощь со студенческими, партнёрскими, туристическими и бизнес-визами."
+  },
+  {
+    name: "VisaEnvoy — Nadia Zdielnik",
+    category: "migration",
+    catLabel: "🛂 Визы / миграция",
+    address: "Level 14, 3 Parramatta Square, 153 Macquarie St, Parramatta NSW 2150",
+    phone: "(02) 9161 7253",
+    lat: -33.8150,
+    lng: 151.0030,
+    website: "https://visaenvoy.com",
+    description: "Надежда Здельник — зарегистрированный миграционный агент (MARN 1569520), говорит на русском и украинском. Специализация: skilled-визы, партнёрские визы, бизнес-визы."
+  },
+  {
+    name: "AU Visa",
+    category: "migration",
+    catLabel: "🛂 Визы / миграция",
+    address: "Sydney, Melbourne, Perth, Brisbane",
+    phone: "",
+    lat: -33.8680,
+    lng: 151.2100,
+    website: "https://auvisa.com.au",
+    description: "Миграционное агентство, обслуживающее клиентов на русском и украинском языках по всей Австралии."
+  },
+  {
+    name: "Russkis Deli",
+    category: "shop",
+    catLabel: "🛒 Русские магазины",
+    address: "131 Bondi Road, Bondi NSW 2026",
+    phone: "(02) 9387 6313",
+    lat: -33.8935,
+    lng: 151.2645,
+    website: "https://russkisdeli.com.au",
+    description: "Премиальный европейский деликатесный магазин в Бонди. Русские и восточноевропейские продукты, доставка по Сиднею."
+  },
+  {
+    name: "Stolichniy Minimart",
+    category: "shop",
+    catLabel: "🛒 Русские магазины",
+    address: "Shop 38, Eastlakes Shopping Centre, Evans Ave, Eastlakes NSW 2018",
+    phone: "",
+    lat: -33.9320,
+    lng: 151.2115,
+    website: "",
+    description: "Специализированный магазин российских, белорусских и украинских продуктов. Красная икра, квас, колбасы, молочные продукты."
+  },
+  {
+    name: "Babushkas",
+    category: "shop",
+    catLabel: "🛒 Русские магазины",
+    address: "Shop 313, Darling Harbour, Sydney NSW 2000",
+    phone: "",
+    lat: -33.8730,
+    lng: 151.2010,
+    website: "https://babushkas.com.au",
+    description: "Русские матрёшки, сувениры, игрушки, украшения и традиционные изделия ручной работы из России."
+  },
+  {
+    name: "St Alexander Nevsky Russian School",
+    category: "school",
+    catLabel: "🏫 Русские школы",
+    address: "3 Stanley St, Concord NSW 2134 (Concord High School)",
+    phone: "0405 551 342",
+    lat: -33.8575,
+    lng: 151.1025,
+    website: "https://www.russianschoolsydney.org.au",
+    description: "Основана в 1971 году. Одна из старейших и крупнейших русских школ в NSW. Около 190 учеников и 23 учителя. Занятия по субботам."
+  },
+  {
+    name: "Central Russian School",
+    category: "school",
+    catLabel: "🏫 Русские школы",
+    address: "579 Harris St, Ultimo NSW 2007",
+    phone: "(02) 8064 7434",
+    lat: -33.8800,
+    lng: 151.1980,
+    website: "https://centralrussianschool.org.au",
+    description: "Русская школа в Ultimo. Занятия по субботам с 13:30 до 17:00. Программы для детей от 4 до 18 лет."
+  },
+  {
+    name: "Maroubra Russian School",
+    category: "school",
+    catLabel: "🏫 Русские школы",
+    address: "La Perouse Public School, Yarra Rd, La Perouse NSW 2036",
+    phone: "02 9070 0764",
+    lat: -33.9885,
+    lng: 151.2330,
+    website: "https://www.russianschool.com.au",
+    description: "Русская школа в La Perouse. Основана в 1999 году. Обучение русскому языку и культуре."
+  },
+  {
+    name: "Harmony Russian School of Sydney",
+    category: "school",
+    catLabel: "🏫 Русские школы",
+    address: "Bellevue Hill Public School, 163A Victoria Rd, Bellevue Hill NSW 2023",
+    phone: "",
+    lat: -33.8790,
+    lng: 151.2580,
+    website: "",
+    description: "Sydney Russian School в Bellevue Hill. Занятия для детей от 3,5 до 14 лет. Русский язык, театр, искусство."
+  }
+];
+
+// Icons for categories
+const CAT_ICONS = {
+  dentist: "🦷",
+  doctor: "👩‍⚕️",
+  lawyer: "⚖️",
+  translator: "📄",
+  bank: "🏦",
+  migration: "🛂",
+  realestate: "🏠",
+  transfer: "🚕",
+  sim: "📱",
+  shop: "🛒",
+  school: "🏫"
+};
+
+// Init map
+const map = L.map('map').setView([-33.8688, 151.2093], 11);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+const markers = [];
+const catalogEl = document.getElementById('catalog');
+
+function createPopup(item) {
+  let html = '<strong>' + item.name + '</strong><br><em>' + item.catLabel + '</em><br>';
+  if (item.address) html += '📍 ' + item.address + '<br>';
+  if (item.phone) html += '📞 ' + item.phone + '<br>';
+  if (item.website) html += '<a href="' + item.website + '" target="_blank" rel="noopener">🌐 Сайт</a><br>';
+  if (item.description) html += '<small>' + item.description + '</small>';
+  return html;
+}
+
+function renderCatalog(filterCat) {
+  catalogEl.innerHTML = '';
+  DATA.forEach(function(item, idx) {
+    if (filterCat !== 'all' && item.category !== filterCat) return;
+    var card = document.createElement('div');
+    card.className = 'card';
+    var inner = '<div class="card-header"><div><h3>' + item.name + '</h3><span class="cat-label">' + item.catLabel + '</span></div></div>';
+    if (item.address) inner += '<p>📍 ' + item.address + '</p>';
+    if (item.phone) inner += '<p>📞 ' + item.phone + '</p>';
+    if (item.website) inner += '<p><a href="' + item.website + '" target="_blank" rel="noopener">🌐 ' + item.website + '</a></p>';
+    if (item.description) inner += '<p>' + item.description + '</p>';
+    card.innerHTML = inner;
+    card.addEventListener('click', function() {
+      map.setView([item.lat, item.lng], 16);
+      markers[idx].openPopup();
+      window.scrollTo({ top: document.querySelector('.map-section').offsetTop - 80, behavior: 'smooth' });
+    });
+    catalogEl.appendChild(card);
+  });
+}
+
+function renderMarkers(filterCat) {
+  markers.forEach(function(m) { map.removeLayer(m); });
+  markers.length = 0;
+  DATA.forEach(function(item, idx) {
+    if (filterCat !== 'all' && item.category !== filterCat) return;
+    var icon = L.divIcon({
+      className: 'custom-marker',
+      html: '<div style="font-size:24px;">' + (CAT_ICONS[item.category] || '📍') + '</div>',
+      iconSize: [30, 30],
+      iconAnchor: [15, 15]
+    });
+    var marker = L.marker([item.lat, item.lng], { icon: icon }).addTo(map);
+    marker.bindPopup(createPopup(item));
+    markers[idx] = marker;
+  });
+}
+
+// Initial render
+renderCatalog('all');
+renderMarkers('all');
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var cat = btn.dataset.cat;
+    renderCatalog(cat);
+    renderMarkers(cat);
+  });
+});
+</script>
+
+</body>
+</html>

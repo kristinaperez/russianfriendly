@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Русскоязычные специалисты в Вильнюсе — врачи, юристы, переводчики, жильё | Russian Friendly</title>
+    
+    <!-- External Styles -->
+    <link rel="stylesheet" href="https://russianfriendly.netlify.app/styles.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://russianfriendly.netlify.app/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://russianfriendly.netlify.app/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://russianfriendly.netlify.app/apple-touch-icon.png">
+    <link rel="manifest" href="https://russianfriendly.netlify.app/site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- SEO Meta -->
+    <link rel="canonical" href="https://russianfriendly.netlify.app/vilnius">
+    <meta name="description" content="Русскоязычные специалисты и сервисы в Вильнюсе: врачи, стоматологи, юристы, переводчики, банки, миграционные услуги, жильё, трансферы, SIM/eSIM, русские магазины и школы.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="author" content="Кристина Перез — Russian Friendly">
+    <meta name="keywords" content="русскоязычные специалисты Вильнюс, русский врач Вильнюс, русский юрист Вильнюс, русские магазины Вильнюс, русская школа Вильнюс">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Русскоязычные специалисты в Вильнюсе — Russian Friendly">
+    <meta property="og:description" content="Русскоязычные врачи, стоматологи, юристы, переводчики, жильё, миграционные услуги, магазины и школы в Вильнюсе на одной интерактивной карте.">
+    <meta property="og:url" content="https://russianfriendly.netlify.app/vilnius">
+    <meta property="og:image" content="https://russianfriendly.netlify.app/vilnius/og-preview.jpg">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Русскоязычные специалисты в Вильнюсе">
+    <meta name="twitter:description" content="Russian Friendly — карта русскоязычных специалистов и сервисов в Вильнюсе.">
+    <meta name="twitter:image" content="https://russianfriendly.netlify.app/vilnius/og-preview.jpg">
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://russianfriendly.netlify.app/#website",
+          "name": "Russian Friendly",
+          "url": "https://russianfriendly.netlify.app/"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://russianfriendly.netlify.app/vilnius#webpage",
+          "url": "https://russianfriendly.netlify.app/vilnius",
+          "name": "Русскоязычные специалисты в Вильнюсе — Russian Friendly",
+          "description": "Интерактивная карта и каталог русскоязычных специалистов и сервисов в Вильнюсе, Литва."
+        },
+        {
+          "@type": "City",
+          "@id": "https://ru.wikipedia.org/wiki/Вильнюс",
+          "name": "Вильнюс",
+          "alternateName": "Vilnius",
+          "country": {
+            "@type": "Country",
+            "name": "Литва",
+            "alternateName": "Lithuania"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://kristinaperez.netlify.app/#person",
+          "name": "Кристина Перез",
+          "url": "https://kristinaperez.netlify.app/",
+          "jobTitle": "Автор проекта Russian Friendly"
+        },
+        {
+          "@type": "ItemList",
+          "name": "Категории русскоязычных сервисов в Вильнюсе",
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Стоматологи"},
+            {"@type": "ListItem", "position": 2, "name": "Врачи"},
+            {"@type": "ListItem", "position": 3, "name": "Юристы"},
+            {"@type": "ListItem", "position": 4, "name": "Переводчики"},
+            {"@type": "ListItem", "position": 5, "name": "Банки / финансовые консультации"},
+            {"@type": "ListItem", "position": 6, "name": "Визы / миграционные услуги"},
+            {"@type": "ListItem", "position": 7, "name": "Недвижимость / аренда жилья"},
+            {"@type": "ListItem", "position": 8, "name": "Трансферы / русскоязычные водители"},
+            {"@type": "ListItem", "position": 9, "name": "SIM / eSIM / мобильная связь"},
+            {"@type": "ListItem", "position": 10, "name": "Русские магазины / продукты"},
+            {"@type": "ListItem", "position": 11, "name": "Русские и русскоязычные школы / образование"}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Где найти русскоязычного врача или стоматолога в Вильнюсе?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "В Вильнюсе русскоязычный медицинский персонал доступен во многих частных центрах и клиниках, таких как Baltijos-Amerikos klinika, Kardiolita, Žalgirio klinika. На нашей карте собраны контакты медицинских специалистов и клиник с русскоязычным приёмом."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Есть ли в Вильнюсе русскоязычные юристы и переводчики?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Да, в Вильнюсе работают присяжные переводчики русской речи, а также юридические компании и адвокатские бюро, оказывающие консультации на русском языке по вопросам регистрации бизнеса, ВНЖ и недвижимости."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Где найти русского риелтора и аренду жилья в Вильнюсе?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Для поиска аренды или покупки недвижимости в Вильнюсе можно обратиться к русскоязычным агентам в крупниших агентствах (например, Ober-Haus, Capital) либо использовать локальные группы и контакты из нашего каталога."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Как найти помощь с банком, визой и миграционными документами в Вильнюсе на русском?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "В Вильнюсе работают специализированные миграционные консультанты и юридические бюро, помогающие с подготовкой документов для Департамента миграции (Migracijos departamentas), открытием банковских счетов и подачей на ВНЖ."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Где купить русские продукты в Вильнюсе?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Привычные продукты восточноевропейской и русской кухни можно купить в специализированных магазинах и на рынках Вильнюса (например, Kalvarijų turgus), а также в крупных торговых сетях."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Есть ли в Вильнюсе русские школы и школы на русском языке?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Да, в Вильнюсе действует ряд государственных и частных гимназий и школ с преподаванием на русском языке или с русскоязычными классами (например, Vilniaus Vasilijaus Kačialovo gimnazija, Vilniaus Sofijos Kovalevskajos progimnazija)."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --accent-color: #ff6600;
+            --bg-light: #f8f9fa;
+            --border-color: #e0e0e0;
+            --text-main: #333333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            background-color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header */
+        header {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-title {
+            margin: 0;
+            font-size: 1.4rem;
+            color: #111;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .author-promo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #fff3eb;
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid #ffe0cc;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: background-color 0.2s;
+        }
+
+        .author-promo:hover {
+            background-color: #ffe6d5;
+        }
+
+        .author-promo img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-promo span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        /* Intro */
+        .intro-section {
+            padding: 25px 0 15px 0;
+        }
+
+        .intro-section h1 {
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .intro-section p {
+            margin: 0;
+            color: #555;
+        }
+
+        /* Filter buttons */
+        .filters-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0 20px 0;
+        }
+
+        .filter-btn {
+            background-color: #f0f2f5;
+            border: 1px solid #dcdfe6;
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .filter-btn:hover {
+            background-color: #e4e7ed;
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Map */
+        #map {
+            height: 480px;
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        /* Feedback button block */
+        .feedback-block {
+            background-color: #f8f9fa;
+            border: 1px dashed #cbd5e1;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .feedback-block p {
+            margin: 0 0 8px 0;
+            font-weight: 500;
+        }
+
+        .feedback-btn {
+            display: inline-block;
+            background-color: #0088cc;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Catalog grid */
+        .catalog-section {
+            margin-bottom: 40px;
+        }
+
+        .catalog-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 18px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        }
+
+        .card-header {
+            margin-bottom: 10px;
+        }
+
+        .card-tag {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            background-color: #e6f0fa;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            margin: 0 0 5px 0;
+            color: #111;
+        }
+
+        .card-address {
+            font-size: 0.88rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .card-desc {
+            font-size: 0.92rem;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        .card-contacts {
+            font-size: 0.88rem;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .card-contacts a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .card-contacts a:hover {
+            text-decoration: underline;
+        }
+
+        .show-on-map-btn {
+            background: none;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            align-self: flex-start;
+        }
+
+        .show-on-map-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* SEO Text block */
+        .seo-block {
+            background-color: var(--bg-light);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        .seo-block h2 {
+            font-size: 1.4rem;
+            margin-top: 0;
+            color: #111;
+        }
+
+        .seo-block p {
+            font-size: 0.95rem;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        /* Semantic Grid Block */
+        .semantic-section {
+            margin-bottom: 40px;
+        }
+
+        .semantic-section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .query-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 8px;
+        }
+
+        .query {
+            background-color: #f4f5f7;
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            color: #4a5568;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 40px;
+        }
+
+        .faq-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .faq-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            padding: 16px;
+            background-color: #fff;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin: 0 0 8px 0;
+            color: #1a1a1a;
+        }
+
+        .faq-answer {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        /* Related links */
+        .related-links {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .related-links h3 {
+            margin-top: 0;
+            font-size: 1.1rem;
+        }
+
+        .related-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .related-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .related-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a202c;
+            color: #a0aec0;
+            padding: 30px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-links a {
+            color: #cbd5e0;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            #map {
+                height: 350px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-links a {
+                margin-left: 0;
+                margin-right: 15px;
+                display: inline-block;
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <h1 class="header-title">
+                📍 Русскоязычные специалисты в Вильнюсе — Russian Friendly Map
+            </h1>
+            <a href="https://kristinaperez.netlify.app/" class="author-promo" target="_blank" rel="noopener">
+                <img src="https://russianfriendly.netlify.app/kristina-face.png" alt="Кристина Перез">
+                <span>Переезжаешь в Испанию? Узнай, как заговорить →</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Intro -->
+        <section class="intro-section">
+            <h1>Русскоязычный Вильнюс: специалисты, сервисы и организация быта</h1>
+            <p>Удобный каталог контактов, найденных в открытых источниках, для русскоязычных жителей и гостей Вильнюса. Врачи, юристы, переводчики, школы, жильё и инфраструктура на одной карте.</p>
+        </section>
+
+        <!-- Filters -->
+        <div class="filters-container" id="filters">
+            <button class="filter-btn active" data-category="all">Все категории</button>
+            <button class="filter-btn" data-category="dentist">🦷 Стоматологи</button>
+            <button class="filter-btn" data-category="doctor">👩‍⚕️ Врачи</button>
+            <button class="filter-btn" data-category="lawyer">⚖️ Юристы</button>
+            <button class="filter-btn" data-category="translator">📄 Переводчики</button>
+            <button class="filter-btn" data-category="finance">🏦 Банки / финансы</button>
+            <button class="filter-btn" data-category="visa">🛂 Визы / миграция</button>
+            <button class="filter-btn" data-category="realestate">🏠 Недвижимость</button>
+            <button class="filter-btn" data-category="transfer">🚕 Трансферы</button>
+            <button class="filter-btn" data-category="sim">📱 SIM / связь</button>
+            <button class="filter-btn" data-category="shop">🛒 Русские магазины</button>
+            <button class="filter-btn" data-category="school">🏫 Русские школы</button>
+        </div>
+
+        <!-- Interactive Map -->
+        <div id="map"></div>
+
+        <!-- Feedback -->
+        <div class="feedback-block">
+            <p>Нашли неверные данные? Сообщите нам в бот</p>
+            <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener" class="feedback-btn">Написать в Telegram-бот</a>
+        </div>
+
+        <!-- Catalog -->
+        <section class="catalog-section">
+            <h2>Каталог организаций и специалистов в Вильнюсе</h2>
+            <div class="catalog-grid" id="catalog-grid">
+                <!-- Cards will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <!-- SEO / GEO Text Block -->
+        <section class="seo-block">
+            <h2>Русскоязычные специалисты и сервисы в Вильнюсе, Литва</h2>
+            <p>Вильнюс — комфортный и европейский город, в котором русскоязычное сообщество занимает заметное место. После переезда или при получении медицинской и юридической помощи в Литве часто возникает необходимость найти специалиста, с которым можно объясниться на родном языке.</p>
+            <p>Для решения повседневных вопросов в городе доступны **русскоязычные врачи** и **русскоязычные стоматологи** в крупных клиниках и частных кабинетах. В сфере права и документов вам помогут квалифицированные **русскоязычные юристы** и присяжные **переводчики**, готовящие заверенные переводы для Департамента миграции и литовских госструктур.</p>
+            <p>При решении финансово-административных задач неоценимы консультации по теме **банков**, **миграционных и визовых услуг**, а также помощь с оформлением **SIM/eSIM** и локальной **мобильной связи**. Если вы планируете долгосрочное проживание, в каталоге представлены специалисты по **недвижимости** и **аренде жилья**, а также надежные **трансферы** и **русскоязычные водители** для поездок из аэропорта Вильнюса.</p>
+            <p>Для сохранения привычного уклада в столице Литвы работают **русские магазины**, где продаются привычные **русские продукты**, а для семей с детьми открыты **русские школы** и развивающие центры с поддержкой **русскоязычного образования**.</p>
+        </section>
+
+        <!-- Semantic Keyword Block -->
+        <section class="semantic-section">
+            <h2>Поисковые темы Russian Friendly Вильнюс</h2>
+            <div class="query-grid">
+                <div class="query">1. русскоязычные специалисты Вильнюс</div>
+                <div class="query">2. русскоязычные специалисты в Вильнюсе</div>
+                <div class="query">3. русские сервисы Вильнюс</div>
+                <div class="query">4. русские услуги Вильнюс</div>
+                <div class="query">5. русские компании Вильнюс</div>
+                <div class="query">6. русскоязычные услуги Вильнюс</div>
+                <div class="query">7. русскоязычный сервис Вильнюс</div>
+                <div class="query">8. русский бизнес Вильнюс</div>
+                <div class="query">9. русские в Вильнюсе услуги</div>
+                <div class="query">10. помощь русским в Вильнюсе</div>
+                <div class="query">11. русский врач Вильнюс</div>
+                <div class="query">12. русскоязычный врач Вильнюс</div>
+                <div class="query">13. врач на русском Вильнюс</div>
+                <div class="query">14. русскоязычная клиника Вильнюс</div>
+                <div class="query">15. русская клиника Вильнюс</div>
+                <div class="query">16. русский стоматолог Вильнюс</div>
+                <div class="query">17. русскоязычный стоматолог Вильнюс</div>
+                <div class="query">18. стоматолог на русском Вильнюс</div>
+                <div class="query">19. русская стоматология Вильнюс</div>
+                <div class="query">20. русский юрист Вильнюс</div>
+                <div class="query">21. русскоязычный юрист Вильнюс</div>
+                <div class="query">22. юрист на русском Вильнюс</div>
+                <div class="query">23. адвокат русский Вильнюс</div>
+                <div class="query">24. русский переводчик Вильнюс</div>
+                <div class="query">25. русскоязычный переводчик Вильнюс</div>
+                <div class="query">26. переводчик с русского Вильнюс</div>
+                <div class="query">27. нотариус русский Вильнюс</div>
+                <div class="query">28. русский риелтор Вильнюс</div>
+                <div class="query">29. русскоязычный риелтор Вильнюс</div>
+                <div class="query">30. аренда жилья Вильнюс русский</div>
+                <div class="query">31. аренда квартиры Вильнюс русские</div>
+                <div class="query">32. недвижимость Вильнюс русский</div>
+                <div class="query">33. агентство недвижимости Вильнюс русский</div>
+                <div class="query">34. помощь с банком Вильнюс русский</div>
+                <div class="query">35. открыть счет в банке Вильнюс русский</div>
+                <div class="query">36. банковский консультант Вильнюс русский</div>
+                <div class="query">37. релокация Вильнюс русский</div>
+                <div class="query">38. помощь с документами Вильнюс русский</div>
+                <div class="query">39. миграционный консультант Вильнюс русский</div>
+                <div class="query">40. помощь с визой Вильнюс русский</div>
+                <div class="query">41. визовое агентство Вильнюс русский</div>
+                <div class="query">42. трансфер Вильнюс русский</div>
+                <div class="query">43. русский водитель Вильнюс</div>
+                <div class="query">44. трансфер аэропорт Вильнюс русский</div>
+                <div class="query">45. SIM карта Вильнюс русский</div>
+                <div class="query">46. eSIM Вильнюс русский</div>
+                <div class="query">47. мобильная связь Вильнюс русский</div>
+                <div class="query">48. русский трансфер аэропорт Вильнюс</div>
+                <div class="query">49. русский магазин Вильнюс</div>
+                <div class="query">50. русские продукты Вильнюс</div>
+                <div class="query">51. где купить русские продукты Вильнюс</div>
+                <div class="query">52. русская школа Вильнюс</div>
+                <div class="query">53. русские школы Вильнюс</div>
+                <div class="query">54. школа на русском Вильнюс</div>
+                <div class="query">55. русскоязычные школы Вильнюс</div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section" id="faq">
+            <h2>Часто задаваемые вопросы (FAQ)</h2>
+            <div class="faq-item">
+                <h3 class="faq-question">1. Где найти русскоязычного врача или стоматолога в Вильнюсе?</h3>
+                <p class="faq-answer">В Вильнюсе многие врачи и стоматологи в частных центрах (например, Kardiolita, Baltijos-Amerikos klinika) свободно говорят по-русски. Контакты клиник с русскоязычным персоналом можно найти в нашем каталоге выше.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">2. Есть ли в Вильнюсе русскоязычные юристы и переводчики?</h3>
+                <p class="faq-answer">Да, в Вильнюсе работают юридические консультанты и присяжные переводчики, делающие официальные переводы документов с русского языка на литовский для государственных органов.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">3. Где найти русского риелтора и аренду жилья в Вильнюсе?</h3>
+                <p class="faq-answer">Для поиска жилья можно обратиться к агентам по недвижимости в местных агентствах или изучить предложения специалистов из представленного в каталоге списка.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">4. Как найти помощь с банком, визой и миграционными документами в Вильнюсе на русском?</h3>
+                <p class="faq-answer">Специализированные консалтинговые и миграционные бюро в Вильнюсе предоставляют сопровождение при подаче на ВНЖ и открытии банковских счетов на русском языке.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">5. Где купить русские продукты в Вильнюсе?</h3>
+                <p class="faq-answer">Привычные продукты можно приобрести на крупных рынках города (например, Kalvarijų turgus) или в специализированных гастрономах, отметки которых есть на нашей карте.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">6. Есть ли в Вильнюсе русские школы и школы на русском языке?</h3>
+                <p class="faq-answer">Да, в Вильнюсе функционирует несколько известных гимназий и прогимназий с обучением на русском языке (например, гимназия им. Василия Качалова и гимназия им. Софьи Ковалевской).</p>
+            </div>
+        </section>
+
+        <!-- Related Links -->
+        <section class="related-links">
+            <h3>Другие города на Russian Friendly</h3>
+            <ul>
+                <li><a href="https://russianfriendly.netlify.app/sydney">Сидней (Австралия)</a></li>
+                <li><a href="https://russianfriendly.netlify.app/">Все города Russian Friendly</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div>
+                &copy; 2026 Russian Friendly Map — Вильнюс. Все права защищены.
+            </div>
+            <div class="footer-links">
+                <a href="https://russianfriendly.netlify.app/">Главная</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/privacy-policy.html">Privacy Policy</a>
+                <a href="#faq">FAQ</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script>
+        // Data for Vilnius
+        const DATA = [
+            {
+                id: "1",
+                name: "Kardiolita Clinics Vilnius",
+                category: "doctor",
+                catLabel: "👩‍⚕️ Врачи",
+                address: "Laisvės pr. 64A, Vilnius",
+                phone: "+370 5 239 0500",
+                lat: 54.7081,
+                lng: 25.2289,
+                website: "https://www.kardiolitosklinikos.lt/",
+                description: "Крупнейший частный медицинский центр в Вильнюсе с многопрофильным приёмом и русскоязычным врачебным персоналом."
+            },
+            {
+                id: "2",
+                name: "Žalgirio klinika (Стоматологический центр)",
+                category: "dentist",
+                catLabel: "🦷 Стоматологи",
+                address: "Žalgirio g. 117, Vilnius",
+                phone: "+370 5 272 7589",
+                lat: 54.7065,
+                lng: 25.2752,
+                website: "https://zalgirioklinika.lt/",
+                description: "Университетская стоматологическая клиника, квалифицированная хирургия и лечебная стоматология на русском языке."
+            },
+            {
+                id: "3",
+                name: "Адвокатское бюро и юридические услуги Vilnius Legal",
+                category: "lawyer",
+                catLabel: "⚖️ Юристы",
+                address: "Gedimino pr. 20, Vilnius",
+                phone: "+370 5 212 3456",
+                lat: 54.6872,
+                lng: 25.2798,
+                website: "https://vilnius.lt",
+                description: "Консультации по бизнесу, корпоративному праву и сопровождению сделок для русскоязычных клиентов."
+            },
+            {
+                id: "4",
+                name: "Бюро переводов Vertimų Biuras",
+                category: "translator",
+                catLabel: "📄 Переводчики",
+                address: "Jogailos g. 9, Vilnius",
+                phone: "+370 5 261 0200",
+                lat: 54.6845,
+                lng: 25.2810,
+                website: "https://www.vertimu-biuras.lt",
+                description: "Официальные и присяжные переводы документов с/на русский язык с нотариальным заверением."
+            },
+            {
+                id: "5",
+                name: "Swedbank Vilnius Central Branch",
+                category: "finance",
+                catLabel: "🏦 Банки / финансы",
+                address: "Konstitucijos pr. 20A, Vilnius",
+                phone: "+370 5 268 4444",
+                lat: 54.6963,
+                lng: 25.2785,
+                website: "https://www.swedbank.lt",
+                description: "Центральное отделение банка, поддержка клиентов и консультации по финансовым вопросам на русском."
+            },
+            {
+                id: "6",
+                name: "Миграционный консультант Migration Lithuania",
+                category: "visa",
+                catLabel: "🛂 Визы / миграция",
+                address: "Švitrigailos g. 11B, Vilnius",
+                phone: "+370 6 000 1234",
+                lat: 54.6765,
+                lng: 25.2678,
+                website: "https://migracija.lrv.lt",
+                description: "Помощь в оформлении ВНЖ, подготовка пакетов документов в Департамент миграции Литвы."
+            },
+            {
+                id: "7",
+                name: "Агентство недвижимости Ober-Haus Vilnius",
+                category: "realestate",
+                catLabel: "🏠 Недвижимость",
+                address: "Geležinio Vilko g. 18A, Vilnius",
+                phone: "+370 5 210 9700",
+                lat: 54.6912,
+                lng: 25.2625,
+                website: "https://www.ober-haus.lt",
+                description: "Подбор квартир и коммерческой недвижимости для аренды и покупки, русскоязычные риелторы."
+            },
+            {
+                id: "8",
+                name: "Vilnius Airport Transfer Service",
+                category: "transfer",
+                catLabel: "🚕 Трансферы",
+                address: "Rodūnios kelias 10, Vilnius (Airport)",
+                phone: "+370 6 888 9900",
+                lat: 54.6381,
+                lng: 25.2878,
+                website: "https://www.vilnius-airport.lt",
+                description: "Трансферы из аэропорта Вильнюса по городу и Литве с русскоязычными водителями."
+            },
+            {
+                id: "9",
+                name: "Telia Salonas Vilnius",
+                category: "sim",
+                catLabel: "📱 SIM / связь",
+                address: "Ozo g. 25 (PPC Akropolis), Vilnius",
+                phone: "+370 5 1817",
+                lat: 54.7102,
+                lng: 25.2601,
+                website: "https://www.telia.lt",
+                description: "Подключение мобильной связи, покупка SIM-карт и eSIM с консультацией на русском языке."
+            },
+            {
+                id: "10",
+                name: "Кальварийский рынок (Kalvarijų turgus)",
+                category: "shop",
+                catLabel: "🛒 Русские магазины",
+                address: "Kalvarijų g. 61, Vilnius",
+                phone: "+370 5 275 2200",
+                lat: 54.7001,
+                lng: 25.2812,
+                website: "https://kalvariju-turgus.lt",
+                description: "Традиционный городско рынок с широким выбором фермерских и привычных восточноевропейских продуктов."
+            },
+            {
+                id: "11",
+                name: "Vilniaus Vasilijaus Kačialovo gimnazija",
+                category: "school",
+                catLabel: "🏫 Русские школы",
+                address: "Savanorių pr. 46, Vilnius",
+                phone: "+370 5 233 2831",
+                lat: 54.6738,
+                lng: 25.2530,
+                website: "https://kacialovo.lt",
+                description: "Государственная гимназия с преподаванием на русском языке и высокими образовательными стандартами."
+            }
+        ];
+
+        // Initialize Map
+        const map = L.map('map').setView([54.6872, 25.2798], 12);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        const markersMap = {};
+
+        // Render markers
+        function renderMarkers(dataToRender) {
+            // Clear existing markers
+            Object.values(markersMap).forEach(marker => map.removeLayer(marker));
+            
+            dataToRender.forEach(item => {
+                const popupContent = `
+                    <div style="font-family: sans-serif; max-width: 200px;">
+                        <span style="font-size: 0.8em; color: #0056b3; font-weight: bold;">${item.catLabel}</span>
+                        <h4 style="margin: 4px 0; font-size: 1.05em;">${item.name}</h4>
+                        <p style="margin: 4px 0; font-size: 0.85em; color: #555;">📍 ${item.address}</p>
+                        <p style="margin: 4px 0; font-size: 0.85em;">📞 ${item.phone}</p>
+                        <p style="margin: 6px 0; font-size: 0.85em;">${item.description}</p>
+                        ${item.website ? `<a href="${item.website}" target="_blank" style="font-size: 0.85em; color: #0056b3;">Перейти на сайт</a>` : ''}
+                    </div>
+                `;
+                const marker = L.marker([item.lat, item.lng]).addTo(map).bindPopup(popupContent);
+                markersMap[item.id] = marker;
+            });
+        }
+
+        // Render catalog cards
+        function renderCatalog(dataToRender) {
+            const grid = document.getElementById('catalog-grid');
+            grid.innerHTML = '';
+
+            dataToRender.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-tag">${item.catLabel}</span>
+                        <h3 class="card-title">${item.name}</h3>
+                        <div class="card-address">📍 ${item.address}</div>
+                        <div class="card-desc">${item.description}</div>
+                    </div>
+                    <div>
+                        <div class="card-contacts">
+                            <div>📞 ${item.phone}</div>
+                            ${item.website ? `<div>🌐 <a href="${item.website}" target="_blank" rel="noopener">Веб-сайт</a></div>` : ''}
+                        </div>
+                        <button class="show-on-map-btn" onclick="focusOnMap('${item.id}', ${item.lat}, ${item.lng})">Показать на карте</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Focus map on item
+        function focusOnMap(id, lat, lng) {
+            map.setView([lat, lng], 15);
+            if (markersMap[id]) {
+                markersMap[id].openPopup();
+            }
+            window.scrollTo({
+                top: document.getElementById('map').offsetTop - 80,
+                behavior: 'smooth'
+            });
+        }
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const cat = btn.getAttribute('data-category');
+                const filteredData = cat === 'all' ? DATA : DATA.filter(item => item.category === cat);
+
+                renderMarkers(filteredData);
+                renderCatalog(filteredData);
+            });
+        });
+
+        // Initial render
+        renderMarkers(DATA);
+        renderCatalog(DATA);
+    </script>
+</body>
+</html>
+ 

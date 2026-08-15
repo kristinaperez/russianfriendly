@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Русскоязычные специалисты в Валенсии — врачи, юристы, переводчики, жильё | Russian Friendly</title>
+
+<link rel="canonical" href="https://russianfriendly.netlify.app/valencia">
+
+<meta name="description" content="Русскоязычные специалисты и сервисы в Валенсии: врачи, стоматологи, юристы, переводчики, банки, миграционные услуги, жильё, трансферы, SIM/eSIM, русские магазины и школы.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Кристина Перез — Russian Friendly">
+<meta name="keywords" content="русскоязычные специалисты Валенсия, русский врач Валенсия, русский стоматолог Валенсия, русский юрист Валенсия, переводчик Валенсия, русский риелтор Валенсия, аренда жилья Валенсия, русские магазины Валенсия, русская школа Валенсия, трансфер Валенсия">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Русскоязычные специалисты в Валенсии — Russian Friendly">
+<meta property="og:description" content="Русскоязычные врачи, стоматологи, юристы, переводчики, жильё, миграционные услуги, магазины и школы в Валенсии на одной интерактивной карте.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/valencia">
+<meta property="og:image" content="https://russianfriendly.netlify.app/valencia/og-preview.jpg">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Валенсии">
+<meta name="twitter:description" content="Russian Friendly — карта русскоязычных специалистов и сервисов в Валенсии.">
+<meta name="twitter:image" content="https://russianfriendly.netlify.app/valencia/og-preview.jpg">
+
+<link rel="stylesheet" href="https://russianfriendly.netlify.app/styles.css">
+
+<link rel="icon" type="image/png" sizes="32x32" href="https://russianfriendly.netlify.app/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://russianfriendly.netlify.app/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://russianfriendly.netlify.app/apple-touch-icon.png">
+<link rel="manifest" href="https://russianfriendly.netlify.app/site.webmanifest">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<style>
+:root{--accent:#ff6600;--text:#1a1a1a;--bg:#f7f7f7;--card:#fff;--border:#e0e0e0;--map-h:500px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.6}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1200px;margin:0 auto;padding:0 16px}
+header{background:var(--card);border-bottom:1px solid var(--border);padding:16px 0;position:sticky;top:0;z-index:1000}
+.header-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.header-title{font-size:1.35rem;font-weight:700;display:flex;align-items:center;gap:8px}
+.promo-block{display:flex;align-items:center;gap:10px;background:#fff5eb;border:1px solid #ffd4b3;border-radius:8px;padding:8px 14px;font-size:.85rem;max-width:340px}
+.promo-block img{width:36px;height:36px;border-radius:50%;object-fit:cover}
+.promo-block a{color:var(--accent);font-weight:600}
+.intro{padding:28px 0 16px}
+.intro h1{font-size:1.6rem;margin-bottom:8px}
+.intro p{color:#444;max-width:780px}
+.filters{padding:16px 0;display:flex;flex-wrap:wrap;gap:8px}
+.filter-btn{border:1px solid var(--border);background:var(--card);padding:6px 14px;border-radius:20px;cursor:pointer;font-size:.9rem;transition:.15s}
+.filter-btn:hover,.filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.map-wrap{padding:8px 0 20px}
+#map{height:var(--map-h);width:100%;border-radius:12px;border:1px solid var(--border);z-index:1}
+.feedback{text-align:center;padding:12px 0 24px;font-size:.95rem;color:#555}
+.catalog{padding:24px 0}
+.catalog h2{font-size:1.4rem;margin-bottom:16px}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;transition:.15s}
+.card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.card-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.card-icon{font-size:1.4rem}
+.card h3{font-size:1.05rem;margin-bottom:4px}
+.card .cat-label{font-size:.8rem;color:#666;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
+.card p{font-size:.9rem;color:#444;margin-bottom:4px}
+.card .meta{font-size:.85rem;color:#666;margin-top:8px}
+.card .meta a{color:var(--accent)}
+.seo-block{padding:28px 0;background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.seo-block h2{font-size:1.35rem;margin-bottom:12px}
+.seo-block p{margin-bottom:12px;color:#444}
+.semantic{padding:28px 0}
+.semantic h2{font-size:1.35rem;margin-bottom:16px}
+.query-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.query{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:.9rem;text-align:center;color:#333}
+.faq{padding:28px 0}
+.faq h2{font-size:1.35rem;margin-bottom:16px}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden}
+.faq-q{padding:14px 16px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-a{padding:0 16px 14px;color:#444;font-size:.95rem;display:none}
+.faq-item.open .faq-a{display:block}
+.faq-toggle{font-size:1.2rem;color:#888}
+.cities{padding:24px 0;background:var(--card);border-top:1px solid var(--border)}
+.cities h3{font-size:1.1rem;margin-bottom:10px}
+.cities-list{display:flex;flex-wrap:wrap;gap:10px}
+.cities-list a{background:#f0f0f0;padding:6px 12px;border-radius:6px;font-size:.9rem}
+footer{padding:24px 0;text-align:center;font-size:.85rem;color:#777;border-top:1px solid var(--border);margin-top:12px}
+footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-bottom:10px}
+.author-promo{display:flex;align-items:center;gap:12px;background:#fff5eb;border:1px solid #ffd4b3;border-radius:10px;padding:14px 16px;margin:20px 0;max-width:600px}
+.author-promo img{width:48px;height:48px;border-radius:50%;object-fit:cover}
+.author-promo a{color:var(--accent);font-weight:600}
+@media(max-width:640px){
+  .header-title{font-size:1.1rem}
+  .promo-block{max-width:100%;font-size:.8rem}
+  #map{--map-h:360px}
+  .cat-grid{grid-template-columns:1fr}
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {"@type": "WebSite", "name": "Russian Friendly", "url": "https://russianfriendly.netlify.app/"},
+    {"@type": "WebPage", "name": "Русскоязычные специалисты в Валенсии — Russian Friendly", "url": "https://russianfriendly.netlify.app/valencia", "description": "Интерактивная карта и каталог русскоязычных специалистов и сервисов в Валенсии, Испания."},
+    {"@type": "City", "name": "Валенсия", "alternateName": "Valencia", "country": "Spain"},
+    {"@type": "Person", "name": "Кристина Перез", "url": "https://kristinaperez.netlify.app/", "jobTitle": "Автор проекта Russian Friendly"},
+    {"@type": "ItemList", "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Стоматологи"},
+      {"@type": "ListItem", "position": 2, "name": "Врачи"},
+      {"@type": "ListItem", "position": 3, "name": "Юристы"},
+      {"@type": "ListItem", "position": 4, "name": "Переводчики"},
+      {"@type": "ListItem", "position": 5, "name": "Банки / финансовые консультации"},
+      {"@type": "ListItem", "position": 6, "name": "Визы / миграционные услуги"},
+      {"@type": "ListItem", "position": 7, "name": "Недвижимость / аренда жилья / риелторы"},
+      {"@type": "ListItem", "position": 8, "name": "Трансферы / русскоязычные водители"},
+      {"@type": "ListItem", "position": 9, "name": "SIM / eSIM / мобильная связь"},
+      {"@type": "ListItem", "position": 10, "name": "Русские магазины / продукты"},
+      {"@type": "ListItem", "position": 11, "name": "Русские и русскоязычные школы / образование"}
+    ]},
+    {"@type": "FAQPage", "mainEntity": [
+      {"@type": "Question", "name": "Где найти русскоязычного врача или стоматолога в Валенсии?", "acceptedAnswer": {"@type": "Answer", "text": "В Валенсии работают русскоязычные терапевты, педиатры, гинекологи и стоматологи. Например, терапевт Олег Коржиков (Valintermed), гинеколог Дарья Дуденко (Hospital Vithas), стоматолог Кристина Сулиган (Dental Clinic Sulyhan) и клиника Lubens в районе Русафа. Контакты и адреса найдены в открытых источниках и представлены в каталоге Russian Friendly."}},
+      {"@type": "Question", "name": "Есть ли в Валенсии русскоязычные юристы и переводчики?", "acceptedAnswer": {"@type": "Answer", "text": "Да, в Валенсии есть русскоязычные адвокаты и переводчики. Среди них — Елена Бастрыкина (зарегистрированный адвокат коллегии Валенсии), Елена Капралова (иммиграция и инвестиции), Виктория Малькова, юридическая компания Аврора. Переводческие услуги оказывают, в частности, специалисты через платформу Lingohaus."}},
+      {"@type": "Question", "name": "Где найти русского риелтора и аренду жилья в Валенсии?", "acceptedAnswer": {"@type": "Answer", "text": "Русскоязычные агентства недвижимости в Валенсии: Inmo Rusa (специализируется на продаже и аренде, в том числе залоговой недвижимости от банков), Valencia Rusa (работает с 2006 года, аккредитовано Генеральным консульством Испании в Москве). Контакты найдены в открытых источниках."}},
+      {"@type": "Question", "name": "Как найти помощь с банком, визой и миграционными документами в Валенсии на русском?", "acceptedAnswer": {"@type": "Answer", "text": "Миграционные и визовые вопросы в Валенсии на русском языке помогают решать юристы Елена Капралова, Юлия Мазурова и компания Аврора. С банковскими вопросами — агентства недвижимости часто сопровождают клиентов при открытии счёта. eSIM и SIM-карты с русскоязычной поддержкой доступны через сервисы Yesim, Drimsim и Airalo."}},
+      {"@type": "Question", "name": "Где купить русские продукты в Валенсии?", "acceptedAnswer": {"@type": "Answer", "text": "В Валенсии работает несколько русских и восточноевропейских магазинов: Берёзка (Campanar), Балтика (Carrer dels Sants Just i Pastor, 140), Skazka (Calle Julio Antonio, 19), SamSmak (Calle Vives Liern, 3) и Tienda Tangra (две точки в городе). В ассортименте — бородинский хлеб, пельмени, сметана, селёдка, конфеты, чай."}},
+      {"@type": "Question", "name": "Есть ли в Валенсии русские школы и школы на русском языке?", "acceptedAnswer": {"@type": "Answer", "text": "Да, в Валенсии функционируют школы дополнительного образования: школа Слово при ассоциации Русский дом в Валенсии (Mislata, занятия по субботам) и детский центр при ассоциации Северная Звезда (Calle Benidorm, 18). Преподаются русский язык, литература, математика, страноведение, а также работают кружки — балет, театр, шахматы, хор."}}
+    ]}
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <div class="header-title">📍 Русскоязычные специалисты в Валенсии — Russian Friendly Map</div>
+    <div class="promo-block">
+      <img src="https://russianfriendly.netlify.app/kristina-face.png" alt="Кристина Перез">
+      <div>Переезжаешь в Испанию? <a href="https://kristinaperez.netlify.app/" target="_blank">Узнай, как заговорить →</a></div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <section class="intro">
+    <h1>Русскоязычные специалисты и сервисы в Валенсии</h1>
+    <p>Интерактивная карта русскоязычных врачей, юристов, переводчиков, риелторов, магазинов, школ и трансферов в Валенсии, Испания. Контакты найдены в открытых источниках.</p>
+  </section>
+
+  <section class="filters" id="filters">
+    <button class="filter-btn active" data-cat="all">Все</button>
+    <button class="filter-btn" data-cat="dentist">🦷 Стоматологи</button>
+    <button class="filter-btn" data-cat="doctor">👩‍⚕️ Врачи</button>
+    <button class="filter-btn" data-cat="lawyer">⚖️ Юристы</button>
+    <button class="filter-btn" data-cat="translator">📄 Переводчики</button>
+    <button class="filter-btn" data-cat="bank">🏦 Банки / финансы</button>
+    <button class="filter-btn" data-cat="visa">🛂 Визы / миграция</button>
+    <button class="filter-btn" data-cat="realestate">🏠 Недвижимость</button>
+    <button class="filter-btn" data-cat="transfer">🚕 Трансферы</button>
+    <button class="filter-btn" data-cat="sim">📱 SIM / eSIM</button>
+    <button class="filter-btn" data-cat="shop">🛒 Русские магазины</button>
+    <button class="filter-btn" data-cat="school">🏫 Школы</button>
+  </section>
+
+  <section class="map-wrap">
+    <div id="map"></div>
+  </section>
+
+  <section class="feedback">
+    <p>Нашли неверные данные? <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank">Сообщите нам в бот →</a></p>
+  </section>
+
+  <section class="catalog" id="catalog">
+    <h2>Каталог организаций</h2>
+    <div class="cat-grid" id="catalog-grid"></div>
+  </section>
+
+  <section class="seo-block">
+    <h2>Русскоязычные специалисты и сервисы в Валенсии, Испания</h2>
+    <p>Валенсия — один из самых популярных городов Испании среди русскоязычных репатриантов, цифровых кочевников и семей с детьми. В городе сложилась развитая инфраструктура русскоязычных сервисов: от врачей и стоматологов до юристов, переводчиков и риелторов.</p>
+    <p>Русскоязычные врачи в Валенсии работают в частных клиниках и государственных больницах. Можно найти терапевтов, педиатров и гинекологов, говорящих на русском языке. Стоматологические клиники, такие как Dental Clinic Sulyhan и Clínica Lubens, предлагают приём на русском языке — от терапии до имплантологии и ортодонтии.</p>
+    <p>Юридические услуги в Валенсии на русском языке предоставляют зарегистрированные адвокаты испанских коллегий. Они помогают с оформлением ВНЖ, покупкой недвижимости, налогами, наследством и бизнесом. Переводчики с русского на испанский сопровождают сделки, визиты к врачу и оформление документов.</p>
+    <p>С арендой жилья и покупкой недвижимости помогают русскоязычные агентства — от подбора квартиры до сопровождения сделки и помощи с банковским счётом. Трансферы из аэропорта Валенсии (Manises, VLC) с русскоговорящим водителем можно заказать заранее.</p>
+    <p>Мобильная связь в Валенсии доступна через местных операторов (Movistar, Orange, Vodafone, Yoigo) и международные eSIM-сервисы с поддержкой на русском языке. Русские продукты — хлеб, пельмени, сметана, селёдка, конфеты — можно купить в специализированных магазинах по всему городу.</p>
+    <p>Для детей в Валенсии работают школы дополнительного образования на русском языке: школа «Слово» и центр при ассоциации «Северная Звезда». Здесь преподают русский язык, литературу, математику и страноведение, а также работают творческие кружки.</p>
+  </section>
+
+  <section class="semantic">
+    <h2>Поисковые темы Russian Friendly Валенсия</h2>
+    <div class="query-grid">
+      <div class="query">русскоязычные специалисты Валенсия</div>
+      <div class="query">русскоязычные специалисты в Валенсии</div>
+      <div class="query">русские сервисы Валенсия</div>
+      <div class="query">русские услуги Валенсия</div>
+      <div class="query">русские компании Валенсия</div>
+      <div class="query">русскоязычные услуги Валенсия</div>
+      <div class="query">русскоязычный сервис Валенсия</div>
+      <div class="query">русский бизнес Валенсия</div>
+      <div class="query">русские в Валенсии услуги</div>
+      <div class="query">помощь русским в Валенсии</div>
+      <div class="query">русский врач Валенсия</div>
+      <div class="query">русскоязычный врач Валенсия</div>
+      <div class="query">врач на русском Валенсия</div>
+      <div class="query">русскоязычная клиника Валенсия</div>
+      <div class="query">русская клиника Валенсия</div>
+      <div class="query">русский стоматолог Валенсия</div>
+      <div class="query">русскоязычный стоматолог Валенсия</div>
+      <div class="query">стоматолог на русском Валенсия</div>
+      <div class="query">русская стоматология Валенсия</div>
+      <div class="query">русский юрист Валенсия</div>
+      <div class="query">русскоязычный юрист Валенсия</div>
+      <div class="query">юрист на русском Валенсия</div>
+      <div class="query">адвокат русский Валенсия</div>
+      <div class="query">русский переводчик Валенсия</div>
+      <div class="query">русскоязычный переводчик Валенсия</div>
+      <div class="query">переводчик с русского Валенсия</div>
+      <div class="query">нотариус русский Валенсия</div>
+      <div class="query">русский риелтор Валенсия</div>
+      <div class="query">русскоязычный риелтор Валенсия</div>
+      <div class="query">аренда жилья Валенсия русский</div>
+      <div class="query">аренда квартиры Валенсия русские</div>
+      <div class="query">недвижимость Валенсия русский</div>
+      <div class="query">агентство недвижимости Валенсия русский</div>
+      <div class="query">помощь с банком Валенсия русский</div>
+      <div class="query">открыть счет в банке Валенсия русский</div>
+      <div class="query">банковский консультант Валенсия русский</div>
+      <div class="query">релокация Валенсия русский</div>
+      <div class="query">помощь с документами Валенсия русский</div>
+      <div class="query">миграционный консультант Валенсия русский</div>
+      <div class="query">помощь с визой Валенсия русский</div>
+      <div class="query">визовое агентство Валенсия русский</div>
+      <div class="query">трансфер Валенсия русский</div>
+      <div class="query">русский водитель Валенсия</div>
+      <div class="query">трансфер аэропорт Валенсия русский</div>
+      <div class="query">SIM карта Валенсия русский</div>
+      <div class="query">eSIM Валенсия русский</div>
+      <div class="query">мобильная связь Валенсия русский</div>
+      <div class="query">русский трансфер аэропорт Валенсия</div>
+      <div class="query">русский магазин Валенсия</div>
+      <div class="query">русские продукты Валенсия</div>
+      <div class="query">где купить русские продукты Валенсия</div>
+      <div class="query">русская школа Валенсия</div>
+      <div class="query">русские школы Валенсия</div>
+      <div class="query">школа на русском Валенсия</div>
+      <div class="query">русскоязычные школы Валенсия</div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <h2>Часто задаваемые вопросы</h2>
+    <div class="faq-item open">
+      <div class="faq-q">Где найти русскоязычного врача или стоматолога в Валенсии? <span class="faq-toggle">−</span></div>
+      <div class="faq-a">В Валенсии работают русскоязычные терапевты, педиатры, гинекологи и стоматологи. Например, терапевт Олег Коржиков (Valintermed), гинеколог Дарья Дуденко (Hospital Vithas), стоматолог Кристина Сулиган (Dental Clinic Sulyhan) и клиника Lubens в районе Русафа. Контакты и адреса найдены в открытых источниках и представлены в каталоге Russian Friendly.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Есть ли в Валенсии русскоязычные юристы и переводчики? <span class="faq-toggle">+</span></div>
+      <div class="faq-a">Да, в Валенсии есть русскоязычные адвокаты и переводчики. Среди них — Елена Бастрыкина (зарегистрированный адвокат коллегии Валенсии), Елена Капралова (иммиграция и инвестиции), Виктория Малькова, юридическая компания Аврора. Переводческие услуги оказывают, в частности, специалисты через платформу Lingohaus.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Где найти русского риелтора и аренду жилья в Валенсии? <span class="faq-toggle">+</span></div>
+      <div class="faq-a">Русскоязычные агентства недвижимости в Валенсии: Inmo Rusa (специализируется на продаже и аренде, в том числе залоговой недвижимости от банков), Valencia Rusa (работает с 2006 года, аккредитовано Генеральным консульством Испании в Москве). Контакты найдены в открытых источниках.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Как найти помощь с банком, визой и миграционными документами в Валенсии на русском? <span class="faq-toggle">+</span></div>
+      <div class="faq-a">Миграционные и визовые вопросы в Валенсии на русском языке помогают решать юристы Елена Капралова, Юлия Мазурова и компания Аврора. С банковскими вопросами — агентства недвижимости часто сопровождают клиентов при открытии счёта. eSIM и SIM-карты с русскоязычной поддержкой доступны через сервисы Yesim, Drimsim и Airalo.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Где купить русские продукты в Валенсии? <span class="faq-toggle">+</span></div>
+      <div class="faq-a">В Валенсии работает несколько русских и восточноевропейских магазинов: Берёзка (Campanar), Балтика (Carrer dels Sants Just i Pastor, 140), Skazка (Calle Julio Antonio, 19), SamSmak (Calle Vives Liern, 3) и Tienda Tangra (две точки в городе). В ассортименте — бородинский хлеб, пельмени, сметана, селёдка, конфеты, чай.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Есть ли в Валенсии русские школы и школы на русском языке? <span class="faq-toggle">+</span></div>
+      <div class="faq-a">Да, в Валенсии функционируют школы дополнительного образования: школа «Слово» при ассоциации «Русский дом в Валенсии» (Mislata, занятия по субботам) и детский центр при ассоциации «Северная Звезда» (Calle Benidorm, 18). Преподаются русский язык, литература, математика, страноведение, а также работают кружки — балет, театр, шахматы, хор.</div>
+    </div>
+  </section>
+
+  <div class="author-promo">
+    <img src="https://russianfriendly.netlify.app/kristina-face.png" alt="Кристина Перез">
+    <div>Переезжаешь в Испанию? <a href="https://kristinaperez.netlify.app/" target="_blank">Узнай, как заговорить →</a></div>
+  </div>
+
+  <section class="cities">
+    <h3>Другие города Russian Friendly</h3>
+    <div class="cities-list">
+      <a href="https://russianfriendly.netlify.app/sydney">Сидней</a>
+      <a href="https://russianfriendly.netlify.app/barcelona">Барселона</a>
+      <a href="https://russianfriendly.netlify.app/madrid">Мадрид</a>
+      <a href="https://russianfriendly.netlify.app/alicante">Аликанте</a>
+      <a href="https://russianfriendly.netlify.app/malaga">Малага</a>
+      <a href="https://russianfriendly.netlify.app/torrevieja">Торревьеха</a>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <nav>
+    <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+    <a href="https://russianfriendly.netlify.app/about.html">About</a>
+    <a href="https://russianfriendly.netlify.app/contact.html">Contact</a>
+    <a href="https://russianfriendly.netlify.app/privacy-policy.html">Privacy Policy</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <p>© Russian Friendly — карта русскоязычных специалистов. Контакты найдены в открытых источниках.</p>
+</footer>
+
+<script>
+const DATA = [
+  {name:"Dental Clinic Sulyhan — Кристина Сулиган",category:"dentist",catLabel:"🦷 Стоматологи",address:"Calle Juan de Garay, 30, Valencia",phone:"+34 665 39 92 80",lat:39.4615,lng:-0.3705,website:"",description:"Русскоязычный стоматолог в центре Валенсии. Приём на русском языке."},
+  {name:"Clínica Dental Lubens — Анна Певрухина",category:"dentist",catLabel:"🦷 Стоматологи",address:"Carrer de Matías Perelló, 58, Bajo, Russafa, Valencia",phone:"",lat:39.4618,lng:-0.3695,website:"https://clinicalubens.es/ru/",description:"Срочный стоматолог в районе Русафа. Метро Russafa (линии 3 и 5), 4 мин пешком."},
+  {name:"Clínica Dental Sobrino & Marín",category:"dentist",catLabel:"🦷 Стоматологи",address:"Рядом с больницей La Nueva Fe, Valencia",phone:"",lat:39.4502,lng:-0.3805,website:"https://clinicasobrinoymarin.com/ru/",description:"Стоматологическая клиника в Валенсии: общая и эстетическая стоматология, ортодонтия, имплантология."},
+  {name:"Dr. Andrés Llobell",category:"dentist",catLabel:"🦷 Стоматологи",address:"Calle Botanico Cavanilles, 20, Valencia (напротив Jardines de Viveros)",phone:"",lat:39.4792,lng:-0.3680,website:"https://clinicallobell.es/ru/",description:"Стоматологическая клиника в Валенсии. Пн–Пт с 09:00 до 21:00."},
+  {name:"Олег Коржиков — терапевт",category:"doctor",catLabel:"👩‍⚕️ Врачи",address:"Valintermed, Valencia",phone:"+34 611 800 762",lat:39.4690,lng:-0.3760,website:"https://valintermed.com",description:"Русскоязычный терапевт в Валенсии."},
+  {name:"Dr. Petr Tuchin — médico general",category:"doctor",catLabel:"👩‍⚕️ Врачи",address:"Clínica San Martín, Valencia",phone:"",lat:39.4680,lng:-0.3750,website:"https://drpetrtuchin.es",description:"Русскоязычный врач общей практики и экстренной помощи."},
+  {name:"Оксана Климова — педиатр",category:"doctor",catLabel:"👩‍⚕️ Врачи",address:"Clinica Fivasa, Valencia",phone:"+34 963 732 453",lat:39.4720,lng:-0.3720,website:"https://clinica-fivasa.com",description:"Русскоязычный педиатр в Валенсии."},
+  {name:"Людмила Онищенко — педиатр",category:"doctor",catLabel:"👩‍⚕️ Врачи",address:"Centro Médico Sanitas, Valencia",phone:"+34 963 520 907",lat:39.4740,lng:-0.3780,website:"",description:"Русскоязычный педиатр в Валенсии."},
+  {name:"Дарья Дуденко Лозенко — гинеколог",category:"doctor",catLabel:"👩‍⚕️ Врачи",address:"Hospital Vithas Valencia 9 de Octubre, Valencia",phone:"+34 963 17 91 00",lat:39.4760,lng:-0.3850,website:"https://daryadudenko.com/ru/",description:"Гинеколог и специалист по фертильности. Говорит на русском, испанском и английском."},
+  {name:"Кристина Агобабян — гинеколог",category:"doctor",catLabel:"👩‍⚕️ Врачи",address:"Clínica Ascires Campanar, Valencia",phone:"+34 963 40 40 77",lat:39.4780,lng:-0.3900,website:"",description:"Русскоязычный гинеколог в Валенсии."},
+  {name:"Елена Бастрыкина — адвокат",category:"lawyer",catLabel:"⚖️ Юристы",address:"Валенсия, Испания",phone:"",lat:39.4695,lng:-0.3765,website:"",description:"Бакалавр испанского права, зарегистрированный адвокат коллегии адвокатов Валенсии."},
+  {name:"Елена Капралова — юрист, иммиграция",category:"lawyer",catLabel:"⚖️ Юристы",address:"Валенсия, Испания (онлайн и офлайн)",phone:"+34 607 084 418",lat:39.4685,lng:-0.3775,website:"https://advokat-v-ispanii.ru",description:"Юрист по иммиграции и инвестициям в Испанию. 12 лет опыта. Валенсия и онлайн."},
+  {name:"Елена Таранова — адвокат",category:"lawyer",catLabel:"⚖️ Юристы",address:"Валенсия, Испания",phone:"",lat:39.4705,lng:-0.3755,website:"",description:"Русский адвокат в Испании."},
+  {name:"Юридическая компания Аврора",category:"lawyer",catLabel:"⚖️ Юристы",address:"Валенсия, Испания",phone:"",lat:39.4715,lng:-0.3745,website:"",description:"Юридическая компания в Валенсии с 2009 года. Лидер рынка юридических услуг в провинции Валенсия."},
+  {name:"Юлия Мазурова — иммиграция и ВНЖ",category:"lawyer",catLabel:"⚖️ Юристы",address:"Валенсия, Испания (онлайн и офлайн)",phone:"",lat:39.4675,lng:-0.3785,website:"",description:"Иммиграция и ВНЖ в Испании, медицинское сопровождение, страхование, переводчик, сопровождение сделок, аренда недвижимости."},
+  {name:"Виктория Малькова — адвокат",category:"lawyer",catLabel:"⚖️ Юристы",address:"Валенсия, Испания",phone:"+34 607 084 418",lat:39.4665,lng:-0.3795,website:"https://advokat-v-ispanii.ru",description:"Русский адвокат в Валенсии. Бизнес, недвижимость, иммиграция."},
+  {name:"Елена B — переводчик",category:"translator",catLabel:"📄 Переводчики",address:"Валенсия, Испания",phone:"",lat:39.4600,lng:-0.3700,website:"https://lingohaus.com/all-interpreters/685871-elena-b-valencia-spain",description:"Переводчик в Валенсии: русский, испанский, украинский. От 35 €/час или 220 €/день."},
+  {name:"Inmo Rusa — агентство недвижимости",category:"realestate",catLabel:"🏠 Недвижимость / аренда жилья / риелторы",address:"Валенсия, Испания",phone:"",lat:39.4730,lng:-0.3760,website:"https://inmorusa.com",description:"Ведущее русскоязычное агентство недвижимости в Валенсии. Продажа и аренда, залоговая недвижимость от банков, юридическое сопровождение, помощь с ВНЖ."},
+  {name:"Valencia Rusa — агентство недвижимости",category:"realestate",catLabel:"🏠 Недвижимость / аренда жилья / риелторы",address:"Валенсия, Испания",phone:"+34 629 685 941",lat:39.4740,lng:-0.3750,website:"https://valenciarusa.com",description:"Специализированное русскоязычное агентство недвижимости с 2006 года. Аккредитовано Генеральным консульством Испании в Москве."},
+  {name:"Недвижимость и инвестиции в Валенсии",category:"realestate",catLabel:"🏠 Недвижимость / аренда жилья / риелторы",address:"Валенсия, Испания",phone:"+34 655 355 499",lat:39.4750,lng:-0.3740,website:"https://vk.com/nedvizhimost_v_valensii_valencia",description:"Русскоязычное агентство недвижимости в Валенсии. Продажа и аренда."},
+  {name:"Asesoría Integral PLF",category:"visa",catLabel:"🛂 Визы / миграционные услуги",address:"Валенсия, Испания",phone:"",lat:39.4680,lng:-0.3740,website:"",description:"Юридические услуги: ВНЖ, налоги, легализация бизнеса, покупка недвижимости."},
+  {name:"Solución Asesores XXI",category:"visa",catLabel:"🛂 Визы / миграционные услуги",address:"Валенсия, Испания",phone:"",lat:39.4690,lng:-0.3730,website:"",description:"Юридическая компания, консалтинг, недвижимость, страхование."},
+  {name:"Alicante-Valencia Taxi — русскоязычный трансфер",category:"transfer",catLabel:"🚕 Трансферы / русскоязычные водители",address:"Аэропорт Валенсия (VLC), Валенсия, Испания",phone:"",lat:39.4893,lng:-0.4816,website:"https://www.alicante-valencia-taxi.ru/",description:"Трансфер из аэропорта Валенсии с русскоговорящим водителем. Встреча с табличкой, детские кресла, без доплаты за задержку рейса."},
+  {name:"Taxileader — такси аэропорта Валенсии",category:"transfer",catLabel:"🚕 Трансферы / русскоязычные водители",address:"Аэропорт Валенсия (VLC), Испания",phone:"",lat:39.4895,lng:-0.4810,website:"https://www.taxileader.net/ru-valencia-airport-taxi.html",description:"Частный трансфер из аэропорта Валенсии. Водитель встречает в зале прилёта с табличкой. Фиксированная цена."},
+  {name:"Yesim — eSIM для Испании",category:"sim",catLabel:"📱 SIM / eSIM / мобильная связь",address:"Онлайн-сервис",phone:"",lat:39.4650,lng:-0.3820,website:"https://yesim.app",description:"eSIM для Испании с русскоязычной поддержкой. 4G/5G в Валенсии. Подключение онлайн без визита в салон."},
+  {name:"Drimsim — SIM/eSIM",category:"sim",catLabel:"📱 SIM / eSIM / мобильная связь",address:"Онлайн-сервис",phone:"",lat:39.4640,lng:-0.3830,website:"https://drimsim.com",description:"Виртуальная SIM/eSIM для путешественников. Работает в Испании и 190+ странах. Поддержка 24/7 на русском."},
+  {name:"Airalo — eSIM",category:"sim",catLabel:"📱 SIM / eSIM / мобильная связь",address:"Онлайн-сервис",phone:"",lat:39.4630,lng:-0.3840,website:"https://airalo.com",description:"Цифровые eSIM для быстрого подключения к мобильному интернету в Испании. Активация через приложение."},
+  {name:"Берёзка",category:"shop",catLabel:"🛒 Русские магазины / продукты",address:"Avinguda de Menéndez Pidal, 4, 46009 València",phone:"+34 667 60 51 24",lat:39.4780,lng:-0.3900,website:"",description:"Русский магазин в районе Campanar. Свежий бородинский хлеб, колбасы, селёдка, конфеты, иконы и книги. Ежедневно 10:00–21:00."},
+  {name:"Балтика",category:"shop",catLabel:"🛒 Русские магазины / продукты",address:"Carrer dels Sants Just i Pastor, 140, 46022 València",phone:"+34 963 71 18 20",lat:39.4785,lng:-0.3570,website:"",description:"Крупнейший ассортимент русских продуктов в Валенсии: 150+ марок, поставки 2–3 раза в неделю, доставка по Испании. Ежедневно 10:00–21:00."},
+  {name:"Skazka",category:"shop",catLabel:"🛒 Русские магазины / продукты",address:"Calle Julio Antonio, 19, 46007 València",phone:"+34 963 41 92 46",lat:39.4650,lng:-0.3850,website:"https://skazka.es/ru/",description:"Русский магазин и интернет-магазин в центре Валенсии. 3500+ позиций, бесплатная доставка от 69 €. Пельмени, конфеты, чай, книги на русском."},
+  {name:"SamSmak",category:"shop",catLabel:"🛒 Русские магазины / продукты",address:"Calle Vives Liern, 3, 46019 València",phone:"+34 683 42 33 47",lat:39.4600,lng:-0.3650,website:"https://samsmak.es/valensiya.html",description:"Украинско-польско-русский магазин в Валенсии. Отправка посылок в СНГ и Европу. Активный Telegram-канал. Ежедневно 10:00–21:00."},
+  {name:"Tienda Tangra — General Avilés",category:"shop",catLabel:"🛒 Русские магазины / продукты",address:"Av. del General Avilés, 18, 46035 València",phone:"+34 961 93 63 82",lat:39.4700,lng:-0.4000,website:"https://tiendatangra.com/",description:"Болгарско-румынская сеть с русской полкой. 3000+ продуктов, сыры, молочка, мясо. Пн–Ср 9:30–14:00 и 17:00–21:30, Чт–Вс 9:30–21:30."},
+  {name:"Tienda Tangra — Antonio Suárez",category:"shop",catLabel:"🛒 Русские магазины / продукты",address:"Carrer d'Antoni Suárez, 48, 46021 València",phone:"+34 963 61 56 79",lat:39.4950,lng:-0.4200,website:"https://tiendatangra.com/",description:"Вторая точка Tangra в Валенсии. Болгарские и румынские продукты, русская полка. Пн–Пт 9:30–20:30, Сб–Вс 10:00–20:30."},
+  {name:"Школа «Слово» — Русский дом в Валенсии",category:"school",catLabel:"🏫 Русские и русскоязычные школы / образование",address:"Calle Antonio Aparisi, 46920 Mislata, Valencia",phone:"+34 655 305 128",lat:39.4750,lng:-0.4180,website:"https://www.facebook.com/casarusavalencia",description:"Школа дополнительного образования. Русский язык, литература, развитие речи, чтение. Кружки: театр, рисование, музыка. Занятия по субботам."},
+  {name:"«Северная Звезда» — детский центр",category:"school",catLabel:"🏫 Русские и русскоязычные школы / образование",address:"Calle Benidorm, 18, Valencia",phone:"+34 961 933 954",lat:39.4850,lng:-0.3550,website:"http://estrelladelnorte.org/",description:"Дошкольное, начальное и среднее образование. Русский язык, литература, математика, страноведение. Кружки: балет, театр, танцы, хор, шахматы."}
+];
+
+// Map init
+const map = L.map('map').setView([39.4699, -0.3763], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors',
+  maxZoom: 19
+}).addTo(map);
+
+const markers = [];
+const icons = {
+  dentist:   {emoji:'🦷',  color:'#e74c3c'},
+  doctor:    {emoji:'👩‍⚕️',color:'#3498db'},
+  lawyer:    {emoji:'⚖️',  color:'#9b59b6'},
+  translator:{emoji:'📄',  color:'#1abc9c'},
+  bank:      {emoji:'🏦',  color:'#f39c12'},
+  visa:      {emoji:'🛂',  color:'#e67e22'},
+  realestate:{emoji:'🏠',  color:'#2ecc71'},
+  transfer:  {emoji:'🚕',  color:'#34495e'},
+  sim:       {emoji:'📱',  color:'#16a085'},
+  shop:      {emoji:'🛒',  color:'#c0392b'},
+  school:    {emoji:'🏫',  color:'#2980b9'}
+};
+
+function makeIcon(cat){
+  const info = icons[cat] || icons.doctor;
+  return L.divIcon({
+    className:'custom-div-icon',
+    html:`<div style="font-size:22px;line-height:30px;text-align:center;width:30px;height:30px;">${info.emoji}</div>`,
+    iconSize:[30,30],
+    iconAnchor:[15,15]
+  });
+}
+
+function renderMap(filter='all'){
+  markers.forEach(m=>map.removeLayer(m));
+  markers.length=0;
+  DATA.forEach((item,idx)=>{
+    if(filter!=='all' && item.category!==filter) return;
+    const m = L.marker([item.lat, item.lng], {icon:makeIcon(item.category)}).addTo(map);
+    const popup = `<b>${item.name}</b><br><small>${item.catLabel}</small><br>${item.address}<br>${item.phone ? '☎ '+item.phone+'<br>' : ''}${item.website ? '<a href="'+item.website+'" target="_blank">Сайт →</a><br>' : ''}${item.description}<br><a href="#card-${idx}">К карточке ↓</a>`;
+    m.bindPopup(popup);
+    markers.push(m);
+  });
+}
+
+function renderCatalog(filter='all'){
+  const grid = document.getElementById('catalog-grid');
+  grid.innerHTML='';
+  DATA.forEach((item,idx)=>{
+    if(filter!=='all' && item.category!==filter) return;
+    const card = document.createElement('div');
+    card.className='card';
+    card.id=`card-${idx}`;
+    const info = icons[item.category] || icons.doctor;
+    card.innerHTML = `
+      <div class="card-header"><span class="card-icon">${info.emoji}</span><h3>${item.name}</h3></div>
+      <div class="cat-label">${item.catLabel}</div>
+      <p>📍 ${item.address}</p>
+      ${item.phone ? '<p>☎ '+item.phone+'</p>' : ''}
+      <p>${item.description}</p>
+      <div class="meta">
+        ${item.website ? '<a href="'+item.website+'" target="_blank">Сайт →</a> · ' : ''}
+        <a href="javascript:void(0)" onclick="flyTo(${item.lat},${item.lng},${idx})">Показать на карте</a>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function flyTo(lat,lng,idx){
+  map.flyTo([lat,lng],16);
+  markers.forEach(m=>{
+    const ml = m.getLatLng();
+    if(Math.abs(ml.lat-lat)<0.0001 && Math.abs(ml.lng-lng)<0.0001){
+      m.openPopup();
+    }
+  });
+  document.getElementById(`card-${idx}`)?.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    renderMap(cat);
+    renderCatalog(cat);
+  });
+});
+
+document.querySelectorAll('.faq-q').forEach(q=>{
+  q.addEventListener('click',()=>{
+    const item = q.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open'); i.querySelector('.faq-toggle').textContent='+';});
+    if(!isOpen){
+      item.classList.add('open');
+      q.querySelector('.faq-toggle').textContent='−';
+    }
+  });
+});
+
+renderMap();
+renderCatalog();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Русскоязычные специалисты в Тбилиси — врачи, юристы, переводчики, жильё | Russian Friendly</title>
+  <meta name="description" content="Русскоязычные специалисты и сервисы в Тбилиси: врачи, стоматологи, юристы, переводчики, финансы, миграционные услуги, недвижимость, трансферы, SIM/eSIM, русские магазины и школы.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="author" content="Кристина Перез — Russian Friendly">
+  <meta name="keywords" content="русскоязычные специалисты Тбилиси, русские сервисы Тбилиси, русский врач Тбилиси, русский стоматолог Тбилиси, русский юрист Тбилиси, русский переводчик Тбилиси, русский риелтор Тбилиси, русская школа Тбилиси">
+  <link rel="canonical" href="https://russianfriendly.netlify.app/tbilisi">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Русскоязычные специалисты в Тбилиси — Russian Friendly">
+  <meta property="og:description" content="Русскоязычные врачи, стоматологи, юристы, переводчики, жильё, миграционные услуги, магазины и школы в Тбилиси на одной интерактивной карте.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/tbilisi">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/tbilisi/og-preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Тбилиси">
+  <meta name="twitter:description" content="Russian Friendly — карта русскоязычных специалистов и сервисов в Тбилиси.">
+  <meta name="twitter:image" content="https://russianfriendly.netlify.app/tbilisi/og-preview.jpg">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="https://russianfriendly.netlify.app/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://russianfriendly.netlify.app/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://russianfriendly.netlify.app/apple-touch-icon.png">
+  <link rel="manifest" href="https://russianfriendly.netlify.app/site.webmanifest">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://tile.openstreetmap.org">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <style>
+    :root{--accent:#ff6600;--ink:#18202a;--muted:#68727d;--line:#e6e9ed;--bg:#f7f8fa;--card:#fff;--shadow:0 10px 30px rgba(25,35,45,.08)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+    a{color:inherit}
+    .wrap{max-width:1240px;margin:auto;padding:0 20px}
+    header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:1000}
+    .head{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{font-weight:800;font-size:20px;letter-spacing:-.02em;text-decoration:none}
+    .brand span{color:var(--accent)}
+    .promo{display:flex;align-items:center;gap:10px;padding:9px 14px;border:1px solid #ffd5bf;border-radius:12px;background:#fff8f3;color:#8b3c12;text-decoration:none;font-size:14px;font-weight:700}
+    .promo img{width:34px;height:34px;border-radius:50%;object-fit:cover}
+    .hero{padding:48px 0 28px;background:linear-gradient(180deg,#fff 0%,#f7f8fa 100%)}
+    h1{font-size:clamp(30px,4vw,48px);line-height:1.08;margin:0 0 14px;letter-spacing:-.04em}
+    .lead{font-size:18px;color:#53606d;max-width:850px;margin:0}
+    .notice{margin-top:18px;display:inline-block;padding:8px 12px;border-radius:999px;background:#eef7ee;color:#35633b;font-size:13px;font-weight:700}
+    .filters{padding:18px 0 6px}
+    .filterbar{display:flex;flex-wrap:wrap;gap:8px}
+    .filter{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;cursor:pointer;font-size:14px}
+    .filter.active,.filter:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+    #map{height:540px;border-radius:18px;box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden;background:#ddd}
+    .map-wrap{padding:16px 0 12px}
+    .feedback{margin:8px 0 34px;padding:14px 18px;background:#fff;border:1px solid var(--line);border-radius:14px}
+    .feedback a{color:var(--accent);font-weight:800;text-decoration:none}
+    section{padding:26px 0}
+    h2{font-size:28px;line-height:1.2;margin:0 0 16px;letter-spacing:-.025em}
+    .section-note{color:var(--muted);margin:-4px 0 20px}
+    .catalog{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 5px 18px rgba(25,35,45,.04);display:flex;flex-direction:column;min-height:230px}
+    .card h3{margin:6px 0 8px;font-size:19px;line-height:1.25}
+    .cat{font-size:13px;font-weight:800;color:var(--accent)}
+    .address,.phone{font-size:14px;color:#59636e;margin:3px 0}
+    .desc{font-size:14px;margin:10px 0 14px;flex:1}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{display:inline-block;text-decoration:none;border:1px solid var(--line);border-radius:9px;padding:8px 10px;font-size:13px;font-weight:700;background:#fff}
+    .btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
+    .btn.disabled{color:#9aa2aa;background:#f4f5f6;cursor:default}
+    .geo{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px}
+    .geo p{max-width:1000px}
+    .queries{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+    .query{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 11px;font-size:13px;color:#4e5863}
+    .faq{display:grid;gap:10px}
+    details{background:#fff;border:1px solid var(--line);border-radius:13px;padding:15px 17px}
+    summary{font-weight:800;cursor:pointer}
+    .links{display:flex;flex-wrap:wrap;gap:10px}
+    .links a{background:#fff;border:1px solid var(--line);padding:10px 13px;border-radius:10px;text-decoration:none}
+    footer{margin-top:30px;background:#18202a;color:#dce2e8;padding:34px 0}
+    footer a{color:#fff;text-decoration:none}
+    .foot{display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}
+    .source{font-size:12px;color:#89939e;margin-top:10px}
+    .leaflet-popup-content{margin:13px 15px;min-width:230px}
+    .popup-title{font-weight:800;font-size:16px;margin-bottom:5px}
+    .popup-cat{color:var(--accent);font-size:12px;font-weight:800}
+    .popup a{color:var(--accent);font-weight:700;text-decoration:none}
+    @media(max-width:900px){.catalog{grid-template-columns:repeat(2,minmax(0,1fr))}.queries{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:650px){.head{align-items:flex-start;padding:12px 0}.promo{font-size:12px;padding:7px 9px}.promo img{display:none}.catalog{grid-template-columns:1fr}.queries{grid-template-columns:repeat(2,minmax(0,1fr))}#map{height:470px}.hero{padding-top:32px}.wrap{padding:0 14px}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap head">
+    <a class="brand" href="https://russianfriendly.netlify.app/">Russian <span>Friendly</span></a>
+    <a class="promo" href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+      <img src="https://russianfriendly.netlify.app/kristina-face.png" alt="Кристина Перез">
+      Переезжаешь в Испанию? Узнай, как заговорить →
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>📍 Русскоязычные специалисты в Тбилиси — Russian Friendly Map</h1>
+      <p class="lead">Интерактивная карта и каталог русскоязычных специалистов, услуг и организаций в Тбилиси, Грузия. Здесь собраны контакты, найденные в открытых источниках: медицина, стоматология, переводы, недвижимость, миграция, финансы, трансферы, магазины и русскоязычное образование.</p>
+      <div class="notice">Данные собраны из открытых источников • перед обращением рекомендуем уточнить актуальность контактов</div>
+    </div>
+  </section>
+
+  <section class="filters">
+    <div class="wrap">
+      <div class="filterbar" id="filters"></div>
+    </div>
+  </section>
+
+  <div class="wrap map-wrap">
+    <div id="map" aria-label="Интерактивная карта русскоязычных специалистов в Тбилиси"></div>
+  </div>
+
+  <div class="wrap feedback">
+    Нашли неверные данные? <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">Сообщите нам в бот →</a>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2>Каталог русскоязычных специалистов и сервисов в Тбилиси</h2>
+      <p class="section-note">Организации и специалисты представлены в каталоге на основании открытых источников. Это не означает, что Russian Friendly лично проверил каждую услугу.</p>
+      <div class="catalog" id="catalog"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="geo">
+        <h2>Русскоязычные специалисты и сервисы в Тбилиси, Грузия</h2>
+        <p>Тбилиси — один из городов Грузии, где русскоязычным жителям, экспатам и путешественникам доступны разные повседневные услуги на русском языке. На карте Russian Friendly можно искать русскоязычных врачей и стоматологов, переводчиков, юристов, специалистов по недвижимости, миграционным вопросам, бухгалтерии и регистрации бизнеса.</p>
+        <p>Для медицинских вопросов в каталоге есть клиники и специалисты, которые прямо указывают русский язык обслуживания. Для документов полезны бюро переводов с нотариальным переводом и апостилем. Для переезда и деловых задач представлены компании, которые работают с иностранцами и предлагают консультации на русском языке. Отдельно собраны русскоязычные школы, магазины и сервисы, которые могут быть полезны семьям и новым жителям Тбилиси.</p>
+        <p>Контакты в каталоге следует воспринимать как организации, представленные в открытых источниках. Перед визитом или оплатой услуги проверьте телефон, адрес, график работы и условия обслуживания на официальном сайте или напрямую у специалиста.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Поисковые темы Russian Friendly Тбилиси</h2>
+      <div class="queries" id="queries"></div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <h2>Частые вопросы</h2>
+      <div class="faq">
+        <details><summary>Где найти русскоязычного врача или стоматолога в Тбилиси?</summary><p>На карте есть медицинские организации, где русский язык обслуживания указан в открытом источнике. Например, Dentor указывает обслуживание на грузинском, русском и английском языках, а SILK Medical публикует профили врачей с русским языком консультации.</p></details>
+        <details><summary>Есть ли в Тбилиси русскоязычные юристы и переводчики?</summary><p>Да. В каталоге есть русскоязычные юридические услуги и бюро «Города Переводов», которое предлагает переводы, нотариальное заверение, апостиль и легализацию документов.</p></details>
+        <details><summary>Где найти русского риелтора и аренду жилья в Тбилиси?</summary><p>Для недвижимости можно обратиться в Realtor.ge: на сайте есть русскоязычные агенты и контакты офиса в Тбилиси. Условия аренды и продажи лучше уточнять по конкретному объекту.</p></details>
+        <details><summary>Как найти помощь с банком, визой и миграционными документами в Тбилиси на русском?</summary><p>В каталоге представлены компании, которые описывают услуги по регистрации бизнеса, бухгалтерии, банковским вопросам, ВНЖ и визовому сопровождению на русском языке. Перед заказом уточните перечень документов и стоимость.</p></details>
+        <details><summary>Где купить русские продукты в Тбилиси?</summary><p>В каталоге отмечен «Белорусский дом» на проспекте Важа-Пшавела. Ассортимент и наличие российских или белорусских товаров могут меняться, поэтому перед поездкой лучше позвонить в магазин.</p></details>
+        <details><summary>Есть ли в Тбилиси русские школы и школы на русском языке?</summary><p>Да. В Тбилиси работают частные школы и образовательные проекты с русскоязычным сектором, среди них «Проектор» и Your Way. Условия приёма, классы и программы нужно уточнять непосредственно у школы.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Другие страницы Russian Friendly</h2>
+      <div class="links">
+        <a href="https://russianfriendly.netlify.app/">Главная</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div><strong>Russian Friendly</strong><br><span>Каталог русскоязычных специалистов и сервисов.</span></div>
+    <div><a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a><br><a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy-policy.html">Privacy Policy</a></div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+const DATA = [
+  {
+    name:"Dentor — клиника Ии Осадзе",
+    category:"dentist", catLabel:"🦷 Стоматологи",
+    address:"28 Alexander Kazbegi Avenue, Tbilisi 0177",
+    phone:"+995 571 10 11 00", lat:41.7236545, lng:44.744431,
+    website:"https://dentor.ge/",
+    description:"Стоматологическая клиника в Сабуртало. На сайте указаны консультации и лечение на грузинском, русском и английском языках.",
+    source:"https://dentor.ge/"
+  },
+  {
+    name:"SILK Medical",
+    category:"doctor", catLabel:"👩‍⚕️ Врачи",
+    address:"Digomi 6th block, 5A, Tbilisi",
+    phone:"+995 32 222 24 42", lat:41.76160, lng:44.77418,
+    website:"https://silkmedical.ge/",
+    description:"Многопрофильная клиника; профили врачей на сайте указывают русский язык консультаций.",
+    source:"https://silkmedical.ge/en/sm-doctors/lali-bukhbinder/"
+  },
+  {
+    name:"Goroda Perevodov",
+    category:"translator", catLabel:"📄 Переводчики",
+    address:"Pekini Avenue, 32, Tbilisi",
+    phone:"+995 322 47 02 80", lat:41.726101, lng:44.769204,
+    website:"https://tbs.perevodov.info/",
+    description:"Бюро переводов: письменный и устный перевод, нотариальный перевод, апостиль и легализация документов.",
+    source:"https://tbs.perevodov.info/not/"
+  },
+  {
+    name:"OLMA",
+    category:"store", catLabel:"🛒 Русские магазины / продукты",
+    address:"Egnate and Vaxtang Pipia Street, 8A, павильоны 20–21",
+    phone:"+995 571 01 81 56", lat:41.72507, lng:44.79234,
+    website:"https://olma.ge/",
+    description:"Книжный магазин с литературой на русском языке.",
+    source:"https://madloba.info/en/tbilisi/bookstores/olma/"
+  },
+  {
+    name:"Белорусский дом",
+    category:"store", catLabel:"🛒 Русские магазины / продукты",
+    address:"Vazha Pshavela Avenue, 6, Tbilisi",
+    phone:"+995 599 93 95 17", lat:41.727258, lng:44.766392,
+    website:"https://yandex.com.ge/maps/org/belorusskiy_dom/104393417525/",
+    description:"Продуктовый магазин с белорусскими товарами; открытые отзывы также упоминают наличие части российских товаров.",
+    source:"https://yandex.com.ge/maps/org/belorusskiy_dom/104393417525/"
+  },
+  {
+    name:"Your Way — частная русскоязычная школа",
+    category:"school", catLabel:"🏫 Русские и русскоязычные школы / образование",
+    address:"ул. Якова Гогебашвили, 13, Тбилиси",
+    phone:"+995 598 306 940", lat:41.702503, lng:44.785113,
+    website:"https://marvolo.cc/",
+    description:"Образовательный центр для детей 1–6 классов с русскоязычной программой, кружками и индивидуальными образовательными маршрутами.",
+    source:"https://marvolo.cc/"
+  },
+  {
+    name:"Школа Проектор",
+    category:"school", catLabel:"🏫 Русские и русскоязычные школы / образование",
+    address:"Тбилиси",
+    phone:"+995 551 157 918",
+    lat:41.702084, lng:44.780963,
+    website:"https://www.projector-school.ge/",
+    description:"Частная школа в Тбилиси с русскоязычным и билингвальным секторами.",
+    source:"https://www.projector-school.ge/"
+  },
+  {
+    name:"Kani Clinic",
+    category:"doctor", catLabel:"👩‍⚕️ Врачи",
+    address:"Giorgi Saakadze Descent, 11, Tbilisi",
+    phone:"+995 322 43 40 00", lat:41.725488, lng:44.779157,
+    website:"https://kani.ge/",
+    description:"Медицинский центр. В открытых отзывах упоминается русскоязычный врач.",
+    source:"https://yandex.com.ge/maps/org/kani_clinic/231227855997/"
+  },
+  {
+    name:"TripToGeorgia",
+    category:"transfer", catLabel:"🚕 Трансферы / русскоязычные водители",
+    address:"Тбилиси",
+    phone:"+995 571 222 161", lat:41.72918, lng:44.78878,
+    website:"https://triptogeorgia.ge/ru/Transfer-Tbilisi-Airport.php",
+    description:"Туристическая компания; сервис трансфера из аэропорта указывает водителей, говорящих на русском и английском.",
+    source:"https://triptogeorgia.ge/ru/Transfer-Tbilisi-Airport.php"
+  },
+  {
+    name:"TbilisiTransfer.com",
+    category:"transfer", catLabel:"🚕 Трансферы / русскоязычные водители",
+    address:"Тбилиси и аэропорт TBS",
+    phone:"+995 577 673 400", lat:null, lng:null,
+    website:"https://www.tbilisitransfers.com/",
+    description:"Частные трансферы по Грузии; сайт доступен на русском языке, указан WhatsApp и телефон для бронирования. Точная офисная точка не опубликована в найденном источнике.",
+    source:"https://www.tbilisitransfers.com/"
+  },
+  {
+    name:"Modern Consulting",
+    category:"finance", catLabel:"🏦 Банки / финансовые консультации",
+    address:"24 Niabi IV Turn, 0144 Tbilisi",
+    phone:"+995 550 05 20 50", lat:null, lng:null,
+    website:"https://modern-consulting.ge/ru/",
+    description:"Бухгалтерские, налоговые и юридические услуги, регистрация компаний и помощь с банковским счётом. Языки: русский, английский, грузинский.",
+    source:"https://modern-consulting.ge/ru/"
+  },
+  {
+    name:"DA Immigration",
+    category:"visa", catLabel:"🛂 Визы / миграционные услуги",
+    address:"30 Ilia Chavchavadze Avenue, Tbilisi",
+    phone:"",
+    lat:null, lng:null,
+    website:"https://da-immigration.com/",
+    description:"Визовое и иммиграционное сопровождение; офис компании указан в Тбилиси.",
+    source:"https://da-immigration.com/"
+  },
+  {
+    name:"Realtor.ge",
+    category:"realty", catLabel:"🏠 Недвижимость / аренда жилья / риелторы",
+    address:"I. Chavchavadze ave. 66, 0162 Tbilisi",
+    phone:"+995 32 247-10-20; +995 599 42-88-44",
+    lat:null, lng:null,
+    website:"https://www.realtor.ge/ru/",
+    description:"Агентство недвижимости с русскоязычными риелторами; сайт предлагает продажу и аренду недвижимости в Тбилиси.",
+    source:"https://www.realtor.ge/ru/realtor"
+  },
+  {
+    name:"Русскоязычный адвокат в Грузии",
+    category:"lawyer", catLabel:"⚖️ Юристы",
+    address:"ул. Николая Гоголя, 5, Тбилиси",
+    phone:"+995 599 199 937", lat:null, lng:null,
+    website:"https://komputer.ge/Inga-Chalatashvili/",
+    description:"Юридические услуги для русскоязычных клиентов; в открытом объявлении указана работа на русском, грузинском и английском языках.",
+    source:"https://moedani.online/en/search/uslugi/delovyje-uslugi/rusulenovani-advokati-saqartveloshi-tbilisi-995-599-199937-tbilisi-russkojazychnyj-advokat-v-gruzii-tbilisi-995-599-199937-tbilisi-20741.html"
+  }
+];
+
+const CATEGORIES = [
+  ["all","Все категории"],["dentist","🦷 Стоматологи"],["doctor","👩‍⚕️ Врачи"],["lawyer","⚖️ Юристы"],
+  ["translator","📄 Переводчики"],["finance","🏦 Финансы"],["visa","🛂 Визы / миграция"],
+  ["realty","🏠 Недвижимость"],["transfer","🚕 Трансферы"],["sim","📱 SIM / eSIM"],
+  ["store","🛒 Магазины"],["school","🏫 Школы / образование"]
+];
+
+const QUERIES = [
+"русскоязычные специалисты Тбилиси","русскоязычные специалисты в Тбилиси","русские сервисы Тбилиси","русские услуги Тбилиси","русские компании Тбилиси","русскоязычные услуги Тбилиси","русскоязычный сервис Тбилиси","русский бизнес Тбилиси","русские в Тбилиси услуги","помощь русским в Тбилиси",
+"русский врач Тбилиси","русскоязычный врач Тбилиси","врач на русском Тбилиси","русскоязычная клиника Тбилиси","русская клиника Тбилиси","русский стоматолог Тбилиси","русскоязычный стоматолог Тбилиси","стоматолог на русском Тбилиси","русская стоматология Тбилиси",
+"русский юрист Тбилиси","русскоязычный юрист Тбилиси","юрист на русском Тбилиси","адвокат русский Тбилиси","русский переводчик Тбилиси","русскоязычный переводчик Тбилиси","переводчик с русского Тбилиси","нотариус русский Тбилиси",
+"русский риелтор Тбилиси","русскоязычный риелтор Тбилиси","аренда жилья Тбилиси русский","аренда квартиры Тбилиси русские","недвижимость Тбилиси русский","агентство недвижимости Тбилиси русский",
+"помощь с банком Тбилиси русский","открыть счет в банке Тбилиси русский","банковский консультант Тбилиси русский","релокация Тбилиси русский","помощь с документами Тбилиси русский","миграционный консультант Тбилиси русский","помощь с визой Тбилиси русский","визовое агентство Тбилиси русский",
+"трансфер Тбилиси русский","русский водитель Тбилиси","трансфер аэропорт Тбилиси русский","SIM карта Тбилиси русский","eSIM Тбилиси русский","мобильная связь Тбилиси русский","русский трансфер аэропорт Тбилиси",
+"русский магазин Тбилиси","русские продукты Тбилиси","где купить русские продукты Тбилиси","русская школа Тбилиси","русские школы Тбилиси","школа на русском Тбилиси","русскоязычные школы Тбилиси"
+];
+
+const map = L.map("map", {scrollWheelZoom:true}).setView([41.7151,44.8271], 12);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom:19,
+  attribution:'&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+const markers = new Map();
+const layer = L.layerGroup().addTo(map);
+
+function iconFor(cat){
+  const emoji = ({dentist:"🦷",doctor:"👩‍⚕️",lawyer:"⚖️",translator:"📄",finance:"🏦",visa:"🛂",realty:"🏠",transfer:"🚕",sim:"📱",store:"🛒",school:"🏫"})[cat] || "📍";
+  return L.divIcon({className:"emoji-marker",html:`<div style="font-size:28px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))">${emoji}</div>`,iconSize:[32,32],iconAnchor:[16,30],popupAnchor:[0,-26]});
+}
+function popup(d){
+  return `<div class="popup">
+    <div class="popup-cat">${d.catLabel}</div>
+    <div class="popup-title">${escapeHtml(d.name)}</div>
+    <div>${escapeHtml(d.address)}</div>
+    ${d.phone?`<div>${escapeHtml(d.phone)}</div>`:""}
+    <p>${escapeHtml(d.description)}</p>
+    <a href="${d.website}" target="_blank" rel="noopener">Открыть сайт / источник →</a>
+  </div>`;
+}
+function escapeHtml(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
+
+function renderMarkers(category="all"){
+  layer.clearLayers(); markers.clear();
+  DATA.filter(d=>category==="all"||d.category===category).forEach(d=>{
+    if(d.lat==null||d.lng==null)return;
+    const m=L.marker([d.lat,d.lng],{icon:iconFor(d.category)}).bindPopup(popup(d));
+    m.addTo(layer); markers.set(d.name,m);
+  });
+}
+function renderCatalog(category="all"){
+  const el=document.getElementById("catalog");
+  el.innerHTML="";
+  DATA.filter(d=>category==="all"||d.category===category).forEach(d=>{
+    const hasMap=d.lat!=null&&d.lng!=null;
+    const card=document.createElement("article");
+    card.className="card";
+    card.innerHTML=`
+      <div class="cat">${escapeHtml(d.catLabel)}</div>
+      <h3>${escapeHtml(d.name)}</h3>
+      <div class="address">📍 ${escapeHtml(d.address)}</div>
+      ${d.phone?`<div class="phone">📞 ${escapeHtml(d.phone)}</div>`:""}
+      <div class="desc">${escapeHtml(d.description)}</div>
+      <div class="actions">
+        <a class="btn primary" href="${d.website}" target="_blank" rel="noopener">Сайт / источник</a>
+        ${hasMap?'<button class="btn map-btn">На карте</button>':'<span class="btn disabled">Точка на карте не указана</span>'}
+      </div>
+      <div class="source">Источник: открытый веб-источник; данные могут меняться.</div>`;
+    if(hasMap) card.querySelector(".map-btn").addEventListener("click",()=>{
+      map.setView([d.lat,d.lng],15); markers.get(d.name)?.openPopup();
+    });
+    el.appendChild(card);
+  });
+}
+
+const filterEl=document.getElementById("filters");
+CATEGORIES.forEach(([id,label],i)=>{
+  const b=document.createElement("button"); b.className="filter"+(i===0?" active":""); b.textContent=label;
+  b.addEventListener("click",()=>{
+    document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active")); b.classList.add("active");
+    renderMarkers(id); renderCatalog(id);
+  });
+  filterEl.appendChild(b);
+});
+document.getElementById("queries").innerHTML=QUERIES.map(q=>`<div class="query">${escapeHtml(q)}</div>`).join("");
+
+renderMarkers(); renderCatalog();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"WebSite","name":"Russian Friendly","url":"https://russianfriendly.netlify.app/"},
+    {"@type":"WebPage","name":"Русскоязычные специалисты в Тбилиси — Russian Friendly","url":"https://russianfriendly.netlify.app/tbilisi","description":"Интерактивная карта и каталог русскоязычных специалистов и сервисов в Тбилиси, Грузия."},
+    {"@type":"City","name":"Тбилиси","alternateName":"Tbilisi","containedInPlace":{"@type":"Country","name":"Georgia"}},
+    {"@type":"Person","name":"Кристина Перез","url":"https://kristinaperez.netlify.app/","jobTitle":"Автор проекта Russian Friendly"},
+    {"@type":"ItemList","name":"Категории русскоязычных специалистов в Тбилиси","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Стоматологи"},
+      {"@type":"ListItem","position":2,"name":"Врачи"},
+      {"@type":"ListItem","position":3,"name":"Юристы"},
+      {"@type":"ListItem","position":4,"name":"Переводчики"},
+      {"@type":"ListItem","position":5,"name":"Банки и финансовые консультации"},
+      {"@type":"ListItem","position":6,"name":"Визы и миграционные услуги"},
+      {"@type":"ListItem","position":7,"name":"Недвижимость и аренда жилья"},
+      {"@type":"ListItem","position":8,"name":"Трансферы и русскоязычные водители"},
+      {"@type":"ListItem","position":9,"name":"SIM и eSIM"},
+      {"@type":"ListItem","position":10,"name":"Русские магазины и продукты"},
+      {"@type":"ListItem","position":11,"name":"Русские и русскоязычные школы"}
+    ]},
+    {"@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Где найти русскоязычного врача или стоматолога в Тбилиси?","acceptedAnswer":{"@type":"Answer","text":"На карте есть медицинские организации, где русский язык обслуживания указан в открытом источнике. Например, Dentor указывает обслуживание на грузинском, русском и английском языках, а SILK Medical публикует профили врачей с русским языком консультации."}},
+      {"@type":"Question","name":"Есть ли в Тбилиси русскоязычные юристы и переводчики?","acceptedAnswer":{"@type":"Answer","text":"Да. В каталоге есть русскоязычные юридические услуги и бюро «Города Переводов», которое предлагает переводы, нотариальное заверение, апостиль и легализацию документов."}},
+      {"@type":"Question","name":"Где найти русского риелтора и аренду жилья в Тбилиси?","acceptedAnswer":{"@type":"Answer","text":"Для недвижимости можно обратиться в Realtor.ge: на сайте есть русскоязычные агенты и контакты офиса в Тбилиси. Условия аренды и продажи лучше уточнять по конкретному объекту."}},
+      {"@type":"Question","name":"Как найти помощь с банком, визой и миграционными документами в Тбилиси на русском?","acceptedAnswer":{"@type":"Answer","text":"В каталоге представлены компании, которые описывают услуги по регистрации бизнеса, бухгалтерии, банковским вопросам, ВНЖ и визовому сопровождению на русском языке. Перед заказом уточните перечень документов и стоимость."}},
+      {"@type":"Question","name":"Где купить русские продукты в Тбилиси?","acceptedAnswer":{"@type":"Answer","text":"В каталоге отмечен «Белорусский дом» на проспекте Важа-Пшавела. Ассортимент и наличие российских или белорусских товаров могут меняться, поэтому перед поездкой лучше позвонить в магазин."}},
+      {"@type":"Question","name":"Есть ли в Тбилиси русские школы и школы на русском языке?","acceptedAnswer":{"@type":"Answer","text":"Да. В Тбилиси работают частные школы и образовательные проекты с русскоязычным сектором, среди них «Проектор» и Your Way. Условия приёма, классы и программы нужно уточнять непосредственно у школы."}}
+    ]}
+  ]
+}
+</script>
+</body>
+</html>

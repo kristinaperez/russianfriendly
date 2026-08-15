@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Русскоязычные специалисты в Ташкенте — врачи, юристы, переводчики, жильё | Russian Friendly</title>
+<meta name="description" content="Русскоязычные специалисты и сервисы в Ташкенте: врачи, стоматологи, юристы, переводчики, банки, миграционные услуги, жильё, трансферы, SIM/eSIM, русские магазины и школы.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Кристина Перез — Russian Friendly">
+<meta name="keywords" content="русскоязычные специалисты Ташкент, русские услуги Ташкент, русский врач Ташкент, русский юрист Ташкент, переводчик Ташкент, русская школа Ташкент">
+<link rel="canonical" href="https://russianfriendly.netlify.app/tashkent">
+<link rel="icon" type="image/png" sizes="32x32" href="https://russianfriendly.netlify.app/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://russianfriendly.netlify.app/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://russianfriendly.netlify.app/apple-touch-icon.png">
+<link rel="manifest" href="https://russianfriendly.netlify.app/site.webmanifest">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Русскоязычные специалисты в Ташкенте — Russian Friendly">
+<meta property="og:description" content="Русскоязычные врачи, юристы, переводчики, жильё, миграционные услуги, магазины и школы в Ташкенте на одной интерактивной карте.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/tashkent">
+<meta property="og:image" content="https://russianfriendly.netlify.app/tashkent/og-preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Ташкенте">
+<meta name="twitter:description" content="Russian Friendly — карта русскоязычных специалистов и сервисов в Ташкенте.">
+<meta name="twitter:image" content="https://russianfriendly.netlify.app/tashkent/og-preview.jpg">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<style>
+:root{--accent:#e53935;--orange:#ff6600;--text:#17202a;--muted:#667085;--bg:#f7f8fa;--card:#fff;--border:#e6e8ec}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.55}
+a{color:#1261a0;text-decoration:none} a:hover{text-decoration:underline}
+header{background:#fff;border-bottom:1px solid var(--border);padding:16px 22px;display:flex;gap:24px;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1000}
+.brand{font-size:20px;font-weight:800} .promo{background:#fff4ec;border:1px solid #ffd1b3;color:#c84e00;padding:10px 14px;border-radius:12px;font-weight:700;font-size:14px}
+main{max-width:1250px;margin:auto;padding:22px}
+.hero{background:linear-gradient(135deg,#fff,#fff5f5);border:1px solid var(--border);border-radius:18px;padding:25px;margin-bottom:18px}
+h1{font-size:clamp(28px,4vw,42px);line-height:1.1;margin:0 0 12px} h2{margin-top:32px}
+.intro{color:#4b5563;max-width:900px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.filter{border:1px solid var(--border);background:#fff;padding:9px 12px;border-radius:999px;cursor:pointer;font-weight:650}
+.filter.active{background:#17202a;color:#fff;border-color:#17202a}
+#map{height:540px;border-radius:16px;border:1px solid var(--border);z-index:1}
+.feedback{display:block;margin:14px 0;padding:13px 16px;border-radius:12px;background:#fff;border:1px solid var(--border);font-weight:700}
+.catalog{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:17px;box-shadow:0 3px 12px rgba(20,30,40,.04)}
+.card h3{margin:0 0 7px;font-size:19px} .cat{font-size:13px;color:#667085;margin-bottom:8px} .address{font-size:14px;color:#4b5563}
+.card button{margin-top:12px;border:0;background:#17202a;color:#fff;border-radius:9px;padding:9px 12px;cursor:pointer}
+.query-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+.query{background:#fff;border:1px solid var(--border);border-radius:10px;padding:9px 11px;font-size:14px}
+.faq details{background:#fff;border:1px solid var(--border);border-radius:12px;margin:9px 0;padding:13px 15px}
+.faq summary{font-weight:750;cursor:pointer} .links{display:flex;flex-wrap:wrap;gap:12px}
+footer{margin-top:38px;background:#17202a;color:#dce2e8;padding:28px 22px} footer a{color:#fff}
+.leaflet-popup-content-wrapper{border-radius:12px} .emoji-marker{font-size:27px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+@media(max-width:700px){header{position:static;align-items:flex-start;flex-direction:column}main{padding:12px}#map{height:430px}.promo{width:100%}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org","@graph":[
+  {"@type":"WebSite","name":"Russian Friendly","url":"https://russianfriendly.netlify.app/"},
+  {"@type":"WebPage","name":"Русскоязычные специалисты в Ташкенте — Russian Friendly","url":"https://russianfriendly.netlify.app/tashkent","description":"Интерактивная карта и каталог русскоязычных специалистов и сервисов в Ташкенте, Узбекистан."},
+  {"@type":"City","name":"Ташкент","alternateName":"Tashkent","containedInPlace":{"@type":"Country","name":"Uzbekistan"}},
+  {"@type":"Person","name":"Кристина Перез","url":"https://kristinaperez.netlify.app/","jobTitle":"Автор проекта Russian Friendly"},
+  {"@type":"ItemList","name":"Категории Russian Friendly Ташкент","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Врачи и стоматологи"},
+    {"@type":"ListItem","position":2,"name":"Юристы и документы"},
+    {"@type":"ListItem","position":3,"name":"Переводчики"},
+    {"@type":"ListItem","position":4,"name":"Недвижимость и аренда"},
+    {"@type":"ListItem","position":5,"name":"Банки, финансы и релокация"},
+    {"@type":"ListItem","position":6,"name":"Транспорт и связь"},
+    {"@type":"ListItem","position":7,"name":"Русские магазины и продукты"},
+    {"@type":"ListItem","position":8,"name":"Русские школы и образование"}
+  ]},
+  {"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Где найти русскоязычного врача или стоматолога в Ташкенте?","acceptedAnswer":{"@type":"Answer","text":"На карте собраны найденные в открытых источниках медицинские организации, где есть сведения о работе на русском языке. Для стоматологов отдельные русскоязычные точки пока не добавлены — список можно расширить через обратную связь."}},
+{"@type":"Question","name":"Есть ли в Ташкенте русскоязычные юристы и переводчики?","acceptedAnswer":{"@type":"Answer","text":"Да. В каталоге представлены юридические компании и бюро переводов с русскоязычными страницами или указанием русского языка в перечне услуг."}},
+{"@type":"Question","name":"Где найти русского риелтора и аренду жилья в Ташкенте?","acceptedAnswer":{"@type":"Answer","text":"На этой версии карты отдельные русскоязычные агентства недвижимости пока не добавлены. Мы не включаем контакты без достаточного подтверждения из открытых источников."}},
+{"@type":"Question","name":"Как найти помощь с банком, визой и миграционными документами в Ташкенте на русском?","acceptedAnswer":{"@type":"Answer","text":"В каталоге есть юридические и консалтинговые организации, которые работают с миграционными вопросами и документами. Перед обращением рекомендуем уточнить актуальный перечень услуг и язык консультации."}},
+{"@type":"Question","name":"Где купить русские продукты в Ташкенте?","acceptedAnswer":{"@type":"Answer","text":"Отдельные магазины русских продуктов пока не добавлены в карту: мы предпочитаем не публиковать неподтверждённые контакты. Если знаете актуальный магазин, его можно предложить через бот обратной связи."}},
+{"@type":"Question","name":"Есть ли в Ташкенте русские школы и школы на русском языке?","acceptedAnswer":{"@type":"Answer","text":"Да. В каталоге есть Лицей МГИМО-Ташкент, а открытые каталоги также содержат другие частные школы с русским языком обучения. Перед поступлением лучше уточнить актуальные условия непосредственно у школы."}}]}
+ ]
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="brand">📍 Russian Friendly — Ташкент</div>
+  <a class="promo" href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+    Переезжаешь в Испанию? Узнай, как заговорить →
+  </a>
+</header>
+<main>
+<section class="hero">
+<h1>Русскоязычные специалисты в Ташкенте — Russian Friendly Map</h1>
+<p class="intro">Локальная карта русскоязычных специалистов, услуг и организаций в Ташкенте. Здесь собраны контакты, найденные в открытых источниках: медицина, юридическая помощь, переводы, образование и другие сервисы. Информация может меняться — перед обращением рекомендуем уточнять актуальные условия непосредственно у организации.</p>
+</section>
+
+<h2>Категории</h2>
+<div class="filters" id="filters">
+<button class="filter active" data-cat="all">Все</button>
+<button class="filter" data-cat="doctor">👩‍⚕️ Врачи</button>
+<button class="filter" data-cat="dentist">🦷 Стоматологи</button>
+<button class="filter" data-cat="lawyer">⚖️ Юристы</button>
+<button class="filter" data-cat="translator">📄 Переводчики</button>
+<button class="filter" data-cat="finance">🏦 Банки / финансы</button>
+<button class="filter" data-cat="visa">🛂 Визы / миграция</button>
+<button class="filter" data-cat="realestate">🏠 Недвижимость</button>
+<button class="filter" data-cat="transfer">🚕 Трансферы</button>
+<button class="filter" data-cat="sim">📱 SIM / eSIM</button>
+<button class="filter" data-cat="shop">🛒 Русские магазины</button>
+<button class="filter" data-cat="school">🏫 Русские школы / образование</button>
+</div>
+
+<div id="map" aria-label="Интерактивная карта русскоязычных специалистов в Ташкенте"></div>
+<a class="feedback" href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">💬 Нашли неверные данные? Сообщите нам в бот</a>
+
+<h2>Каталог организаций</h2>
+<div class="catalog" id="catalog"></div>
+
+<section>
+<h2>Русскоязычные специалисты и сервисы в Ташкенте, Узбекистан</h2>
+<p>В Ташкенте можно найти медицинские клиники, где специалисты принимают на русском языке, юридические компании с русскоязычными материалами и консультациями, бюро переводов, а также образовательные учреждения с русским языком обучения. Russian Friendly объединяет такие контакты в одном локальном каталоге, чтобы пользователю было проще ориентироваться в городе.</p>
+<p>Для медицинских вопросов в каталоге представлены организации, на сайтах которых прямо указана работа врачей на русском языке. В юридическом разделе собраны компании, которые публикуют информацию на русском и оказывают услуги по праву Узбекистана, миграционным вопросам, документам и сопровождению бизнеса. Отдельно выделены переводчики, поскольку русский язык часто нужен при подготовке договоров и официальных документов.</p>
+<p>Каталог также ориентирован на повседневные задачи: поиск жилья, банковские и финансовые вопросы, релокацию, визовые услуги, трансферы, мобильную связь, русские продукты и образование. Если по конкретной категории пока нет подтверждённой точки, мы не добавляем случайный контакт: лучше сообщить о подходящей организации через бот обратной связи.</p>
+</section>
+
+<section>
+<h2>Поисковые темы Russian Friendly Ташкент</h2>
+<div class="query-grid">
+        <div class="query">русскоязычные специалисты Ташкент</div>
+        <div class="query">русскоязычные специалисты в Ташкенте</div>
+        <div class="query">русские сервисы Ташкент</div>
+        <div class="query">русские услуги Ташкент</div>
+        <div class="query">русские компании Ташкент</div>
+        <div class="query">русскоязычные услуги Ташкент</div>
+        <div class="query">русскоязычный сервис Ташкент</div>
+        <div class="query">русский бизнес Ташкент</div>
+        <div class="query">русские в Ташкенте услуги</div>
+        <div class="query">помощь русским в Ташкенте</div>
+        <div class="query">русский врач Ташкент</div>
+        <div class="query">русскоязычный врач Ташкент</div>
+        <div class="query">врач на русском Ташкент</div>
+        <div class="query">русскоязычная клиника Ташкент</div>
+        <div class="query">русская клиника Ташкент</div>
+        <div class="query">русский стоматолог Ташкент</div>
+        <div class="query">русскоязычный стоматолог Ташкент</div>
+        <div class="query">стоматолог на русском Ташкент</div>
+        <div class="query">русская стоматология Ташкент</div>
+        <div class="query">русский юрист Ташкент</div>
+        <div class="query">русскоязычный юрист Ташкент</div>
+        <div class="query">юрист на русском Ташкент</div>
+        <div class="query">адвокат русский Ташкент</div>
+        <div class="query">русский переводчик Ташкент</div>
+        <div class="query">русскоязычный переводчик Ташкент</div>
+        <div class="query">переводчик с русского Ташкент</div>
+        <div class="query">нотариус русский Ташкент</div>
+        <div class="query">русский риелтор Ташкент</div>
+        <div class="query">русскоязычный риелтор Ташкент</div>
+        <div class="query">аренда жилья Ташкент русский</div>
+        <div class="query">аренда квартиры Ташкент русские</div>
+        <div class="query">недвижимость Ташкент русский</div>
+        <div class="query">агентство недвижимости Ташкент русский</div>
+        <div class="query">помощь с банком Ташкент русский</div>
+        <div class="query">открыть счет в банке Ташкент русский</div>
+        <div class="query">банковский консультант Ташкент русский</div>
+        <div class="query">релокация Ташкент русский</div>
+        <div class="query">помощь с документами Ташкент русский</div>
+        <div class="query">миграционный консультант Ташкент русский</div>
+        <div class="query">помощь с визой Ташкент русский</div>
+        <div class="query">визовое агентство Ташкент русский</div>
+        <div class="query">трансфер Ташкент русский</div>
+        <div class="query">русский водитель Ташкент</div>
+        <div class="query">трансфер аэропорт Ташкент русский</div>
+        <div class="query">SIM карта Ташкент русский</div>
+        <div class="query">eSIM Ташкент русский</div>
+        <div class="query">мобильная связь Ташкент русский</div>
+        <div class="query">русский трансфер аэропорт Ташкент</div>
+        <div class="query">русский магазин Ташкент</div>
+        <div class="query">русские продукты Ташкент</div>
+        <div class="query">где купить русские продукты Ташкент</div>
+        <div class="query">русская школа Ташкент</div>
+        <div class="query">русские школы Ташкент</div>
+        <div class="query">школа на русском Ташкент</div>
+        <div class="query">русскоязычные школы Ташкент</div>
+</div>
+</section>
+
+<section class="faq" id="faq">
+<h2>FAQ — русскоязычные услуги в Ташкенте</h2>
+<details><summary>Где найти русскоязычного врача или стоматолога в Ташкенте?</summary><p>На карте собраны найденные в открытых источниках медицинские организации, где есть сведения о работе на русском языке. Для стоматологов отдельные русскоязычные точки пока не добавлены — список можно расширить через обратную связь.</p></details><details><summary>Есть ли в Ташкенте русскоязычные юристы и переводчики?</summary><p>Да. В каталоге представлены юридические компании и бюро переводов с русскоязычными страницами или указанием русского языка в перечне услуг.</p></details><details><summary>Где найти русского риелтора и аренду жилья в Ташкенте?</summary><p>На этой версии карты отдельные русскоязычные агентства недвижимости пока не добавлены. Мы не включаем контакты без достаточного подтверждения из открытых источников.</p></details><details><summary>Как найти помощь с банком, визой и миграционными документами в Ташкенте на русском?</summary><p>В каталоге есть юридические и консалтинговые организации, которые работают с миграционными вопросами и документами. Перед обращением рекомендуем уточнить актуальный перечень услуг и язык консультации.</p></details><details><summary>Где купить русские продукты в Ташкенте?</summary><p>Отдельные магазины русских продуктов пока не добавлены в карту: мы предпочитаем не публиковать неподтверждённые контакты. Если знаете актуальный магазин, его можно предложить через бот обратной связи.</p></details><details><summary>Есть ли в Ташкенте русские школы и школы на русском языке?</summary><p>Да. В каталоге есть Лицей МГИМО-Ташкент, а открытые каталоги также содержат другие частные школы с русским языком обучения. Перед поступлением лучше уточнить актуальные условия непосредственно у школы.</p></details>
+</section>
+
+<section>
+<h2>Russian Friendly</h2>
+<div class="links">
+<a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+<a href="/about.html">About</a>
+<a href="/contact.html">Contact</a>
+<a href="/privacy-policy.html">Privacy Policy</a>
+<a href="#faq">FAQ</a>
+</div>
+</section>
+</main>
+
+<footer>
+<div><strong>Russian Friendly</strong> — локальные карты русскоязычных специалистов и сервисов.</div>
+<div style="margin-top:8px">Автор проекта: <a href="https://kristinaperez.netlify.app/">Кристина Перез</a></div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+const DATA = [
+  {
+    "name": "MEDELA",
+    "category": "doctor",
+    "catLabel": "👩‍⚕️ Врачи",
+    "address": "Ташкент, ул. Гагарина, 40, 39",
+    "phone": "+998 90 906 55 00",
+    "lat": 41.3037,
+    "lng": 69.2589,
+    "website": "https://medela.uz/",
+    "description": "Медицинская клиника Ташкента. На сайте указаны врачи, говорящие на русском и узбекском, включая терапевта-кардиолога, эндокринолога, педиатра и других специалистов."
+  },
+  {
+    "name": "Клиника AYA",
+    "category": "doctor",
+    "catLabel": "👩‍⚕️ Врачи",
+    "address": "Ташкент, ул. Юнуса Раджаби, 59, Яккасарайский район",
+    "phone": "+998 55 515 55 22",
+    "lat": 41.3037,
+    "lng": 69.2589,
+    "website": "https://ayaclinic.uz/",
+    "description": "Семейная клиника. В профилях врачей указан русский язык; клиника работает круглосуточно и оказывает медицинские услуги, включая семейную медицину и гинекологию."
+  },
+  {
+    "name": "LEGAL FORCE",
+    "category": "lawyer",
+    "catLabel": "⚖️ Юристы",
+    "address": "Ташкент, ул. Нукус, 85/1, кабинет 101",
+    "phone": "+998 90 992 16 72; +998 71 254 63 65",
+    "lat": 41.285398,
+    "lng": 69.269437,
+    "website": "https://legal-force.uz/",
+    "description": "Консалтинговый центр: юридические услуги, регистрация компаний, миграционные вопросы, документы и сопровождение бизнеса. Сайт доступен на русском языке."
+  },
+  {
+    "name": "RYSKIYEVA & PARTNERS",
+    "category": "lawyer",
+    "catLabel": "⚖️ Юристы",
+    "address": "Ташкент, ул. Тараккиёт, 2-й проезд, 26",
+    "phone": "+998 99 174 00 25",
+    "lat": 41.30123,
+    "lng": 69.306294,
+    "website": "https://ru.ryskiyeva.com/",
+    "description": "Юридическая фирма с практикой в корпоративном, миграционном, трудовом праве и недвижимости. На сайте есть русскоязычная версия."
+  },
+  {
+    "name": "Lingosmart",
+    "category": "translator",
+    "catLabel": "📄 Переводчики",
+    "address": "Ташкент, Узбекистан",
+    "phone": "+998 98 124 45 13",
+    "lat": 41.299886,
+    "lng": 69.290049,
+    "website": "https://lingosmart.uz/",
+    "description": "Бюро переводов в Ташкенте. В перечне языков указаны русский и узбекский; услуги включают письменный и устный перевод, локализацию и специализированные переводы."
+  },
+  {
+    "name": "Лицей МГИМО-Ташкент",
+    "category": "school",
+    "catLabel": "🏫 Русские школы / образование",
+    "address": "Ташкент, проспект Мирзо Улугбека, 47",
+    "phone": "+998 71 207-50-30",
+    "lat": 41.3231,
+    "lng": 69.3222,
+    "website": "https://tashkent.russianabroad.school/",
+    "description": "Лицей с российским и узбекским образовательными компонентами. Для выпускников предусмотрено получение российского и узбекского аттестатов; обучение рассчитано на детей от 15 лет."
+  }
+];
+
+const icons = {
+ doctor:"👩‍⚕️", dentist:"🦷", lawyer:"⚖️", translator:"📄", finance:"🏦",
+ visa:"🛂", realestate:"🏠", transfer:"🚕", sim:"📱", shop:"🛒", school:"🏫"
+};
+
+const map = L.map("map",{scrollWheelZoom:true}).setView([41.2995,69.2401],12);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom:19, attribution:'&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+const markers = [];
+const markerLayer = L.layerGroup().addTo(map);
+
+function markerFor(item, index) {
+  const icon = L.divIcon({
+    className:"emoji-marker",
+    html:`<span aria-hidden="true">${icons[item.category] || "📍"}</span>`,
+    iconSize:[36,36],iconAnchor:[18,18],popupAnchor:[0,-18]
+  });
+  const marker=L.marker([item.lat,item.lng],{icon});
+  marker.bindPopup(`
+    <strong>${item.name}</strong><br>
+    <span>${item.catLabel}</span><br>
+    <small>${item.address}</small><br>
+    <small>${item.phone}</small><br>
+    <p>${item.description}</p>
+    <a href="${item.website}" target="_blank" rel="noopener">Сайт организации →</a>
+  `);
+  marker._idx=index;
+  markers.push(marker);
+  return marker;
+}
+
+DATA.forEach((item,i)=>markerFor(item,i));
+
+function render(cat="all") {
+  markerLayer.clearLayers();
+  const list=document.getElementById("catalog");
+  list.innerHTML="";
+  DATA.forEach((item,i)=>{
+    if(cat!=="all" && item.category!==cat) return;
+    markerLayer.addLayer(markers[i]);
+    const card=document.createElement("article");
+    card.className="card";
+    card.innerHTML=`
+      <div class="cat">${item.catLabel}</div>
+      <h3>${item.name}</h3>
+      <div class="address">${item.address}</div>
+      <p>${item.description}</p>
+      <div><strong>${item.phone}</strong></div>
+      <a href="${item.website}" target="_blank" rel="noopener">Официальный сайт →</a><br>
+      <button type="button">Показать на карте</button>
+    `;
+    card.querySelector("button").addEventListener("click",()=>{
+      map.setView([item.lat,item.lng],15,{animate:true});
+      markers[i].openPopup();
+    });
+    list.appendChild(card);
+  });
+}
+render();
+
+document.querySelectorAll(".filter").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));
+  btn.classList.add("active");
+  render(btn.dataset.cat);
+}));
+</script>
+</body>
+</html>

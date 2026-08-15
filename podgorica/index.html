@@ -2,93 +2,156 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="content-language" content="ru" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Русскоязычные специалисты и сервисы в Подгорица — Карта Russian Friendly</title>
+    <title>Русскоязычные специалисты в Подгорице — врачи, юристы, переводчики, жильё | Russian Friendly</title>
 
     <!-- ===================== SEO / GEO ===================== -->
     <link rel="canonical" href="https://russianfriendly.netlify.app/podgorica" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="Русскоязычные специалисты и сервисы в Подгорице: врачи, стоматологи, юристы, переводчики, банки, ВНЖ, риелторы, аренда жилья, трансферы, SIM/eSIM, русские магазины и школы." />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="author" content="Кристина Перез — Russian Friendly" />
+    <meta name="keywords" content="русскоязычные специалисты Подгорица, русский врач Подгорица, русский стоматолог Подгорица, русский юрист Подгорица, русский переводчик Подгорица, русский риелтор Подгорица, аренда жилья Подгорица русский, помощь с банком Подгорица русский, ВНЖ Черногория русский Подгорица, визовое агентство Подгорица русский, трансфер Подгорица русский, SIM карта Подгорица русский, русский магазин Подгорица, русские продукты Подгорица, русская школа Подгорица" />
 
     <!-- Open Graph / preview for smartphones -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Русскоязычные специалисты и сервисы в Подгорица — Карта Russian Friendly" />
-    <meta property="og:description" content="Стоматологи, врачи, юристы, переводчики, школы и сервисы в Подгорица на одной интерактивной карте." />
+    <meta property="og:title" content="Русскоязычные специалисты в Подгорице — Russian Friendly" />
+    <meta property="og:description" content="Врачи, стоматологи, юристы, переводчики, жильё, банки, ВНЖ, трансферы, SIM/eSIM, русские магазины и школы в Подгорице на одной карте." />
     <meta property="og:url" content="https://russianfriendly.netlify.app/podgorica" />
     <meta property="og:image" content="https://russianfriendly.netlify.app/podgorica/og-preview.jpg" />
 
     <!-- Twitter / X card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Русскоязычные специалисты в Подгорица" />
+    <meta name="twitter:title" content="Русскоязычные специалисты в Подгорице" />
 
     <!-- Mobile "add to home screen" -->
     <meta name="theme-color" content="#0B3350" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-    <!-- JSON-LD: Map / WebPage -->
+    <!-- ===================== JSON-LD / SEO / GEO ===================== -->
     <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
         {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "name": "Русскоязычные специалисты и сервисы в Подгорица",
-            "url": "https://russianfriendly.netlify.app/podgorica",
-            "description": "Интерактивная карта и каталог русскоязычных врачей, юристов, переводчиков, школ и сервисов в городском пространстве Подгорица."
-        }
-    </script>
-
-    <!-- JSON-LD: Person (автор) -->
-    <script type="application/ld+json">
+          "@type": "WebSite",
+          "@id": "https://russianfriendly.netlify.app/#website",
+          "name": "Russian Friendly",
+          "url": "https://russianfriendly.netlify.app/",
+          "inLanguage": "ru-RU"
+        },
         {
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Кристина Перез",
-            "url": "https://kristinaperez.netlify.app/",
-            "sameAs": [
-                "https://t.me/FeedbackCristinaBot",
-                "https://www.youtube.com/@Cristina-Perez-Monroe",
-                "https://kristinaperez.netlify.app/",
-                "https://pitermap.netlify.app/",
-                "https://aseosmadrid.netlify.app/"
-            ],
-            "jobTitle": "Автор проекта Russian Friendly"
-        }
-    </script>
-
-    <!-- JSON-LD: FAQPage -->
-    <script type="application/ld+json">
+          "@type": "WebPage",
+          "@id": "https://russianfriendly.netlify.app/podgorica#webpage",
+          "url": "https://russianfriendly.netlify.app/podgorica",
+          "name": "Русскоязычные специалисты в Подгорице — Russian Friendly",
+          "description": "Интерактивная карта и каталог русскоязычных специалистов и сервисов в Подгорице, Черногория.",
+          "inLanguage": "ru-RU",
+          "isPartOf": {"@id": "https://russianfriendly.netlify.app/#website"},
+          "about": {"@id": "https://russianfriendly.netlify.app/podgorica#city"},
+          "author": {"@id": "https://russianfriendly.netlify.app/podgorica#author"}
+        },
         {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [{
-                "@type": "Question",
-                "name": "Где найти русскоязычного врача или стоматолога в Подгорица?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "На карте Russian Friendly Подгорица собраны проверенные контакты врачей, стоматологов и клиник с русскоязычным персоналом."
-                }
-            }, {
-                "@type": "Question",
-                "name": "Как найти русские школы и сервисы в Подгорица?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Воспользуйтесь интерактивным каталогом на странице https://russianfriendly.netlify.app/podgorica для поиска школ, переводчиков, банковских консультантов и жилья."
-                }
-            }, {
-                "@type": "Question",
-                "name": "Есть ли в Подгорица русскоязычные юристы и переводчики?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Да, на карте отмечены проверенные юридические консультации и бюро переводов с русским языком в Подгорица."
-                }
-            }, {
-                "@type": "Question",
-                "name": "Где купить русские продукты в Подгорица?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "На карте отмечены русские магазины и продуктовые точки с привычным ассортиментом в Подгорица."
-                }
-            }]
+          "@type": "City",
+          "@id": "https://russianfriendly.netlify.app/podgorica#city",
+          "name": "Подгорица",
+          "alternateName": ["Podgorica", "Podgorica, Montenegro"],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Podgorica",
+            "addressCountry": "ME"
+          },
+          "containedInPlace": {
+            "@type": "Country",
+            "name": "Montenegro"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://russianfriendly.netlify.app/podgorica#author",
+          "name": "Кристина Перез",
+          "url": "https://kristinaperez.netlify.app/",
+          "jobTitle": "Автор проекта Russian Friendly"
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://russianfriendly.netlify.app/podgorica#categories",
+          "name": "Категории русскоязычных специалистов и сервисов в Подгорице",
+          "itemListElement": [
+            "русскоязычные врачи в Подгорице",
+            "русские стоматологи в Подгорице",
+            "русскоязычные юристы и адвокаты в Подгорице",
+            "русские переводчики в Подгорице",
+            "помощь с банком в Подгорице на русском",
+            "визовая и релокационная помощь в Подгорице",
+            "русские риелторы и аренда жилья в Подгорице",
+            "русскоязычные трансферы в Подгорице",
+            "SIM и eSIM с русскоязычной поддержкой",
+            "Border Run из Подгорицы",
+            "русские магазины и русские продукты в Подгорице",
+            "русские и русскоязычные школы в Подгорице"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://russianfriendly.netlify.app/podgorica#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Где найти русскоязычного врача или стоматолога в Подгорице?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "На странице Russian Friendly Подгорица есть отдельные категории врачей и стоматологов. Перед обращением самостоятельно проверьте актуальность контактов, язык приёма, лицензии и условия работы."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Есть ли в Подгорице русскоязычные юристы и переводчики?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "В каталоге предусмотрены категории русскоязычных юристов, адвокатов и переводчиков. Для документов, нотариальных и юридических услуг рекомендуется заранее уточнять специализацию и возможность обслуживания на русском языке."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Где найти русского риелтора и аренду жилья в Подгорице?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "На карте есть категория недвижимости и риелторов. Она предназначена для поиска специалистов по аренде квартир, домов и недвижимости в Подгорице с возможностью общения на русском языке."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Как найти помощь с банком, ВНЖ и документами в Подгорице на русском?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Используйте категории банков, виз и связанных с релокацией сервисов. Перед оплатой услуги самостоятельно проверяйте актуальные требования Черногории, документы, стоимость и квалификацию консультанта."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Где купить русские продукты в Подгорице?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "В каталоге есть категория русских магазинов. В ней можно искать магазины и продуктовые точки с русскими и товарами из стран СНГ; ассортимент и часы работы лучше уточнять перед поездкой."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Есть ли в Подгорице русские школы и школы на русском языке?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "На карте предусмотрена категория школ и образовательных центров. Условия обучения, язык преподавания, возраст детей и наличие мест необходимо уточнять непосредственно у организации."
+              }
+            }
+          ]
         }
+      ]
+    }
     </script>
 
     <!-- Leaflet CSS -->
@@ -491,6 +554,61 @@
             color: #ffb347;
         }
 
+
+        /* ===== SEO / GEO EXTENDED ===== */
+        .seo-geo-block {
+            background: #f0f4fa;
+            border-radius: 18px;
+            padding: 26px 28px;
+            margin: 32px 0 16px;
+            border-left: 6px solid #ff6600;
+        }
+        .seo-geo-block h2 {
+            font-size: 1.35rem;
+            color: #0B3350;
+            margin: 0 0 12px;
+        }
+        .seo-geo-block h3 {
+            font-size: 1.05rem;
+            color: #0B3350;
+            margin: 22px 0 7px;
+        }
+        .seo-geo-block p {
+            margin: 8px 0;
+        }
+        .query-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 9px 12px;
+            margin-top: 16px;
+        }
+        .query {
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: #fff;
+            border: 1px solid #dfe7ef;
+            font-size: .88rem;
+        }
+        .faq-list {
+            margin-top: 16px;
+        }
+        .faq-item {
+            background: #fff;
+            border: 1px solid #dfe7ef;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin: 10px 0;
+        }
+        .faq-item h3 {
+            margin: 0 0 7px;
+            font-size: 1rem;
+        }
+        .seo-note {
+            color: #536579;
+            font-size: .82rem;
+            margin-top: 18px;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 820px) {
             .site-header {
@@ -540,6 +658,9 @@
             }
             .seo-geo-block {
                 padding: 18px 16px;
+            }
+            .query-grid {
+                grid-template-columns: 1fr;
             }
             .site-footer .footer-inner {
                 flex-direction: column;
@@ -649,7 +770,7 @@
     <!-- ===== HEADER ===== -->
     <header class="site-header">
         <div class="brand">
-            <span>📍</span> Подгорица <span>—</span> Russian Friendly Map
+            <span>📍</span> Русскоязычные специалисты в Подгорице <span>—</span> Russian Friendly Map
             <span class="city-badge">🇲🇪</span>
         </div>
         <div class="header-ad">
@@ -686,7 +807,7 @@
         <div class="map-wrapper">
             <div id="map"></div>
             <div class="map-attribution-note">
-                <span>📍 Данные собраны из открытых источников. Проверяйте актуальность.</span>
+                <span>📍 Данные собраны из открытых источников. Проверяйте актуальность перед обращением.</span>
                 <span>🗺️ <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a></span>
             </div>
         </div>
@@ -707,11 +828,177 @@
             <div class="catalog-grid" id="catalogGrid"></div>
         </section>
 
-        <!-- SEO GEO BLOCK -->
+        <!-- SEO / GEO CONTENT -->
+        <section class="seo-geo-block" id="seo-content">
+            <h2>Русскоязычные специалисты и сервисы в Подгорице, Черногория</h2>
+            <p>
+                Russian Friendly — интерактивная карта и каталог для русскоязычных жителей,
+                экспатов, релокантов и гостей Подгорицы. Здесь можно искать
+                <strong>русскоязычных специалистов в Подгорице</strong> и полезные сервисы:
+                врачей, стоматологов, юристов, переводчиков, банковскую и визовую помощь,
+                риелторов, аренду жилья, трансферы, SIM/eSIM, Border Run, русские магазины
+                и русские школы.
+            </p>
+
+            <h3>Медицина и стоматология на русском языке</h3>
+            <p>
+                Если нужен <strong>русский врач в Подгорице</strong>, русскоязычный врач,
+                клиника с русскоязычным персоналом или <strong>русский стоматолог в Подгорице</strong>,
+                используйте соответствующие категории карты. Также можно искать стоматолога,
+                который принимает на русском языке. Перед визитом обязательно уточняйте
+                актуальность контактов, язык приёма, цены и квалификацию специалиста.
+            </p>
+
+            <h3>Юристы, адвокаты и переводчики</h3>
+            <p>
+                В каталоге предусмотрен поиск <strong>русского юриста в Подгорице</strong>,
+                русскоязычного адвоката и юридической помощи на русском языке.
+                Отдельная категория предназначена для <strong>русских переводчиков в Подгорице</strong>,
+                письменного и устного перевода, а также услуг, связанных с документами.
+            </p>
+
+            <h3>Банки, ВНЖ, визы и релокация</h3>
+            <p>
+                Для переезда и повседневных дел полезны запросы
+                <strong>помощь с банком в Подгорице на русском</strong>,
+                банковский консультант, помощь с документами, <strong>ВНЖ Черногория русский Подгорица</strong>
+                и <strong>визовое агентство в Подгорице с русским языком</strong>.
+                Информация на карте носит справочный характер: требования государственных органов
+                и банков необходимо проверять непосредственно перед обращением.
+            </p>
+
+            <h3>Недвижимость и аренда жилья</h3>
+            <p>
+                В разделе недвижимости можно искать <strong>русского риелтора в Подгорице</strong>,
+                русскоязычного риелтора, <strong>аренду жилья в Подгорице для русскоязычных</strong>,
+                квартиры и дома. Перед подписанием договора проверяйте собственника,
+                условия аренды, депозит, коммунальные платежи и документы.
+            </p>
+
+            <h3>Трансферы, SIM/eSIM и Border Run</h3>
+            <p>
+                На карте также собраны категории для <strong>русскоязычных трансферов в Подгорице</strong>,
+                поездок из аэропорта Подгорица, русскоязычных водителей, SIM и eSIM,
+                а также сервисов Border Run. Условия поездок, тарифы и правила пребывания
+                следует уточнять перед заказом.
+            </p>
+
+            <h3>Русские магазины, продукты и школы</h3>
+            <p>
+                Отдельные категории помогут искать <strong>русский магазин в Подгорице</strong>,
+                <strong>русские продукты в Подгорице</strong> и места, где можно купить привычные
+                продукты из России и стран СНГ. Для семей предусмотрена категория
+                <strong>русских школ в Подгорице</strong>, школ с русским языком обучения
+                и образовательных центров.
+            </p>
+
+            <h3>Поисковые темы Russian Friendly Подгорица</h3>
+            <div class="query-grid" aria-label="Основные поисковые темы страницы">
+                <div class="query">русскоязычные специалисты Подгорица</div>
+                <div class="query">русскоязычные специалисты в Подгорице</div>
+                <div class="query">русские сервисы Подгорица</div>
+                <div class="query">русские услуги Подгорица</div>
+                <div class="query">русские компании Подгорица</div>
+                <div class="query">русскоязычные услуги Подгорица</div>
+                <div class="query">русскоязычный сервис Подгорица</div>
+                <div class="query">русский бизнес Подгорица</div>
+                <div class="query">русские в Подгорице услуги</div>
+                <div class="query">помощь русским в Подгорице</div>
+                <div class="query">русский врач Подгорица</div>
+                <div class="query">русскоязычный врач Подгорица</div>
+                <div class="query">врач на русском Подгорица</div>
+                <div class="query">русскоязычная клиника Подгорица</div>
+                <div class="query">русская клиника Подгорица</div>
+                <div class="query">русский стоматолог Подгорица</div>
+                <div class="query">русскоязычный стоматолог Подгорица</div>
+                <div class="query">стоматолог на русском Подгорица</div>
+                <div class="query">русская стоматология Подгорица</div>
+                <div class="query">русский юрист Подгорица</div>
+                <div class="query">русскоязычный юрист Подгорица</div>
+                <div class="query">юрист на русском Подгорица</div>
+                <div class="query">адвокат русский Подгорица</div>
+                <div class="query">русский переводчик Подгорица</div>
+                <div class="query">русскоязычный переводчик Подгорица</div>
+                <div class="query">переводчик с русского Подгорица</div>
+                <div class="query">нотариус русский Подгорица</div>
+                <div class="query">русский риелтор Подгорица</div>
+                <div class="query">русскоязычный риелтор Подгорица</div>
+                <div class="query">аренда жилья Подгорица русский</div>
+                <div class="query">аренда квартиры Подгорица русские</div>
+                <div class="query">недвижимость Подгорица русский</div>
+                <div class="query">агентство недвижимости Подгорица русский</div>
+                <div class="query">помощь с банком Подгорица русский</div>
+                <div class="query">открыть счет в банке Подгорица русский</div>
+                <div class="query">банковский консультант Подгорица русский</div>
+                <div class="query">релокация Подгорица русский</div>
+                <div class="query">помощь с документами Подгорица русский</div>
+                <div class="query">ВНЖ Черногория русский Подгорица</div>
+                <div class="query">помощь с ВНЖ Подгорица русский</div>
+                <div class="query">визовое агентство Подгорица русский</div>
+                <div class="query">трансфер Подгорица русский</div>
+                <div class="query">русский водитель Подгорица</div>
+                <div class="query">трансфер аэропорт Подгорица русский</div>
+                <div class="query">SIM карта Подгорица русский</div>
+                <div class="query">eSIM Подгорица русский</div>
+                <div class="query">мобильная связь Подгорица русский</div>
+                <div class="query">Border Run Черногория русский</div>
+                <div class="query">русский магазин Подгорица</div>
+                <div class="query">русские продукты Подгорица</div>
+                <div class="query">где купить русские продукты Подгорица</div>
+                <div class="query">русская школа Подгорица</div>
+                <div class="query">русские школы Подгорица</div>
+                <div class="query">школа на русском Подгорица</div>
+                <div class="query">русскоязычные школы Подгорица</div>
+            </div>
+
+            <p class="seo-note">
+                Каталог является информационным справочником. Наличие карточки не означает
+                рекомендацию или подтверждение качества услуги. Перед обращением проверяйте
+                актуальность адреса, телефона, сайта, языка обслуживания и необходимых лицензий.
+            </p>
+        </section>
+
+        <!-- VISIBLE FAQ -->
+        <section class="seo-geo-block" id="faq">
+            <h2>Частые вопросы о русскоязычных сервисах в Подгорице</h2>
+            <div class="faq-list">
+                <article class="faq-item">
+                    <h3>Где найти русскоязычного врача или стоматолога в Подгорице?</h3>
+                    <p>Выберите категорию «Врачи» или «Стоматологи» на карте. Перед визитом проверьте актуальность контактов и возможность приёма на русском языке.</p>
+                </article>
+                <article class="faq-item">
+                    <h3>Есть ли в Подгорице русскоязычные юристы и переводчики?</h3>
+                    <p>Да, для этого предусмотрены категории «Юристы» и «Переводчики». Для юридических и официальных документов заранее уточняйте специализацию и статус переводчика.</p>
+                </article>
+                <article class="faq-item">
+                    <h3>Где найти русского риелтора и аренду жилья в Подгорице?</h3>
+                    <p>Используйте категорию «Риелторы». Там можно искать специалистов по аренде и покупке недвижимости с возможностью общения на русском языке.</p>
+                </article>
+                <article class="faq-item">
+                    <h3>Как найти помощь с банком, ВНЖ и документами в Подгорице на русском?</h3>
+                    <p>Используйте категории «Банки» и «Визы». Требования банков и государственных органов могут меняться, поэтому проверяйте актуальные правила перед подачей документов.</p>
+                </article>
+                <article class="faq-item">
+                    <h3>Где купить русские продукты в Подгорице?</h3>
+                    <p>Откройте категорию «Магазины». Там собраны точки, связанные с русскими и товарами из стран СНГ. Ассортимент и часы работы лучше уточнить заранее.</p>
+                </article>
+                <article class="faq-item">
+                    <h3>Есть ли в Подгорице русские школы и школы на русском языке?</h3>
+                    <p>Откройте категорию «Школы». Язык обучения, возраст детей, программу и наличие мест необходимо уточнять непосредственно у образовательной организации.</p>
+                </article>
+            </div>
+        </section>
+
         <section class="seo-geo-block">
-            <h2>🔍 Похожие запросы</h2>
-            <p class="promo">🇪🇸 Переезжаешь в Испанию? Узнай, как заговорить → <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a></p>
-            <p class="promo">🇪🇸 Едешь в Мадрид? Выбери район для прогулки → <a href="https://madridmap.netlify.app/" target="_blank" rel="noopener">madridmap.netlify.app</a></p>
+            <h2>Другие города Russian Friendly</h2>
+            <p>
+                Ищете русскоязычные сервисы в другом городе? Перейдите на главную карту
+                Russian Friendly и выберите нужную локацию.
+            </p>
+            <p class="promo">
+                🇪🇸 Переезжаешь в Испанию? Узнай, как заговорить →
+                <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a>
+            </p>
         </section>
 
     </div>
@@ -723,6 +1010,7 @@
                 <a href="https://russianfriendly.netlify.app/">🏠 Главная Russian Friendly</a>
                 <a href="https://russianfriendly.netlify.app/about">📄 About</a>
                 <a href="https://russianfriendly.netlify.app/contact">✉️ Contact</a>
+                <a href="#faq">❓ FAQ</a>
                 <a href="https://russianfriendly.netlify.app/privacy-policy">🔒 Privacy Policy</a>
             </div>
             <div class="footer-copy">

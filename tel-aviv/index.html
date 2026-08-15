@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Русскоязычные специалисты в Тель-Авиве — врачи, юристы, переводчики, жильё | Russian Friendly</title>
+
+<link rel="canonical" href="https://russianfriendly.netlify.app/tel-aviv">
+
+<meta name="description" content="Русскоязычные специалисты и сервисы в Тель-Авиве: врачи, стоматологи, юристы, переводчики, банки, миграционные услуги, жильё, трансферы, SIM/eSIM, русские магазины и школы.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Кристина Перез — Russian Friendly">
+<meta name="keywords" content="русскоязычные специалисты Тель-Авив, русский врач Тель-Авив, русский юрист Тель-Авив, русский риелтор Тель-Авив, русские магазины Тель-Авив, русская школа Тель-Авив, аренда жилья Тель-Авив русский, переводчик Тель-Авив, стоматолог Тель-Авив русский, банк Тель-Авив русский">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Русскоязычные специалисты в Тель-Авиве — Russian Friendly">
+<meta property="og:description" content="Русскоязычные врачи, стоматологи, юристы, переводчики, жильё, миграционные услуги, магазины и школы в Тель-Авиве на одной интерактивной карте.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/tel-aviv">
+<meta property="og:image" content="https://russianfriendly.netlify.app/tel-aviv/og-preview.jpg">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Тель-Авиве">
+<meta name="twitter:description" content="Russian Friendly — карта русскоязычных специалистов и сервисов в Тель-Авиве.">
+<meta name="twitter:image" content="https://russianfriendly.netlify.app/tel-aviv/og-preview.jpg">
+
+<link rel="icon" type="image/png" sizes="32x32" href="https://russianfriendly.netlify.app/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://russianfriendly.netlify.app/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://russianfriendly.netlify.app/apple-touch-icon.png">
+<link rel="manifest" href="https://russianfriendly.netlify.app/site.webmanifest">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="stylesheet" href="https://russianfriendly.netlify.app/styles.css">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<style>
+:root { --accent:#ff6600; --bg:#f8f9fa; --card:#ffffff; --text:#212529; --muted:#6c757d; --border:#dee2e6; --radius:12px; --shadow:0 2px 12px rgba(0,0,0,0.08); }
+* { box-sizing:border-box; }
+body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+.container { max-width:1200px; margin:0 auto; padding:0 16px; }
+
+header { background:var(--card); border-bottom:1px solid var(--border); padding:16px 0; position:sticky; top:0; z-index:1000; }
+.header-inner { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+.header-title { font-size:1.25rem; font-weight:700; margin:0; line-height:1.3; }
+.author-promo { display:flex; align-items:center; gap:10px; background:#fff7ed; border:1px solid #ffdcc0; border-radius:var(--radius); padding:8px 14px; font-size:0.9rem; color:var(--accent); font-weight:600; }
+.author-promo img { width:36px; height:36px; border-radius:50%; object-fit:cover; }
+
+.intro { padding:32px 0 16px; }
+.intro h1 { font-size:1.6rem; margin:0 0 12px; }
+.intro p { color:var(--muted); margin:0; max-width:720px; }
+
+.filters { padding:16px 0; display:flex; flex-wrap:wrap; gap:8px; }
+.filter-btn { background:var(--card); border:1px solid var(--border); border-radius:999px; padding:8px 16px; font-size:0.9rem; cursor:pointer; transition:all 0.2s; color:var(--text); }
+.filter-btn:hover,.filter-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+.map-wrap { padding:8px 0 24px; }
+#map { height:480px; border-radius:var(--radius); box-shadow:var(--shadow); width:100%; }
+@media (max-width:768px){ #map { height:320px; } }
+
+.feedback { text-align:center; padding:8px 0 24px; font-size:0.95rem; color:var(--muted); }
+
+.catalog { padding:24px 0; }
+.catalog h2 { font-size:1.4rem; margin:0 0 16px; }
+.catalog-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
+.catalog-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:16px; box-shadow:var(--shadow); cursor:pointer; transition:transform 0.15s,box-shadow 0.15s; }
+.catalog-card:hover { transform:translateY(-2px); box-shadow:0 4px 20px rgba(0,0,0,0.12); }
+.catalog-card .cat { font-size:0.8rem; color:var(--accent); font-weight:600; margin-bottom:6px; }
+.catalog-card h3 { font-size:1.05rem; margin:0 0 8px; }
+.catalog-card .meta { font-size:0.88rem; color:var(--muted); line-height:1.5; }
+.catalog-card .meta a { word-break:break-all; }
+
+.seo-block { padding:32px 0; max-width:800px; }
+.seo-block h2 { font-size:1.4rem; margin:0 0 16px; }
+.seo-block p { color:var(--muted); margin:0 0 12px; }
+
+.semantic { padding:32px 0; }
+.semantic h2 { font-size:1.4rem; margin:0 0 16px; }
+.query-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px; }
+.query { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:10px 14px; font-size:0.9rem; color:var(--text); }
+
+.faq { padding:32px 0; }
+.faq h2 { font-size:1.4rem; margin:0 0 16px; }
+.faq-item { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:12px; overflow:hidden; }
+.faq-q { padding:14px 16px; font-weight:600; cursor:pointer; display:flex; justify-content:space-between; align-items:center; user-select:none; }
+.faq-q::after { content:"+"; font-size:1.2rem; color:var(--accent); }
+.faq-item.open .faq-q::after { content:"−"; }
+.faq-a { padding:0 16px; max-height:0; overflow:hidden; transition:max-height 0.3s ease,padding 0.3s ease; color:var(--muted); font-size:0.95rem; }
+.faq-item.open .faq-a { padding:0 16px 14px; max-height:500px; }
+
+.city-links { padding:24px 0; }
+.city-links h2 { font-size:1.2rem; margin:0 0 12px; }
+.city-links ul { list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:8px 16px; }
+.city-links li a { color:var(--accent); }
+
+footer { background:var(--card); border-top:1px solid var(--border); padding:24px 0; margin-top:24px; font-size:0.9rem; color:var(--muted); }
+.footer-inner { display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:center; }
+.footer-links { display:flex; flex-wrap:wrap; gap:12px; }
+
+.leaflet-popup-content-wrapper { border-radius:var(--radius); }
+.popup-title { font-weight:700; margin-bottom:4px; }
+.popup-cat { font-size:0.8rem; color:var(--accent); margin-bottom:6px; }
+.popup-desc { font-size:0.85rem; color:var(--muted); margin-bottom:6px; }
+.popup-meta { font-size:0.8rem; color:var(--muted); }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebSite", "name": "Russian Friendly", "url": "https://russianfriendly.netlify.app/" },
+    { "@type": "WebPage", "name": "Русскоязычные специалисты в Тель-Авиве — Russian Friendly", "url": "https://russianfriendly.netlify.app/tel-aviv", "description": "Интерактивная карта и каталог русскоязычных специалистов и сервисов в Тель-Авиве, Израиль." },
+    { "@type": "City", "name": "Тель-Авив", "alternateName": "Tel Aviv", "country": "Israel" },
+    { "@type": "Person", "name": "Кристина Перез", "url": "https://kristinaperez.netlify.app/", "jobTitle": "Автор проекта Russian Friendly" },
+    { "@type": "ItemList", "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Стоматологи" },
+      { "@type": "ListItem", "position": 2, "name": "Врачи" },
+      { "@type": "ListItem", "position": 3, "name": "Юристы" },
+      { "@type": "ListItem", "position": 4, "name": "Переводчики" },
+      { "@type": "ListItem", "position": 5, "name": "Банки / финансовые консультации" },
+      { "@type": "ListItem", "position": 6, "name": "Визы / миграционные услуги" },
+      { "@type": "ListItem", "position": 7, "name": "Недвижимость / аренда жилья / риелторы" },
+      { "@type": "ListItem", "position": 8, "name": "Трансферы / русскоязычные водители" },
+      { "@type": "ListItem", "position": 9, "name": "SIM / eSIM / мобильная связь" },
+      { "@type": "ListItem", "position": 10, "name": "Русские магазины / продукты" },
+      { "@type": "ListItem", "position": 11, "name": "Русские и русскоязычные школы / образование" }
+    ]},
+    { "@type": "FAQPage", "mainEntity": [
+      { "@type": "Question", "name": "Где найти русскоязычного врача или стоматолога в Тель-Авиве?", "acceptedAnswer": { "@type": "Answer", "text": "В Тель-Авиве работают русскоязычные стоматологи, например, доктор Саша Горюнов (Вейцман 14) и профессор Рони Колерман (ул. Малхей Исраэль 17). Многие крупные клиники также имеют русскоязычный персонал. Рекомендуем уточнять язык при записи." } },
+      { "@type": "Question", "name": "Есть ли в Тель-Авиве русскоязычные юристы и переводчики?", "acceptedAnswer": { "@type": "Answer", "text": "Да, в Тель-Авиве работают русскоязычные адвокаты и нотариусы: адвокат Женя (ул. Хасмонеим 115), Эстер Анастасия Фукс (Дерех Менахем Бегин 150), Анна Гефтлер, Алекс Паткин и Алекс Зернопольский. Переводческие услуги оказывают iTrex, Резников и Партнёры, Владимир Кернерман и Елена Ковалёва." } },
+      { "@type": "Question", "name": "Где найти русского риелтора и аренду жилья в Тель-Авиве?", "acceptedAnswer": { "@type": "Answer", "text": "Русскоязычные риелторы в Тель-Авиве: Омри Финкельштейн (Йосеф Хаим), агентство My Telaviv Real Estate, Борис Горэн (ISRA-HOME). Они помогают с арендой, покупкой и инвестициями в недвижимость. Контакты найдены в открытых источниках." } },
+      { "@type": "Question", "name": "Как найти помощь с банком, визой и миграционными документами в Тель-Авиве на русском?", "acceptedAnswer": { "@type": "Answer", "text": "Банки Леуми, Бейнлеуми и Мизрахи-Тфахот предлагают русскоязычное обслуживание. По вопросам миграции и гражданства можно обратиться к адвокатам Алексу Зернопольскому или Алексу Паткину, а также в Консульский отдел Посольства РФ (ул. Хаяркон 120)." } },
+      { "@type": "Question", "name": "Где купить русские продукты в Тель-Авиве?", "acceptedAnswer": { "@type": "Answer", "text": "Магазин «Маленькая Россия» находится на ул. Алленби 106 в Тель-Авиве. Интернет-магазин «Русфуд» доставляет русские продукты по всему Израилю. Также доступен магазин Radost с доставкой." } },
+      { "@type": "Question", "name": "Есть ли в Тель-Авиве русские школы и школы на русском языке?", "acceptedAnswer": { "@type": "Answer", "text": "Да. Русская школа при Посольстве РФ расположена на ул. Геула 30 в Тель-Авиве. Также работают вечерний лицей «Эрудит» и школа Алеф (Aleph) с сильными академическими программами." } }
+    ]}
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <h1 class="header-title">📍 Русскоязычные специалисты в Тель-Авиве — Russian Friendly Map</h1>
+    <a href="https://kristinaperez.netlify.app/" class="author-promo" target="_blank" rel="noopener">
+      <img src="https://russianfriendly.netlify.app/kristina-face.png" alt="Кристина Перез">
+      <span>Переезжаешь в Испанию? Узнай, как заговорить →</span>
+    </a>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="container">
+    <h1>Карта русскоязычных специалистов в Тель-Авиве</h1>
+    <p>Интерактивный каталог русскоязычных сервисов в Тель-Авиве: врачи, стоматологи, юристы, переводчики, банки, риелторы, магазины и школы. Все контакты найдены в открытых источниках и представлены для удобства поиска.</p>
+  </div>
+</section>
+
+<section class="filters">
+  <div class="container" id="filters">
+    <button class="filter-btn active" data-cat="all">Все</button>
+    <button class="filter-btn" data-cat="dentist">🦷 Стоматологи</button>
+    <button class="filter-btn" data-cat="doctor">👩‍⚕️ Врачи</button>
+    <button class="filter-btn" data-cat="lawyer">⚖️ Юристы</button>
+    <button class="filter-btn" data-cat="translator">📄 Переводчики</button>
+    <button class="filter-btn" data-cat="bank">🏦 Банки / финансовые консультации</button>
+    <button class="filter-btn" data-cat="visa">🛂 Визы / миграционные услуги</button>
+    <button class="filter-btn" data-cat="realestate">🏠 Недвижимость / аренда жилья / риелторы</button>
+    <button class="filter-btn" data-cat="transfer">🚕 Трансферы / русскоязычные водители</button>
+    <button class="filter-btn" data-cat="sim">📱 SIM / eSIM / мобильная связь</button>
+    <button class="filter-btn" data-cat="shop">🛒 Русские магазины / продукты</button>
+    <button class="filter-btn" data-cat="school">🏫 Русские и русскоязычные школы / образование</button>
+  </div>
+</section>
+
+<section class="map-wrap">
+  <div class="container">
+    <div id="map"></div>
+  </div>
+</section>
+
+<section class="feedback">
+  <div class="container">
+    Нашли неверные данные? <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">Сообщите нам в бот</a>
+  </div>
+</section>
+
+<section class="catalog">
+  <div class="container">
+    <h2>Каталог организаций</h2>
+    <div class="catalog-grid" id="catalog"></div>
+  </div>
+</section>
+
+<section class="seo-block">
+  <div class="container">
+    <h2>Русскоязычные специалисты и сервисы в Тель-Авиве, Израиль</h2>
+    <p>В Тель-Авиве проживает большая русскоязычная община, и спрос на сервисы на родном языке остаётся высоким. В каталоге Russian Friendly собраны контакты специалистов, найденные в открытых источниках: русскоязычные стоматологи, юристы, переводчики и нотариусы, риелторы и агентства недвижимости, банки с русскоязычным обслуживанием, миграционные консультанты, магазины русских продуктов и школы с преподаванием на русском языке.</p>
+    <p>Если вам нужен русскоязычный врач или стоматолог в Тель-Авиве, обратите внимание на клиники, где врачи владеют русским языком. Юридические вопросы — от оформления гражданства до сделок с недвижимостью — можно решить с помощью русскоязычных адвокатов и нотариусов, работающих в центре города.</p>
+    <p>Для поиска жилья в Тель-Авиве на русском языке доступны риелторы и агентства, специализирующиеся на работе с репатриантами и иностранными гражданами. Вопросы банковского обслуживания, открытия счёта и ипотеки можно решить в филиалах крупных израильских банков, где есть русскоязычные консультанты.</p>
+    <p>Русские продукты в Тель-Авиве можно купить в специализированных магазинах или заказать с доставкой. Для детей доступно обучение в русской школе при Посольстве РФ и вечерних лицеях, где преподают русский язык и литературу.</p>
+    <p>Все организации в каталоге представлены на основании данных из открытых источников. Перед обращением рекомендуем уточнять актуальность информации.</p>
+  </div>
+</section>
+
+<section class="semantic">
+  <div class="container">
+    <h2>Поисковые темы Russian Friendly Тель-Авив</h2>
+    <div class="query-grid">
+      <div class="query">русскоязычные специалисты Тель-Авив</div>
+      <div class="query">русскоязычные специалисты в Тель-Авиве</div>
+      <div class="query">русские сервисы Тель-Авив</div>
+      <div class="query">русские услуги Тель-Авив</div>
+      <div class="query">русские компании Тель-Авив</div>
+      <div class="query">русскоязычные услуги Тель-Авив</div>
+      <div class="query">русскоязычный сервис Тель-Авив</div>
+      <div class="query">русский бизнес Тель-Авив</div>
+      <div class="query">русские в Тель-Авиве услуги</div>
+      <div class="query">помощь русским в Тель-Авиве</div>
+      <div class="query">русский врач Тель-Авив</div>
+      <div class="query">русскоязычный врач Тель-Авив</div>
+      <div class="query">врач на русском Тель-Авив</div>
+      <div class="query">русскоязычная клиника Тель-Авив</div>
+      <div class="query">русская клиника Тель-Авив</div>
+      <div class="query">русский стоматолог Тель-Авив</div>
+      <div class="query">русскоязычный стоматолог Тель-Авив</div>
+      <div class="query">стоматолог на русском Тель-Авив</div>
+      <div class="query">русская стоматология Тель-Авив</div>
+      <div class="query">русский юрист Тель-Авив</div>
+      <div class="query">русскоязычный юрист Тель-Авив</div>
+      <div class="query">юрист на русском Тель-Авив</div>
+      <div class="query">адвокат русский Тель-Авив</div>
+      <div class="query">русский переводчик Тель-Авив</div>
+      <div class="query">русскоязычный переводчик Тель-Авив</div>
+      <div class="query">переводчик с русского Тель-Авив</div>
+      <div class="query">нотариус русский Тель-Авив</div>
+      <div class="query">русский риелтор Тель-Авив</div>
+      <div class="query">русскоязычный риелтор Тель-Авив</div>
+      <div class="query">аренда жилья Тель-Авив русский</div>
+      <div class="query">аренда квартиры Тель-Авив русские</div>
+      <div class="query">недвижимость Тель-Авив русский</div>
+      <div class="query">агентство недвижимости Тель-Авив русский</div>
+      <div class="query">помощь с банком Тель-Авив русский</div>
+      <div class="query">открыть счет в банке Тель-Авив русский</div>
+      <div class="query">банковский консультант Тель-Авив русский</div>
+      <div class="query">релокация Тель-Авив русский</div>
+      <div class="query">помощь с документами Тель-Авив русский</div>
+      <div class="query">миграционный консультант Тель-Авив русский</div>
+      <div class="query">помощь с визой Тель-Авив русский</div>
+      <div class="query">визовое агентство Тель-Авив русский</div>
+      <div class="query">трансфер Тель-Авив русский</div>
+      <div class="query">русский водитель Тель-Авив</div>
+      <div class="query">трансфер аэропорт Тель-Авив русский</div>
+      <div class="query">SIM карта Тель-Авив русский</div>
+      <div class="query">eSIM Тель-Авив русский</div>
+      <div class="query">мобильная связь Тель-Авив русский</div>
+      <div class="query">русский трансфер аэропорт Тель-Авив</div>
+      <div class="query">русский магазин Тель-Авив</div>
+      <div class="query">русские продукты Тель-Авив</div>
+      <div class="query">где купить русские продукты Тель-Авив</div>
+      <div class="query">русская школа Тель-Авив</div>
+      <div class="query">русские школы Тель-Авив</div>
+      <div class="query">школа на русском Тель-Авив</div>
+      <div class="query">русскоязычные школы Тель-Авив</div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="container">
+    <h2>Часто задаваемые вопросы</h2>
+    <div class="faq-item">
+      <div class="faq-q">Где найти русскоязычного врача или стоматолога в Тель-Авиве?</div>
+      <div class="faq-a">В Тель-Авиве работают русскоязычные стоматологи, например, доктор Саша Горюнов (Вейцман 14) и профессор Рони Колерман (ул. Малхей Исраэль 17). Многие крупные клиники также имеют русскоязычный персонал. Рекомендуем уточнять язык при записи. Контакты найдены в открытых источниках.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Есть ли в Тель-Авиве русскоязычные юристы и переводчики?</div>
+      <div class="faq-a">Да, в Тель-Авиве работают русскоязычные адвокаты и нотариусы: адвокат Женя (ул. Хасмонеим 115), Эстер Анастасия Фукс (Дерех Менахем Бегин 150), Анна Гефтлер, Алекс Паткин и Алекс Зернопольский. Переводческие услуги оказывают iTrex, Резников и Партнёры, Владимир Кернерман и Елена Ковалёва. Контакты найдены в открытых источниках.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Где найти русского риелтора и аренду жилья в Тель-Авиве?</div>
+      <div class="faq-a">Русскоязычные риелторы в Тель-Авиве: Омри Финкельштейн (Йосеф Хаим), агентство My Telaviv Real Estate, Борис Горэн (ISRA-HOME). Они помогают с арендой, покупкой и инвестициями в недвижимость. Контакты найдены в открытых источниках.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Как найти помощь с банком, визой и миграционными документами в Тель-Авиве на русском?</div>
+      <div class="faq-a">Банки Леуми, Бейнлеуми и Мизрахи-Тфахот предлагают русскоязычное обслуживание. По вопросам миграции и гражданства можно обратиться к адвокатам Алексу Зернопольскому или Алексу Паткину, а также в Консульский отдел Посольства РФ (ул. Хаяркон 120). Контакты найдены в открытых источниках.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Где купить русские продукты в Тель-Авиве?</div>
+      <div class="faq-a">Магазин «Маленькая Россия» находится на ул. Алленби 106 в Тель-Авиве. Интернет-магазин «Русфуд» доставляет русские продукты по всему Израилю. Также доступен магазин Radost с доставкой. Контакты найдены в открытых источниках.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Есть ли в Тель-Авиве русские школы и школы на русском языке?</div>
+      <div class="faq-a">Да. Русская школа при Посольстве РФ расположена на ул. Геула 30 в Тель-Авиве. Также работают вечерний лицей «Эрудит» и школа Алеф (Aleph) с сильными академическими программами. Контакты найдены в открытых источниках.</div>
+    </div>
+  </div>
+</section>
+
+<section class="city-links">
+  <div class="container">
+    <h2>Другие города Russian Friendly</h2>
+    <ul>
+      <li><a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a></li>
+      <li><a href="https://russianfriendly.netlify.app/sydney">Сидней</a></li>
+      <li><a href="https://russianfriendly.netlify.app/about.html">About</a></li>
+      <li><a href="https://russianfriendly.netlify.app/contact.html">Contact</a></li>
+      <li><a href="https://russianfriendly.netlify.app/privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div>© Russian Friendly — карта русскоязычных специалистов</div>
+    <div class="footer-links">
+      <a href="https://russianfriendly.netlify.app/">Главная</a>
+      <a href="https://russianfriendly.netlify.app/about.html">About</a>
+      <a href="https://russianfriendly.netlify.app/contact.html">Contact</a>
+      <a href="https://russianfriendly.netlify.app/privacy-policy.html">Privacy Policy</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const DATA = [
+  { name:"Д-р Саша Горюнов", category:"dentist", catLabel:"🦷 Стоматологи", address:"Вейцман 14 к 19, Тель-Авив", phone:"—", lat:32.0800, lng:34.7800, website:"https://www.medreviews.co.il", description:"Эстетическая стоматология. Языки: иврит, английский, русский. Контакты найдены в открытых источниках." },
+  { name:"Профессор Рони Колерман", category:"dentist", catLabel:"🦷 Стоматологи", address:"ул. Малхей Исраэль 17, Тель-Авив", phone:"—", lat:32.0700, lng:34.7800, website:"https://www.medreviews.co.il", description:"Пародонтолог, специалист по заболеваниям десен и имплантологии. Языки: иврит, английский, русский. Контакты найдены в открытых источниках." },
+  { name:"Dentist Israel", category:"dentist", catLabel:"🦷 Стоматологи", address:"Дерех 74, Тель-Авив", phone:"054-9303078", lat:32.0650, lng:34.7750, website:"https://dentist-israel.com", description:"Стоматологические услуги в Тель-Авиве. Контакты найдены в открытых источниках." },
+  { name:"Itelman Smiles — круглосуточная стоматология", category:"dentist", catLabel:"🦷 Стоматологи", address:"Тель-Авив", phone:"077-4178070", lat:32.0850, lng:34.7820, website:"https://itelmansmiles.co.il", description:"Круглосуточная стоматологическая помощь в Тель-Авиве. Контакты найдены в открытых источниках." },
+  { name:"Адвокат Женя", category:"lawyer", catLabel:"⚖️ Юристы", address:"ул. Хасмонеим 115, Тель-Авив", phone:"03-635-0202", lat:32.0670, lng:34.7850, website:"http://www.israeladvokat.com", description:"Русскоязычный адвокат и нотариус в Тель-Авиве. Контакты найдены в открытых источниках." },
+  { name:"Эстер Анастасия Фукс — адвокат", category:"lawyer", catLabel:"⚖️ Юристы", address:"Бизнес центр WE, 11 этаж, ул. Дерех Менахем Бегин 150, Тель-Авив-Яффо", phone:"+7 925 171-0755", lat:32.0640, lng:34.7800, website:"https://fux-law.co.il", description:"Юридические услуги на русском языке в Израиле. Контакты найдены в открытых источниках." },
+  { name:"Адвокат Анна Гефтлер", category:"lawyer", catLabel:"⚖️ Юристы", address:"Центр Тель-Авива", phone:"—", lat:32.0850, lng:34.7820, website:"https://www.geftler-law.co.il", description:"Юридическая помощь на русском языке. Бесплатная консультация по телефону. Контакты найдены в открытых источниках." },
+  { name:"Адвокатский офис Алекса Паткина", category:"lawyer", catLabel:"⚖️ Юристы", address:"Офисы в Тель-Авиве и Хайфе", phone:"054-762-9217", lat:32.0850, lng:34.7820, website:"https://pz-law.co.il", description:"Полный спектр юридических услуг: репатриация, МВД, семейное право, ДТП, недвижимость. Контакты найдены в открытых источниках." },
+  { name:"Адвокатский офис Алекса Зернопольского", category:"lawyer", catLabel:"⚖️ Юристы", address:"Менахем Бегин 125, этаж Е2, Тель-Авив", phone:"—", lat:32.0645, lng:34.7805, website:"https://pravoisrael.com", description:"20 лет практики. Иммиграционное, семейное, коммерческое право. Репатриация и гражданство. Контакты найдены в открытых источниках." },
+  { name:"iTrex Language Services", category:"translator", catLabel:"📄 Переводчики", address:"Израиль", phone:"—", lat:32.0850, lng:34.7820, website:"https://itrexint.co.il", description:"Нотариальный перевод в Израиле. 120+ языков, 20 лет опыта, ISO 9001 и EN 15038. Контакты найдены в открытых источниках." },
+  { name:"Резников и Партнёры Тель-Авив", category:"translator", catLabel:"📄 Переводчики", address:"Тель-Авив", phone:"—", lat:32.0850, lng:34.7830, website:"https://rezni.com", description:"Нотариальный перевод с иврита на русский язык с израильским апостилем. Контакты найдены в открытых источниках." },
+  { name:"Владимир Кернерман — адвокат нотариус", category:"translator", catLabel:"📄 Переводчики", address:"Центр Тель-Авива", phone:"—", lat:32.0840, lng:34.7810, website:"https://kernerman.com.ru", description:"Перевод документов в центре Тель-Авива. Нотариальное заверение, оформление доверенностей. Контакты найдены в открытых источниках." },
+  { name:"Адвокат-нотариус Елена Ковалёва", category:"translator", catLabel:"📄 Переводчики", address:"ул. Кауфман 2, 2-й этаж, Тель-Авив", phone:"052-232-5339", lat:32.0650, lng:34.7850, website:"https://israel.mid.ru", description:"Свидетельствование верности перевода. Контакты найдены в открытых источниках." },
+  { name:"Банк Леуми", category:"bank", catLabel:"🏦 Банки / финансовые консультации", address:"Филиалы по всему Тель-Авиву", phone:"—", lat:32.0853, lng:34.7818, website:"https://www.leumi.co.il", description:"Один из крупнейших банков Израиля. Русскоязычное обслуживание, банкоматы с интерфейсом на русском языке. Контакты найдены в открытых источниках." },
+  { name:"Банк Бейнлеуми", category:"bank", catLabel:"🏦 Банки / финансовые консультации", address:"Филиалы по всему Тель-Авиву", phone:"—", lat:32.0860, lng:34.7820, website:"https://www.intl.boi.org.il", description:"Русскоязычное обслуживание, FinTech-решения, VIP-обслуживание. Контакты найдены в открытых источниках." },
+  { name:"Банк Мизрахи-Тфахот", category:"bank", catLabel:"🏦 Банки / финансовые консультации", address:"Филиалы по всему Тель-Авиву", phone:"—", lat:32.0840, lng:34.7800, website:"https://www.mizrahi-tefahot.co.il", description:"220 филиалов по Израилю. Ипотека для репатриантов. Контакты найдены в открытых источниках." },
+  { name:"Адвокатский офис Алекса Зернопольского", category:"visa", catLabel:"🛂 Визы / миграционные услуги", address:"Менахем Бегин 125, этаж Е2, Тель-Авив", phone:"—", lat:32.0645, lng:34.7805, website:"https://pravoisrael.com", description:"Репатриация, получение гражданства, защита от депортации, сопровождение в МВД. Контакты найдены в открытых источниках." },
+  { name:"Адвокатский офис Алекса Паткина", category:"visa", catLabel:"🛂 Визы / миграционные услуги", address:"Офисы в Тель-Авиве и Хайфе", phone:"054-762-9217", lat:32.0855, lng:34.7825, website:"https://pz-law.co.il", description:"Сопровождение в МВД, репатриация, получение гражданства. Контакты найдены в открытых источниках." },
+  { name:"Консульский отдел Посольства РФ в Израиле", category:"visa", catLabel:"🛂 Визы / миграционные услуги", address:"ул. Хаяркон 120, Тель-Авив", phone:"+972 3 522 67 44", lat:32.0800, lng:34.7700, website:"https://israel.mid.ru", description:"Консульские услуги для граждан РФ. Контакты найдены в открытых источниках." },
+  { name:"Омри Финкельштейн — недвижимость в Тель-Авиве", category:"realestate", catLabel:"🏠 Недвижимость / аренда жилья / риелторы", address:"Йосеф Хаим, Тель-Авив", phone:"+972 52 537 9669", lat:32.0700, lng:34.7700, website:"https://yandex.ru/maps/org/nedvizhimost_v_tel_avive_omri_finkelshteyn/151513967465/", description:"Агентство недвижимости в Тель-Авиве. Контакты найдены в открытых источниках." },
+  { name:"My Telaviv Real Estate", category:"realestate", catLabel:"🏠 Недвижимость / аренда жилья / риелторы", address:"Тель-Авив", phone:"—", lat:32.0850, lng:34.7810, website:"https://www.mytelaviv-realestate.com/ru/", description:"Агентство недвижимости в Тель-Авиве. Говорят на иврите, русском, английском и французском. Контакты найдены в открытых источниках." },
+  { name:"Борис Горэн — ISRA-HOME", category:"realestate", catLabel:"🏠 Недвижимость / аренда жилья / риелторы", address:"Тель-Авив и вся Израиль", phone:"—", lat:32.0830, lng:34.7800, website:"https://sarafanpro.com/rieltori/", description:"Сертифицированный риелтор Министерства Юстиции Израиля с 2008 года. Покупка, продажа, аренда, инвестиции. Контакты найдены в открытых источниках." },
+  { name:"Pelephone", category:"sim", catLabel:"📱 SIM / eSIM / мобильная связь", address:"Точки продажи в аэропорту Бен-Гурион и Тель-Авиве", phone:"—", lat:32.0113, lng:34.8867, website:"https://www.pelephone.co.il", description:"Лидер 5G-покрытия. Русскоязычная поддержка, туристические SIM-карты. Контакты найдены в открытых источниках." },
+  { name:"Partner Communications", category:"sim", catLabel:"📱 SIM / eSIM / мобильная связь", address:"Торговые центры Dizengoff Center, Azrieli Center, Тель-Авив", phone:"—", lat:32.0750, lng:34.7750, website:"https://www.partner.co.il", description:"Русскоязычные консультанты, туристические предоплаченные тарифы. Контакты найдены в открытых источниках." },
+  { name:"Cellcom Israel", category:"sim", catLabel:"📱 SIM / eSIM / мобильная связь", address:"Тель-Авив и вся Израиль", phone:"—", lat:32.0860, lng:34.7850, website:"https://www.cellcom.co.il", description:"Старейший оператор с максимальным покрытием. Контакты найдены в открытых источниках." },
+  { name:"Маленькая Россия", category:"shop", catLabel:"🛒 Русские магазины / продукты", address:"ул. Алленби 106, Тель-Авив", phone:"+972 3 566 8777", lat:32.0708, lng:34.7705, website:"https://yandex.ru/maps/org/malenkaya_rossiya/242263272101/", description:"Магазин русских продуктов в центре Тель-Авива. Контакты найдены в открытых источниках." },
+  { name:"Русфуд", category:"shop", catLabel:"🛒 Русские магазины / продукты", address:"Доставка по Израилю", phone:"—", lat:32.0850, lng:34.7820, website:"https://rusfood.co.il", description:"Интернет-магазин русских продуктов с доставкой. Некошерный деликатесный магазин. Контакты найдены в открытых источниках." },
+  { name:"Radost", category:"shop", catLabel:"🛒 Русские магазины / продукты", address:"Иерусалим (доставка)", phone:"—", lat:32.0850, lng:34.7830, website:"https://radost.co.il", description:"Русский магазин продуктов. Доставка. Контакты найдены в открытых источниках." },
+  { name:"Русская школа при Посольстве РФ", category:"school", catLabel:"🏫 Русские и русскоязычные школы / образование", address:"ул. Геула 30, Тель-Авив", phone:"+972 73 384 5130", lat:32.0719, lng:34.7650, website:"http://scholaizr.ru", description:"Средняя общеобразовательная школа при Российском посольстве. Обучение по программе Минобразования РФ. Контакты найдены в открытых источниках." },
+  { name:"Вечерний лицей Эрудит", category:"school", catLabel:"🏫 Русские и русскоязычные школы / образование", address:"Израиль", phone:"—", lat:32.0840, lng:34.7810, website:"https://www.erudit.co.il", description:"Программа обучения русскому языку детей. Одно из первых учреждений дополнительного образования в Израиле. Контакты найдены в открытых источниках." },
+  { name:"Школа Алеф (Aleph)", category:"school", catLabel:"🏫 Русские и русскоязычные школы / образование", address:"Тель-Авив", phone:"—", lat:32.0820, lng:34.7800, website:"https://concierge-israel.com", description:"Школа с сильными академическими программами и акцентом на творческое развитие. Контакты найдены в открытых источниках." }
+];
+
+const map = L.map('map').setView([32.0853, 34.7818], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+const markers = {};
+const icons = {
+  dentist: L.divIcon({className:'custom-icon', html:'<div style="font-size:22px;">🦷</div>', iconSize:[28,28], iconAnchor:[14,14]}),
+  doctor: L.divIcon({className:'custom-icon', html:'<div style="font-size:22px;">👩‍⚕️</div>', iconSize:[28,28], iconAnchor:[14,14]}),
+  lawyer: L.divIcon({className:'custom-icon', html:'<div style="font-size:22px;">⚖️</div>', iconSize:[28,28], iconAnchor:[14,14]}),
+  translator: L.divIcon({className:'custom-icon', html:'<div style="font-size:22px;">📄</div>', iconSize:[28,28], iconAnchor:[14,14]}),
+  bank: L.divIcon({className:'custom-icon', html:'<div style="font-size:22px;">🏦</div>', iconSize:[28,28], iconAnchor:[14,14]}),
+  visa: L.divIcon({className:'custom-icon', html:'<div style="font-size:22px;">🛂</div>', iconSize:[28,28], iconAnchor:[14,14]}),
+  realestate: L.divIcon({className:'custom-icon', html:'<div style="font-size:22px;">🏠</div>', iconSize:[28,28], iconAnchor:[14,14]}),
+  transfer: L.divIcon({className:'custom-icon', html:'<div style="font-size:22px;">🚕</div>', iconSize:[28,28], iconAnchor:[14,14]}),
+  sim: L.divIcon({className:'custom-icon', html:'<div style="font-size:22px;">📱</div>', iconSize:[28,28], iconAnchor:[14,14]}),
+  shop: L.divIcon({className:'custom-icon', html:'<div style="font-size:22px;">🛒</div>', iconSize:[28,28], iconAnchor:[14,14]}),
+  school: L.divIcon({className:'custom-icon', html:'<div style="font-size:22px;">🏫</div>', iconSize:[28,28], iconAnchor:[14,14]})
+};
+
+function renderMarkers(filter) {
+  Object.values(markers).forEach(m => map.removeLayer(m));
+  Object.keys(markers).forEach(k => delete markers[k]);
+  DATA.forEach((item, idx) => {
+    if (filter !== 'all' && item.category !== filter) return;
+    const marker = L.marker([item.lat, item.lng], {icon: icons[item.category] || icons.doctor}).addTo(map);
+    const popup = `<div class="popup-title">${item.name}</div>
+      <div class="popup-cat">${item.catLabel}</div>
+      <div class="popup-desc">${item.description}</div>
+      <div class="popup-meta">
+        ${item.address ? '<div>📍 ' + item.address + '</div>' : ''}
+        ${item.phone && item.phone !== '—' ? '<div>📞 ' + item.phone + '</div>' : ''}
+        ${item.website ? '<div><a href="' + item.website + '" target="_blank" rel="noopener">🌐 Сайт</a></div>' : ''}
+      </div>`;
+    marker.bindPopup(popup);
+    markers[idx] = marker;
+  });
+}
+
+function renderCatalog(filter) {
+  const container = document.getElementById('catalog');
+  container.innerHTML = '';
+  const filtered = filter === 'all' ? DATA : DATA.filter(d => d.category === filter);
+  if (filtered.length === 0) {
+    container.innerHTML = '<p style="color:var(--muted);">В этой категории пока нет организаций в каталоге. Контакты уточняются.</p>';
+    return;
+  }
+  filtered.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = 'catalog-card';
+    card.innerHTML = `<div class="cat">${item.catLabel}</div>
+      <h3>${item.name}</h3>
+      <div class="meta">
+        ${item.address ? '<div>📍 ' + item.address + '</div>' : ''}
+        ${item.phone && item.phone !== '—' ? '<div>📞 ' + item.phone + '</div>' : ''}
+        ${item.website ? '<div><a href="' + item.website + '" target="_blank" rel="noopener">🌐 ' + item.website + '</a></div>' : ''}
+        <div style="margin-top:6px;">${item.description}</div>
+      </div>`;
+    card.addEventListener('click', () => {
+      const originalIdx = DATA.indexOf(item);
+      if (markers[originalIdx]) {
+        map.setView([item.lat, item.lng], 16);
+        markers[originalIdx].openPopup();
+        window.scrollTo({top: document.getElementById('map').offsetTop - 80, behavior:'smooth'});
+      }
+    });
+    container.appendChild(card);
+  });
+}
+
+renderMarkers('all');
+renderCatalog('all');
+
+document.getElementById('filters').addEventListener('click', e => {
+  if (!e.target.classList.contains('filter-btn')) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  const cat = e.target.dataset.cat;
+  renderMarkers(cat);
+  renderCatalog(cat);
+});
+
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.querySelector('.faq-q').addEventListener('click', () => {
+    item.classList.toggle('open');
+  });
+});
+</script>
+
+</body>
+</html>

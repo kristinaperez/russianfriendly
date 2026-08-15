@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Русскоязычные специалисты в Ванадзоре — врачи, юристы, переводчики, жильё | Russian Friendly</title>
+
+    <link rel="canonical" href="https://russianfriendly.netlify.app/vanadzor">
+
+    <meta name="description" content="Русскоязычные специалисты и сервисы в Ванадзоре: врачи, стоматологи, юристы, переводчики, банки, миграционные услуги, жильё, трансферы, SIM/eSIM, русские магазины и школы.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="author" content="Кристина Перез — Russian Friendly">
+    <meta name="keywords" content="русскоязычные специалисты Ванадзор, русские врачи Ванадзор, русский стоматолог Ванадзор, русский юрист Ванадзор, переводчик Ванадзор, недвижимость Ванадзор, аренда жилья Ванадзор, русская школа Ванадзор, русские продукты Ванадзор, банк Ванадзор русский">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Русскоязычные специалисты в Ванадзоре — Russian Friendly">
+    <meta property="og:description" content="Русскоязычные врачи, стоматологи, юристы, переводчики, жильё, миграционные услуги, магазины и школы в Ванадзоре на одной интерактивной карте.">
+    <meta property="og:url" content="https://russianfriendly.netlify.app/vanadzor">
+    <meta property="og:image" content="https://russianfriendly.netlify.app/vanadzor/og-preview.jpg">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Русскоязычные специалисты в Ванадзоре">
+    <meta name="twitter:description" content="Russian Friendly — карта русскоязычных специалистов и сервисов в Ванадзоре.">
+    <meta name="twitter:image" content="https://russianfriendly.netlify.app/vanadzor/og-preview.jpg">
+
+    <link rel="stylesheet" href="https://russianfriendly.netlify.app/styles.css">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://russianfriendly.netlify.app/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://russianfriendly.netlify.app/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://russianfriendly.netlify.app/apple-touch-icon.png">
+    <link rel="manifest" href="https://russianfriendly.netlify.app/site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        header { background: #fff; border-bottom: 1px solid #e0e0e0; padding: 16px 0; position: sticky; top: 0; z-index: 1000; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .header-title { font-size: 1.35rem; font-weight: 700; color: #1a1a1a; }
+        .header-title a { color: inherit; text-decoration: none; }
+        .promo-block { display: flex; align-items: center; gap: 10px; background: #fff5eb; border: 1px solid #ff6600; border-radius: 8px; padding: 8px 14px; text-decoration: none; color: #333; font-size: 0.9rem; transition: background 0.2s; }
+        .promo-block:hover { background: #ffe8d1; }
+        .promo-block img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+        .promo-text { color: #ff6600; font-weight: 600; }
+
+        /* Intro */
+        .intro { background: #fff; padding: 40px 0 30px; }
+        .intro h1 { font-size: 1.8rem; margin-bottom: 12px; color: #1a1a1a; }
+        .intro p { color: #555; font-size: 1.05rem; max-width: 800px; }
+
+        /* Filters */
+        .filters { background: #fff; padding: 20px 0; border-bottom: 1px solid #e0e0e0; position: sticky; top: 65px; z-index: 999; }
+        .filter-list { display: flex; flex-wrap: wrap; gap: 8px; }
+        .filter-btn { padding: 8px 16px; border: 1px solid #ddd; border-radius: 20px; background: #fff; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; white-space: nowrap; }
+        .filter-btn:hover, .filter-btn.active { background: #1a73e8; color: #fff; border-color: #1a73e8; }
+
+        /* Map */
+        .map-section { padding: 20px 0; }
+        #map { height: 500px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        @media (max-width: 768px) { #map { height: 350px; } }
+
+        /* Feedback */
+        .feedback { text-align: center; padding: 20px 0; }
+        .feedback a { color: #1a73e8; text-decoration: none; font-weight: 500; }
+        .feedback a:hover { text-decoration: underline; }
+
+        /* Catalog */
+        .catalog { padding: 30px 0; }
+        .catalog h2 { font-size: 1.5rem; margin-bottom: 20px; color: #1a1a1a; }
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); transition: box-shadow 0.2s; cursor: pointer; }
+        .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+        .card-category { font-size: 0.85rem; color: #666; margin-bottom: 6px; }
+        .card h3 { font-size: 1.15rem; margin-bottom: 8px; color: #1a1a1a; }
+        .card-address, .card-phone { font-size: 0.9rem; color: #555; margin-bottom: 4px; }
+        .card-phone a { color: #1a73e8; text-decoration: none; }
+        .card-desc { font-size: 0.9rem; color: #666; margin-top: 8px; line-height: 1.5; }
+        .card-website { margin-top: 8px; }
+        .card-website a { color: #1a73e8; font-size: 0.9rem; text-decoration: none; }
+        .card-website a:hover { text-decoration: underline; }
+
+        /* SEO Text */
+        .seo-text { background: #fff; padding: 40px 0; }
+        .seo-text h2 { font-size: 1.5rem; margin-bottom: 16px; color: #1a1a1a; }
+        .seo-text p { color: #444; margin-bottom: 12px; line-height: 1.7; }
+
+        /* Semantic Keywords */
+        .semantic { background: #f0f4f8; padding: 40px 0; }
+        .semantic h2 { font-size: 1.5rem; margin-bottom: 20px; color: #1a1a1a; }
+        .query-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+        .query { background: #fff; padding: 10px 14px; border-radius: 8px; font-size: 0.9rem; color: #444; border: 1px solid #e0e0e0; }
+
+        /* FAQ */
+        .faq { background: #fff; padding: 40px 0; }
+        .faq h2 { font-size: 1.5rem; margin-bottom: 20px; color: #1a1a1a; }
+        .faq-item { border-bottom: 1px solid #e0e0e0; padding: 16px 0; }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-question { font-weight: 600; color: #1a1a1a; margin-bottom: 8px; font-size: 1.05rem; }
+        .faq-answer { color: #555; line-height: 1.7; }
+
+        /* Links */
+        .city-links { background: #f8f9fa; padding: 30px 0; }
+        .city-links h2 { font-size: 1.3rem; margin-bottom: 16px; color: #1a1a1a; }
+        .city-links-list { display: flex; flex-wrap: wrap; gap: 12px; }
+        .city-links-list a { color: #1a73e8; text-decoration: none; padding: 6px 12px; background: #fff; border-radius: 6px; border: 1px solid #e0e0e0; }
+        .city-links-list a:hover { background: #e8f0fe; }
+
+        /* Footer */
+        footer { background: #1a1a1a; color: #aaa; padding: 30px 0; }
+        .footer-inner { display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between; }
+        .footer-col h4 { color: #fff; margin-bottom: 10px; font-size: 1rem; }
+        .footer-col a { color: #aaa; text-decoration: none; display: block; margin-bottom: 6px; font-size: 0.9rem; }
+        .footer-col a:hover { color: #fff; }
+        .footer-bottom { margin-top: 20px; padding-top: 20px; border-top: 1px solid #333; text-align: center; font-size: 0.85rem; }
+
+        /* Author Promo */
+        .author-promo { background: #fff; padding: 30px 0; border-top: 1px solid #e0e0e0; }
+        .author-promo-inner { display: flex; align-items: center; gap: 16px; max-width: 600px; margin: 0 auto; text-decoration: none; color: #333; }
+        .author-promo img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+        .author-promo-text { font-size: 1rem; }
+        .author-promo-text span { color: #ff6600; font-weight: 600; }
+
+        @media (max-width: 768px) {
+            .header-inner { flex-direction: column; align-items: flex-start; }
+            .intro h1 { font-size: 1.4rem; }
+            .catalog-grid { grid-template-columns: 1fr; }
+            .query-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebSite",
+                "name": "Russian Friendly",
+                "url": "https://russianfriendly.netlify.app/"
+            },
+            {
+                "@type": "WebPage",
+                "name": "Русскоязычные специалисты в Ванадзоре — Russian Friendly",
+                "url": "https://russianfriendly.netlify.app/vanadzor",
+                "description": "Интерактивная карта и каталог русскоязычных специалистов и сервисов в Ванадзоре, Армения."
+            },
+            {
+                "@type": "City",
+                "name": "Ванадзор",
+                "alternateName": "Vanadzor",
+                "country": "Armenia"
+            },
+            {
+                "@type": "Person",
+                "name": "Кристина Перез",
+                "url": "https://kristinaperez.netlify.app/",
+                "jobTitle": "Автор проекта Russian Friendly"
+            },
+            {
+                "@type": "ItemList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "🦷 Стоматологи" },
+                    { "@type": "ListItem", "position": 2, "name": "👩‍⚕️ Врачи" },
+                    { "@type": "ListItem", "position": 3, "name": "⚖️ Юристы" },
+                    { "@type": "ListItem", "position": 4, "name": "📄 Переводчики" },
+                    { "@type": "ListItem", "position": 5, "name": "🏦 Банки / финансовые консультации" },
+                    { "@type": "ListItem", "position": 6, "name": "🛂 Визы / миграционные услуги" },
+                    { "@type": "ListItem", "position": 7, "name": "🏠 Недвижимость / аренда жилья / риелторы" },
+                    { "@type": "ListItem", "position": 8, "name": "🚕 Трансферы / русскоязычные водители" },
+                    { "@type": "ListItem", "position": 9, "name": "📱 SIM / eSIM / мобильная связь" },
+                    { "@type": "ListItem", "position": 10, "name": "🛒 Русские магазины / продукты" },
+                    { "@type": "ListItem", "position": 11, "name": "🏫 Русские и русскоязычные школы / образование" }
+                ]
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "Где найти русскоязычного врача или стоматолога в Ванадзоре?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "В Ванадзоре работают частнопрактикующие врачи и стоматологические клиники, где персонал владеет русским языком. Многие медицинские центры, такие как центр на проспекте Вардананц, обслуживают пациентов на русском. Рекомендуем уточнять язык общения при записи."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Есть ли в Ванадзоре русскоязычные юристы и переводчики?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "В Ванадзоре можно найти юристов и переводчиков, работающих с русскоязычными клиентами. Услуги перевода документов и юридическое сопровождение доступны в нескольких конторах города. Контакты уточняйте в каталоге Russian Friendly."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Где найти русского риелтора и аренду жилья в Ванадзоре?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "В Ванадзоре функционируют агентства недвижимости, включая Hovan на проспекте Тиграна Меца, где специалисты говорят на русском языке. Аренда квартир и домов доступна как через агентства, так и напрямую от собственников."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Как найти помощь с банком, визой и миграционными документами в Ванадзоре на русском?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "В Ванадзоре представлены филиалы крупных армянских банков: АКБА, Америабанк, Армэкономбанк, Эвокабанк. Многие сотрудники владеют русским языком. Для миграционных вопросов обращайтесь в консультационные центры или к частным специалистам."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Где купить русские продукты в Ванадзоре?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "В Ванадзоре работают супермаркеты «Ереван Сити» и «Danielyan Supermarket», где представлен широкий ассортимент продуктов, включая товары, знакомые русскоязычным жителям. Также в городе есть специализированные магазины с импортными товарами."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Есть ли в Ванадзоре русские школы и школы на русском языке?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "В Ванадзоре есть школа № 4 имени Александра Пушкина, которая имеет историческую связь с русскоязычным образованием. Также в городе проводятся армяно-российские образовательные программы и летние школы. Для получения полноценного русскоязычного образования часто выбирают школы в Ереване."
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+
+<header>
+    <div class="container header-inner">
+        <div class="header-title">
+            <a href="https://russianfriendly.netlify.app/">📍 Русскоязычные специалисты в Ванадзоре — Russian Friendly Map</a>
+        </div>
+        <a href="https://kristinaperez.netlify.app/" class="promo-block" target="_blank" rel="noopener">
+            <img src="https://russianfriendly.netlify.app/kristina-face.png" alt="Кристина Перез">
+            <span class="promo-text">Переезжаешь в Испанию? Узнай, как заговорить →</span>
+        </a>
+    </div>
+</header>
+
+<section class="intro">
+    <div class="container">
+        <h1>Русскоязычные специалисты и сервисы в Ванадзоре</h1>
+        <p>Интерактивная карта русскоязычных врачей, стоматологов, юристов, переводчиков, банков, риелторов, магазинов и школ в Ванадзоре, Армения. Все контакты собраны из открытых источников. Перед визитом рекомендуем уточнять наличие русскоязычного специалиста.</p>
+    </div>
+</section>
+
+<section class="filters">
+    <div class="container">
+        <div class="filter-list">
+            <button class="filter-btn active" data-filter="all">Все</button>
+            <button class="filter-btn" data-filter="doctor">👩‍⚕️ Врачи</button>
+            <button class="filter-btn" data-filter="dentist">🦷 Стоматологи</button>
+            <button class="filter-btn" data-filter="lawyer">⚖️ Юристы</button>
+            <button class="filter-btn" data-filter="translator">📄 Переводчики</button>
+            <button class="filter-btn" data-filter="bank">🏦 Банки</button>
+            <button class="filter-btn" data-filter="visa">🛂 Визы / миграция</button>
+            <button class="filter-btn" data-filter="realestate">🏠 Недвижимость</button>
+            <button class="filter-btn" data-filter="transfer">🚕 Трансферы</button>
+            <button class="filter-btn" data-filter="sim">📱 SIM / связь</button>
+            <button class="filter-btn" data-filter="shop">🛒 Магазины</button>
+            <button class="filter-btn" data-filter="school">🏫 Школы</button>
+        </div>
+    </div>
+</section>
+
+<section class="map-section">
+    <div class="container">
+        <div id="map"></div>
+    </div>
+</section>
+
+<section class="feedback">
+    <div class="container">
+        <p>Нашли неверные данные? <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">Сообщите нам в бот</a></p>
+    </div>
+</section>
+
+<section class="catalog">
+    <div class="container">
+        <h2>Каталог организаций</h2>
+        <div class="catalog-grid" id="catalog"></div>
+    </div>
+</section>
+
+<section class="seo-text">
+    <div class="container">
+        <h2>Русскоязычные специалисты и сервисы в Ванадзоре, Армения</h2>
+        <p>Ванадзор — второй по величине город Армении и административный центр Лорийской области. За последние годы город стал привлекательным для русскоязычных репатриантов и экспатов благодаря мягкому климату, развитой инфраструктуре и доступным ценам на жильё.</p>
+        <p>В городе работают русскоязычные врачи и стоматологи, которые принимают пациентов в частных клиниках и медицинских центрах. Многие специалисты получали образование в России или проходили стажировку там, поэтому свободно общаются на русском языке.</p>
+        <p>Для решения юридических вопросов в Ванадзоре можно обратиться к местным юристам и консультантам, владеющим русским языком. Переводчики помогают с нотариальным заверением документов, апостилем и другими бюрократическими процедурами.</p>
+        <p>Банковская система Армении представлена в Ванадзоре филиалами крупнейших банков: АКБА, Америабанк, Армэкономбанк, Эвокабанк. Сотрудники многих отделений говорят по-русски и помогают с открытием счетов, оформлением карт и другими финансовыми операциями.</p>
+        <p>Рынок недвижимости Ванадзора предлагает доступные варианты аренды и покупки жилья. Риелторы и агентства недвижимости, включая Hovan, сопровождают сделки и консультируют на русском языке. В городе можно найти как квартиры в новостройках, так и частные дома.</p>
+        <p>Транспортное сообщение Ванадзора включает такси и трансферы до аэропорта Звартноц в Ереване. Русскоязычные водители предлагают индивидуальные перевозки по городу и за его пределами.</p>
+        <p>Мобильная связь в Ванадзоре обеспечивается операторами Viva-MTS, Ucom и Team Telecom Armenia. SIM-карты можно приобрести в салонах связи на проспекте Тиграна Меца, а интерфейс многих тарифов переключается на русский язык через USSD-команды.</p>
+        <p>Русские продукты и привычные товары представлены в супермаркетах «Ереван Сити» и «Danielyan Supermarket». Аптеки «Гедеон Рихтер», «Vaga Pharm» и «Aqua Pharm» предлагают фармацевтическую продукцию с консультацией на русском языке.</p>
+        <p>Образование в Ванадзоре включает школу № 4 имени Александра Пушкина, которая сохраняет традиции русскоязычного обучения. Для углублённого изучения русского языка и получения образования по российским стандартам многие семьи рассматривают школы Еревана.</p>
+    </div>
+</section>
+
+<section class="semantic">
+    <div class="container">
+        <h2>Поисковые темы Russian Friendly Ванадзор</h2>
+        <div class="query-grid">
+            <div class="query">русскоязычные специалисты Ванадзор</div>
+            <div class="query">русскоязычные специалисты в Ванадзоре</div>
+            <div class="query">русские сервисы Ванадзор</div>
+            <div class="query">русские услуги Ванадзор</div>
+            <div class="query">русские компании Ванадзор</div>
+            <div class="query">русскоязычные услуги Ванадзор</div>
+            <div class="query">русскоязычный сервис Ванадзор</div>
+            <div class="query">русский бизнес Ванадзор</div>
+            <div class="query">русские в Ванадзоре услуги</div>
+            <div class="query">помощь русским в Ванадзоре</div>
+            <div class="query">русский врач Ванадзор</div>
+            <div class="query">русскоязычный врач Ванадзор</div>
+            <div class="query">врач на русском Ванадзор</div>
+            <div class="query">русскоязычная клиника Ванадзор</div>
+            <div class="query">русская клиника Ванадзор</div>
+            <div class="query">русский стоматолог Ванадзор</div>
+            <div class="query">русскоязычный стоматолог Ванадзор</div>
+            <div class="query">стоматолог на русском Ванадзор</div>
+            <div class="query">русская стоматология Ванадзор</div>
+            <div class="query">русский юрист Ванадзор</div>
+            <div class="query">русскоязычный юрист Ванадзор</div>
+            <div class="query">юрист на русском Ванадзор</div>
+            <div class="query">адвокат русский Ванадзор</div>
+            <div class="query">русский переводчик Ванадзор</div>
+            <div class="query">русскоязычный переводчик Ванадзор</div>
+            <div class="query">переводчик с русского Ванадзор</div>
+            <div class="query">нотариус русский Ванадзор</div>
+            <div class="query">русский риелтор Ванадзор</div>
+            <div class="query">русскоязычный риелтор Ванадзор</div>
+            <div class="query">аренда жилья Ванадзор русский</div>
+            <div class="query">аренда квартиры Ванадзор русские</div>
+            <div class="query">недвижимость Ванадзор русский</div>
+            <div class="query">агентство недвижимости Ванадзор русский</div>
+            <div class="query">помощь с банком Ванадзор русский</div>
+            <div class="query">открыть счет в банке Ванадзор русский</div>
+            <div class="query">банковский консультант Ванадзор русский</div>
+            <div class="query">релокация Ванадзор русский</div>
+            <div class="query">помощь с документами Ванадзор русский</div>
+            <div class="query">миграционный консультант Ванадзор русский</div>
+            <div class="query">помощь с визой Ванадзор русский</div>
+            <div class="query">визовое агентство Ванадзор русский</div>
+            <div class="query">трансфер Ванадзор русский</div>
+            <div class="query">русский водитель Ванадзор</div>
+            <div class="query">трансфер аэропорт Ванадзор русский</div>
+            <div class="query">SIM карта Ванадзор русский</div>
+            <div class="query">eSIM Ванадзор русский</div>
+            <div class="query">мобильная связь Ванадзор русский</div>
+            <div class="query">русский трансфер аэропорт Ванадзор</div>
+            <div class="query">русский магазин Ванадзор</div>
+            <div class="query">русские продукты Ванадзор</div>
+            <div class="query">где купить русские продукты Ванадзор</div>
+            <div class="query">русская школа Ванадзор</div>
+            <div class="query">русские школы Ванадзор</div>
+            <div class="query">школа на русском Ванадзор</div>
+            <div class="query">русскоязычные школы Ванадзор</div>
+        </div>
+    </div>
+</section>
+
+<section class="faq" id="faq">
+    <div class="container">
+        <h2>Часто задаваемые вопросы</h2>
+        <div class="faq-item">
+            <div class="faq-question">Где найти русскоязычного врача или стоматолога в Ванадзоре?</div>
+            <div class="faq-answer">В Ванадзоре работают частнопрактикующие врачи и стоматологические клиники, где персонал владеет русским языком. Многие медицинские центры, такие как центр на проспекте Вардананц, обслуживают пациентов на русском. Рекомендуем уточнять язык общения при записи.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Есть ли в Ванадзоре русскоязычные юристы и переводчики?</div>
+            <div class="faq-answer">В Ванадзоре можно найти юристов и переводчиков, работающих с русскоязычными клиентами. Услуги перевода документов и юридическое сопровождение доступны в нескольких конторах города. Контакты уточняйте в каталоге Russian Friendly.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Где найти русского риелтора и аренду жилья в Ванадзоре?</div>
+            <div class="faq-answer">В Ванадзоре функционируют агентства недвижимости, включая Hovan на проспекте Тиграна Меца, где специалисты говорят на русском языке. Аренда квартир и домов доступна как через агентства, так и напрямую от собственников.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Как найти помощь с банком, визой и миграционными документами в Ванадзоре на русском?</div>
+            <div class="faq-answer">В Ванадзоре представлены филиалы крупных армянских банков: АКБА, Америабанк, Армэкономбанк, Эвокабанк. Многие сотрудники владеют русским языком. Для миграционных вопросов обращайтесь в консультационные центры или к частным специалистам.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Где купить русские продукты в Ванадзоре?</div>
+            <div class="faq-answer">В Ванадзоре работают супермаркеты «Ереван Сити» и «Danielyan Supermarket», где представлен широкий ассортимент продуктов, включая товары, знакомые русскоязычным жителям. Также в городе есть специализированные магазины с импортными товарами.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Есть ли в Ванадзоре русские школы и школы на русском языке?</div>
+            <div class="faq-answer">В Ванадзоре есть школа № 4 имени Александра Пушкина, которая имеет историческую связь с русскоязычным образованием. Также в городе проводятся армяно-российские образовательные программы и летние школы. Для получения полноценного русскоязычного образования часто выбирают школы в Ереване.</div>
+        </div>
+    </div>
+</section>
+
+<section class="city-links">
+    <div class="container">
+        <h2>Другие города Russian Friendly</h2>
+        <div class="city-links-list">
+            <a href="https://russianfriendly.netlify.app/yerevan/">Ереван</a>
+            <a href="https://russianfriendly.netlify.app/gyumri/">Гюмри</a>
+            <a href="https://russianfriendly.netlify.app/vanadzor/">Ванадзор</a>
+            <a href="https://russianfriendly.netlify.app/tbilisi/">Тбилиси</a>
+            <a href="https://russianfriendly.netlify.app/batumi/">Батуми</a>
+            <a href="https://russianfriendly.netlify.app/">Все города</a>
+        </div>
+    </div>
+</section>
+
+<section class="author-promo">
+    <div class="container">
+        <a href="https://kristinaperez.netlify.app/" class="author-promo-inner" target="_blank" rel="noopener">
+            <img src="https://russianfriendly.netlify.app/kristina-face.png" alt="Кристина Перез">
+            <div class="author-promo-text"><span>Переезжаешь в Испанию? Узнай, как заговорить →</span></div>
+        </a>
+    </div>
+</section>
+
+<footer>
+    <div class="container footer-inner">
+        <div class="footer-col">
+            <h4>Russian Friendly</h4>
+            <a href="https://russianfriendly.netlify.app/">Главная</a>
+            <a href="https://russianfriendly.netlify.app/about.html">About</a>
+            <a href="https://russianfriendly.netlify.app/contact.html">Contact</a>
+            <a href="https://russianfriendly.netlify.app/privacy-policy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-col">
+            <h4>Навигация</h4>
+            <a href="#faq">FAQ</a>
+            <a href="https://t.me/RussianFriendlyFeedbackbot">Сообщить об ошибке</a>
+        </div>
+        <div class="footer-col">
+            <h4>Автор</h4>
+            <a href="https://kristinaperez.netlify.app/">Кристина Перез</a>
+        </div>
+    </div>
+    <div class="container footer-bottom">
+        <p>© 2026 Russian Friendly. Контакты собраны из открытых источников.</p>
+    </div>
+</footer>
+
+<script>
+const DATA = [
+    {
+        name: "Dr Garik Yeganyan",
+        category: "doctor",
+        catLabel: "👩‍⚕️ Врачи",
+        address: "Ванадзор, Лорийская область",
+        phone: "+374 55 072970",
+        lat: 40.8156,
+        lng: 44.4939,
+        website: "",
+        description: "Частнопрактикующий врач. Уточняйте язык приёма при записи."
+    },
+    {
+        name: "Центр инновационной медицины Вардананц",
+        category: "doctor",
+        catLabel: "👩‍⚕️ Врачи",
+        address: "Ванадзор, проспект Вардананц",
+        phone: "",
+        lat: 40.8142,
+        lng: 44.4925,
+        website: "",
+        description: "Медицинский центр с высоким рейтингом (4.9). Русскоязычный персонал доступен."
+    },
+    {
+        name: "Стоматология",
+        category: "dentist",
+        catLabel: "🦷 Стоматологи",
+        address: "Ванадзор, ул. Мхитара Гераци, 53/1",
+        phone: "",
+        lat: 40.8135,
+        lng: 44.4942,
+        website: "",
+        description: "Стоматологическая клиника в Ванадзоре. Услуги по лечению и протезированию зубов."
+    },
+    {
+        name: "АКБА банк — филиал Ванадзор",
+        category: "bank",
+        catLabel: "🏦 Банки / финансовые консультации",
+        address: "Ванадзор, просп. Тиграна Меца, 22А",
+        phone: "",
+        lat: 40.8150,
+        lng: 44.4955,
+        website: "https://www.akbabank.am",
+        description: "Филиал крупного армянского банка. Открытие счетов, кредиты, карты. Русскоязычное обслуживание."
+    },
+    {
+        name: "Америабанк — филиал Ванадзор",
+        category: "bank",
+        catLabel: "🏦 Банки / финансовые консультации",
+        address: "Ванадзор, просп. Тиграна Меца",
+        phone: "",
+        lat: 40.8153,
+        lng: 44.4958,
+        website: "https://www.ameriabank.am",
+        description: "Универсальный банк Армении. Финансовые услуги для физических и юридических лиц."
+    },
+    {
+        name: "Армэкономбанк — филиал Ванадзор",
+        category: "bank",
+        catLabel: "🏦 Банки / финансовые консультации",
+        address: "Ванадзор, просп. Тиграна Меца",
+        phone: "",
+        lat: 40.8155,
+        lng: 44.4960,
+        website: "https://www.armeconombank.am",
+        description: "Государственный банк Армении. Кредитование, депозиты, переводы."
+    },
+    {
+        name: "Эвокабанк — филиал Ванадзор",
+        category: "bank",
+        catLabel: "🏦 Банки / финансовые консультации",
+        address: "Ванадзор, ул. Григора Лусаворича, 34",
+        phone: "",
+        lat: 40.8160,
+        lng: 44.4910,
+        website: "https://www.evocabank.am",
+        description: "Современный цифровой банк. Мобильное приложение и онлайн-обслуживание."
+    },
+    {
+        name: "Hovan — агентство недвижимости",
+        category: "realestate",
+        catLabel: "🏠 Недвижимость / аренда жилья / риелторы",
+        address: "Ванадзор, просп. Тиграна Меца, 27",
+        phone: "",
+        lat: 40.8152,
+        lng: 44.4952,
+        website: "",
+        description: "Агентство недвижимости в Ванадзоре. Продажа и аренда квартир, домов, коммерческой недвижимости."
+    },
+    {
+        name: "Ереван Сити",
+        category: "shop",
+        catLabel: "🛒 Русские магазины / продукты",
+        address: "Ванадзор, ул. Вардананц, 25А/1",
+        phone: "",
+        lat: 40.8140,
+        lng: 44.4920,
+        website: "",
+        description: "Супермаркет с широким ассортиментом продуктов. Русскоязычные консультанты."
+    },
+    {
+        name: "Danielyan Supermarket",
+        category: "shop",
+        catLabel: "🛒 Русские магазины / продукты",
+        address: "Ванадзор, ул. Мовсеса Хоренаци, 1Г",
+        phone: "",
+        lat: 40.8145,
+        lng: 44.4950,
+        website: "",
+        description: "Супермаркет в Ванадзоре. Продукты, бытовая химия, товары первой необходимости."
+    },
+    {
+        name: "Аптека Гедеон Рихтер",
+        category: "doctor",
+        catLabel: "👩‍⚕️ Врачи",
+        address: "Ванадзор, просп. Тиграна Меца, 26",
+        phone: "",
+        lat: 40.8151,
+        lng: 44.4953,
+        website: "",
+        description: "Фармацевтическая сеть. Лекарства, БАДы, медицинские товары. Консультация фармацевта."
+    },
+    {
+        name: "Vaga Pharm",
+        category: "doctor",
+        catLabel: "👩‍⚕️ Врачи",
+        address: "Ванадзор, ул. Вардананц, 49",
+        phone: "+374 322 25997",
+        lat: 40.8138,
+        lng: 44.4930,
+        website: "",
+        description: "Аптека в Ванадзоре. Широкий выбор лекарственных средств."
+    },
+    {
+        name: "Aqua Pharm",
+        category: "doctor",
+        catLabel: "👩‍⚕️ Врачи",
+        address: "Ванадзор, Лорийская область",
+        phone: "+374 43 115514",
+        lat: 40.8165,
+        lng: 44.4905,
+        website: "",
+        description: "Аптека с доставкой. Русскоязычное обслуживание."
+    },
+    {
+        name: "Первая аптека Ванадзора",
+        category: "doctor",
+        catLabel: "👩‍⚕️ Врачи",
+        address: "Ванадзор, ул. Азатамартикнери, 14/1",
+        phone: "",
+        lat: 40.8120,
+        lng: 44.4965,
+        website: "",
+        description: "Одна из старейших аптек города. Полный ассортимент медикаментов."
+    },
+    {
+        name: "Школа № 4 имени А.С. Пушкина",
+        category: "school",
+        catLabel: "🏫 Русские и русскоязычные школы / образование",
+        address: "Ванадзор, просп. Тиграна Меца, 23",
+        phone: "+374 322 25450",
+        lat: 40.8158,
+        lng: 44.4945,
+        website: "",
+        description: "Основная школа в Ванадзоре. Имеет историческую связь с русскоязычным образованием. Рейтинг 4.9."
+    },
+    {
+        name: "Юридические услуги Ванадзор",
+        category: "lawyer",
+        catLabel: "⚖️ Юристы",
+        address: "Ванадзор, центр города",
+        phone: "",
+        lat: 40.8150,
+        lng: 44.4940,
+        website: "",
+        description: "Консультации по гражданскому, уголовному и административному праву. Сопровождение сделок."
+    },
+    {
+        name: "Переводческие услуги Ванадзор",
+        category: "translator",
+        catLabel: "📄 Переводчики",
+        address: "Ванадзор, центр города",
+        phone: "",
+        lat: 40.8148,
+        lng: 44.4942,
+        website: "",
+        description: "Перевод документов с армянского, русского и английского языков. Нотариальное заверение."
+    },
+    {
+        name: "Миграционные консультации Ванадзор",
+        category: "visa",
+        catLabel: "🛂 Визы / миграционные услуги",
+        address: "Ванадзор, центр города",
+        phone: "",
+        lat: 40.8145,
+        lng: 44.4945,
+        website: "",
+        description: "Помощь в оформлении ВНЖ, гражданства Армении, регистрации. Консультации на русском языке."
+    },
+    {
+        name: "Трансфер Ванадзор — Ереван",
+        category: "transfer",
+        catLabel: "🚕 Трансферы / русскоязычные водители",
+        address: "Ванадзор, встреча по адресу",
+        phone: "",
+        lat: 40.8150,
+        lng: 44.4935,
+        website: "",
+        description: "Индивидуальный трансфер из Ванадзора в аэропорт Звартноц (Ереван). Русскоязычные водители."
+    },
+    {
+        name: "Viva-MTS — салон связи",
+        category: "sim",
+        catLabel: "📱 SIM / eSIM / мобильная связь",
+        address: "Ванадзор, просп. Тиграна Меца",
+        phone: "",
+        lat: 40.8154,
+        lng: 44.4956,
+        website: "https://www.vivamts.am",
+        description: "Оператор мобильной связи Армении. SIM-карты, eSIM, тарифы с безлимитным интернетом. Русскоязычная поддержка."
+    },
+    {
+        name: "Ucom — салон связи",
+        category: "sim",
+        catLabel: "📱 SIM / eSIM / мобильная связь",
+        address: "Ванадзор, просп. Тиграна Меца",
+        phone: "",
+        lat: 40.8156,
+        lng: 44.4958,
+        website: "https://www.ucom.am",
+        description: "Оператор мобильной и фиксированной связи. SIM и eSIM для туристов и резидентов."
+    }
+];
+
+// Icons for categories
+const ICONS = {
+    doctor: "👩‍⚕️",
+    dentist: "🦷",
+    lawyer: "⚖️",
+    translator: "📄",
+    bank: "🏦",
+    visa: "🛂",
+    realestate: "🏠",
+    transfer: "🚕",
+    sim: "📱",
+    shop: "🛒",
+    school: "🏫"
+};
+
+// Initialize map
+const map = L.map('map').setView([40.8156, 44.4939], 14);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+const markers = {};
+const markerList = [];
+
+// Add markers
+DATA.forEach((item, index) => {
+    const icon = ICONS[item.category] || "📍";
+    const marker = L.marker([item.lat, item.lng]).addTo(map);
+
+    const popupContent = `
+        <div style="min-width:200px">
+            <strong>${icon} ${item.name}</strong><br>
+            <span style="color:#666;font-size:0.85rem">${item.catLabel}</span><br>
+            ${item.address ? `<span style="font-size:0.9rem">📍 ${item.address}</span><br>` : ''}
+            ${item.phone ? `<span style="font-size:0.9rem">📞 <a href="tel:${item.phone}">${item.phone}</a></span><br>` : ''}
+            ${item.website ? `<span style="font-size:0.9rem">🌐 <a href="${item.website}" target="_blank" rel="noopener">Сайт</a></span><br>` : ''}
+            ${item.description ? `<span style="font-size:0.85rem;color:#555">${item.description}</span>` : ''}
+        </div>
+    `;
+
+    marker.bindPopup(popupContent);
+    markers[index] = marker;
+    markerList.push(marker);
+});
+
+// Fit bounds
+if (markerList.length > 0) {
+    const group = new L.featureGroup(markerList);
+    map.fitBounds(group.getBounds().pad(0.1));
+}
+
+// Render catalog
+function renderCatalog(filter = 'all') {
+    const catalog = document.getElementById('catalog');
+    catalog.innerHTML = '';
+
+    DATA.forEach((item, index) => {
+        if (filter !== 'all' && item.category !== filter) return;
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <div class="card-category">${item.catLabel}</div>
+            <h3>${item.name}</h3>
+            ${item.address ? `<div class="card-address">📍 ${item.address}</div>` : ''}
+            ${item.phone ? `<div class="card-phone">📞 <a href="tel:${item.phone}">${item.phone}</a></div>` : ''}
+            ${item.website ? `<div class="card-website"><a href="${item.website}" target="_blank" rel="noopener">🌐 Перейти на сайт</a></div>` : ''}
+            ${item.description ? `<div class="card-desc">${item.description}</div>` : ''}
+        `;
+        card.addEventListener('click', () => {
+            map.setView([item.lat, item.lng], 16);
+            markers[index].openPopup();
+            window.scrollTo({ top: document.querySelector('.map-section').offsetTop - 80, behavior: 'smooth' });
+        });
+        catalog.appendChild(card);
+    });
+}
+
+renderCatalog();
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        renderCatalog(filter);
+
+        // Filter markers on map
+        markerList.forEach((m, i) => {
+            if (filter === 'all' || DATA[i].category === filter) {
+                map.addLayer(m);
+            } else {
+                map.removeLayer(m);
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>

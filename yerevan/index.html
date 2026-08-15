@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Русскоязычные специалисты в Ереване — врачи, юристы, переводчики, жильё | Russian Friendly</title>
+
+<link rel="canonical" href="https://russianfriendly.netlify.app/yerevan">
+<meta name="description" content="Русскоязычные специалисты и сервисы в Ереване: врачи, стоматологи, юристы, переводчики, банки, миграционные услуги, жильё, трансферы, SIM/eSIM, русские магазины и школы.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Кристина Перез — Russian Friendly">
+<meta name="keywords" content="русскоязычные специалисты Ереван, русский врач Ереван, русский стоматолог Ереван, русский юрист Ереван, русский переводчик Ереван, аренда жилья Ереван русский, открыть счет в банке Ереван русский, релокация Ереван русский, трансфер аэропорт Ереван русский, SIM карта Ереван русский, русские продукты Ереван, русская школа Ереван, русскоязычные специалисты в Ереване">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Русскоязычные специалисты в Ереване — Russian Friendly">
+<meta property="og:description" content="Русскоязычные врачи, стоматологи, юристы, переводчики, жильё, миграционные услуги, магазины и школы в Ереване на одной интерактивной карте.">
+<meta property="og:url" content="https://russianfriendly.netlify.app/yerevan">
+<meta property="og:image" content="https://russianfriendly.netlify.app/yerevan/og-preview.jpg">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Русскоязычные специалисты в Ереване">
+<meta name="twitter:description" content="Russian Friendly — карта русскоязычных специалистов и сервисов в Ереване.">
+<meta name="twitter:image" content="https://russianfriendly.netlify.app/yerevan/og-preview.jpg">
+
+<link rel="stylesheet" href="https://russianfriendly.netlify.app/styles.css">
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" sizes="32x32" href="https://russianfriendly.netlify.app/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://russianfriendly.netlify.app/favicon-16x16.png">
+<!-- Apple -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://russianfriendly.netlify.app/apple-touch-icon.png">
+<!-- Android / PWA -->
+<link rel="manifest" href="https://russianfriendly.netlify.app/site.webmanifest">
+<!-- Theme color -->
+<meta name="theme-color" content="#ffffff">
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@graph":[
+  {"@type":"WebSite","@id":"https://russianfriendly.netlify.app/#website","name":"Russian Friendly","url":"https://russianfriendly.netlify.app/"},
+  {"@type":"City","@id":"https://russianfriendly.netlify.app/yerevan#city","name":"Ереван","alternateName":"Yerevan","containedInPlace":{"@type":"Country","name":"Armenia"}},
+  {"@type":"WebPage","@id":"https://russianfriendly.netlify.app/yerevan#webpage","url":"https://russianfriendly.netlify.app/yerevan","name":"Русскоязычные специалисты в Ереване — Russian Friendly","description":"Интерактивная карта и каталог русскоязычных специалистов и сервисов в Ереване, Армения.","inLanguage":"ru","isPartOf":{"@id":"https://russianfriendly.netlify.app/#website"},"about":{"@id":"https://russianfriendly.netlify.app/yerevan#city"}},
+  {"@type":"Person","@id":"https://russianfriendly.netlify.app/#author","name":"Кристина Перез","url":"https://kristinaperez.netlify.app/","jobTitle":"Автор проекта Russian Friendly"},
+  {"@type":"ItemList","name":"Категории русскоязычных услуг в Ереване","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Стоматологи в Ереване"},
+    {"@type":"ListItem","position":2,"name":"Врачи и клиники в Ереване"},
+    {"@type":"ListItem","position":3,"name":"Юристы и нотариусы в Ереване"},
+    {"@type":"ListItem","position":4,"name":"Переводчики в Ереване"},
+    {"@type":"ListItem","position":5,"name":"Банки и финансовые консультации в Ереване"},
+    {"@type":"ListItem","position":6,"name":"Визы и миграционные услуги в Ереване"},
+    {"@type":"ListItem","position":7,"name":"Недвижимость и аренда жилья в Ереване"},
+    {"@type":"ListItem","position":8,"name":"Трансферы и русскоязычные водители в Ереване"},
+    {"@type":"ListItem","position":9,"name":"SIM / eSIM / мобильная связь в Ереване"},
+    {"@type":"ListItem","position":10,"name":"Русские магазины и продукты в Ереване"},
+    {"@type":"ListItem","position":11,"name":"Русские школы и образование в Ереване"}
+  ]},
+  {"@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Где найти русскоязычного врача или стоматолога в Ереване?","acceptedAnswer":{"@type":"Answer","text":"В Ереване русскоязычный приём ведут большинство частных и университетских клиник — например, клиника «Медлайн», медицинский центр «Астхик» и клиники Ереванского государственного медицинского университета им. М. Гераци. На карте Russian Friendly собраны медицинские точки в разных районах Еревана; перед визитом уточняйте запись и стоимость приёма."}},
+    {"@type":"Question","name":"Есть ли в Ереване русскоязычные юристы и переводчики?","acceptedAnswer":{"@type":"Answer","text":"Да. Нотариальные действия и заверение переводов выполняют нотариусы, объединённые Нотариальной палатой Республики Армения, а перевод документов между русским, армянским и английским языками можно заказать у частных переводчиков и бюро в центре Еревана. Вопросы ВНЖ и гражданства решает Миграционная служба РА."}},
+    {"@type":"Question","name":"Где найти русского риелтора и аренду жилья в Ереване?","acceptedAnswer":{"@type":"Answer","text":"Основной поиск аренды в Ереване идёт через платформу объявлений list.am — там много объявлений на русском языке от собственников и риелторов. Также русскоязычных клиентов обслуживают многие агентства недвижимости Кентрона и других районов. Перед предоплатой проверяйте документы и условия договора."}},
+    {"@type":"Question","name":"Как получить помощь с банком, ВНЖ и документами в Ереване на русском?","acceptedAnswer":{"@type":"Answer","text":"Русский язык широко используется в армянских банках — например, в ВТБ (Армения), Америабанке и Ардшинбанке можно открыть счёт и получить консультацию на русском. Вопросами вида на жительство и гражданства занимается Миграционная служба РА, а паспортные вопросы граждан России решает консульский отдел Посольства России в Армении."}},
+    {"@type":"Question","name":"Где купить русские продукты в Ереване?","acceptedAnswer":{"@type":"Answer","text":"В Ереване работают магазины русских продуктов, в том числе сеть «Смуш» и «Русский Продукт»; на рынке ГУМ и в супермаркетах города также можно найти привычные продукты, сладости и крупы. Каталог магазинов на этой странице пополняется — если вы знаете новые точки, напишите в наш бот."}},
+    {"@type":"Question","name":"Есть ли в Ереване русские школы и школы на русском языке?","acceptedAnswer":{"@type":"Answer","text":"Да. В Ереване действует школа № 8 имени А. С. Пушкина с обучением на русском языке, Российско-Армянский университет (РАУ) ведёт программы высшего образования на русском, а Русский дом (РЦНК) на улице Абовяна проводит языковые и образовательные мероприятия. Условия приёма уточняйте напрямую в учреждениях."}}
+  ]}
+ ]
+}
+</script>
+
+<style>
+:root{
+  --accent:#ff6600;
+  --ink:#17202a;
+  --muted:#5b6b7b;
+  --bg:#f7f9fb;
+  --card:#ffffff;
+  --line:#e3e9ef;
+  --brand:#0d5c46;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+.container{max-width:1120px;margin:0 auto;padding:0 18px}
+
+/* HEADER */
+.site-header{background:linear-gradient(135deg,#12233f 0%,#1d3a63 100%);color:#fff;padding:26px 0 30px}
+.header-grid{display:flex;gap:22px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.brand{color:#fff;text-decoration:none;font-weight:700;font-size:15px;letter-spacing:.3px}
+.site-header h1{font-size:clamp(20px,3.2vw,30px);margin:10px 0 8px;line-height:1.25}
+.header-sub{margin:0;color:#c9d6e8;font-size:15px;max-width:640px}
+.promo{display:flex;align-items:center;gap:12px;background:#fff;color:#1c2733;border-radius:14px;padding:10px 14px;text-decoration:none;max-width:340px;border-left:6px solid var(--accent);box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.promo img{width:52px;height:52px;border-radius:50%;object-fit:cover;flex:0 0 auto}
+.promo span{font-size:13.5px;line-height:1.35}
+.promo b{color:var(--accent)}
+.promo:hover{transform:translateY(-2px)}
+
+/* SECTIONS */
+section{padding:34px 0}
+h2{font-size:clamp(19px,2.6vw,26px);margin:0 0 14px;line-height:1.3}
+p{margin:0 0 12px}
+.muted{color:var(--muted);font-size:14px}
+
+/* FILTERS */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 16px}
+.filters button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:13.5px;cursor:pointer;color:var(--ink);transition:.15s}
+.filters button:hover{border-color:var(--brand);color:var(--brand)}
+.filters button.active{background:var(--brand);border-color:var(--brand);color:#fff}
+
+/* MAP */
+#map{height:540px;border-radius:16px;border:1px solid var(--line);box-shadow:0 8px 24px rgba(18,35,63,.08);z-index:0}
+.pin-wrap{background:none;border:none}
+.pin{width:34px;height:34px;background:#fff;border:2px solid #12233f;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 3px 8px rgba(0,0,0,.28)}
+.leaflet-popup-content{font-size:13.5px;line-height:1.5}
+.pop-title{font-weight:700;font-size:14px}
+.pop-cat{color:var(--brand);font-weight:600}
+.pop-link{color:var(--accent);font-weight:600;text-decoration:none}
+.pop-link:hover{text-decoration:underline}
+
+/* FEEDBACK */
+.feedback{padding:18px 0 6px;text-align:center}
+.feedback a{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:999px;box-shadow:0 6px 16px rgba(255,102,0,.35)}
+.feedback a:hover{transform:translateY(-2px)}
+
+/* CATALOG */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;gap:12px;cursor:pointer;transition:.15s;scroll-margin-top:90px}
+.card:hover{border-color:var(--brand);box-shadow:0 6px 18px rgba(13,92,70,.12)}
+.card.flash{outline:3px solid var(--accent);outline-offset:2px}
+.card-emoji{font-size:26px;flex:0 0 auto;line-height:1.2}
+.card h3{margin:0 0 4px;font-size:16px}
+.card-cat{color:var(--brand);font-size:12.5px;font-weight:600;margin-bottom:6px}
+.card .meta{font-size:13px;color:var(--muted);margin:2px 0}
+.card .meta a{color:var(--brand)}
+.card p{font-size:13.5px;margin:8px 0 0}
+.card .map-btn{margin-top:10px;font-size:12.5px;color:var(--accent);font-weight:700}
+.note{font-size:13px;color:var(--muted);background:#fff;border:1px dashed var(--line);border-radius:12px;padding:12px 16px;margin-top:18px}
+
+/* SEO TEXT */
+.seo{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.seo p{max-width:860px}
+
+/* SEMANTIC */
+.queries{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:8px}
+.query{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;color:#33445a}
+
+/* FAQ */
+#faq details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
+#faq summary{cursor:pointer;font-weight:600;font-size:15px}
+#faq details p{margin:10px 0 0;font-size:14px;color:#33445a}
+
+/* LINKS */
+.other-links a{display:inline-block;margin:0 14px 8px 0;color:var(--brand);font-weight:600;text-decoration:none}
+.other-links a:hover{color:var(--accent)}
+
+/* FOOTER */
+footer{background:#12233f;color:#c9d6e8;padding:30px 0;font-size:14px}
+footer a{color:#fff;text-decoration:none;margin-right:16px}
+footer a:hover{color:var(--accent)}
+.footer-author{margin-top:14px;font-size:13px}
+.footer-author a{color:var(--accent);font-weight:600}
+
+@media (max-width:720px){
+  #map{height:60vh;min-height:340px}
+  .header-grid{flex-direction:column}
+  .promo{max-width:100%}
+  .cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container header-grid">
+    <div class="header-left">
+      <a class="brand" href="https://russianfriendly.netlify.app/">🌍 Russian Friendly</a>
+      <h1>📍 Русскоязычные специалисты в Ереване — Russian Friendly Map</h1>
+      <p class="header-sub">Интерактивная карта русскоязычных специалистов, услуг и организаций в Ереване, Армения: медицина, юристы, банки, жильё, связь, магазины и школы.</p>
+    </div>
+    <a class="promo" href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+      <img src="https://russianfriendly.netlify.app/kristina-face.png" alt="Кристина Перез">
+      <span>Переезжаешь в Испанию?<br><b>Узнай, как заговорить →</b></span>
+    </a>
+  </div>
+</header>
+
+<!-- INTRO -->
+<section class="container" id="intro">
+  <h2>Русский Ереван на одной карте</h2>
+  <p>Ереван — столица Армении и один из главных хабов для русскоязычной релокации: русский язык здесь понимают практически везде, а значительная часть сервисов изначально ориентирована на русскоязычную аудиторию. На этой странице собраны контакты, найденные в открытых источниках: клиники и стоматологи, юристы и переводчики, банки и миграционные услуги, аренда жилья, трансферы из аэропорта «Звартноц», операторы связи, русские магазины и школы.</p>
+  <p class="muted">Данные организаций не проходили ручной проверки. Перед визитом уточняйте адреса, телефоны и часы работы. Нашли ошибку — напишите в наш бот.</p>
+</section>
+
+<!-- FILTERS -->
+<section class="container" id="filters-section" style="padding-top:0">
+  <h2>Фильтры по категориям</h2>
+  <div class="filters" id="filters"></div>
+
+  <!-- MAP -->
+  <div id="map" role="application" aria-label="Карта русскоязычных специалистов Еревана"></div>
+
+  <!-- FEEDBACK -->
+  <div class="feedback">
+    <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">✍️ Нашли неверные данные? Сообщите нам в бот</a>
+  </div>
+</section>
+
+<!-- CATALOG -->
+<section class="container" id="catalog">
+  <h2>Каталог русскоязычных организаций Еревана</h2>
+  <div class="cards" id="cards"></div>
+  <p class="note">Организации, представленные в каталоге, добавлены на основании открытых источников и не имеют статуса «проверено Russian Friendly». Кликните по карточке, чтобы увидеть точку на карте, или по точке — чтобы перейти к карточке.</p>
+</section>
+
+<!-- SEO / GEO TEXT -->
+<section class="seo">
+  <div class="container">
+    <h2>Русскоязычные специалисты и сервисы в Ереване, Армения</h2>
+    <p>Ереван давно стал одним из самых удобных городов для жизни на русском языке: здесь легко найти русскоязычного врача, стоматолога, юриста или переводчика, а большинство банков и операторов связи обслуживают клиентов по-русски. Эта страница — локальный каталог Russian Friendly, который помогает быстро сориентироваться в городе и в Армении в целом.</p>
+    <p><strong>Медицина.</strong> Русскоязычные врачи в Ереване принимают и в частных клиниках, и в университетских медицинских центрах: на карте отмечены клиника «Медлайн» в Кентроне, медицинский центр «Астхик» в Ачапняке и клиники Ереванского государственного медицинского университета им. М. Гераци. Русскоязычные стоматологи в Ереване работают при крупных многопрофильных клиниках — запись и цены лучше уточнять заранее.</p>
+    <p><strong>Документы и право.</strong> Русскоязычные юристы в Ереване помогают с договорами, регистрацией бизнеса и сопровождением сделок. Нотариальные действия и заверение переводов выполняют нотариусы, координируемые Нотариальной палатой Республики Армения; переводчики в Ереване выполняют нотариальный перевод между русским, армянским и английским языками.</p>
+    <p><strong>Банки и финансы.</strong> Открыть счёт в банке в Ереване на русском языке реально во многих банках: ВТБ (Армения) входит в российскую группу ВТБ, Ameriabank и Ardshinbank — крупные универсальные банки с русскоязычным обслуживанием. Здесь оформляют карты, переводы и финансовые консультации для приезжающих.</p>
+    <p><strong>Визы, ВНЖ и релокация.</strong> Между Россией и Арменией действует безвизовый режим, но для длительного пребывания обычно оформляют вид на жительство — этими вопросами занимается Миграционная служба РА. Паспортные и гражданские вопросы граждан России решает консульский отдел Посольства России в Армении.</p>
+    <p><strong>Жильё.</strong> Аренда жилья в Ереване чаще всего ищется через платформу объявлений list.am: там публикуются русскоязычные собственники и риелторы, можно снять квартиру в Кентроне, Арабкире, Норке и других районах. Условия договора и предоплату всегда стоит проверять до сделки.</p>
+    <p><strong>Транспорт и трансферы.</strong> Главный аэропорт страны — «Звартноц», он находится примерно в 12 км от центра Еревана. Добраться помогут приложения такси с русским интерфейсом (GG и другие агрегаторы) или заранее договорившиеся русскоязычные водители.</p>
+    <p><strong>Связь.</strong> Мобильная связь в Ереване представлена операторами Viva (бывший VivaCell-MTS), Ucom и Team Telecom Armenia: все они предлагают SIM-карты и eSIM для приезжающих, а поддержка работает на русском языке.</p>
+    <p><strong>Русские магазины и продукты.</strong> Привычные продукты в Ереване продаются в сети «Смуш», в магазинах «Русский Продукт», а также на рынке ГУМ на улице Хоренаци — там же можно найти фрукты, сухофрукты и специи.</p>
+    <p><strong>Образование.</strong> Русскоязычное образование в Ереване — одно из сильных сторон города: школа № 8 имени А. С. Пушкина с обучением на русском, Российско-Армянский университет (РАУ) с программами бакалавриата и магистратуры на русском языке, Русский дом (РЦНК) на улице Абовяна с языковыми курсами и культурными программами.</p>
+    <p>Все контакты на этой странице собраны из открытых источников. Если вы знаете организации, которых здесь не хватает, или заметили неточность — сообщите нам через Telegram-бот: карта пополняется и уточняется.</p>
+  </div>
+</section>
+
+<!-- SEMANTIC KEYWORD BLOCK -->
+<section class="container" id="semantic">
+  <h2>Поисковые темы Russian Friendly Ереван</h2>
+  <div class="queries">
+    <!-- ОБЩИЕ — 10 -->
+    <div class="query">русскоязычные специалисты Ереван</div>
+    <div class="query">русскоязычные специалисты в Ереване</div>
+    <div class="query">русские сервисы Ереван</div>
+    <div class="query">русские услуги Ереван</div>
+    <div class="query">русские компании Ереван</div>
+    <div class="query">русскоязычные услуги Ереван</div>
+    <div class="query">русскоязычный сервис Ереван</div>
+    <div class="query">русский бизнес Ереван</div>
+    <div class="query">русские в Ереване услуги</div>
+    <div class="query">помощь русским в Ереване</div>
+    <!-- МЕДИЦИНА — 9 -->
+    <div class="query">русский врач Ереван</div>
+    <div class="query">русскоязычный врач Ереван</div>
+    <div class="query">врач на русском Ереван</div>
+    <div class="query">русскоязычная клиника Ереван</div>
+    <div class="query">русская клиника Ереван</div>
+    <div class="query">русский стоматолог Ереван</div>
+    <div class="query">русскоязычный стоматолог Ереван</div>
+    <div class="query">стоматолог на русском Ереван</div>
+    <div class="query">русская стоматология Ереван</div>
+    <!-- ЮРИСТЫ И ДОКУМЕНТЫ — 8 -->
+    <div class="query">русский юрист Ереван</div>
+    <div class="query">русскоязычный юрист Ереван</div>
+    <div class="query">юрист на русском Ереван</div>
+    <div class="query">адвокат русский Ереван</div>
+    <div class="query">русский переводчик Ереван</div>
+    <div class="query">русскоязычный переводчик Ереван</div>
+    <div class="query">переводчик с русского Ереван</div>
+    <div class="query">нотариус русский Ереван</div>
+    <!-- ЖИЛЬЁ — 6 -->
+    <div class="query">русский риелтор Ереван</div>
+    <div class="query">русскоязычный риелтор Ереван</div>
+    <div class="query">аренда жилья Ереван русский</div>
+    <div class="query">аренда квартиры Ереван русские</div>
+    <div class="query">недвижимость Ереван русский</div>
+    <div class="query">агентство недвижимости Ереван русский</div>
+    <!-- БАНКИ / ФИНАНСЫ / РЕЛОКАЦИЯ — 8 -->
+    <div class="query">помощь с банком Ереван русский</div>
+    <div class="query">открыть счет в банке Ереван русский</div>
+    <div class="query">банковский консультант Ереван русский</div>
+    <div class="query">релокация Ереван русский</div>
+    <div class="query">помощь с документами Ереван русский</div>
+    <div class="query">миграционный консультант Ереван русский</div>
+    <div class="query">помощь с визой Ереван русский</div>
+    <div class="query">визовое агентство Ереван русский</div>
+    <!-- ТРАНСПОРТ / СВЯЗЬ — 7 -->
+    <div class="query">трансфер Ереван русский</div>
+    <div class="query">русский водитель Ереван</div>
+    <div class="query">трансфер аэропорт Ереван русский</div>
+    <div class="query">SIM карта Ереван русский</div>
+    <div class="query">eSIM Ереван русский</div>
+    <div class="query">мобильная связь Ереван русский</div>
+    <div class="query">русский трансфер аэропорт Ереван</div>
+    <!-- РУССКАЯ ИНФРАСТРУКТУРА — 7 -->
+    <div class="query">русский магазин Ереван</div>
+    <div class="query">русские продукты Ереван</div>
+    <div class="query">где купить русские продукты Ереван</div>
+    <div class="query">русская школа Ереван</div>
+    <div class="query">русские школы Ереван</div>
+    <div class="query">школа на русском Ереван</div>
+    <div class="query">русскоязычные школы Ереван</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="container" id="faq">
+  <h2>Частые вопросы о русскоязычных услугах в Ереване</h2>
+
+  <details>
+    <summary>Где найти русскоязычного врача или стоматолога в Ереване?</summary>
+    <p>В Ереване русскоязычный приём ведут большинство частных и университетских клиник — например, клиника «Медлайн», медицинский центр «Астхик» и клиники Ереванского государственного медицинского университета им. М. Гераци. На карте Russian Friendly собраны медицинские точки в разных районах Еревана; перед визитом уточняйте запись и стоимость приёма.</p>
+  </details>
+
+  <details>
+    <summary>Есть ли в Ереване русскоязычные юристы и переводчики?</summary>
+    <p>Да. Нотариальные действия и заверение переводов выполняют нотариусы, объединённые Нотариальной палатой Республики Армения, а перевод документов между русским, армянским и английским языками можно заказать у частных переводчиков и бюро в центре Еревана. Вопросы ВНЖ и гражданства решает Миграционная служба РА.</p>
+  </details>
+
+  <details>
+    <summary>Где найти русского риелтора и аренду жилья в Ереване?</summary>
+    <p>Основной поиск аренды в Ереване идёт через платформу объявлений list.am — там много объявлений на русском языке от собственников и риелторов. Также русскоязычных клиентов обслуживают многие агентства недвижимости Кентрона и других районов. Перед предоплатой проверяйте документы и условия договора.</p>
+  </details>
+
+  <details>
+    <summary>Как получить помощь с банком, ВНЖ и документами в Ереване на русском?</summary>
+    <p>Русский язык широко используется в армянских банках — например, в ВТБ (Армения), Америабанке и Ардшинбанке можно открыть счёт и получить консультацию на русском. Вопросами вида на жительство и гражданства занимается Миграционная служба РА, а паспортные вопросы граждан России решает консульский отдел Посольства России в Армении.</p>
+  </details>
+
+  <details>
+    <summary>Где купить русские продукты в Ереване?</summary>
+    <p>В Ереване работают магазины русских продуктов, в том числе сеть «Смуш» и «Русский Продукт»; на рынке ГУМ и в супермаркетах города также можно найти привычные продукты, сладости и крупы. Каталог магазинов на этой странице пополняется — если вы знаете новые точки, напишите в наш бот.</p>
+  </details>
+
+  <details>
+    <summary>Есть ли в Ереване русские школы и школы на русском языке?</summary>
+    <p>Да. В Ереване действует школа № 8 имени А. С. Пушкина с обучением на русском языке, Российско-Армянский университет (РАУ) ведёт программы высшего образования на русском, а Русский дом (РЦНК) на улице Абовяна проводит языковые и образовательные мероприятия. Условия приёма уточняйте напрямую в учреждениях.</p>
+  </details>
+</section>
+
+<!-- OTHER PAGES -->
+<section class="container other-links">
+  <h2>Другие страницы Russian Friendly</h2>
+  <a href="https://russianfriendly.netlify.app/">🏠 Главная Russian Friendly</a>
+  <a href="https://russianfriendly.netlify.app/sydney">🇦🇺 Сидней — Russian Friendly Map</a>
+  <p class="muted">Новые города появляются на портале регулярно — следите за обновлениями.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <nav>
+      <a href="https://russianfriendly.netlify.app/">Главная</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="footer-author">
+      Автор проекта — <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">Кристина Перез</a> · Russian Friendly
+    </div>
+    <p style="margin-top:10px;font-size:12.5px;color:#8fa1b5">© Russian Friendly. Данные каталога собраны из открытых источников и могут меняться. Карта © участники OpenStreetMap.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ================= ДАННЫЕ ================= */
+const DATA = [
+  {name:"Клиника «Медлайн»", category:"doctor", catLabel:"👩‍⚕️ Врачи", address:"ул. Мелик-Адамяна, центр Еревана", phone:"", lat:40.1808, lng:44.5038, website:"", description:"Многопрофильная частная клиника в центре Еревана: терапевты, профильные специалисты, диагностика. Приём, как правило, ведётся на русском языке."},
+  {name:"Медицинский центр «Астхик»", category:"doctor", catLabel:"👩‍⚕️ Врачи", address:"ул. Галанджяна, район Ачапняк", phone:"", lat:40.1843, lng:44.4805, website:"", description:"Многопрофильный медицинский центр в районе Ачапняк: стационар и амбулаторный приём. Уточняйте запись и часы работы заранее."},
+  {name:"ЕГМУ им. Мхитара Гераци", category:"doctor", catLabel:"👩‍⚕️ Врачи", address:"ул. Корюна, 5/1", phone:"", lat:40.1860, lng:44.5188, website:"https://ysmu.am", description:"Ереванский государственный медицинский университет и его клиники. Большинство врачей свободно говорят на русском языке."},
+  {name:"Клиника «Медлайн» — стоматология", category:"dentist", catLabel:"🦷 Стоматологи", address:"ул. Мелик-Адамяна, центр Еревана", phone:"", lat:40.1812, lng:44.5042, website:"", description:"Стоматологическое направление клиники «Медлайн»: терапия, гигиена, протезирование. Запись и цены уточняйте заранее."},
+  {name:"Нотариальная палата Республики Армения", category:"lawyer", catLabel:"⚖️ Юристы", address:"центр Еревана", phone:"", lat:40.1798, lng:44.5103, website:"", description:"Объединяет нотариусов Армении. Нотариальные действия, заверение копий и переводов. Возможность обслуживания на русском уточняйте заранее."},
+  {name:"Русскоязычные переводчики", category:"translator", catLabel:"📄 Переводчики", address:"район Кентрон", phone:"", lat:40.1806, lng:44.5138, website:"", description:"Нотариальный перевод документов между русским, армянским и английским языками выполняют частные специалисты и бюро в центре Еревана. Условия и сроки уточняйте заранее."},
+  {name:"ВТБ (Армения)", category:"bank", catLabel:"🏦 Банки / финансовые консультации", address:"центр Еревана (отделения по всему городу)", phone:"", lat:40.1852, lng:44.5126, website:"https://vtb.am", description:"Армянский банк группы ВТБ: карты, счета, переводы. Отделения и поддержка работают на русском языке."},
+  {name:"Ameriabank (Америабанк)", category:"bank", catLabel:"🏦 Банки / финансовые консультации", address:"ул. Вазгена Саргсяна, 9", phone:"", lat:40.1787, lng:44.5081, website:"https://ameriabank.am", description:"Один из крупнейших банков Армении; головный офис на улице Вазгена Саргсяна. Русскоязычное обслуживание в отделениях и поддержке."},
+  {name:"Ardshinbank (Ардшинбанк)", category:"bank", catLabel:"🏦 Банки / финансовые консультации", address:"ул. Арама (центральный офис)", phone:"", lat:40.1762, lng:44.5097, website:"https://ardshinbank.am", description:"Универсальный банк с широкой сетью отделений в Ереване: счета, карты, переводы, консультации."},
+  {name:"Миграционная служба РА", category:"visa", catLabel:"🛂 Визы / миграционные услуги", address:"район Давташен", phone:"", lat:40.2146, lng:44.4862, website:"", description:"Государственный орган по вопросам вида на жительство, гражданства и миграции. Адрес и часы приёма уточняйте перед визитом."},
+  {name:"Посольство России в Армении", category:"visa", catLabel:"🛂 Визы / миграционные услуги", address:"ул. Григора Лусаворича, 13А", phone:"", lat:40.1752, lng:44.4984, website:"https://armenia.mid.ru", description:"Консульский отдел: паспортные вопросы, гражданство, справки для граждан России, находящихся в Армении."},
+  {name:"list.am", category:"realty", catLabel:"🏠 Недвижимость / аренда жилья / риелторы", address:"онлайн-платформа (весь Ереван)", phone:"", lat:40.1802, lng:44.5120, website:"https://list.am", description:"Самая популярная доска объявлений Армении: долгосрочная и краткосрочная аренда, покупка квартир и домов в Ереване. Много объявлений на русском языке."},
+  {name:"Приложение такси GG", category:"transfer", catLabel:"🚕 Трансферы / русскоязычные водители", address:"работает по всему Еревану", phone:"", lat:40.1816, lng:44.5133, website:"https://gg.am", description:"Армянское приложение такси с русскоязычным интерфейсом. Удобно в том числе для трансфера из аэропорта «Звартноц»."},
+  {name:"Аэропорт «Звартноц» (EVN)", category:"transfer", catLabel:"🚕 Трансферы / русскоязычные водители", address:"~12 км к западу от центра Еревана", phone:"", lat:40.1473, lng:44.3959, website:"", description:"Главный аэропорт Армении. Для трансфера можно использовать приложения такси или заранее договориться с русскоязычным водителем."},
+  {name:"Viva (бывш. VivaCell-MTS)", category:"sim", catLabel:"📱 SIM / eSIM / мобильная связь", address:"центр Еревана (Северный проспект и др.)", phone:"", lat:40.1821, lng:44.5140, website:"https://viva.am", description:"Крупнейший мобильный оператор Армении: SIM и eSIM для приезжающих, поддержка на русском языке."},
+  {name:"Ucom", category:"sim", catLabel:"📱 SIM / eSIM / мобильная связь", address:"ул. Амиряна и другие точки Еревана", phone:"", lat:40.1794, lng:44.5066, website:"https://ucom.am", description:"Армянский оператор мобильной связи, интернета и ТВ: SIM/eSIM для приезжающих, салоны по всему Еревану."},
+  {name:"Team Telecom Armenia", category:"sim", catLabel:"📱 SIM / eSIM / мобильная связь", address:"просп. Саят-Нова и другие точки Еревана", phone:"", lat:40.1857, lng:44.5110, website:"https://teamtelecom.am", description:"Мобильный оператор (бывший Beeline Armenia): туристические тарифы, eSIM, русскоязычная поддержка."},
+  {name:"Сеть магазинов «Смуш»", category:"shop", catLabel:"🛒 Русские магазины / продукты", address:"несколько магазинов (Кентрон, Арабкир)", phone:"", lat:40.1828, lng:44.5092, website:"", description:"Сеть магазинов русских и украинских продуктов в Ереване: привычные продукты, сладости, молочная гастрономия, бытовая химия."},
+  {name:"«Русский Продукт»", category:"shop", catLabel:"🛒 Русские магазины / продукты", address:"Ереван, район Кентрон", phone:"", lat:40.1801, lng:44.5150, website:"", description:"Магазин русских продуктов в Ереване: крупы, сладости, консервы, напитки и другие привычные товары."},
+  {name:"Рынок ГУМ", category:"shop", catLabel:"🛒 Русские магазины / продукты", address:"ул. Мовсеса Хоренаци, 35", phone:"", lat:40.1758, lng:44.4993, website:"", description:"Знаменитый ереванский рынок: фрукты, сухофрукты, специи, мёд и привычные продукты. Адрес и часы работы уточняйте заранее."},
+  {name:"Российско-Армянский университет (РАУ)", category:"school", catLabel:"🏫 Русские и русскоязычные школы / образование", address:"ул. Овсепа Эмина, 123", phone:"", lat:40.1942, lng:44.5134, website:"https://rau.am", description:"Российско-Армянский университет: бакалавриат, магистратура и аспирантура на русском языке — ведущий русскоязычный вуз Армении."},
+  {name:"Школа № 8 им. А. С. Пушкина", category:"school", catLabel:"🏫 Русские и русскоязычные школы / образование", address:"ул. Вагаршяна, 16", phone:"", lat:40.1958, lng:44.4968, website:"", description:"Одна из общеобразовательных школ Еревана с обучением на русском языке. Условия приёма уточняйте заранее."},
+  {name:"Русский дом (РЦНК)", category:"school", catLabel:"🏫 Русские и русскоязычные школы / образование", address:"ул. Абовяна, 46", phone:"", lat:40.1835, lng:44.5166, website:"", description:"Русский центр науки и культуры в Ереване: русский язык, образовательные и культурные мероприятия, выставки."}
+];
