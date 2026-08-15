@@ -1,0 +1,72 @@
+
+   POST /IndexNow HTTP/1.1
+Content-Type: application/json; charset=utf-8
+Host: api.indexnow.org
+{
+  "host": "www.russianfriendly.netlify.app",
+  "key": "4e39fa652cec45809a9ca6582124b2e1",
+  "keyLocation": "https://www.russianfriendly.netlify.app/4e39fa652cec45809a9ca6582124b2e1.txt",
+  "urlList": [
+      "https://russianfriendly.netlify.app/alicante",
+      "https://russianfriendly.netlify.app/almaty",
+      "https://russianfriendly.netlify.app/about.html",
+	  "https://russianfriendly.netlify.app/contaсt.html",
+	  "https://russianfriendly.netlify.app/privacy-policy.html",
+	  "https://russianfriendly.netlify.app/astana",
+	  "https://russianfriendly.netlify.app/bangkok",
+	  "https://russianfriendly.netlify.app/baku",
+	  "https://russianfriendly.netlify.app/bar",
+	  "https://russianfriendly.netlify.app/barcelona",
+	  "https://russianfriendly.netlify.app/belgrade",
+	  "https://russianfriendly.netlify.app/bishkek",
+	  "https://russianfriendly.netlify.app/brasilia",
+	  "https://russianfriendly.netlify.app/buenos-aires",
+	  "https://russianfriendly.netlify.app/danang",
+	  "https://russianfriendly.netlify.app/daugavpils",
+	  "https://russianfriendly.netlify.app/dilizhan",
+	  "https://russianfriendly.netlify.app/dushanbe",
+	  "https://russianfriendly.netlify.app/gyumri",
+	  "https://russianfriendly.netlify.app/hanoi",
+	  "https://russianfriendly.netlify.app/ho-chi-minh",
+	  "https://russianfriendly.netlify.app/istanbul",
+	  "https://russianfriendly.netlify.app/kaunas",
+	  "https://russianfriendly.netlify.app/klaypeda",
+	  "https://russianfriendly.netlify.app/kuala-lumpur",
+	  "https://russianfriendly.netlify.app/kutaisi",
+	  "https://russianfriendly.netlify.app/liepaja",
+	  "https://russianfriendly.netlify.app/london",
+	  "https://russianfriendly.netlify.app/madrid",
+	  "https://russianfriendly.netlify.app/melbourne",
+	  "https://russianfriendly.netlify.app/mexico",
+	  "https://russianfriendly.netlify.app/narva",
+	  "https://russianfriendly.netlify.app/nha-trang",
+	  "https://russianfriendly.netlify.app/niksic",
+	  "https://russianfriendly.netlify.app/novi-sad",
+	  "https://russianfriendly.netlify.app/phuquoc",
+	  "https://russianfriendly.netlify.app/podgorica",
+	  "https://russianfriendly.netlify.app/riga",
+	  "https://russianfriendly.netlify.app/sydney",
+	  "https://russianfriendly.netlify.app/tallin",
+	  "https://russianfriendly.netlify.app/tartu",
+	  "https://russianfriendly.netlify.app/tashkent",
+	  "https://russianfriendly.netlify.app/tbilisi",
+	  "https://russianfriendly.netlify.app/tel-aviv",
+	  "https://russianfriendly.netlify.app/valencia",
+	  "https://russianfriendly.netlify.app/vanadzor",
+	  "https://russianfriendly.netlify.app/vilnius",
+	  "https://russianfriendly.netlify.app/vungtau",
+	  "https://russianfriendly.netlify.app/yerevan"	  
+      ]
+} 
+     
+	 
+	 curl -i -X POST "https://api.indexnow.org/IndexNow" \
+  -H "Content-Type: application/json; charset=utf-8" \
+  -d '{
+    "host": "russianfriendly.netlify.app",
+    "key": "4e39fa652cec45809a9ca6582124b2e1",
+    "keyLocation": "https://russianfriendly.netlify.app/4e39fa652cec45809a9ca6582124b2e1.txt",
+    "urlList": [
+      "https://russianfriendly.netlify.app/sydney"
+    ]
+  }'
