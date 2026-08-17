@@ -610,6 +610,51 @@ FAQ должен содержать 6 вопросов.
 * имеют фактически корректные ответы;
 * не используются исключительно для размещения ключевых слов.
 
+
+
+подготовить список микроданных (JSON-LD) для каждой организации, чтобы усилить сигналы для локального поиска,
+по типу: 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Physician",
+      "name": "Доктор Галина Палачевская",
+      "description": "Врач общей практики с образованием из Санкт-Петербурга.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Сидней",
+        "addressCountry": "AU"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -33.8688,
+        "longitude": 151.2093
+      },
+      "category": "Врачи",
+      "medicalSpecialty": "GeneralPractice"
+    },
+    {
+      "@type": "Physician",
+      "name": "Доктор Наталия Кот",
+      "description": "Врач, говорящий на русском и украинском языках.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "North Sydney",
+        "addressRegion": "NSW",
+        "addressCountry": "AU"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -33.8396,
+        "longitude": 151.2071
+      },
+      "category": "Врачи",
+      "medicalSpecialty": "GeneralPractice"
+    },
+ } }
+
 ============================================================
 18. SEO / GEO-ТЕКСТ
 ===================
