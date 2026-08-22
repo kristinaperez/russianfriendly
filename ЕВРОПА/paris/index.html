@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Русскоязычные специалисты в Париже — врачи, юристы, переводчики, жильё | Russian Friendly</title>
+  
+  <link rel="canonical" href="https://russianfriendly.netlify.app/paris">
+  
+  <meta name="description" content="Русскоязычные специалисты и сервисы в Париже: врачи, стоматологи, юристы, переводчики, миграционные услуги, жильё, трансферы, SIM/eSIM, русские магазины и школы.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="author" content="Кристина Перез — Russian Friendly">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Русскоязычные специалисты в Париже — Russian Friendly">
+  <meta property="og:description" content="Русскоязычные врачи, стоматологи, юристы, переводчики, жильё, миграционные услуги, магазины и школы в Париже на одной интерактивной карте.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/paris">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/paris/og-preview.jpg">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Париже">
+  <meta name="twitter:description" content="Russian Friendly — карта русскоязычных специалистов и сервисов в Париже.">
+  <meta name="twitter:image" content="https://russianfriendly.netlify.app/paris/og-preview.jpg">
+  
+  <link rel="stylesheet" href="https://russianfriendly.netlify.app/styles.css">
+  
+  <link rel="icon" type="image/png" sizes="32x32" href="https://russianfriendly.netlify.app/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://russianfriendly.netlify.app/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://russianfriendly.netlify.app/apple-touch-icon.png">
+  <link rel="manifest" href="https://russianfriendly.netlify.app/site.webmanifest">
+  <meta name="theme-color" content="#ffffff">
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <style>
+    :root {
+      --primary: #0f172a;
+      --accent: #ff6600;
+      --bg: #f8fafc;
+      --text: #334155;
+      --border: #e2e8f0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      margin-bottom: 30px;
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    h1 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin: 0;
+    }
+    .author-promo a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      text-decoration: none;
+      color: #333;
+      transition: border-color 0.2s;
+    }
+    .author-promo a:hover {
+      border-color: var(--accent);
+    }
+    .promo-text {
+      font-size: 0.9em;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .promo-avatar {
+      border-radius: 50%;
+      object-fit: cover;
+      width: 40px;
+      height: 40px;
+    }
+    .intro {
+      background: #fff;
+      padding: 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 30px;
+    }
+    .intro p {
+      margin-top: 0;
+      font-size: 1.05em;
+    }
+    #map {
+      height: 450px;
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      z-index: 1;
+      border: 1px solid var(--border);
+    }
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .filter-btn {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 20px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: all 0.2s;
+      color: var(--text);
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .feedback-block {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .feedback-block a {
+      color: #1d4ed8;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .feedback-block a:hover {
+      text-decoration: underline;
+    }
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .business-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .business-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border-color: #cbd5e1;
+    }
+    .business-card h3 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.2em;
+    }
+    .business-card .category {
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 8px;
+      font-size: 0.9em;
+    }
+    .business-card .address, 
+    .business-card .phone, 
+    .business-card .description, 
+    .business-card .source {
+      margin: 8px 0;
+      color: #334155;
+      font-size: 0.95em;
+    }
+    .business-card .source {
+      font-size: 0.85em;
+      color: #64748b;
+      font-style: italic;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #f1f5f9;
+    }
+    .business-card a {
+      color: #0369a1;
+      text-decoration: none;
+    }
+    .business-card a:hover {
+      text-decoration: underline;
+    }
+    .seo-text, .faq-section, .other-cities {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 30px;
+    }
+    h2 {
+      color: var(--primary);
+      font-size: 1.4rem;
+      margin-top: 0;
+    }
+    .topics-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .query {
+      background: #f0f4f8;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.9em;
+      color: #334155;
+    }
+    .faq-item {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 20px;
+    }
+    .faq-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .faq-item h3 {
+      font-size: 1.1em;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    footer {
+      background: var(--primary);
+      color: #cbd5e1;
+      padding: 40px 0;
+      margin-top: 40px;
+    }
+    footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+    .footer-grid h4 {
+      color: #fff;
+      margin-top: 0;
+    }
+    .footer-grid ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer-grid li {
+      margin-bottom: 8px;
+    }
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .catalog-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Russian Friendly",
+        "url": "https://russianfriendly.netlify.app/"
+      },
+      {
+        "@type": "WebPage",
+        "name": "Русскоязычные специалисты в Париже — Russian Friendly",
+        "url": "https://russianfriendly.netlify.app/paris",
+        "description": "Интерактивная карта и каталог русскоязычных специалистов и сервисов в Париже, Франция."
+      },
+      {
+        "@type": "City",
+        "name": "Париж",
+        "alternateName": "Paris",
+        "country": "France"
+      },
+      {
+        "@type": "Person",
+        "name": "Кристина Перез",
+        "url": "https://kristinaperez.netlify.app/",
+        "jobTitle": "Автор проекта Russian Friendly"
+      },
+      {
+        "@type": "ItemList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Стоматологи" },
+          { "@type": "ListItem", "position": 2, "name": "Врачи" },
+          { "@type": "ListItem", "position": 3, "name": "Юристы" },
+          { "@type": "ListItem", "position": 4, "name": "Переводчики" },
+          { "@type": "ListItem", "position": 5, "name": "Русские магазины / продукты" },
+          { "@type": "ListItem", "position": 6, "name": "Русские и русскоязычные школы / образование" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Где найти русскоязычного врача или стоматолога в Париже?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "В нашем каталоге представлены русскоязычные стоматологи и врачи, принимающие в Париже и ближайших пригородах, например, в Курбевуа. Информация о контактах и адресах указана в карточках организаций."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Есть ли в Париже русскоязычные юристы и переводчики?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да, в каталоге есть контакты адвокатов, работающих при Парижской коллегии адвокатов, а также присяжных переводчиков, которые помогают с заверением документов для префектуры, мэрии и банков."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Где найти русского риелтора и аренду жилья в Париже?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Поиск жилья может быть сложным без знания языка. В разделе «Недвижимость» вы найдете контакты специалистов, которые помогают с арендой и покупкой недвижимости с русскоязычным сопровождением."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Как найти помощь с банком, визой и миграционными документами в Париже на русском?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Миграционные консультанты и юристы из нашего каталога оказывают помощь в оформлении ВНЖ, открытии счетов во французских банках и решении бюрократических вопросов на русском языке."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Где купить русские продукты в Париже?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "В Париже и пригородах работают специализированные магазины, такие как «Калинка» и другие, где можно найти привычные продукты, прессу и сувениры. Адреса указаны в нашем каталоге."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Есть ли в Париже русские школы и школы на русском языке?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да, в каталоге представлены русские школы и студии дополнительного образования (например, «СЮРПРИЗ» и «МИР»), где дети могут изучать русский язык, литературу и культуру."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header>
+  <div class="container header-content">
+    <h1>📍 Русскоязычные специалисты в Париже — Russian Friendly Map</h1>
+    <div class="author-promo">
+      <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">
+        <img src="https://russianfriendly.netlify.app/kristina-face.png" alt="Кристина Перез" width="40" height="40" class="promo-avatar">
+        <span class="promo-text">Переезжаешь в Испанию? Узнай, как заговорить →</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  
+  <section class="intro">
+    <p>Добро пожаловать на интерактивную карту русскоязычных специалистов и сервисов в Париже. Этот каталог создан для того, чтобы помочь русскоязычным жителям, эмигрантам и туристам быстро найти надежную поддержку в столице Франции. Здесь собраны контакты врачей, стоматологов, юристов, переводчиков, риелторов, а также русских магазинов, школ и служб трансфера. Вся информация основана на открытых источниках и регулярно обновляется.</p>
+  </section>
+
+  <section id="map-section">
+    <div class="filter-container">
+      <button class="filter-btn active" data-category="all">Все</button>
+      <button class="filter-btn" data-category="dentist">🦷 Стоматологи</button>
+      <button class="filter-btn" data-category="doctor">👩‍⚕️ Врачи</button>
+      <button class="filter-btn" data-category="lawyer">⚖️ Юристы</button>
+      <button class="filter-btn" data-category="translator">📄 Переводчики</button>
+      <button class="filter-btn" data-category="bank">🏦 Банки / финансы</button>
+      <button class="filter-btn" data-category="visa">🛂 Визы / миграция</button>
+      <button class="filter-btn" data-category="realestate">🏠 Недвижимость</button>
+      <button class="filter-btn" data-category="transfer">🚕 Трансферы</button>
+      <button class="filter-btn" data-category="sim">📱 SIM / eSIM</button>
+      <button class="filter-btn" data-category="shop">🛒 Русские магазины</button>
+      <button class="filter-btn" data-category="school">🏫 Русские школы</button>
+    </div>
+    <div id="map"></div>
+  </section>
+
+  <section class="feedback-block">
+    <p><strong>Нашли неверные данные?</strong> <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">Сообщите нам в бот</a></p>
+    <p style="font-size: 0.9em; margin-bottom: 0;">Если вы представляете организацию и хотите исправить или дополнить информацию, пожалуйста, свяжитесь с нами. Мы не гарантируем автоматическое добавление, но рассмотрим каждое обращение.</p>
+  </section>
+
+  <section id="catalog">
+    <h2>Каталог организаций</h2>
+    <div class="catalog-grid">
+      
+      <article class="business-card" id="business-1">
+        <h3>Калинка</h3>
+        <p class="category">🛒 Русские магазины / продукты</p>
+        <p class="address">📍 7, rue Duban, 75016 Paris, France</p>
+        <p class="phone">📞 <a href="tel:+33980646268">+33 9 80 64 62 68</a></p>
+        <p class="description">Магазин русских продуктов, сувениры из России, пресса.</p>
+        <p class="source">ℹ️ Информация представлена по данным открытого источника: Русскоязычный Каталог Франции</p>
+      </article>
+
+      <article class="business-card" id="business-2">
+        <h3>Русская школа-студия «СЮРПРИЗ»</h3>
+        <p class="category">🏫 Русские и русскоязычные школы / образование</p>
+        <p class="address">📍 4, rue Titon, 75011 Paris, France</p>
+        <p class="phone"></p>
+        <p class="description">Русская школа-студия для детей, занятия по средам и субботам.</p>
+        <p class="source"><a href="https://www.centresurprise.com/" target="_blank" rel="noopener">Официальный сайт школы</a></p>
+      </article>
+
+      <article class="business-card" id="business-3">
+        <h3>Русская школа МИР</h3>
+        <p class="category">🏫 Русские и русскоязычные школы / образование</p>
+        <p class="address">📍 3 rue de la Solidarite, Montrouge, France</p>
+        <p class="phone"></p>
+        <p class="description">Качественное ускоренное образование для детей от 4 до 10 лет.</p>
+        <p class="source">ℹ️ Информация представлена по данным открытого источника: Русскоязычный Каталог Франции</p>
+      </article>
+
+      <article class="business-card" id="business-4">
+        <h3>Сидорова Ирина Михайловна</h3>
+        <p class="category">⚖️ Юристы</p>
+        <p class="address">📍 10 Avenue Hoche, 75008 Paris, France</p>
+        <p class="phone">📞 <a href="tel:+33153534348">+33 1 53 53 43 48</a></p>
+        <p class="description">Юридические услуги в Париже, на Лазурном берегу и в Монако.</p>
+        <p class="source"><a href="https://avocatsidorova.fr/" target="_blank" rel="noopener">Официальный сайт адвокатского кабинета</a></p>
+      </article>
+
+      <article class="business-card" id="business-5">
+        <h3>Полина МЕККИ</h3>
+        <p class="category">⚖️ Юристы</p>
+        <p class="address">📍 8, rue de Cléry, 75002 Paris, France</p>
+        <p class="phone"></p>
+        <p class="description">Адвокат при Парижской коллегии адвокатов, помощь по иммиграционному, семейному, трудовому праву и недвижимости.</p>
+        <p class="source"><a href="https://www.cabinet-mekki.com/ru" target="_blank" rel="noopener">Официальный сайт</a></p>
+      </article>
+
+      <article class="business-card" id="business-6">
+        <h3>Анна Лагранд</h3>
+        <p class="category">📄 Переводчики</p>
+        <p class="address">📍 Париж, Франция</p>
+        <p class="phone"></p>
+        <p class="description">Присяжный переводчик в Париже. Заверенный перевод документов, сопровождение к нотариусу, в префектуру, мэрию, банк.</p>
+        <p class="source"><a href="https://marina-yulis-traduction.fr/ru/homepage/perevodjik-v-parije-anna-lagrand/" target="_blank" rel="noopener">Официальный сайт</a></p>
+      </article>
+
+      <article class="business-card" id="business-7">
+        <h3>Dental City</h3>
+        <p class="category">🦷 Стоматологи</p>
+        <p class="address">📍 28 Rue Louis Ulbach, 92400 Courbevoie, France</p>
+        <p class="phone"></p>
+        <p class="description">Стоматологическая клиника, прием ведется на русском, украинском и французском языках.</p>
+        <p class="source"><a href="https://www.instagram.com/dental_city_fr/" target="_blank" rel="noopener">Официальная страница клиники</a></p>
+      </article>
+
+      <article class="business-card" id="business-8">
+        <h3>Сергей Мельник</h3>
+        <p class="category">🦷 Стоматологи</p>
+        <p class="address">📍 Пригород Парижа, Франция</p>
+        <p class="phone"></p>
+        <p class="description">Русскоязычный стоматолог, все виды плановой и срочной стоматологической помощи.</p>
+        <p class="source">ℹ️ Информация представлена по данным открытого источника: Справочник Парижа (paris24.ru)</p>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="seo-text">
+    <h2>Русскоязычные специалисты и сервисы в Париже, Франция</h2>
+    <p>Переезд или длительное пребывание в столице Франции требует надежной поддержки. Наш каталог помогает русскоязычным жителям, эмигрантам и туристам найти проверенные временем сервисы в Париже. Здесь собраны контакты русскоязычных врачей и стоматологов, принимающих в различных округах и ближайших пригородах, таких как Курбевуа и Монруж.</p>
+    <p>Если вам требуется правовая защита, в списке представлены русские юристы и адвокаты, зарегистрированные при французских коллегиях, а также присяжные переводчики, готовые помочь с заверением документов для префектуры, банка или мэрии.</p>
+    <p>Вопросы жилья решаются проще с русскоязычными риелторами, которые сопровождают сделки по аренде и покупке недвижимости. Для тех, кто только прибыл, полезны будут контакты специалистов по релокации, помогающих с открытием банковских счетов и оформлением виз.</p>
+    <p>Комфорт в чужой стране создают привычные детали: русские магазины с продуктами и прессой, а также русские школы и образовательные студии, где дети могут поддерживать родной язык. Для передвижения по городу доступны услуги русскоязычных водителей и трансферов из аэропортов Шарль-де-Голль и Орли.</p>
+  </section>
+
+  <section class="seo-text" id="semantic-topics">
+    <h2>Что ищут русскоязычные жители Парижа</h2>
+    <div class="topics-grid">
+      <div class="query">Русскоязычные специалисты в Париже</div>
+      <div class="query">Помощь русскоязычных специалистов в Париже</div>
+      <div class="query">Русские сервисы и услуги в Париже</div>
+      <div class="query">Профессиональные русские услуги в Париже</div>
+      <div class="query">Русские компании и бизнес в Париже</div>
+      <div class="query">Качественные русскоязычные услуги в Париже</div>
+      <div class="query">Надежный русскоязычный сервис в Париже</div>
+      <div class="query">Русский бизнес и предприниматели в Париже</div>
+      <div class="query">Услуги для русских в Париже</div>
+      <div class="query">Всесторонняя помощь русским в Париже</div>
+      <div class="query">Русский врач в Париже</div>
+      <div class="query">Русскоязычный врач общей практики в Париже</div>
+      <div class="query">Врач, принимающий на русском языке в Париже</div>
+      <div class="query">Русскоязычная медицинская клиника в Париже</div>
+      <div class="query">Русская клиника и медицинский центр в Париже</div>
+      <div class="query">Русский стоматолог в Париже и пригородах</div>
+      <div class="query">Русскоязычный стоматологический кабинет в Париже</div>
+      <div class="query">Стоматолог, говорящий на русском в Париже</div>
+      <div class="query">Русская стоматология и зубные врачи в Париже</div>
+      <div class="query">Русский юрист в Париже</div>
+      <div class="query">Русскоязычный юрист по гражданским делам в Париже</div>
+      <div class="query">Юрист, консультирующий на русском языке в Париже</div>
+      <div class="query">Русский адвокат при французских судах в Париже</div>
+      <div class="query">Русский переводчик документов в Париже</div>
+      <div class="query">Русскоязычный переводчик для официальных инстанций в Париже</div>
+      <div class="query">Переводчик с русского на французский в Париже</div>
+      <div class="query">Помощь русского нотариуса или юриста в Париже</div>
+      <div class="query">Русский риелтор по недвижимости в Париже</div>
+      <div class="query">Русскоязычный риелтор для аренды и покупки в Париже</div>
+      <div class="query">Аренда жилья в Париже с русскоязычным сопровождением</div>
+      <div class="query">Помощь русских в аренде квартиры в Париже</div>
+      <div class="query">Русскоязычные услуги по недвижимости в Париже</div>
+      <div class="query">Русское агентство недвижимости в Париже</div>
+      <div class="query">Помощь с открытием счета в банке в Париже на русском</div>
+      <div class="query">Как открыть счет в банке в Париже с русскоязычной поддержкой</div>
+      <div class="query">Русскоязычный банковский консультант в Париже</div>
+      <div class="query">Услуги по релокации в Париж для русских</div>
+      <div class="query">Помощь с оформлением документов в Париже на русском</div>
+      <div class="query">Русскоязычный миграционный консультант в Париже</div>
+      <div class="query">Помощь с визой и ВНЖ в Париже для русскоязычных</div>
+      <div class="query">Русскоязычное визовое агентство в Париже</div>
+      <div class="query">Русскоязычный трансфер по Парижу</div>
+      <div class="query">Русский водитель с личным автомобилем в Париже</div>
+      <div class="query">Трансфер из аэропорта Парижа с русскоговорящим водителем</div>
+      <div class="query">Покупка SIM-карты в Париже с русской поддержкой</div>
+      <div class="query">Оформление eSIM в Париже для русскоязычных</div>
+      <div class="query">Услуги мобильной связи в Париже на русском языке</div>
+      <div class="query">Русский трансфер из аэропорта Шарль-де-Голль или Орли</div>
+      <div class="query">Русский магазин продуктов и товаров в Париже</div>
+      <div class="query">Где найти русские продукты в Париже</div>
+      <div class="query">Магазины, где можно купить русские продукты в Париже</div>
+      <div class="query">Русская школа или детский сад в Париже</div>
+      <div class="query">Список русских школ в Париже и пригородах</div>
+      <div class="query">Школа с обучением на русском языке в Париже</div>
+      <div class="query">Русскоязычные школы и образовательные центры в Париже</div>
+    </div>
+  </section>
+
+  <section class="faq-section" id="faq">
+    <h2>Часто задаваемые вопросы</h2>
+    
+    <div class="faq-item">
+      <h3>Где найти русскоязычного врача или стоматолога в Париже?</h3>
+      <p>В нашем каталоге представлены русскоязычные стоматологи и врачи, принимающие в Париже и ближайших пригородах, например, в Курбевуа. Информация о контактах и адресах указана в карточках организаций.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Есть ли в Париже русскоязычные юристы и переводчики?</h3>
+      <p>Да, в каталоге есть контакты адвокатов, работающих при Парижской коллегии адвокатов, а также присяжных переводчиков, которые помогают с заверением документов для префектуры, мэрии и банков.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Где найти русского риелтора и аренду жилья в Париже?</h3>
+      <p>Поиск жилья может быть сложным без знания языка. В разделе «Недвижимость» вы найдете контакты специалистов, которые помогают с арендой и покупкой недвижимости с русскоязычным сопровождением.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Как найти помощь с банком, визой и миграционными документами в Париже на русском?</h3>
+      <p>Миграционные консультанты и юристы из нашего каталога оказывают помощь в оформлении ВНЖ, открытии счетов во французских банках и решении бюрократических вопросов на русском языке.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Где купить русские продукты в Париже?</h3>
+      <p>В Париже и пригородах работают специализированные магазины, такие как «Калинка» и другие, где можно найти привычные продукты, прессу и сувениры. Адреса указаны в нашем каталоге.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Есть ли в Париже русские школы и школы на русском языке?</h3>
+      <p>Да, в каталоге представлены русские школы и студии дополнительного образования (например, «СЮРПРИЗ» и «МИР»), где дети могут изучать русский язык, литературу и культуру.</p>
+    </div>
+  </section>
+
+  <section class="other-cities">
+    <h2>Другие города Russian Friendly</h2>
+    <p>Если вы планируете переезд или путешествие, посмотрите наши каталоги в других городах:</p>
+    <ul>
+      <li><a href="https://russianfriendly.netlify.app/nice">Русскоязычные специалисты в Ницце</a></li>
+      <li><a href="https://russianfriendly.netlify.app/lyon">Русскоязычные специалисты в Лионе</a></li>
+      <li><a href="https://russianfriendly.netlify.app/marseille">Русскоязычные специалисты в Марселе</a></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <h4>Russian Friendly</h4>
+      <ul>
+        <li><a href="https://russianfriendly.netlify.app/">Главная</a></li>
+        <li><a href="/about.html">О проекте</a></li>
+        <li><a href="/contact.html">Контакты</a></li>
+        <li><a href="/privacy-policy.html">Политика конфиденциальности</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Навигация</h4>
+      <ul>
+        <li><a href="#map-section">Карта</a></li>
+        <li><a href="#catalog">Каталог</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Автор проекта</h4>
+      <p>Кристина Перез</p>
+      <p><a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener" style="color: #ff6600;">Переезжаешь в Испанию? Узнай, как заговорить →</a></p>
+    </div>
+  </div>
+  <div class="container" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #334155; text-align: center; font-size: 0.9em;">
+    <p>&copy; 2026 Russian Friendly. Все права защищены. Информация представлена по данным открытых источников.</p>
+  </div>
+</footer>
+
+<script>
+  const DATA = [
+    {
+      id: "business-1",
+      name: "Калинка",
+      category: "shop",
+      catLabel: "🛒 Русские магазины / продукты",
+      address: "7, rue Duban, 75016 Paris, France",
+      phone: "+33 9 80 64 62 68",
+      lat: 48.8456,
+      lng: 2.2836,
+      website: "",
+      description: "Магазин русских продуктов, сувениры из России, пресса.",
+      source: "Русскоязычный Каталог Франции"
+    },
+    {
+      id: "business-2",
+      name: "Русская школа-студия «СЮРПРИЗ»",
+      category: "school",
+      catLabel: "🏫 Русские и русскоязычные школы / образование",
+      address: "4, rue Titon, 75011 Paris, France",
+      phone: "",
+      lat: 48.8554,
+      lng: 2.3812,
+      website: "https://www.centresurprise.com/",
+      description: "Русская школа-студия для детей, занятия по средам и субботам.",
+      source: "Официальный сайт школы"
+    },
+    {
+      id: "business-3",
+      name: "Русская школа МИР",
+      category: "school",
+      catLabel: "🏫 Русские и русскоязычные школы / образование",
+      address: "3 rue de la Solidarite, Montrouge, France",
+      phone: "",
+      lat: 48.8185,
+      lng: 2.3185,
+      website: "",
+      description: "Качественное ускоренное образование для детей от 4 до 10 лет.",
+      source: "Русскоязычный Каталог Франции"
+    },
+    {
+      id: "business-4",
+      name: "Сидорова Ирина Михайловна",
+      category: "lawyer",
+      catLabel: "⚖️ Юристы",
+      address: "10 Avenue Hoche, 75008 Paris, France",
+      phone: "+33 1 53 53 43 48",
+      lat: 48.8758,
+      lng: 2.3025,
+      website: "https://avocatsidorova.fr/",
+      description: "Юридические услуги в Париже, на Лазурном берегу и в Монако.",
+      source: "Официальный сайт адвокатского кабинета"
+    },
+    {
+      id: "business-5",
+      name: "Полина МЕККИ",
+      category: "lawyer",
+      catLabel: "⚖️ Юристы",
+      address: "8, rue de Cléry, 75002 Paris, France",
+      phone: "",
+      lat: 48.8682,
+      lng: 2.3465,
+      website: "https://www.cabinet-mekki.com/ru",
+      description: "Адвокат при Парижской коллегии адвокатов, помощь по иммиграционному, семейному, трудовому праву и недвижимости.",
+      source: "Официальный сайт"
+    },
+    {
+      id: "business-6",
+      name: "Анна Лагранд",
+      category: "translator",
+      catLabel: "📄 Переводчики",
+      address: "Париж, Франция",
+      phone: "",
+      lat: 48.8566,
+      lng: 2.3522,
+      website: "https://marina-yulis-traduction.fr/ru/homepage/perevodjik-v-parije-anna-lagrand/",
+      description: "Присяжный переводчик в Париже. Заверенный перевод документов, сопровождение к нотариусу, в префектуру, мэрию, банк.",
+      source: "Официальный сайт"
+    },
+    {
+      id: "business-7",
+      name: "Dental City",
+      category: "dentist",
+      catLabel: "🦷 Стоматологи",
+      address: "28 Rue Louis Ulbach, 92400 Courbevoie, France",
+      phone: "",
+      lat: 48.8985,
+      lng: 2.2455,
+      website: "https://www.instagram.com/dental_city_fr/",
+      description: "Стоматологическая клиника, прием ведется на русском, украинском и французском языках.",
+      source: "Официальная страница клиники"
+    },
+    {
+      id: "business-8",
+      name: "Сергей Мельник",
+      category: "dentist",
+      catLabel: "🦷 Стоматологи",
+      address: "Пригород Парижа, Франция",
+      phone: "",
+      lat: 48.8900,
+      lng: 2.2500,
+      website: "",
+      description: "Русскоязычный стоматолог, все виды плановой и срочной стоматологической помощи.",
+      source: "Справочник Парижа (paris24.ru)"
+    }
+  ];
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const map = L.map('map').setView([48.8566, 2.3522], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    const markers = {};
+
+    DATA.forEach(item => {
+      const marker = L.marker([item.lat, item.lng]).addTo(map);
+      const popupContent = `
+        <strong>${item.name}</strong><br>
+        ${item.catLabel}<br>
+        ${item.address}<br>
+        ${item.phone ? '📞 ' + item.phone + '<br>' : ''}
+        ${item.description}<br>
+        ${item.website ? '<a href="' + item.website + '" target="_blank" rel="noopener">Сайт</a><br>' : ''}
+        <a href="#${item.id}" onclick="document.getElementById('${item.id}').scrollIntoView({behavior: 'smooth'}); return false;" style="margin-top:8px; display:inline-block; font-weight:600;">Перейти к карточке</a>
+      `;
+      marker.bindPopup(popupContent);
+      markers[item.id] = marker;
+    });
+
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const category = btn.dataset.category;
+        
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        DATA.forEach(item => {
+          const card = document.getElementById(item.id);
+          if (category === 'all' || item.category === category) {
+            map.addLayer(markers[item.id]);
+            card.style.display = 'block';
+          } else {
+            map.removeLayer(markers[item.id]);
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    document.querySelectorAll('.business-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.id;
+        if (markers[id]) {
+          const item = DATA.find(d => d.id === id);
+          map.flyTo([item.lat, item.lng], 15);
+          markers[id].openPopup();
+        }
+      });
+      card.style.cursor = 'pointer';
+    });
+  });
+</script>
+
+</body>
+</html>

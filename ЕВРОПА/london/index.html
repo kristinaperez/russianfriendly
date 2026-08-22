@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Русскоязычные специалисты в Лондоне — врачи, юристы, переводчики, жильё | Russian Friendly</title>
+  
+  <meta name="description" content="Русскоязычные специалисты и сервисы в Лондоне: врачи, стоматологи, юристы, переводчики, миграционные услуги, жильё, трансферы, SIM/eSIM, русские магазины и школы.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="author" content="Кристина Перез — Russian Friendly">
+  
+  <link rel="canonical" href="https://russianfriendly.netlify.app/london">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Русскоязычные специалисты в Лондоне — Russian Friendly">
+  <meta property="og:description" content="Русскоязычные врачи, стоматологи, юристы, переводчики, жильё, миграционные услуги, магазины и школы в Лондоне на одной интерактивной карте.">
+  <meta property="og:url" content="https://russianfriendly.netlify.app/london">
+  <meta property="og:image" content="https://russianfriendly.netlify.app/london/og-preview.jpg">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Русскоязычные специалисты в Лондоне">
+  <meta name="twitter:description" content="Russian Friendly — карта русскоязычных специалистов и сервисов в Лондоне.">
+  <meta name="twitter:image" content="https://russianfriendly.netlify.app/london/og-preview.jpg">
+
+  <link rel="stylesheet" href="https://russianfriendly.netlify.app/styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  
+  <link rel="icon" type="image/png" sizes="32x32" href="https://russianfriendly.netlify.app/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://russianfriendly.netlify.app/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://russianfriendly.netlify.app/apple-touch-icon.png">
+  <link rel="manifest" href="https://russianfriendly.netlify.app/site.webmanifest">
+  <meta name="theme-color" content="#ffffff">
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --accent: #ff6600;
+      --bg: #f8f9fa;
+      --text: #212529;
+      --border: #dee2e6;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+    header {
+      background: var(--bg);
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .header-content h1 {
+      font-size: 1.5rem;
+      margin: 0;
+      color: var(--text);
+    }
+    .author-promo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.95rem;
+      border: 1px solid var(--accent);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.2s;
+      background: #fff;
+    }
+    .author-promo:hover {
+      background: #fff0e6;
+      transform: translateY(-1px);
+    }
+    .author-promo img {
+      border-radius: 50%;
+      object-fit: cover;
+      width: 40px;
+      height: 40px;
+    }
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .author-promo {
+        width: 100%;
+        justify-content: flex-start;
+        box-sizing: border-box;
+      }
+    }
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    #intro p {
+      font-size: 1.1rem;
+      color: #495057;
+      max-width: 800px;
+    }
+    #filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .filter-btn {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    #map-container {
+      position: relative;
+    }
+    #map {
+      height: 500px;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      z-index: 1;
+    }
+    #feedback {
+      background: #e7f5ff;
+      border-left: 4px solid var(--primary);
+      padding: 1.5rem;
+      border-radius: 0 8px 8px 0;
+      margin-top: 1.5rem;
+    }
+    #feedback a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    #feedback a:hover {
+      text-decoration: underline;
+    }
+    .business-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: box-shadow 0.2s, border-color 0.2s;
+      background: #fff;
+    }
+    .business-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-color: var(--accent);
+    }
+    .business-card h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .business-card .category {
+      display: inline-block;
+      background: #e9ecef;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+    .business-card p {
+      margin: 0.5rem 0;
+      color: #495057;
+    }
+    .business-card .source {
+      font-size: 0.8rem;
+      color: #6c757d;
+      margin-top: 1rem;
+      font-style: italic;
+      border-top: 1px solid #f1f3f5;
+      padding-top: 0.75rem;
+    }
+    .business-card a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .business-card a:hover {
+      text-decoration: underline;
+    }
+    #seo-geo h2, #semantic-topics h2, #faq h2, #other-cities h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    #seo-geo p {
+      margin-bottom: 1rem;
+      color: #495057;
+    }
+    #semantic-topics .query {
+      display: inline-block;
+      background: #f8f9fa;
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      margin: 0.25rem;
+      font-size: 0.9rem;
+      color: #495057;
+    }
+    .faq-item {
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+    .faq-item h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .faq-item p {
+      color: #495057;
+      margin: 0;
+    }
+    #other-cities ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    #other-cities a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    #other-cities a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1rem;
+      margin-top: 4rem;
+      text-align: center;
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+    footer nav {
+      margin-bottom: 1rem;
+    }
+    footer nav a {
+      color: #495057;
+      text-decoration: none;
+      margin: 0 0.75rem;
+    }
+    footer nav a:hover {
+      color: var(--primary);
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Russian Friendly",
+        "url": "https://russianfriendly.netlify.app/"
+      },
+      {
+        "@type": "WebPage",
+        "name": "Русскоязычные специалисты в Лондоне — Russian Friendly",
+        "url": "https://russianfriendly.netlify.app/london",
+        "description": "Интерактивная карта и каталог русскоязычных специалистов и сервисов в Лондоне, Великобритания."
+      },
+      {
+        "@type": "City",
+        "name": "Лондон",
+        "alternateName": "London",
+        "country": "United Kingdom"
+      },
+      {
+        "@type": "Person",
+        "name": "Кристина Перез",
+        "url": "https://kristinaperez.netlify.app/",
+        "jobTitle": "Автор проекта Russian Friendly"
+      },
+      {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Vidadent",
+            "description": "Русскоязычный стоматолог в Лондоне"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Medidenta",
+            "description": "Русскоязычный стоматолог в Лондоне и Кенте"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "IGOR & CO",
+            "description": "Русскоязычная иммиграционная юрфирма в UK"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Kalinka Russian Shop",
+            "description": "Старейший магазин русских продуктов в центре Лондона"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Dacha Shop",
+            "description": "Сеть магазинов свежих русских и восточноевропейских продуктов"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "name": "Русская школа «Радуга»",
+            "description": "Русская школа в Лондоне с занятиями по субботам"
+          },
+          {
+            "@type": "ListItem",
+            "position": 7,
+            "name": "Русская школа «Золотой Ключик»",
+            "description": "Русская школа для детей в западной части Лондона"
+          },
+          {
+            "@type": "ListItem",
+            "position": 8,
+            "name": "vrach.co.uk",
+            "description": "Информационная платформа для поиска русскоязычных врачей в Лондоне"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Где найти русскоязычного врача или стоматолога в Лондоне?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "В нашем каталоге представлены такие организации, как стоматологическая практика Vidadent в Bethnal Green и клиника Medidenta. Для поиска врачей общей практики и педиатров рекомендуется использовать специализированную платформу vrach.co.uk, которая агрегирует контакты русскоязычных специалистов в Лондоне."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Есть ли в Лондоне русскоязычные юристы и переводчики?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да, в Лондоне работают специализированные юридические фирмы, например, IGOR & CO (регулируется SRA), оказывающие иммиграционные и семейные услуги на русском языке. Услуги профессиональных переводчиков также доступны через специализированные агентства и независимых специалистов, зарегистрированных в ITI или NRPSI."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Где найти русского риелтора и аренду жилья в Лондоне?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Многие крупные агентства недвижимости в Лондоне имеют в штате русскоязычных агентов. Для поиска жилья рекомендуется обращаться в специализированные отделы крупных фирм или использовать локальные русскоязычные сообщества, где публикуются проверенные предложения по аренде и продаже."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Как найти помощь с банком, визой и миграционными документами в Лондоне на русском?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Вопросами виз и миграции занимаются лицензированные юрфирмы (например, упомянутая IGOR & CO). Что касается банков, некоторые международные банки в Лондоне предоставляют услуги мультиязычной поддержки или имеют русскоязычных персональных менеджеров для премиальных клиентов. Уточняйте наличие языковой поддержки непосредственно в отделении банка."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Где купить русские продукты в Лондоне?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "В Лондоне работает несколько известных магазинов. Среди них: Kalinka Russian Shop на Queensway (один из старейших магазинов в центре города) и сеть Dacha Shop с точками в районе Notting Hill Gate и Moscow Road, предлагающие свежие продукты, выпечку и бакалею из Восточной Европы."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Есть ли в Лондоне русские школы и школы на русском языке?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да, в Лондоне действует более 40 русских школ. В нашем каталоге представлены, например, школа «Радуга» (занятия по субботам в районе Battersea/SW11) и школа «Золотой Ключик» в западной части Лондона (Chiswick Park). Они предлагают изучение языка, литературы и подготовку к экзаменам GCSE и A-Level."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header>
+  <div class="header-content">
+    <h1>📍 Русскоязычные специалисты в Лондоне — Russian Friendly Map</h1>
+    <a href="https://kristinaperez.netlify.app/" class="author-promo" target="_blank" rel="noopener">
+      <img src="https://russianfriendly.netlify.app/kristina-face.png" alt="Кристина Перез" width="40" height="40">
+      <span>Переезжаешь в Испанию? Узнай, как заговорить →</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section id="intro">
+    <p>Добро пожаловать на интерактивную карту русскоязычных специалистов и сервисов в Лондоне. Этот каталог создан, чтобы помочь новым жителям, туристам и давним экспатам быстрее найти проверенные услуги на родном языке: от стоматологов и юристов до русских продуктовых магазинов и субботних школ.</p>
+    <p>Мы собрали только те организации, информация о которых подтверждена открытыми источниками. Используйте фильтры ниже, чтобы найти нужную категорию, или изучите подробный каталог под картой.</p>
+  </section>
+
+  <section id="filters">
+    <button class="filter-btn active" onclick="filterCategory('all')">Все категории</button>
+    <button class="filter-btn" onclick="filterCategory('dentist')">🦷 Стоматологи</button>
+    <button class="filter-btn" onclick="filterCategory('doctor')">👩‍⚕️ Врачи</button>
+    <button class="filter-btn" onclick="filterCategory('lawyer')">⚖️ Юристы</button>
+    <button class="filter-btn" onclick="filterCategory('shop')">🛒 Русские магазины</button>
+    <button class="filter-btn" onclick="filterCategory('school')">🏫 Русские школы</button>
+  </section>
+
+  <section id="map-container">
+    <div id="map"></div>
+  </section>
+
+  <section id="feedback">
+    <p><strong>Нашли неверные данные?</strong> <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener">Сообщите нам в бот</a>.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #495057;">Если вы представляете организацию и хотите исправить или дополнить информацию, мы будем рады вашему сообщению. Обратите внимание: добавление в каталог не является автоматическим и требует проверки данных.</p>
+  </section>
+
+  <section id="catalog">
+    <h2>Каталог организаций</h2>
+    
+    <article class="business-card" id="business-1">
+      <span class="category">🦷 Стоматологи</span>
+      <h3>Vidadent</h3>
+      <p><strong>Адрес:</strong> 252 Bethnal Green Road, London, E2 0AA</p>
+      <p><strong>Телефон:</strong> 020 7729 1385</p>
+      <p>Русскоязычный стоматолог в Лондоне. Консультация, ортодонтическое лечение, хирургия и имплантология.</p>
+      <p><a href="https://www.facebook.com/p/Vidadent-русский-стоматолог-в-Лондоне-61553589352497/" target="_blank" rel="noopener">Страница организации</a></p>
+      <p class="source">Информация представлена по данным открытого источника.</p>
+    </article>
+
+    <article class="business-card" id="business-2">
+      <span class="category">🦷 Стоматологи</span>
+      <h3>Medidenta</h3>
+      <p><strong>Адрес:</strong> 37 Main Road, Sidcup, Kent (обслуживает Лондон)</p>
+      <p><strong>Телефон:</strong> 020 8306 1115</p>
+      <p>Русскоязычный стоматолог в Лондоне и Кенте. Лечение кариеса, эстетическая стоматология, работа без выходных.</p>
+      <p><a href="https://medidenta.co.uk" target="_blank" rel="noopener">medidenta.co.uk</a></p>
+      <p class="source">Информация представлена по данным открытого источника.</p>
+    </article>
+
+    <article class="business-card" id="business-3">
+      <span class="category">⚖️ Юристы</span>
+      <h3>IGOR & CO</h3>
+      <p><strong>Адрес:</strong> Easy Hub Chelsea, 168 Fulham Road, London, SW10 9PR</p>
+      <p><strong>Телефон:</strong> 020 7731 8182</p>
+      <p>Русскоязычная иммиграционная юрфирма в UK. SRA #465934. Помощь с визами, ВНЖ, гражданством и семейными вопросами.</p>
+      <p><a href="https://www.igorandco.co.uk" target="_blank" rel="noopener">igorandco.co.uk</a></p>
+      <p class="source">Информация подтверждена реестром SRA и открытыми источниками.</p>
+    </article>
+
+    <article class="business-card" id="business-4">
+      <span class="category">🛒 Русские магазины / продукты</span>
+      <h3>Kalinka Russian Shop</h3>
+      <p><strong>Адрес:</strong> 35 Queensway, London W2 4QJ</p>
+      <p><strong>Телефон:</strong> 020 7243 6125</p>
+      <p>Старейший магазин русских и восточноевропейских продуктов питания, расположенный в самом центре Лондона, рядом со станциями Queensway и Bayswater.</p>
+      <p><a href="https://kalinka-shop.co.uk" target="_blank" rel="noopener">kalinka-shop.co.uk</a></p>
+      <p class="source">Информация представлена по данным открытого источника.</p>
+    </article>
+
+    <article class="business-card" id="business-5">
+      <span class="category">🛒 Русские магазины / продукты</span>
+      <h3>Dacha Shop</h3>
+      <p><strong>Адрес:</strong> 21 Moscow Road, London W2 4AH</p>
+      <p><strong>Телефон:</strong> 020 8143 0224</p>
+      <p>Сеть современных магазинов свежих русских и восточноевропейских продуктов, традиционная готовая еда и деликатесы.</p>
+      <p><a href="https://www.dachashop.co.uk" target="_blank" rel="noopener">dachashop.co.uk</a></p>
+      <p class="source">Информация представлена по данным открытого источника.</p>
+    </article>
+
+    <article class="business-card" id="business-6">
+      <span class="category">🏫 Русские и русскоязычные школы</span>
+      <h3>Русская школа «Радуга»</h3>
+      <p><strong>Адрес:</strong> Belleville Primary School, Belleville Rd, London SW11 6PR</p>
+      <p>Русская школа в Лондоне, основанная в 2008 году. Занятия проходят по субботам, включая развитие речи, русский язык и культуру.</p>
+      <p><a href="https://raduga.uk" target="_blank" rel="noopener">raduga.uk</a></p>
+      <p class="source">Информация представлена по данным открытого источника.</p>
+    </article>
+
+    <article class="business-card" id="business-7">
+      <span class="category">🏫 Русские и русскоязычные школы</span>
+      <h3>Русская школа «Золотой Ключик»</h3>
+      <p><strong>Адрес:</strong> Западная часть Лондона, район Chiswick Park</p>
+      <p>Русская школа для детей в западной части Лондона. Изучение языка, литературы и сохранение культурных традиций.</p>
+      <p><a href="https://zolotoykluchik.uk" target="_blank" rel="noopener">zolotoykluchik.uk</a></p>
+      <p class="source">Информация представлена по данным открытого источника.</p>
+    </article>
+
+    <article class="business-card" id="business-8">
+      <span class="category">👩‍⚕️ Врачи</span>
+      <h3>vrach.co.uk</h3>
+      <p><strong>Адрес:</strong> Лондон, Великобритания (информационная платформа)</p>
+      <p>Информационная и справочная платформа для поиска русскоязычных врачей, педиатров и медицинских специалистов в Лондоне.</p>
+      <p><a href="https://vrach.co.uk" target="_blank" rel="noopener">vrach.co.uk</a></p>
+      <p class="source">Информация представлена по данным открытого источника.</p>
+    </article>
+  </section>
+
+  <section id="seo-geo">
+    <h2>Русскоязычные специалисты и сервисы в Лондоне, Великобритания</h2>
+    <p>Лондон — один из самых многонациональных городов мира, и здесь сформировалась устойчивая инфраструктура для русскоязычных жителей. Найти врача, говорящего по-русски, или стоматолога, который объяснит план лечения без языкового барьера, стало проще благодаря специализированным платформам и частным практикам в районах от Bethnal Green до Кента.</p>
+    <p>Юридическая поддержка также широко представлена: в Лондоне работают адвокаты и юрфирмы, регулируемые Solicitors Regulation Authority (SRA), которые специализируются на иммиграционном, семейном и уголовном праве для клиентов из стран СНГ. При выборе переводчика для нотариальных действий рекомендуется обращаться к специалистам, зарегистрированным в Institute of Translation and Interpreting (ITI).</p>
+    <p>Вопросы аренды и покупки недвижимости часто решаются с помощью русскоязычных агентов, работающих как в крупных международных агентствах в Chelsea и Kensington, так и в независимых фирмах. Что касается повседневного комфорта, в центре города (например, на Queensway и Moscow Road) десятилетиями успешно работают традиционные русские магазины, предлагающие привычные продукты, выпечку и бакалею.</p>
+    <p>Для семей с детьми в Лондоне действует более 40 русских субботних школ, таких как «Радуга» и «Золотой Ключик», где дети не только изучают язык и литературу, но и готовятся к экзаменам GCSE и A-Level по русскому языку. Эта экосистема услуг делает адаптацию в британской столице значительно комфортнее.</p>
+  </section>
+
+  <section id="semantic-topics">
+    <h2>Что ищут русскоязычные жители Лондона</h2>
+    <div class="query">Русскоязычные специалисты в Лондоне</div>
+    <div class="query">Поиск русскоязычных специалистов в Лондоне</div>
+    <div class="query">Русские сервисы и услуги в Лондоне</div>
+    <div class="query">Русские услуги для экспатов в Лондоне</div>
+    <div class="query">Русские компании и бизнес в Лондоне</div>
+    <div class="query">Русскоязычные услуги для новых жителей Лондона</div>
+    <div class="query">Русскоязычный сервис и поддержка в Лондоне</div>
+    <div class="query">Русский бизнес и предприниматели в Лондоне</div>
+    <div class="query">Услуги для русских в Лондоне</div>
+    <div class="query">Помощь русскоязычным жителям в Лондоне</div>
+    <div class="query">Русский врач в Лондоне</div>
+    <div class="query">Русскоязычный врач общей практики в Лондоне</div>
+    <div class="query">Врач, принимающий на русском языке в Лондоне</div>
+    <div class="query">Русскоязычная медицинская клиника в Лондоне</div>
+    <div class="query">Русская клиника и медицинский центр в Лондоне</div>
+    <div class="query">Русский стоматолог в Лондоне</div>
+    <div class="query">Русскоязычный стоматолог и гигиенист в Лондоне</div>
+    <div class="query">Стоматолог, говорящий по-русски в Лондоне</div>
+    <div class="query">Русская стоматологическая практика в Лондоне</div>
+    <div class="query">Русский юрист и адвокат в Лондоне</div>
+    <div class="query">Русскоязычный юрист по гражданским делам в Лондоне</div>
+    <div class="query">Юрист, консультирующий на русском языке в Лондоне</div>
+    <div class="query">Русский адвокат по уголовным и семейным делам в Лондоне</div>
+    <div class="query">Русский переводчик документов в Лондоне</div>
+    <div class="query">Русскоязычный переводчик для нотариальных действий в Лондоне</div>
+    <div class="query">Переводчик с русского на английский в Лондоне</div>
+    <div class="query">Русскоязычный нотариус и заверение документов в Лондоне</div>
+    <div class="query">Русский риелтор и агент по недвижимости в Лондоне</div>
+    <div class="query">Русскоязычный риелтор по коммерческой недвижимости в Лондоне</div>
+    <div class="query">Аренда жилья через русскоязычного агента в Лондоне</div>
+    <div class="query">Аренда квартиры в Лондоне с русскоязычным сопровождением</div>
+    <div class="query">Покупка недвижимости в Лондоне с русским агентом</div>
+    <div class="query">Русскоязычное агентство недвижимости в Лондоне</div>
+    <div class="query">Помощь с открытием банковского счёта в Лондоне для русских</div>
+    <div class="query">Как открыть счёт в банке в Лондоне на русском языке</div>
+    <div class="query">Русскоязычный банковский консультант в Лондоне</div>
+    <div class="query">Услуги по релокации в Лондон для русскоязычных семей</div>
+    <div class="query">Помощь с оформлением документов в Лондоне на русском</div>
+    <div class="query">Миграционный консультант и советник в Лондоне (русский)</div>
+    <div class="query">Помощь с оформлением визы в Великобританию из Лондона</div>
+    <div class="query">Русскоязычное визовое агентство в Лондоне</div>
+    <div class="query">Русскоязычный трансфер по Лондону и аэропортам</div>
+    <div class="query">Русский водитель с личным автомобилем в Лондоне</div>
+    <div class="query">Трансфер из аэропорта Хитроу или Гатвик с русским водителем</div>
+    <div class="query">Где купить SIM-карту в Лондоне с русской поддержкой</div>
+    <div class="query">Оформление eSIM для путешественников в Лондоне</div>
+    <div class="query">Русскоязычная поддержка мобильной связи в Лондоне</div>
+    <div class="query">Русский трансфер из аэропорта Лондона</div>
+    <div class="query">Русский продуктовый магазин в Лондоне</div>
+    <div class="query">Где найти привычные русские продукты в Лондоне</div>
+    <div class="query">Магазины, где можно купить русские продукты в Лондоне</div>
+    <div class="query">Русская субботняя школа в Лондоне</div>
+    <div class="query">Список русских школ и образовательных центров в Лондоне</div>
+    <div class="query">Школа с обучением на русском языке в Лондоне</div>
+    <div class="query">Русскоязычные школы и детские сады в Лондоне</div>
+  </section>
+
+  <section id="faq">
+    <h2>Часто задаваемые вопросы</h2>
+    
+    <div class="faq-item">
+      <h3>Где найти русскоязычного врача или стоматолога в Лондоне?</h3>
+      <p>В нашем каталоге представлены такие организации, как стоматологическая практика Vidadent в Bethnal Green и клиника Medidenta. Для поиска врачей общей практики и педиатров рекомендуется использовать специализированную платформу vrach.co.uk, которая агрегирует контакты русскоязычных специалистов в Лондоне.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Есть ли в Лондоне русскоязычные юристы и переводчики?</h3>
+      <p>Да, в Лондоне работают специализированные юридические фирмы, например, IGOR & CO (регулируется SRA), оказывающие иммиграционные и семейные услуги на русском языке. Услуги профессиональных переводчиков также доступны через специализированные агентства и независимых специалистов, зарегистрированных в ITI или NRPSI.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Где найти русского риелтора и аренду жилья в Лондоне?</h3>
+      <p>Многие крупные агентства недвижимости в Лондоне имеют в штате русскоязычных агентов. Для поиска жилья рекомендуется обращаться в специализированные отделы крупных фирм или использовать локальные русскоязычные сообщества, где публикуются проверенные предложения по аренде и продаже.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Как найти помощь с банком, визой и миграционными документами в Лондоне на русском?</h3>
+      <p>Вопросами виз и миграции занимаются лицензированные юрфирмы (например, упомянутая IGOR & CO). Что касается банков, некоторые международные банки в Лондоне предоставляют услуги мультиязычной поддержки или имеют русскоязычных персональных менеджеров для премиальных клиентов. Уточняйте наличие языковой поддержки непосредственно в отделении банка.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Где купить русские продукты в Лондоне?</h3>
+      <p>В Лондоне работает несколько известных магазинов. Среди них: Kalinka Russian Shop на Queensway (один из старейших магазинов в центре города) и сеть Dacha Shop с точками в районе Notting Hill Gate и Moscow Road, предлагающие свежие продукты, выпечку и бакалею из Восточной Европы.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Есть ли в Лондоне русские школы и школы на русском языке?</h3>
+      <p>Да, в Лондоне действует более 40 русских школ. В нашем каталоге представлены, например, школа «Радуга» (занятия по субботам в районе Battersea/SW11) и школа «Золотой Ключик» в западной части Лондона (Chiswick Park). Они предлагают изучение языка, литературы и подготовку к экзаменам GCSE и A-Level.</p>
+    </div>
+  </section>
+
+  <section id="other-cities">
+    <h2>Другие города Russian Friendly</h2>
+    <ul>
+      <li><a href="https://russianfriendly.netlify.app/barcelona">Барселона</a></li>
+      <li><a href="https://russianfriendly.netlify.app/madrid">Мадрид</a></li>
+      <li><a href="https://russianfriendly.netlify.app/berlin">Берлин</a></li>
+      <li><a href="https://russianfriendly.netlify.app/dubai">Дубай</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <nav>
+    <a href="https://russianfriendly.netlify.app/">Главная Russian Friendly</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+    <a href="/privacy-policy.html">Privacy Policy</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <p>&copy; 2026 Russian Friendly. Автор проекта: Кристина Перез.</p>
+  <p style="font-size: 0.8rem; margin-top: 0.5rem;">Информация на сайте носит справочный характер. Перед обращением в организацию рекомендуется самостоятельно уточнять актуальность контактов и услуг.</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+  const DATA = [
+    {
+      id: "business-1",
+      name: "Vidadent",
+      category: "dentist",
+      catLabel: "🦷 Стоматологи",
+      address: "252 Bethnal Green Road, London, E2 0AA",
+      phone: "020 7729 1385",
+      lat: 51.5265,
+      lng: -0.0645,
+      website: "https://www.facebook.com/p/Vidadent-русский-стоматолог-в-Лондоне-61553589352497/",
+      description: "Русскоязычный стоматолог в Лондоне. Консультация, ортодонтия, хирургия, имплантология.",
+      source: "Информация представлена по данным открытого источника."
+    },
+    {
+      id: "business-2",
+      name: "Medidenta",
+      category: "dentist",
+      catLabel: "🦷 Стоматологи",
+      address: "37 Main Road, Sidcup, Kent (обслуживает Лондон)",
+      phone: "020 8306 1115",
+      lat: 51.4350,
+      lng: 0.1050,
+      website: "https://medidenta.co.uk",
+      description: "Русскоязычный стоматолог в Лондоне и Кенте. Лечение, эстетическая стоматология.",
+      source: "Информация представлена по данным открытого источника."
+    },
+    {
+      id: "business-3",
+      name: "IGOR & CO",
+      category: "lawyer",
+      catLabel: "⚖️ Юристы",
+      address: "Easy Hub Chelsea, 168 Fulham Road, London, SW10 9PR",
+      phone: "020 7731 8182",
+      lat: 51.4870,
+      lng: -0.1650,
+      website: "https://www.igorandco.co.uk",
+      description: "Русскоязычная иммиграционная юрфирма в UK. SRA #465934. Помощь с визами, ВНЖ, гражданством.",
+      source: "Информация подтверждена реестром SRA и открытыми источниками."
+    },
+    {
+      id: "business-4",
+      name: "Kalinka Russian Shop",
+      category: "shop",
+      catLabel: "🛒 Русские магазины / продукты",
+      address: "35 Queensway, London W2 4QJ",
+      phone: "020 7243 6125",
+      lat: 51.5125,
+      lng: -0.1875,
+      website: "https://kalinka-shop.co.uk",
+      description: "Старейший магазин русских и восточноевропейских продуктов питания в центре Лондона.",
+      source: "Информация представлена по данным открытого источника."
+    },
+    {
+      id: "business-5",
+      name: "Dacha Shop",
+      category: "shop",
+      catLabel: "🛒 Русские магазины / продукты",
+      address: "21 Moscow Road, London W2 4AH",
+      phone: "020 8143 0224",
+      lat: 51.5115,
+      lng: -0.1850,
+      website: "https://www.dachashop.co.uk",
+      description: "Сеть магазинов свежих русских и восточноевропейских продуктов, традиционная готовая еда.",
+      source: "Информация представлена по данным открытого источника."
+    },
+    {
+      id: "business-6",
+      name: "Русская школа «Радуга»",
+      category: "school",
+      catLabel: "🏫 Русские и русскоязычные школы",
+      address: "Belleville Primary School, Belleville Rd, London SW11 6PR",
+      phone: "",
+      lat: 51.4630,
+      lng: -0.1680,
+      website: "https://raduga.uk",
+      description: "Русская школа в Лондоне. Занятия по субботам, развитие речи, русский язык и культура.",
+      source: "Информация представлена по данным открытого источника."
+    },
+    {
+      id: "business-7",
+      name: "Русская школа «Золотой Ключик»",
+      category: "school",
+      catLabel: "🏫 Русские и русскоязычные школы",
+      address: "Западная часть Лондона, район Chiswick Park",
+      phone: "",
+      lat: 51.4920,
+      lng: -0.2650,
+      website: "https://zolotoykluchik.uk",
+      description: "Русская школа для детей в западной части Лондона. Изучение языка, литературы и культуры.",
+      source: "Информация представлена по данным открытого источника."
+    },
+    {
+      id: "business-8",
+      name: "vrach.co.uk",
+      category: "doctor",
+      catLabel: "👩‍⚕️ Врачи",
+      address: "Лондон, Великобритания (информационная платформа)",
+      phone: "",
+      lat: 51.5074,
+      lng: -0.1278,
+      website: "https://vrach.co.uk",
+      description: "Информационная и справочная платформа для поиска русскоязычных врачей и педиатров в Лондоне.",
+      source: "Информация представлена по данным открытого источника."
+    }
+  ];
+
+  const map = L.map('map').setView([51.5074, -0.1278], 11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors',
+    maxZoom: 19
+  }).addTo(map);
+
+  const markers = {};
+
+  function renderMap(filter = 'all') {
+    for (let key in markers) {
+      map.removeLayer(markers[key]);
+    }
+    
+    DATA.forEach(item => {
+      if (filter === 'all' || item.category === filter) {
+        const popupContent = `
+          <b>${item.name}</b><br>
+          ${item.catLabel}<br>
+          ${item.address}<br>
+          ${item.phone ? '📞 ' + item.phone + '<br>' : ''}
+          ${item.website ? '<a href="' + item.website + '" target="_blank" rel="noopener">Сайт / Страница</a><br>' : ''}
+          <small style="color:#666;">${item.source}</small>
+        `;
+        const marker = L.marker([item.lat, item.lng])
+          .bindPopup(popupContent);
+        marker.addTo(map);
+        markers[item.id] = marker;
+      }
+    });
+  }
+
+  function filterCategory(cat) {
+    renderMap(cat);
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.getAttribute('onclick').includes(`'${cat}'`)) {
+        btn.classList.add('active');
+      }
+    });
+  }
+
+  document.querySelectorAll('.business-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.id;
+      const item = DATA.find(d => d.id === id);
+      if (item && markers[id]) {
+        map.setView([item.lat, item.lng], 15);
+        markers[id].openPopup();
+        document.getElementById('map-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  });
+
+  renderMap();
+</script>
+
+</body>
+</html>

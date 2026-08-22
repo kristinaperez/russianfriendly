@@ -1,9 +1,11 @@
  
 
    
-  curl -i "https://www.bing.com/indexnow?url=https://russianfriendly.netlify.app/sydney/&key=4e39fa652cec45809a9ca6582124b2e1"
-  
-  
+  curl -i "https://www.bing.com/indexnow?url=https://russianfriendly.netlify.app/sydney&key=4e39fa652cec45809a9ca6582124b2e1"
+   
+        russianfriendly.netlify.app/sydney/4e39fa652cec45809a9ca6582124b2e1.txt 
+		
+		 
   
   
 
