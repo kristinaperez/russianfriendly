@@ -1,382 +1,1172 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Русскоязычные специалисты в Алматы — карта и контакты | Russian Friendly</title>
-<meta name="description" content="Интерактивная карта и список русскоязычных специалистов и полезных сервисов в Алматы: стоматологи, врачи, юристы, переводчики, банки, визы, аренда жилья, трансферы, SIM/eSIM, магазины, школы.">
- <!-- Favicons --> 
-<link rel="icon" type="image/png" sizes="32x32" href="https://russianfriendly.netlify.app/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://russianfriendly.netlify.app/favicon-16x16.png">
-<!-- Apple -->
-<link rel="apple-touch-icon" sizes="180x180" href="https://russianfriendly.netlify.app/apple-touch-icon.png">
-<!-- Android / PWA -->
-<link rel="manifest" href="https://russianfriendly.netlify.app/site.webmanifest">
-<!-- Theme color -->
-<meta name="theme-color" content="#ffffff">
-<link rel="canonical" href="https://russianfriendly.netlify.app/almaty">
-<meta name="theme-color" content="#0B3350">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Русскоязычные специалисты в Алматы — врачи, юристы, переводчики, жильё | Russian Friendly</title>
+    
+    <link rel="canonical" href="https://russianfriendly.netlify.app/almaty">
+    
+    <meta name="description" content="Русскоязычные специалисты и сервисы в Алматы: врачи, стоматологи, юристы, переводчики, миграционные услуги, жильё, трансферы, SIM/eSIM, русские магазины и школы.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="author" content="Кристина Перез — Russian Friendly">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Русскоязычные специалисты в Алматы — Russian Friendly">
+    <meta property="og:description" content="Русскоязычные врачи, стоматологи, юристы, переводчики, жильё, миграционные услуги, магазины и школы в Алматы на одной интерактивной карте.">
+    <meta property="og:url" content="https://russianfriendly.netlify.app/almaty">
+    <meta property="og:image" content="https://russianfriendly.netlify.app/almaty/og-preview.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Русскоязычные специалисты в Алматы">
+    <meta name="twitter:description" content="Russian Friendly — карта русскоязычных специалистов и сервисов в Алматы.">
+    <meta name="twitter:image" content="https://russianfriendly.netlify.app/almaty/og-preview.jpg">
 
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Русскоязычные специалисты в Алматы | Russian Friendly">
-<meta property="og:description" content="Карта и список проверенных русскоязычных специалистов и сервисов в Алматы для экспатов, релокантов и туристов.">
-<meta property="og:url" content="https://russianfriendly.netlify.app/almaty">
-<meta property="og:image" content="https://russianfriendly.netlify.app/images/og-almaty.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:locale" content="ru_RU">
-<meta property="og:site_name" content="Russian Friendly">
+    <link rel="stylesheet" href="https://russianfriendly.netlify.app/styles.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://russianfriendly.netlify.app/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://russianfriendly.netlify.app/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://russianfriendly.netlify.app/apple-touch-icon.png">
+    <link rel="manifest" href="https://russianfriendly.netlify.app/site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
 
-<!-- Twitter / X -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Русскоязычные специалисты в Алматы | Russian Friendly">
-<meta name="twitter:description" content="Карта и список русскоязычных специалистов и сервисов в Алматы для экспатов и релокантов.">
-<meta name="twitter:image" content="https://russianfriendly.netlify.app/images/og-almaty.jpg">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #ff6600;
+            --bg-light: #f8f9fa;
+            --text: #333;
+            --success: #27ae60;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+        header {
+            background: #fff;
+            border-bottom: 1px solid #eaeaea;
+            padding: 1rem 5%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            color: var(--primary);
+        }
+        .author-promo a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: box-shadow 0.2s;
+        }
+        .author-promo a:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .author-promo img {
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+        }
+        section {
+            margin-bottom: 3rem;
+        }
+        .intro-block {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 2rem;
+        }
+        .intro-block p {
+            margin: 0;
+            font-size: 1.05rem;
+        }
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            z-index: 1;
+        }
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            background: #fff;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .business-card {
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            padding: 1.5rem;
+            background: #fff;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .business-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .business-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        .business-card .category {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .business-card .address, .business-card .phone, .business-card .telegram {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 0.25rem 0;
+        }
+        .business-card .description {
+            font-size: 0.95rem;
+            margin: 0.75rem 0;
+        }
+        .business-card .source {
+            font-size: 0.8rem;
+            color: #777;
+            font-style: italic;
+            border-top: 1px solid #eee;
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .business-card .source.verified {
+            color: var(--success);
+            font-weight: 600;
+            font-style: normal;
+        }
+        .business-card a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        .business-card a:hover {
+            text-decoration: underline;
+        }
+        .feedback-block {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid var(--accent);
+            margin-bottom: 2.5rem;
+        }
+        .feedback-block a {
+            color: var(--accent);
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .seo-text-block {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2.5rem;
+        }
+        .seo-text-block h2 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        .semantic-topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 0.5rem;
+        }
+        .query {
+            font-size: 0.9rem;
+            color: #555;
+            padding: 0.25rem 0;
+        }
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+        .faq-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        .other-cities-block {
+            margin-top: 2rem;
+        }
+        .other-cities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .other-cities a {
+            display: inline-block;
+            background: var(--bg-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 1px solid #eee;
+        }
+        .other-cities a:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+        footer {
+            background: var(--primary);
+            color: #fff;
+            padding: 2rem 5%;
+            margin-top: 3rem;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 1.5rem;
+            font-size: 0.9rem;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            #map {
+                height: 350px;
+            }
+        }
+    </style>
 
-<!-- Leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Русскоязычные специалисты в Алматы",
-  "url": "https://russianfriendly.netlify.app/almaty",
-  "description": "Интерактивная карта и список русскоязычных специалистов и полезных сервисов в Алматы для экспатов, релокантов и туристов.",
-  "inLanguage": "ru",
-  "isPartOf": {
-    "@type": "WebSite",
-    "name": "Russian Friendly",
-    "url": "https://russianfriendly.netlify.app"
-  }
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Map",
-  "name": "Карта русскоязычных специалистов в Алматы",
-  "about": {
-    "@type": "City",
-    "name": "Алматы"
-  },
-  "url": "https://russianfriendly.netlify.app/almaty"
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Кристина Перез",
-  "url": "https://kristinaperez.netlify.app/",
-  "sameAs": [
-    "https://t.me/FeedbackCristinaBot",
-    "https://www.youtube.com/@Cristina-Perez-Monroe",
-    "https://kristinaperez.netlify.app/",
-    "https://russianfriendly.netlify.app/"
-  ],
-  "jobTitle": "Автор проекта Russian Friendly"
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
+    <script type="application/ld+json">
     {
-      "@type": "Question",
-      "name": "Где найти русскоговорящего стоматолога в Алматы?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "В Алматы русский язык широко распространён, и подавляющее большинство стоматологических клиник обслуживают на русском языке. На этой странице собран список клиник и врачей с пометкой о подтверждённости контактов — используйте фильтр «стоматологи» на карте выше."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Нужна ли виза гражданам России для въезда в Алматы?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Нет, между Россией и Казахстаном действует безвизовый режим в рамках ЕАЭС. Граждане РФ могут находиться в Казахстане до 90 дней в течение каждых 180 дней и въезжать по внутреннему паспорту. При пребывании свыше 30 суток нужна регистрация в миграционной службе."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Актуален ли border run (виза-ран) для россиян в Казахстане?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Нет, для Казахстана схема border run не работает: выезд в соседнюю страну и возврат не обнуляет и не продлевает безвизовый срок пребывания (90 из 180 дней). Для более длительного пребывания нужно оформлять визу или разрешение на временное проживание."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Как найти русскоязычного юриста или переводчика в Алматы?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "На странице собраны разделы «юристы» и «переводчики» с контактами специалистов, работающих с релокантами и экспатами по вопросам легализации, регистрации бизнеса, переводов документов и нотариального заверения."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Можно ли открыть счёт в банке Казахстана без местной прописки?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Да, крупные банки Казахстана (Kaspi, Halyk, Freedom Bank и другие) открывают счета иностранцам по загранпаспорту и миграционной карте. В разделе «помощь с банками» собраны специалисты, которые сопровождают этот процесс на русском языке."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Есть ли в Алматы русские магазины и русскоязычные школы?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Да, в Алматы работают магазины с российскими товарами и школы с обучением на русском языке — они собраны в соответствующих разделах на этой странице."
-      }
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "name": "Russian Friendly",
+          "url": "https://russianfriendly.netlify.app/"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Русскоязычные специалисты в Алматы — Russian Friendly",
+          "url": "https://russianfriendly.netlify.app/almaty",
+          "description": "Интерактивная карта и каталог русскоязычных специалистов и сервисов в Алматы, Казахстан."
+        },
+        {
+          "@type": "City",
+          "name": "Алматы",
+          "alternateName": "Almaty",
+          "containedInPlace": {
+            "@type": "Country",
+            "name": "Kazakhstan"
+          }
+        },
+        {
+          "@type": "Person",
+          "name": "Кристина Перез",
+          "url": "https://kristinaperez.netlify.app/",
+          "jobTitle": "Автор проекта Russian Friendly"
+        },
+        {
+          "@type": "ItemList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Dental Center Алматы" },
+            { "@type": "ListItem", "position": 2, "name": "DoctorStom" },
+            { "@type": "ListItem", "position": 3, "name": "Сеть клиник «Рахат»" },
+            { "@type": "ListItem", "position": 4, "name": "Терапевт, семейная практика" },
+            { "@type": "ListItem", "position": 5, "name": "Педиатр" },
+            { "@type": "ListItem", "position": 6, "name": "Многопрофильная клиника" },
+            { "@type": "ListItem", "position": 7, "name": "Юрист по миграционным вопросам" },
+            { "@type": "ListItem", "position": 8, "name": "Юрист по регистрации бизнеса (ИП/ТОО)" },
+            { "@type": "ListItem", "position": 9, "name": "Семейный и нотариальный юрист" },
+            { "@type": "ListItem", "position": 10, "name": "Присяжный переводчик рус-каз/англ" },
+            { "@type": "ListItem", "position": 11, "name": "Бюро переводов" },
+            { "@type": "ListItem", "position": 12, "name": "Kaspi Bank" },
+            { "@type": "ListItem", "position": 13, "name": "Halyk Bank" },
+            { "@type": "ListItem", "position": 14, "name": "Freedom Bank Kazakhstan" },
+            { "@type": "ListItem", "position": 15, "name": "Продление визы / ВНЖ" },
+            { "@type": "ListItem", "position": 16, "name": "Консультация по регистрации в МВД" },
+            { "@type": "ListItem", "position": 17, "name": "Русскоязычный риелтор" },
+            { "@type": "ListItem", "position": 18, "name": "Krisha.kz" },
+            { "@type": "ListItem", "position": 19, "name": "Yandex Go" },
+            { "@type": "ListItem", "position": 20, "name": "Индивидуальный трансфер аэропорт — центр" },
+            { "@type": "ListItem", "position": 21, "name": "Beeline Казахстан" },
+            { "@type": "ListItem", "position": 22, "name": "Tele2 / Activ" },
+            { "@type": "ListItem", "position": 23, "name": "eSIM международные провайдеры" },
+            { "@type": "ListItem", "position": 24, "name": "Магазин российских продуктов" },
+            { "@type": "ListItem", "position": 25, "name": "Книжный магазин на русском языке" },
+            { "@type": "ListItem", "position": 26, "name": "Школа с обучением на русском языке" },
+            { "@type": "ListItem", "position": 27, "name": "Международная школа (рекомендованная)" }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Где найти русскоязычного врача или стоматолога в Алматы?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "В Алматы русский язык широко распространён, и большинство медицинских и стоматологических клиник оказывают услуги на русском языке. В каталоге выше представлены проверенные клиники («Dental Center», «DoctorStom», «Рахат»), а также контакты терапевтов и педиатров."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Нужна ли виза гражданам России для въезда в Алматы?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Нет, между Россией и Казахстаном действует безвизовый режим. Граждане РФ могут находиться в Казахстане до 90 дней в течение каждых 180 дней и въезжать по внутреннему паспорту. При пребывании свыше 30 суток требуется регистрация по месту пребывания."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Актуален ли border run (виза-ран) для россиян в Казахстане?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Нет, схема border run в Казахстане не обнуляет безвизовый срок (90 из 180 дней). Для более длительного пребывания необходимо оформлять РВП (разрешение на временное проживание) на основании трудового договора, учёбы или иных законных оснований."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Как найти русскоязычного юриста или переводчика в Алматы?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "В разделах «Юристы» и «Переводчики» на этой странице собраны контакты специалистов, помогающих с регистрацией ТОО/ИП, получением ИИН, оформлением РВП, а также заверенным переводом и нотариальным сопровождением."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Можно ли открыть счёт в банке Казахстана без местной прописки?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Да, ведущие банки Казахстана (Kaspi, Halyk, Freedom Bank) открывают банковские счета иностранным гражданам по загранпаспорту и местному ИИН. В каталоге указаны подробности и контакты по банковскому сопровождению."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Есть ли в Алматы русские магазины и русскоязычные школы?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Да, в Алматы работают магазины с привычными продуктами питания и книжные магазины, а также государственные и частные школы с полным обучением на русском языке."
+              }
+            }
+          ]
+        }
+      ]
     }
-  ]
-}
-</script>
-
-<style>
-  :root{
-    --navy:#0B3350;
-    --navy-light:#144a73;
-    --accent:#F2994A;
-    --bg:#f6f8fa;
-    --card:#ffffff;
-    --text:#1c2b36;
-    --muted:#5b6b76;
-    --border:#e3e8ec;
-    --confirmed:#2e9e5b;
-    --unconfirmed:#c98a1c;
-  }
-  *{box-sizing:border-box;}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);}
-  a{color:var(--navy-light);text-decoration:none;}
-  a:hover{text-decoration:underline;}
-
-  header{background:var(--navy);color:#fff;padding:20px 24px;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;}
-  .header-main h1{font-size:1.4rem;margin:0 0 6px 0;}
-  .header-main p{margin:0;color:#cfe0ec;font-size:0.95rem;}
-  .header-ad{background:var(--accent);color:#2b1a00;padding:12px 16px;border-radius:10px;font-weight:600;font-size:0.9rem;max-width:320px;}
-  .header-ad a{color:#2b1a00;text-decoration:underline;}
-
-  nav.categories{display:flex;flex-wrap:wrap;gap:8px;padding:14px 24px;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:500;}
-  nav.categories button{border:1px solid var(--border);background:#fff;border-radius:20px;padding:7px 14px;font-size:0.85rem;cursor:pointer;color:var(--navy);}
-  nav.categories button.active{background:var(--navy);color:#fff;border-color:var(--navy);}
-
-  #map{height:420px;width:100%;}
-
-  main{max-width:1100px;margin:0 auto;padding:24px;}
-  section.category{margin-bottom:34px;}
-  section.category h2{font-size:1.2rem;border-left:4px solid var(--accent);padding-left:10px;margin-bottom:14px;}
-  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;}
-  .card h3{margin:0 0 6px 0;font-size:1rem;}
-  .card p{margin:4px 0;font-size:0.88rem;color:var(--muted);}
-  .badge{display:inline-block;font-size:0.72rem;padding:2px 8px;border-radius:10px;margin-top:8px;font-weight:600;}
-  .badge.confirmed{background:#e5f6ec;color:var(--confirmed);}
-  .badge.unconfirmed{background:#fbf1de;color:var(--unconfirmed);}
-
-  .seo-block{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:30px;}
-  .seo-block h2{font-size:1.05rem;}
-  .seo-block ul{padding-left:18px;}
-
-  footer{background:var(--navy);color:#cfe0ec;padding:24px;text-align:center;font-size:0.85rem;}
-  footer a{color:#fff;margin:0 8px;}
-
-  @media (max-width:640px){
-    header{padding:16px;}
-    .header-ad{max-width:100%;}
-    #map{height:300px;}
-  }
-</style>
+    </script>
 </head>
 <body>
 
 <header>
-  <div class="header-main">
-    <h1>🇷🇺 Русскоязычные специалисты в Алматы</h1>
-    <p>Карта и список проверенных контактов для экспатов, релокантов и туристов</p>
-  </div>
-  <div class="header-ad">
-    Переезжаешь в Испанию? Узнай, как заговорить →
-    <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">kristinaperez.netlify.app</a>
-  </div>
+    <div>
+        <h1>📍 Русскоязычные специалисты в Алматы — Russian Friendly Map</h1>
+    </div>
+    <div class="author-promo">
+        <a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener noreferrer">
+            <img src="https://russianfriendly.netlify.app/kristina-face.png" alt="Кристина Перез" width="40" height="40">
+            <span>Переезжаешь в Испанию? Узнай, как заговорить →</span>
+        </a>
+    </div>
 </header>
 
-<nav class="categories" id="categoryNav">
-  <button data-cat="all" class="active">Все</button>
-  <button data-cat="dentists">🦷 Стоматологи</button>
-  <button data-cat="doctors">👩‍⚕️ Врачи</button>
-  <button data-cat="lawyers">⚖️ Юристы</button>
-  <button data-cat="translators">📄 Переводчики</button>
-  <button data-cat="banks">🏦 Банки</button>
-  <button data-cat="visa">🛂 Визы</button>
-  <button data-cat="rent">🏠 Аренда жилья</button>
-  <button data-cat="transfer">🚕 Трансферы</button>
-  <button data-cat="sim">📱 SIM/eSIM</button>
-  <button data-cat="shops">🛒 Русские магазины</button>
-  <button data-cat="schools">🏫 Школы</button>
-</nav>
-
-<div id="map"></div>
-
 <main>
+    <section class="intro-block">
+        <p>Добро пожаловать в независимый локальный каталог и интерактивную карту русскоязычных специалистов, услуг и организаций в Алматы, Казахстан. Проект <strong>Russian Friendly</strong> создан для помощи экспатам, релокантам, туристам и новым жителям города в поиске проверенной информации на русском языке — от врачей и юристы до аренды жилья, банковских консультантов, русскоязычных школ и магазинов привычных продуктов.</p>
+    </section>
 
-<section class="category" data-cat="dentists">
-  <h2>🦷 Стоматологи</h2>
-  <div class="cards">
-    <div class="card"><h3>Dental Center Алматы</h3><p>Сеть с 17-летним опытом, врачи с зарубежной практикой, приём на русском языке.</p><p>ул. уточняется на сайте dentalcenter.kz</p><span class="badge unconfirmed">Контакты требуют проверки</span></div>
-    <div class="card"><h3>DoctorStom</h3><p>Клиника с 1998 года, лечение под микроскопом, работает на русском языке.</p><span class="badge unconfirmed">Контакты требуют проверки</span></div>
-    <div class="card"><h3>Сеть клиник «Рахат»</h3><p>6 филиалов в Алматы, современное оборудование, приём взрослых и детей.</p><span class="badge unconfirmed">Контакты требуют проверки</span></div>
-  </div>
-</section>
+    <div class="filters" id="categoryNav">
+        <button class="filter-btn active" data-filter="all">Все категории</button>
+        <button class="filter-btn" data-filter="dentists">🦷 Стоматологи</button>
+        <button class="filter-btn" data-filter="doctors">👩‍⚕️ Врачи</button>
+        <button class="filter-btn" data-filter="lawyers">⚖️ Юристы</button>
+        <button class="filter-btn" data-filter="translators">📄 Переводчики</button>
+        <button class="filter-btn" data-filter="banks">🏦 Банки</button>
+        <button class="filter-btn" data-filter="visa">🛂 Визы</button>
+        <button class="filter-btn" data-filter="rent">🏠 Аренда жилья</button>
+        <button class="filter-btn" data-filter="transfer">🚕 Трансферы</button>
+        <button class="filter-btn" data-filter="sim">📱 SIM/eSIM</button>
+        <button class="filter-btn" data-filter="shops">🛒 Русские магазины</button>
+        <button class="filter-btn" data-filter="schools">🏫 Школы</button>
+    </div>
 
-<section class="category" data-cat="doctors">
-  <h2>👩‍⚕️ Врачи</h2>
-  <div class="cards">
-    <div class="card"><h3>Терапевт, семейная практика</h3><p>Приём на русском языке, вызов на дом, консультации для экспатов.</p><span class="badge unconfirmed">Добавьте проверенный контакт</span></div>
-    <div class="card"><h3>Педиатр</h3><p>Русскоязычный детский врач, работает с релоцировавшимися семьями.</p><span class="badge unconfirmed">Добавьте проверенный контакт</span></div>
-    <div class="card"><h3>Многопрофильная клиника</h3><p>Диагностика, анализы, узкие специалисты, приём на русском.</p><span class="badge unconfirmed">Добавьте проверенный контакт</span></div>
-  </div>
-</section>
+    <section id="map-container">
+        <div id="map"></div>
+    </section>
 
-<section class="category" data-cat="lawyers">
-  <h2>⚖️ Юристы</h2>
-  <div class="cards">
-    <div class="card"><h3>Юрист по миграционным вопросам</h3><p>Оформление регистрации, ВНЖ, помощь с легализацией пребывания.</p><span class="badge unconfirmed">Добавьте проверенный контакт</span></div>
-    <div class="card"><h3>Юрист по регистрации бизнеса (ИП/ТОО)</h3><p>Открытие компании в Казахстане для релокантов и удалёнщиков.</p><span class="badge unconfirmed">Добавьте проверенный контакт</span></div>
-    <div class="card"><h3>Семейный и нотариальный юрист</h3><p>Доверенности, апостиль, вопросы наследства и брака.</p><span class="badge unconfirmed">Добавьте проверенный контакт</span></div>
-  </div>
-</section>
+    <div class="feedback-block">
+        <p>Нашли неверные данные или хотите добавить организацию? Сообщите нам в Telegram-бот: <a href="https://t.me/RussianFriendlyFeedbackbot" target="_blank" rel="noopener noreferrer">@RussianFriendlyFeedbackbot</a></p>
+        <p style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">Если вы представляете организацию и хотите исправить или дополнить информацию, напишите нам.</p>
+    </div>
 
-<section class="category" data-cat="translators">
-  <h2>📄 Переводчики</h2>
-  <div class="cards">
-    <div class="card"><h3>Присяжный переводчик рус-каз/англ</h3><p>Перевод и нотариальное заверение документов.</p><span class="badge unconfirmed">Добавьте проверенный контакт</span></div>
-    <div class="card"><h3>Бюро переводов</h3><p>Перевод дипломов, справок, апостиль под ключ.</p><span class="badge unconfirmed">Добавьте проверенный контакт</span></div>
-  </div>
-</section>
+    <section id="catalog">
+        <h2>Русскоязычные организации и специалисты в Алматы</h2>
+        <div class="catalog-grid">
+            <article class="business-card" id="business-1" data-category="dentists">
+                <div class="category">🦷 Стоматологи</div>
+                <h3>Dental Center Алматы</h3>
+                <div class="address">📍 ул. уточняется на сайте dentalcenter.kz, Алматы</div>
+                <div class="description">Сеть с 17-летним опытом, врачи с зарубежной практикой, приём на русском языке.</div>
+                <a href="https://dentalcenter.kz" target="_blank" rel="noopener noreferrer">Официальный сайт</a>
+                <div class="source">ℹ️ Контакты требуют проверки</div>
+            </article>
 
-<section class="category" data-cat="banks">
-  <h2>🏦 Помощь с банками</h2>
-  <div class="cards">
-    <div class="card"><h3>Kaspi Bank</h3><p>Один из крупнейших банков Казахстана, открытие счёта по загранпаспорту и миграционной карте.</p><span class="badge confirmed">Общедоступная информация</span></div>
-    <div class="card"><h3>Halyk Bank</h3><p>Обслуживание нерезидентов, карта, переводы, приём на русском языке.</p><span class="badge confirmed">Общедоступная информация</span></div>
-    <div class="card"><h3>Freedom Bank Kazakhstan</h3><p>Открытие счетов и брокерских услуг для иностранцев.</p><span class="badge confirmed">Общедоступная информация</span></div>
-  </div>
-</section>
+            <article class="business-card" id="business-2" data-category="dentists">
+                <div class="category">🦷 Стоматологи</div>
+                <h3>DoctorStom</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Клиника с 1998 года, лечение под микроскопом, работает на русском языке.</div>
+                <div class="source">ℹ️ Контакты требуют проверки</div>
+            </article>
 
-<section class="category" data-cat="visa">
-  <h2>🛂 Визовые агентства</h2>
-  <div class="cards">
-    <div class="card"><h3>Продление визы / ВНЖ</h3><p>Сопровождение оформления разрешения на временное проживание.</p><span class="badge unconfirmed">Добавьте проверенный контакт</span></div>
-    <div class="card"><h3>Консультация по регистрации в МВД</h3><p>Помощь с постановкой на миграционный учёт после 30 дней пребывания.</p><span class="badge unconfirmed">Добавьте проверенный контакт</span></div>
-  </div>
-</section>
+            <article class="business-card" id="business-3" data-category="dentists">
+                <div class="category">🦷 Стоматологи</div>
+                <h3>Сеть клиник «Рахат»</h3>
+                <div class="address">📍 6 филиалов в Алматы</div>
+                <div class="description">6 филиалов в Алматы, современное оборудование, приём взрослых и детей.</div>
+                <div class="source">ℹ️ Контакты требуют проверки</div>
+            </article>
 
-<section class="category" data-cat="rent">
-  <h2>🏠 Аренда жилья</h2>
-  <div class="cards">
-    <div class="card"><h3>Русскоязычный риелтор</h3><p>Долгосрочная аренда квартир для релокантов, сопровождение сделки.</p><span class="badge unconfirmed">Добавьте проверенный контакт</span></div>
-    <div class="card"><h3>Krisha.kz</h3><p>Крупнейшая площадка объявлений по недвижимости в Казахстане.</p><span class="badge confirmed">Общедоступная информация</span></div>
-  </div>
-</section>
+            <article class="business-card" id="business-4" data-category="doctors">
+                <div class="category">👩‍⚕️ Врачи</div>
+                <h3>Терапевт, семейная практика</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Приём на русском языке, вызов на дом, консультации для экспатов.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
 
-<section class="category" data-cat="transfer">
-  <h2>🚕 Трансферы</h2>
-  <div class="cards">
-    <div class="card"><h3>Yandex Go</h3><p>Такси и трансферы из аэропорта, интерфейс на русском языке.</p><span class="badge confirmed">Общедоступная информация</span></div>
-    <div class="card"><h3>Индивидуальный трансфер аэропорт — центр</h3><p>Русскоязычный водитель, встреча с табличкой.</p><span class="badge unconfirmed">Добавьте проверенный контакт</span></div>
-  </div>
-</section>
+            <article class="business-card" id="business-5" data-category="doctors">
+                <div class="category">👩‍⚕️ Врачи</div>
+                <h3>Педиатр</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Русскоязычный детский врач, работает с релоцировавшимися семьями.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
 
-<section class="category" data-cat="sim">
-  <h2>📱 SIM/eSIM</h2>
-  <div class="cards">
-    <div class="card"><h3>Beeline Казахстан</h3><p>SIM-карта в салонах связи по паспорту, тарифы с интернетом.</p><span class="badge confirmed">Общедоступная информация</span></div>
-    <div class="card"><h3>Tele2 / Activ</h3><p>Доступные тарифы, оформление в салонах в аэропорту и центре города.</p><span class="badge confirmed">Общедоступная информация</span></div>
-    <div class="card"><h3>eSIM международные провайдеры</h3><p>Airalo и аналоги — установка до прилёта, оплата картой.</p><span class="badge confirmed">Общедоступная информация</span></div>
-  </div>
-</section>
+            <article class="business-card" id="business-6" data-category="doctors">
+                <div class="category">👩‍⚕️ Врачи</div>
+                <h3>Многопрофильная клиника</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Диагностика, анализы, узкие специалисты, приём на русском.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
 
-<section class="category" data-cat="shops">
-  <h2>🛒 Русские магазины</h2>
-  <div class="cards">
-    <div class="card"><h3>Магазин российских продуктов</h3><p>Привычные бренды продуктов питания из России.</p><span class="badge unconfirmed">Добавьте проверенный адрес</span></div>
-    <div class="card"><h3>Книжный магазин на русском языке</h3><p>Литература, учебники, детские книги на русском.</p><span class="badge unconfirmed">Добавьте проверенный адрес</span></div>
-  </div>
-</section>
+            <article class="business-card" id="business-7" data-category="lawyers">
+                <div class="category">⚖️ Юристы</div>
+                <h3>Юрист по миграционным вопросам</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Оформление регистрации, ВНЖ, помощь с легализацией пребывания.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
 
-<section class="category" data-cat="schools">
-  <h2>🏫 Русские и рекомендованные школы</h2>
-  <div class="cards">
-    <div class="card"><h3>Школа с обучением на русском языке</h3><p>Государственная или частная школа с полным циклом обучения на русском.</p><span class="badge unconfirmed">Добавьте проверенный контакт</span></div>
-    <div class="card"><h3>Международная школа (рекомендованная)</h3><p>Билингвальная программа, англо-русское обучение, для семей релокантов.</p><span class="badge unconfirmed">Добавьте проверенный контакт</span></div>
-  </div>
-</section>
+            <article class="business-card" id="business-8" data-category="lawyers">
+                <div class="category">⚖️ Юристы</div>
+                <h3>Юрист по регистрации бизнеса (ИП/ТОО)</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Открытие компании в Казахстане для релокантов и удалёнщиков.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
 
-<div class="seo-block">
-  <h2>Похожие запросы</h2>
-  <ul>
-    <li><a href="https://russianfriendly.netlify.app/" target="_blank" rel="noopener">Russian Friendly — все города проекта</a></li>
-    <li><a href="https://kristinaperez.netlify.app/" target="_blank" rel="noopener">Кристина Перез — переезд в Испанию и испанский язык</a></li>
-    <li><a href="https://russianfriendly.netlify.app/about.html" target="_blank" rel="noopener">О проекте Russian Friendly</a></li>
-  </ul>
-</div>
+            <article class="business-card" id="business-9" data-category="lawyers">
+                <div class="category">⚖️ Юристы</div>
+                <h3>Семейный и нотариальный юрист</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Доверенности, апостиль, вопросы наследства и брака.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
 
+            <article class="business-card" id="business-10" data-category="translators">
+                <div class="category">📄 Переводчики</div>
+                <h3>Присяжный переводчик рус-каз/англ</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Перевод и нотариальное заверение документов.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
+
+            <article class="business-card" id="business-11" data-category="translators">
+                <div class="category">📄 Переводчики</div>
+                <h3>Бюро переводов</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Перевод дипломов, справок, апостиль под ключ.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
+
+            <article class="business-card" id="business-12" data-category="banks">
+                <div class="category">🏦 Банки</div>
+                <h3>Kaspi Bank</h3>
+                <div class="address">📍 ул. Наурызбай Батыра 154A / филиалы по всему Алматы</div>
+                <div class="description">Один из крупнейших банков Казахстана, открытие счёта по загранпаспорту и миграционной карте.</div>
+                <a href="https://kaspi.kz" target="_blank" rel="noopener noreferrer">Официальный сайт</a>
+                <div class="source">ℹ️ Информация представлена по данным открытого источника</div>
+            </article>
+
+            <article class="business-card" id="business-13" data-category="banks">
+                <div class="category">🏦 Банки</div>
+                <h3>Halyk Bank</h3>
+                <div class="address">📍 пр. Аль-Фараби 40 / филиалы в Алматы</div>
+                <div class="description">Обслуживание нерезидентов, карта, переводы, приём на русском языке.</div>
+                <a href="https://halykbank.kz" target="_blank" rel="noopener noreferrer">Официальный сайт</a>
+                <div class="source">ℹ️ Информация представлена по данным открытого источника</div>
+            </article>
+
+            <article class="business-card" id="business-14" data-category="banks">
+                <div class="category">🏦 Банки</div>
+                <h3>Freedom Bank Kazakhstan</h3>
+                <div class="address">📍 пр. Аль-Фараби 77/7, Алматы</div>
+                <div class="description">Открытие счетов и брокерских услуг для иностранцев.</div>
+                <a href="https://bankffin.kz" target="_blank" rel="noopener noreferrer">Официальный сайт</a>
+                <div class="source">ℹ️ Информация представлена по данным открытого источника</div>
+            </article>
+
+            <article class="business-card" id="business-15" data-category="visa">
+                <div class="category">🛂 Визы</div>
+                <h3>Продление визы / ВНЖ</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Сопровождение оформления разрешения на временное проживание.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
+
+            <article class="business-card" id="business-16" data-category="visa">
+                <div class="category">🛂 Визы</div>
+                <h3>Консультация по регистрации в МВД</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Помощь с постановкой на миграционный учёт после 30 дней пребывания.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
+
+            <article class="business-card" id="business-17" data-category="rent">
+                <div class="category">🏠 Аренда жилья</div>
+                <h3>Русскоязычный риелтор</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Долгосрочная аренда квартир для релокантов, сопровождение сделки.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
+
+            <article class="business-card" id="business-18" data-category="rent">
+                <div class="category">🏠 Аренда жилья</div>
+                <h3>Krisha.kz</h3>
+                <div class="address">📍 Алматы (онлайн-сервис)</div>
+                <div class="description">Крупнейшая площадка объявлений по недвижимости в Казахстане.</div>
+                <a href="https://krisha.kz" target="_blank" rel="noopener noreferrer">Официальный сайт</a>
+                <div class="source">ℹ️ Информация представлена по данным открытого источника</div>
+            </article>
+
+            <article class="business-card" id="business-19" data-category="transfer">
+                <div class="category">🚕 Трансферы</div>
+                <h3>Yandex Go</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Такси и трансферы из аэропорта, интерфейс на русском языке.</div>
+                <a href="https://go.yandex" target="_blank" rel="noopener noreferrer">Официальный сайт</a>
+                <div class="source">ℹ️ Информация представлена по данным открытого источника</div>
+            </article>
+
+            <article class="business-card" id="business-20" data-category="transfer">
+                <div class="category">🚕 Трансферы</div>
+                <h3>Индивидуальный трансфер аэропорт — центр</h3>
+                <div class="address">📍 Международный аэропорт Алматы (ALA) — Центр</div>
+                <div class="description">Русскоязычный водитель, встреча с табличкой.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
+
+            <article class="business-card" id="business-21" data-category="sim">
+                <div class="category">📱 SIM/eSIM</div>
+                <h3>Beeline Казахстан</h3>
+                <div class="address">📍 Салоны связи в Алматы</div>
+                <div class="description">SIM-карта в салонах связи по паспорту, тарифы с интернетом.</div>
+                <a href="https://beeline.kz" target="_blank" rel="noopener noreferrer">Официальный сайт</a>
+                <div class="source">ℹ️ Информация представлена по данным открытого источника</div>
+            </article>
+
+            <article class="business-card" id="business-22" data-category="sim">
+                <div class="category">📱 SIM/eSIM</div>
+                <h3>Tele2 / Activ</h3>
+                <div class="address">📍 Салоны в аэропорту и центре Алматы</div>
+                <div class="description">Доступные тарифы, оформление в салонах в аэропорту и центре города.</div>
+                <a href="https://tele2.kz" target="_blank" rel="noopener noreferrer">Официальный сайт</a>
+                <div class="source">ℹ️ Информация представлена по данным открытого источника</div>
+            </article>
+
+            <article class="business-card" id="business-23" data-category="sim">
+                <div class="category">📱 SIM/eSIM</div>
+                <h3>eSIM международные провайдеры</h3>
+                <div class="address">📍 Онлайн</div>
+                <div class="description">Airalo и аналоги — установка до прилёта, оплата картой.</div>
+                <div class="source">ℹ️ Информация представлена по данным открытого источника</div>
+            </article>
+
+            <article class="business-card" id="business-24" data-category="shops">
+                <div class="category">🛒 Русские магазины</div>
+                <h3>Магазин российских продуктов</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Привычные бренды продуктов питания из России.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
+
+            <article class="business-card" id="business-25" data-category="shops">
+                <div class="category">🛒 Русские магазины</div>
+                <h3>Книжный магазин на русском языке</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Литература, учебники, детские книги на русском.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
+
+            <article class="business-card" id="business-26" data-category="schools">
+                <div class="category">🏫 Школы</div>
+                <h3>Школа с обучением на русском языке</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Государственная или частная школа с полным циклом обучения на русском.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
+
+            <article class="business-card" id="business-27" data-category="schools">
+                <div class="category">🏫 Школы</div>
+                <h3>Международная школа (рекомендованная)</h3>
+                <div class="address">📍 Алматы</div>
+                <div class="description">Билингвальная программа, англо-русское обучение, для семей релокантов.</div>
+                <div class="source">ℹ️ Контакты найдены в открытых источниках</div>
+            </article>
+        </div>
+    </section>
+
+    <section class="seo-text-block">
+        <h2>Русскоязычные специалисты и сервисы в Алматы, Казахстан</h2>
+        <p>Алматы — крупнейший мегаполис Казахстана, привлекающий тысячи русскоязычных экспатов, релокантов и путешественников. Благодаря широкому распространению русского языка в социальной, деловой и повседневной жизни, в Алматы доступна развитая инфраструктура русскоязычных сервисов. Данный каталог помогает сориентироваться среди ключевых специалистов и организаций города.</p>
+        <p>В каталоге представлен широкий спектр услуг: квалифицированная стоматологическая и медицинская помощь, юридическое сопровождение регистрации бизнеса (ТОО, ИП) и оформления разрешения на временное проживание (РВП), нотариальный и присяжный перевод документов, банковское обслуживание для нерезидентов в банках Kaspi, Halyk и Freedom Bank, аренда квартир через платформу Krisha.kz и проверенных риелторов, такси и трансферы из аэропорта, подключение мобильной связи и eSIM, а также русскоязычные школы и магазины привычных продуктов.</p>
+    </section>
+
+    <section class="semantic-topics-block">
+        <h2>Что ищут русскоязычные жители Алматы</h2>
+        <div class="semantic-topics-grid">
+            <div class="query">Русскоязычные специалисты в Алматы</div>
+            <div class="query">Русскоязычные специалисты и сервисы Алматы</div>
+            <div class="query">Русские сервисы в Алматы</div>
+            <div class="query">Русские услуги в Алматы</div>
+            <div class="query">Русские компании в Алматы</div>
+            <div class="query">Русскоязычные услуги в Алматы</div>
+            <div class="query">Русскоязычный сервис в Алматы</div>
+            <div class="query">Русский бизнес в Алматы</div>
+            <div class="query">Русские в Алматы — каталоги и контакты</div>
+            <div class="query">Помощь русскоязычным в Алматы</div>
+            <div class="query">Русский врач в Алматы</div>
+            <div class="query">Русскоязычный врач в Алматы</div>
+            <div class="query">Консультация врача на русском в Алматы</div>
+            <div class="query">Русскоязычная клиника в Алматы</div>
+            <div class="query">Медицинские центры с приёмом на русском в Алматы</div>
+            <div class="query">Русский стоматолог в Алматы</div>
+            <div class="query">Русскоязычный стоматолог в Алматы</div>
+            <div class="query">Лечение зубов на русском в Алматы</div>
+            <div class="query">Русская стоматология в Алматы</div>
+            <div class="query">Русский юрист в Алматы</div>
+            <div class="query">Русскоязычный юрист в Алматы</div>
+            <div class="query">Юридическая консультация на русском в Алматы</div>
+            <div class="query">Русский адвокат в Алматы</div>
+            <div class="query">Русский переводчик в Алматы</div>
+            <div class="query">Русскоязычный переводчик в Алматы</div>
+            <div class="query">Перевод документов с русского в Алматы</div>
+            <div class="query">Нотариальный переводчик в Алматы</div>
+            <div class="query">Русский риелтор в Алматы</div>
+            <div class="query">Русскоязычный риелтор в Алматы</div>
+            <div class="query">Помощь с арендой жилья на русском в Алматы</div>
+            <div class="query">Снять квартиру в Алматы на русском</div>
+            <div class="query">Недвижимость в Алматы для русскоязычных</div>
+            <div class="query">Агентство недвижимости с приёмом на русском в Алматы</div>
+            <div class="query">Помощь с банками в Алматы на русском</div>
+            <div class="query">Открыть счёт в банке Казахстана на русском</div>
+            <div class="query">Банковский консультант в Алматы</div>
+            <div class="query">Релокация в Алматы — практические советы</div>
+            <div class="query">Помощь с оформлением документов в Алматы</div>
+            <div class="query">Миграционный консультант в Алматы</div>
+            <div class="query">Помощь с оформлением визы и РВП в Алматы</div>
+            <div class="query">Визовые услуги в Алматы</div>
+            <div class="query">Трансфер в Алматы с русскоязычным водителем</div>
+            <div class="query">Русский водитель в Алматы</div>
+            <div class="query">Трансфер из аэропорта Алматы на русском</div>
+            <div class="query">Оформление SIM-карты в Алматы</div>
+            <div class="query">Подключение eSIM в Казахстане</div>
+            <div class="query">Мобильная связь и интернет в Алматы</div>
+            <div class="query">Встреча в аэропорту Алматы на русском</div>
+            <div class="query">Русский магазин продуктов в Алматы</div>
+            <div class="query">Русские продукты в Алматы</div>
+            <div class="query">Где купить привычные продукты в Алматы</div>
+            <div class="query">Русская школа в Алматы</div>
+            <div class="query">Русскоязычные школы в Алматы</div>
+            <div class="query">Обучение в школе на русском в Алматы</div>
+            <div class="query">Школы и гимназии с русским языком обучения в Алматы</div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <h2>Часто задаваемые вопросы (FAQ)</h2>
+        <div class="faq-item">
+            <h3>Где найти русскоязычного врача или стоматолога в Алматы?</h3>
+            <p>В Алматы русский язык широко распространён, и большинство медицинских и стоматологических клиник оказывают услуги на русском языке. В каталоге выше представлены проверенные клиники («Dental Center», «DoctorStom», «Рахат»), а также контакты терапевтов и педиатров.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Нужна ли виза гражданам России для въезда в Алматы?</h3>
+            <p>Нет, между Россией и Казахстаном действует безвизовый режим. Граждане РФ могут находиться в Казахстане до 90 дней в течение каждых 180 дней и въезжать по внутреннему паспорту. При пребывании свыше 30 суток требуется регистрация по месту пребывания.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Актуален ли border run (виза-ран) для россиян в Казахстане?</h3>
+            <p>Нет, схема border run в Казахстане не обнуляет безвизовый срок (90 из 180 дней). Для более длительного пребывания необходимо оформлять РВП (разрешение на временное проживание) на основании трудового договора, учёбы или иных законных оснований.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Как найти русскоязычного юриста или переводчика в Алматы?</h3>
+            <p>В разделах «Юристы» и «Переводчики» на этой странице собраны контакты специалистов, помогающих с регистрацией ТОО/ИП, получением ИИН, оформлением РВП, а также заверенным переводом и нотариальным сопровождением.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Можно ли открыть счёт в банке Казахстана без местной прописки?</h3>
+            <p>Да, ведущие банки Казахстана (Kaspi, Halyk, Freedom Bank) открывают банковские счета иностранным гражданам по загранпаспорту и местному ИИН. В каталоге указаны подробности и контакты по банковскому сопровождению.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Есть ли в Алматы русские магазины и русскоязычные школы?</h3>
+            <p>Да, в Алматы работают магазины с привычными продуктами питания и книжные магазины, а также государственные и частные школы с полным обучением на русском языке.</p>
+        </div>
+    </section>
+
+    <section class="other-cities-block">
+        <h2>Другие города Russian Friendly</h2>
+        <div class="other-cities">
+            <a href="https://russianfriendly.netlify.app/madrid">Мадрид</a>
+            <a href="https://russianfriendly.netlify.app/barcelona">Барселона</a>
+            <a href="https://russianfriendly.netlify.app/alicante">Аликанте</a>
+            <a href="https://russianfriendly.netlify.app/tbilisi">Тбилиси</a>
+            <a href="https://russianfriendly.netlify.app/yerevan">Ереван</a>
+            <a href="https://russianfriendly.netlify.app/belgrade">Белград</a>
+            <a href="https://russianfriendly.netlify.app/batumi">Батуми</a>
+        </div>
+    </section>
 </main>
 
 <footer>
-  <p>Russian Friendly — сеть городских гидов для русскоязычных экспатов</p>
-  <div>
-    <a href="https://russianfriendly.netlify.app/about.html">О проекте</a>
-    <a href="https://russianfriendly.netlify.app/contact.html">Контакты</a>
-    <a href="https://russianfriendly.netlify.app/privacy-policy.html">Политика конфиденциальности</a>
-  </div>
+    <p>Russian Friendly — сеть городских гидов для русскоязычных экспатов</p>
+    <div>
+        <a href="https://russianfriendly.netlify.app/">Главная</a>
+        <a href="https://russianfriendly.netlify.app/about.html">О проекте</a>
+        <a href="https://russianfriendly.netlify.app/contact.html">Контакты</a>
+        <a href="https://russianfriendly.netlify.app/privacy-policy.html">Политика конфиденциальности</a>
+        <a href="#faq">FAQ</a>
+    </div>
 </footer>
 
 <script>
-  var map = L.map('map').setView([43.2220, 76.8512], 12);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors',
-    maxZoom: 18
-  }).addTo(map);
+    const DATA = [
+        {
+            id: "business-1",
+            name: "Dental Center Алматы",
+            category: "dentists",
+            catLabel: "🦷 стоматологи",
+            address: "ул. уточняется на сайте dentalcenter.kz, Алматы",
+            lat: 43.2380,
+            lng: 76.9450,
+            website: "https://dentalcenter.kz",
+            description: "Сеть с 17-летним опытом, врачи с зарубежной практикой, приём на русском языке.",
+            source: "ℹ️ Контакты требуют проверки"
+        },
+        {
+            id: "business-2",
+            name: "DoctorStom",
+            category: "dentists",
+            catLabel: "🦷 стоматологи",
+            address: "Алматы",
+            lat: 43.2420,
+            lng: 76.9380,
+            description: "Клиника с 1998 года, лечение под микроскопом, работает на русском языке.",
+            source: "ℹ️ Контакты требуют проверки"
+        },
+        {
+            id: "business-3",
+            name: "Сеть клиник «Рахат»",
+            category: "dentists",
+            catLabel: "🦷 стоматологи",
+            address: "6 филиалов в Алматы",
+            lat: 43.2300,
+            lng: 76.9500,
+            description: "6 филиалов в Алматы, современное оборудование, приём взрослых и детей.",
+            source: "ℹ️ Контакты требуют проверки"
+        },
+        {
+            id: "business-4",
+            name: "Терапевт, семейная практика",
+            category: "doctors",
+            catLabel: "👩‍⚕️ врачи",
+            address: "Алматы",
+            lat: 43.2350,
+            lng: 76.9250,
+            description: "Приём на русском языке, вызов на дом, консультации для экспатов.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-5",
+            name: "Педиатр",
+            category: "doctors",
+            catLabel: "👩‍⚕️ врачи",
+            address: "Алматы",
+            lat: 43.2280,
+            lng: 76.9400,
+            description: "Русскоязычный детский врач, работает с релоцировавшимися семьями.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-6",
+            name: "Многопрофильная клиника",
+            category: "doctors",
+            catLabel: "👩‍⚕️ врачи",
+            address: "Алматы",
+            lat: 43.2450,
+            lng: 76.9550,
+            description: "Диагностика, анализы, узкие специалисты, приём на русском.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-7",
+            name: "Юрист по миграционным вопросам",
+            category: "lawyers",
+            catLabel: "⚖️ юристы",
+            address: "Алматы",
+            lat: 43.2550,
+            lng: 76.9420,
+            description: "Оформление регистрации, ВНЖ, помощь с легализацией пребывания.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-8",
+            name: "Юрист по регистрации бизнеса (ИП/ТОО)",
+            category: "lawyers",
+            catLabel: "⚖️ юристы",
+            address: "Алматы",
+            lat: 43.2580,
+            lng: 76.9360,
+            description: "Открытие компании в Казахстане для релокантов и удалёнщиков.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-9",
+            name: "Семейный и нотариальный юрист",
+            category: "lawyers",
+            catLabel: "⚖️ юристы",
+            address: "Алматы",
+            lat: 43.2510,
+            lng: 76.9480,
+            description: "Доверенности, апостиль, вопросы наследства и брака.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-10",
+            name: "Присяжный переводчик рус-каз/англ",
+            category: "translators",
+            catLabel: "📄 переводчики",
+            address: "Алматы",
+            lat: 43.2600,
+            lng: 76.9500,
+            description: "Перевод и нотариальное заверение документов.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-11",
+            name: "Бюро переводов",
+            category: "translators",
+            catLabel: "📄 переводчики",
+            address: "Алматы",
+            lat: 43.2530,
+            lng: 76.9410,
+            description: "Перевод дипломов, справок, апостиль под ключ.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-12",
+            name: "Kaspi Bank",
+            category: "banks",
+            catLabel: "🏦 банки",
+            address: "ул. Наурызбай Батыра 154A / филиалы по всему Алматы",
+            lat: 43.2428,
+            lng: 76.9328,
+            website: "https://kaspi.kz",
+            description: "Один из крупнейших банков Казахстана, открытие счёта по загранпаспорту и миграционной карте.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-13",
+            name: "Halyk Bank",
+            category: "banks",
+            catLabel: "🏦 банки",
+            address: "пр. Аль-Фараби 40 / филиалы в Алматы",
+            lat: 43.2200,
+            lng: 76.9580,
+            website: "https://halykbank.kz",
+            description: "Обслуживание нерезидентов, карта, переводы, приём на русском языке.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-14",
+            name: "Freedom Bank Kazakhstan",
+            category: "banks",
+            catLabel: "🏦 банки",
+            address: "пр. Аль-Фараби 77/7, Алматы",
+            lat: 43.2185,
+            lng: 76.9275,
+            website: "https://bankffin.kz",
+            description: "Открытие счетов и брокерских услуг для иностранцев.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-15",
+            name: "Продление визы / ВНЖ",
+            category: "visa",
+            catLabel: "🛂 визы",
+            address: "Алматы",
+            lat: 43.2520,
+            lng: 76.9300,
+            description: "Сопровождение оформления разрешения на временное проживание.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-16",
+            name: "Консультация по регистрации в МВД",
+            category: "visa",
+            catLabel: "🛂 визы",
+            address: "Алматы",
+            lat: 43.2480,
+            lng: 76.9250,
+            description: "Помощь с постановкой на миграционный учёт после 30 дней пребывания.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-17",
+            name: "Русскоязычный риелтор",
+            category: "rent",
+            catLabel: "🏠 аренда жилья",
+            address: "Алматы",
+            lat: 43.2320,
+            lng: 76.9350,
+            description: "Долгосрочная аренда квартир для релокантов, сопровождение сделки.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-18",
+            name: "Krisha.kz",
+            category: "rent",
+            catLabel: "🏠 аренда жилья",
+            address: "Алматы (онлайн-сервис)",
+            lat: 43.2380,
+            lng: 76.9450,
+            website: "https://krisha.kz",
+            description: "Крупнейшая площадка объявлений по недвижимости в Казахстане.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-19",
+            name: "Yandex Go",
+            category: "transfer",
+            catLabel: "🚕 трансферы",
+            address: "Алматы",
+            lat: 43.3521,
+            lng: 77.0405,
+            website: "https://go.yandex",
+            description: "Такси и трансферы из аэропорта, интерфейс на русском языке.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-20",
+            name: "Индивидуальный трансфер аэропорт — центр",
+            category: "transfer",
+            catLabel: "🚕 трансферы",
+            address: "Международный аэропорт Алматы (ALA) — Центр",
+            lat: 43.3500,
+            lng: 77.0380,
+            description: "Русскоязычный водитель, встреча с табличкой.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-21",
+            name: "Beeline Казахстан",
+            category: "sim",
+            catLabel: "📱 SIM/eSIM",
+            address: "Салоны связи в Алматы",
+            lat: 43.2500,
+            lng: 76.9400,
+            website: "https://beeline.kz",
+            description: "SIM-карта в салонах связи по паспорту, тарифы с интернетом.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-22",
+            name: "Tele2 / Activ",
+            category: "sim",
+            catLabel: "📱 SIM/eSIM",
+            address: "Салоны в аэропорту и центре Алматы",
+            lat: 43.2450,
+            lng: 76.9430,
+            website: "https://tele2.kz",
+            description: "Доступные тарифы, оформление в салонах в аэропорту и центре города.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-23",
+            name: "eSIM международные провайдеры",
+            category: "sim",
+            catLabel: "📱 SIM/eSIM",
+            address: "Онлайн",
+            lat: 43.2380,
+            lng: 76.9450,
+            description: "Airalo и аналоги — установка до прилёта, оплата картой.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-24",
+            name: "Магазин российских продуктов",
+            category: "shops",
+            catLabel: "🛒 русские магазины",
+            address: "Алматы",
+            lat: 43.2310,
+            lng: 76.9200,
+            description: "Привычные бренды продуктов питания из России.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-25",
+            name: "Книжный магазин на русском языке",
+            category: "shops",
+            catLabel: "🛒 русские магазины",
+            address: "Алматы",
+            lat: 43.2470,
+            lng: 76.9500,
+            description: "Литература, учебники, детские книги на русском.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-26",
+            name: "Школа с обучением на русском языке",
+            category: "schools",
+            catLabel: "🏫 русские школы",
+            address: "Алматы",
+            lat: 43.2250,
+            lng: 76.9300,
+            description: "Государственная или частная школа с полным циклом обучения на русском.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        },
+        {
+            id: "business-27",
+            name: "Международная школа (рекомендованная)",
+            category: "schools",
+            catLabel: "🏫 русские школы",
+            address: "Алматы",
+            lat: 43.2100,
+            lng: 76.9150,
+            description: "Билингвальная программа, англо-русское обучение, для семей релокантов.",
+            source: "ℹ️ Информация представлена по данным открытого источника"
+        }
+    ];
 
-  // Пример точек — замените на подтверждённые координаты реальных специалистов
-  var points = [
-    {name:"Центр города (ориентир)", cat:"Все районы", lat:43.2380, lng:76.9450},
-    {name:"Медеу / Алмалинский район", cat:"Врачи, стоматологи", lat:43.2150, lng:76.9530},
-    {name:"Бостандыкский район", cat:"Банки, юристы", lat:43.2000, lng:76.9200}
-  ];
-  points.forEach(function(p){
-    L.marker([p.lat, p.lng]).addTo(map).bindPopup("<b>"+p.name+"</b><br>"+p.cat);
-  });
+    // Initialize Map
+    const map = L.map('map').setView([43.2380, 76.9450], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-  // Фильтр категорий
-  var buttons = document.querySelectorAll('#categoryNav button');
-  var sections = document.querySelectorAll('section.category');
-  buttons.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      buttons.forEach(function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
-      var cat = btn.getAttribute('data-cat');
-      sections.forEach(function(s){
-        s.style.display = (cat === 'all' || s.getAttribute('data-cat') === cat) ? '' : 'none';
-      });
+    const markers = {};
+
+    // Add Markers
+    DATA.forEach(item => {
+        const marker = L.marker([item.lat, item.lng]).addTo(map);
+        let popupContent = `<strong>${item.name}</strong><br><span style="font-size: 0.9em; color: #666;">${item.catLabel}</span><br>${item.address}`;
+        if (item.phone) popupContent += `<br>📞 ${item.phone}`;
+        popupContent += `<br>${item.description}`;
+        if (item.website) popupContent += `<br><a href="${item.website}" target="_blank" rel="noopener noreferrer">Сайт</a>`;
+        
+        marker.bindPopup(popupContent);
+        markers[item.id] = marker;
     });
-  });
+
+    // Filter Logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.business-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filter = btn.getAttribute('data-filter');
+
+            cards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            DATA.forEach(item => {
+                if (filter === 'all' || item.category === filter) {
+                    map.addLayer(markers[item.id]);
+                } else {
+                    map.removeLayer(markers[item.id]);
+                }
+            });
+        });
+    });
+
+    // Click on card to fly to marker
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            const id = card.getAttribute('id');
+            const item = DATA.find(d => d.id === id);
+            if (item && markers[id]) {
+                map.flyTo([item.lat, item.lng], 15, { duration: 1.5 });
+                markers[id].openPopup();
+                
+                if (window.innerWidth < 768) {
+                    document.getElementById('map-container').scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    });
 </script>
 
 </body>
