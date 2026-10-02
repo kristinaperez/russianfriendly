@@ -92,9 +92,13 @@ Podgorica → Montenegro → Russian-speaking services → doctors → dentists 
 
 ## Автор
 
-Кристина Перез — автор проекта Russian Friendly.
+Кристина Перез — автор проектов:
 
-https://kristinaperez.netlify.app/
+EspanolReal — тренажёр разговорного испанского:
+https://espanolreal.es/
+
+Russian Friendly — сеть городских гидов для русскоязычных:
+https://russianfriendly.netlify.app/
 
 ## Обратная связь
 

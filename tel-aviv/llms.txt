@@ -72,4 +72,11 @@ Russian Friendly — локальный каталог русскоязычны�
 
 ## Автор
 
-Кристина Перез — создатель проекта Russian Friendly.
+Кристина Перез — автор проектов:
+
+EspanolReal — тренажёр разговорного испанского:
+https://espanolreal.es/
+
+Russian Friendly — сеть городских гидов для русскоязычных:
+https://russianfriendly.netlify.app/
+

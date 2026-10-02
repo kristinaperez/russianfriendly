@@ -17,8 +17,12 @@
 
 ## Автор
 
-Кристина Перез — автор сети городских гидов Russian Friendly:
-https://kristinaperez.netlify.app/
+Кристина Перез — автор проектов:
+
+EspanolReal — тренажёр разговорного испанского:
+https://espanolreal.es/
+
+Russian Friendly — сеть городских гидов для русскоязычных:
 https://russianfriendly.netlify.app/
 
 ## Страницы

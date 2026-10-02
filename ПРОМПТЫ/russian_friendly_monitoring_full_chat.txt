@@ -1,0 +1,1078 @@
+ПЕРЕПИСКА: МОНИТОРИНГ ОБЪЯВЛЕНИЙ РУССКОЯЗЫЧНЫХ КОМПАНИЙ
+
+ПОЛЬЗОВАТЕЛЬ:
+А как можно организовать мониторинг объявлений русскоязычных компаний в сфере услуг (малый бизнес) по всему миру и скидывать их в телеграм канал, желательно на автомате?
+
+ASSISTANT:
+Да. И я бы делала это не как простой «парсер объявлений», а как автоматический агрегатор русскоязычного малого бизнеса по всему миру. Это хорошо ложится и на твою идею Russian Friendly.
+
+Схема может выглядеть так:
+
+источники → сбор объявлений → фильтрация → AI-классификация → база → Telegram
+
+1. Что именно мониторить
+
+А. Сайты объявлений
+- Avito и аналоги в разных странах
+- OLX
+- локальные доски объявлений
+- сайты русскоязычных сообществ
+- сайты эмигрантских организаций
+
+Б. Google / Bing
+Искать комбинации:
+- русский стоматолог + Madrid
+- русскоязычный юрист + Berlin
+- помощь с документами + Испания
+- русская няня + Dubai
+- переводчик русский + Thailand
+- маникюр русскоязычный + Montenegro
+
+В. Telegram
+Мониторить публичные русскоязычные каналы и группы, где регулярно появляются объявления малого бизнеса.
+
+Г. Социальные сети
+Instagram, Facebook, VK и другие публичные страницы — там особенно много предложений услуг.
+
+Для сложных сайтов можно использовать Apify: его Actors умеют запускать веб-скрейпинг и браузерную автоматизацию по расписанию, а результаты можно передавать дальше через API/webhooks.
+
+2. AI-фильтр
+
+Не надо отправлять всё найденное прямо в Telegram.
+
+Например, парсер нашёл:
+«Продаю iPhone 15...»
+
+AI:
+business = false
+
+А:
+«Делаю переводы документов с русского на испанский. Мадрид.»
+
+AI:
+business = true
+category = переводчики
+language = русский
+country = Испания
+city = Мадрид
+
+Структура:
+{
+  "is_service_business": true,
+  "language": "ru",
+  "country": "Spain",
+  "city": "Madrid",
+  "category": "translator",
+  "business_name": "...",
+  "description": "...",
+  "contact": "...",
+  "source": "...",
+  "url": "...",
+  "confidence": 0.94
+}
+
+3. Telegram-канал
+
+Архитектура:
+
+INTERNET
+  ↓
+Google / Telegram / сайты и доски
+  ↓
+SCRAPER
+  ↓
+PostgreSQL
+  ↓
+DEDUPLICATION
+  ↓
+AI FILTER
+  ↓
+CLASSIFICATION
+  ↓
+QUALITY CHECK
+  ↓
+Telegram Bot
+  ↓
+TELEGRAM CHANNEL
+
+4. База данных
+
+PostgreSQL:
+
+businesses
+- id
+- name
+- country
+- city
+- category
+- language
+- description
+- phone
+- telegram
+- website
+- source
+- source_url
+- first_seen
+- last_seen
+- published
+- confidence
+
+Система понимает, что объявление уже публиковалось, и не отправляет его повторно.
+
+Можно отслеживать:
+first_seen
+last_seen
+status = active
+
+Получается настоящий мониторинг рынка, а не просто RSS-лента.
+
+5. Несколько каналов
+
+Можно сделать:
+- Russian Friendly — Spain
+- Russian Friendly — Thailand
+- Russian Friendly — Montenegro
+- Russian Friendly — Germany
+- Russian Friendly — UAE
+
+Центральная база одна.
+
+6. Поиск новых русскоязычных бизнесов
+
+Система может искать:
+"русский стоматолог" Madrid
+"русскоязычный стоматолог" Madrid
+"стоматолог для русских" Madrid
+"русская стоматология" Madrid
+"Russian speaking dentist" Madrid
+
+И то же самое для:
+- врачей
+- стоматологов
+- юристов
+- переводчиков
+- риелторов
+- визовых специалистов
+- бухгалтеров
+- нотариусов
+- психологов
+- парикмахеров
+- мастеров красоты
+- фотографов
+- репетиторов
+- нянь
+- клининга
+- ремонта
+- автосервисов
+- трансферов
+- туризма
+- страхования
+
+Получится поисковая машина русскоязычного малого бизнеса.
+
+7. Коммерческий продукт
+
+Russian Friendly:
+- Сайт: найти русскоязычного специалиста в городе
+- Telegram: новые объявления русскоязычного бизнеса
+- Карта: где находятся специалисты
+- База: каталог компаний
+- Мониторинг: кто появился недавно
+
+В дальнейшем:
+FREE — присутствие в каталоге
+€9–15/мес — выделенное объявление
+€30–50/мес — продвижение
+€100+ — размещение на нескольких городах/странах
+
+8. MVP
+
+5 источников + 10 городов:
+
+Google/Bing
+Telegram
+OLX/местные доски
+Instagram
+сайты русскоязычных сообществ
+
+↓
+Python
+↓
+PostgreSQL
+↓
+OpenAI
+↓
+Telegram Bot
+
+Запуск каждые 1–3 часа.
+
+Сначала дешёвые фильтры по ключевым словам/домену/языку, потом AI только для потенциально подходящих объявлений.
+
+9. Конкретная архитектура
+
+ПОЛЬЗОВАТЕЛЬ:
+Спроектируй конкретную архитектуру этого сервиса: какие источники брать первыми, какие запросы генерировать, структуру PostgreSQL, AI-промпт классификатора и Telegram-бота — вплоть до Docker Compose
+
+ASSISTANT:
+Да. Я бы проектировала это сразу как нормальный ingestion-пайплайн, а не как набор cron-скриптов. Тогда потом можно будет подключать новые страны, источники, Telegram-каналы и даже продавать доступ к базе.
+
+1. Архитектура
+
+SOURCES
+- Google/Bing
+- Telegram
+- OLX / classifieds
+- websites
+- RSS / forums
+
+↓
+COLLECTOR
+Python / httpx / Playwright / Apify
+
+↓
+RAW DATA
+PostgreSQL
+
+↓
+NORMALIZER / DEDUPE
+URL / text hash / phone / Telegram
+
+↓
+AI FILTER
+business?
+Russian?
+service?
+category?
+city/country?
+quality?
+
+↓
+MODERATION
+auto publish / manual review
+
+↓
+TELEGRAM PUBLISHER
+country channel / city channel / general channel
+
+2. Стек
+
+Backend: Python + FastAPI
+Collector: httpx + BeautifulSoup
+Browser scraping: Playwright
+Сложный scraping: Apify
+DB: PostgreSQL 17
+Queue: Redis
+Worker: Celery
+Scheduler: Celery Beat
+AI: OpenAI Responses API
+Telegram: Telegram Bot API
+Reverse proxy: Nginx
+Containerization: Docker Compose
+Monitoring: Grafana + Prometheus — позже
+
+3. Поисковая матрица
+
+LANGUAGE
+- русский
+- русскоязычный
+- на русском
+- говорю по-русски
+- русская речь
+- Russian speaking
+
+SERVICE
+- стоматолог
+- врач
+- юрист
+- переводчик
+- бухгалтер
+- риелтор
+- нотариус
+- визовый специалист
+- психолог
+- косметолог
+- парикмахер
+- маникюр
+- фотограф
+- няня
+- репетитор
+- трансфер
+- ремонт
+- клининг
+- автосервис
+
+LOCATION
+- Madrid
+- Barcelona
+- Alicante
+- Valencia
+- и т.д.
+
+Примеры:
+"русский стоматолог" Madrid
+"русскоязычный стоматолог" Madrid
+"стоматолог на русском" Madrid
+"Russian speaking dentist" Madrid
+
+4. Таблица search_queries
+
+CREATE TABLE search_queries (
+    id BIGSERIAL PRIMARY KEY,
+
+    country_code VARCHAR(2),
+    city VARCHAR(120),
+
+    language_term VARCHAR(100),
+    service_term VARCHAR(100),
+
+    query TEXT NOT NULL,
+
+    source VARCHAR(30) NOT NULL,
+
+    priority INTEGER DEFAULT 50,
+
+    enabled BOOLEAN DEFAULT TRUE,
+
+    last_run_at TIMESTAMPTZ,
+    next_run_at TIMESTAMPTZ,
+
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+5. Источники
+
+Первый уровень:
+1. Поисковая выдача
+2. Публичные Telegram-каналы
+3. Сайты русскоязычных сообществ
+4. OLX и локальные classifieds
+5. RSS
+
+Не начинать с Instagram/Facebook.
+
+Для поисковой выдачи можно использовать разрешённые API/поискового провайдера. Не строить архитектуру только на Google Custom Search.
+
+6. Source adapters
+
+collectors/
+    base.py
+    search_engine.py
+    telegram.py
+    rss.py
+    classifieds.py
+    apify.py
+
+Интерфейс:
+
+class Collector:
+
+    async def collect(self, query) -> list[RawItem]:
+        raise NotImplementedError
+
+Добавление нового сайта не ломает систему.
+
+7. Таблица raw_items
+
+CREATE TABLE raw_items (
+    id BIGSERIAL PRIMARY KEY,
+
+    source VARCHAR(50) NOT NULL,
+    source_id VARCHAR(255),
+
+    url TEXT,
+    title TEXT,
+    content TEXT,
+
+    author_name TEXT,
+    author_username TEXT,
+
+    published_at TIMESTAMPTZ,
+    collected_at TIMESTAMPTZ DEFAULT NOW(),
+
+    language VARCHAR(20),
+
+    content_hash CHAR(64),
+
+    raw_json JSONB,
+
+    status VARCHAR(30) DEFAULT 'new'
+);
+
+Сохранять оригинал важно, чтобы позже можно было прогнать старые данные через новый классификатор.
+
+8. Deduplication
+
+Уровни:
+- normalized URL → SHA256
+- normalized text → SHA256
+- phone
+- Telegram username
+- email
+- website
+- позже embeddings
+
+9. Таблица businesses
+
+CREATE TABLE businesses (
+    id BIGSERIAL PRIMARY KEY,
+
+    name TEXT,
+
+    country_code VARCHAR(2),
+    city VARCHAR(120),
+    address TEXT,
+
+    category VARCHAR(100),
+
+    description TEXT,
+
+    phone TEXT,
+    email TEXT,
+    telegram TEXT,
+    website TEXT,
+
+    languages TEXT[],
+
+    latitude DOUBLE PRECISION,
+    longitude DOUBLE PRECISION,
+
+    confidence NUMERIC(4,3),
+
+    status VARCHAR(30) DEFAULT 'active',
+
+    first_seen_at TIMESTAMPTZ DEFAULT NOW(),
+    last_seen_at TIMESTAMPTZ DEFAULT NOW(),
+
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+10. Таблица listings
+
+CREATE TABLE listings (
+    id BIGSERIAL PRIMARY KEY,
+
+    business_id BIGINT REFERENCES businesses(id),
+
+    raw_item_id BIGINT REFERENCES raw_items(id),
+
+    title TEXT,
+    description TEXT,
+
+    source VARCHAR(50),
+    source_url TEXT,
+
+    category VARCHAR(100),
+
+    published_at TIMESTAMPTZ,
+
+    ai_confidence NUMERIC(4,3),
+
+    moderation_status VARCHAR(30) DEFAULT 'pending',
+
+    telegram_status VARCHAR(30) DEFAULT 'not_published',
+
+    telegram_message_id BIGINT,
+
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+11. AI-классификатор
+
+Первый AI-вызов только классифицирует:
+
+{
+  "is_business": true,
+  "is_service": true,
+  "is_russian_related": true,
+  "category": "dentist",
+  "country": "ES",
+  "city": "Madrid",
+  "confidence": 0.96,
+  "spam": false,
+  "expired": false
+}
+
+Использовать Structured Outputs / JSON Schema.
+
+12. System prompt классификатора
+
+Ты — классификатор русскоязычных объявлений малого бизнеса.
+
+Твоя задача — определить, является ли найденный материал реальным предложением услуги от человека, специалиста, предпринимателя или малого бизнеса.
+
+Нас интересуют:
+- стоматологи
+- врачи
+- юристы
+- нотариусы
+- переводчики
+- бухгалтеры
+- риелторы
+- визовые специалисты
+- страховые агенты
+- психологи
+- косметологи
+- парикмахеры
+- мастера красоты
+- фотографы
+- няни
+- репетиторы
+- трансферы
+- клининг
+- ремонт
+- автосервисы
+- туристические услуги
+- другие услуги для русскоязычных клиентов.
+
+НЕ считать подходящими:
+- продажу личных вещей
+- вакансии, если это просто поиск работника
+- новости
+- политические публикации
+- объявления без услуги
+- спам
+- рекламу казино
+- сомнительные финансовые схемы
+- MLM
+- крипто-скамы
+- эротические услуги
+- незаконные услуги
+- дубли
+- объявления, которые очевидно устарели.
+
+"Русскоязычный" означает:
+1. объявление написано на русском;
+ИЛИ
+2. прямо указано обслуживание на русском;
+ИЛИ
+3. бизнес явно ориентирован на русскоязычных клиентов.
+
+Не делай вывод о языке обслуживания только по имени человека.
+
+Если город или страна не указаны явно или не могут быть надёжно определены из контекста источника, используй null.
+
+Не выдумывай контактные данные.
+
+Верни только JSON согласно заданной схеме.
+
+13. JSON Schema
+
+{
+  "type": "object",
+  "properties": {
+    "is_business": {"type": "boolean"},
+    "is_service": {"type": "boolean"},
+    "is_russian_related": {"type": "boolean"},
+    "is_spam": {"type": "boolean"},
+    "is_expired": {"type": "boolean"},
+    "category": {"type": ["string", "null"]},
+    "country": {"type": ["string", "null"]},
+    "city": {"type": ["string", "null"]},
+    "business_name": {"type": ["string", "null"]},
+    "confidence": {"type": "number"}
+  },
+  "required": [
+    "is_business",
+    "is_service",
+    "is_russian_related",
+    "is_spam",
+    "is_expired",
+    "category",
+    "country",
+    "city",
+    "business_name",
+    "confidence"
+  ],
+  "additionalProperties": false
+}
+
+14. Два AI этапа
+
+AI #1:
+CLASSIFIER
+Решает: публиковать или нет.
+
+AI #2:
+PUBLISHER
+После принятия делает Telegram-пост.
+
+15. Publisher prompt
+
+Ты редактор Telegram-канала Russian Friendly.
+
+Сформируй короткое информационное объявление на русском языке.
+
+Правила:
+- не выдумывай факты;
+- не добавляй контакты, которых нет в исходном тексте;
+- не используй агрессивную рекламу;
+- не утверждай, что специалист проверен;
+- сохрани смысл оригинала;
+- укажи город и страну, если они известны;
+- укажи категорию;
+- добавь ссылку на источник;
+- максимум 700 символов.
+
+Формат:
+
+🇪🇸 Мадрид — Стоматолог
+
+Краткое описание услуги.
+
+🌐 Язык: русский
+📍 Мадрид, Испания
+
+🔗 Источник: ...
+
+#Мадрид #Испания #стоматолог
+
+16. Telegram
+
+Таблица:
+
+CREATE TABLE channels (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(200),
+    telegram_chat_id VARCHAR(100),
+    country_code VARCHAR(2),
+    city VARCHAR(120),
+    category VARCHAR(100),
+    enabled BOOLEAN DEFAULT TRUE
+);
+
+Например:
+- Russian Friendly — Spain
+- Russian Friendly — Thailand
+- Russian Friendly — Montenegro
+- Russian Friendly — Global
+
+17. Таблица публикаций
+
+CREATE TABLE telegram_publications (
+    id BIGSERIAL PRIMARY KEY,
+
+    listing_id BIGINT REFERENCES listings(id),
+    channel_id BIGINT REFERENCES channels(id),
+
+    telegram_message_id BIGINT,
+
+    published_at TIMESTAMPTZ DEFAULT NOW(),
+
+    UNIQUE(listing_id, channel_id)
+);
+
+18. Moderation queue
+
+confidence >= 0.90 → auto publish
+0.70–0.89 → manual review
+< 0.70 → reject
+
+Telegram admin chat:
+
+🆕 НОВОЕ ОБЪЯВЛЕНИЕ
+
+🇪🇸 Madrid
+🦷 Dentist
+
+Русскоязычный стоматолог...
+
+Confidence: 0.87
+
+[✅ Опубликовать]
+[❌ Отклонить]
+[✏️ Изменить]
+
+19. Обучение на решениях
+
+Система сохраняет:
+AI: publish
+YOU: reject
+
+и:
+AI: reject
+YOU: publish
+
+На тысячах примеров можно улучшать:
+- keyword filter
+- AI prompt
+- scoring
+- embeddings
+
+20. Scoring
+
+Russian language +20
+service +20
+city identified +15
+contact +10
+website +10
+business name +10
+fresh publication +10
+Russian client explicitly +10
+
+spam -40
+expired -30
+duplicate -50
+no service -30
+
+score >= 80 → auto publish
+60–79 → moderation
+<60 → reject
+
+21. Scheduler
+
+Каждые 30 минут:
+Search engine queries
+
+Каждые 15 минут:
+Telegram sources
+
+Каждые 2 часа:
+Classified sites
+
+Каждую ночь:
+Expired listings
+
+22. Redis + Celery
+
+collector
+↓
+Redis
+↓
+Celery worker
+↓
+normalize
+↓
+Redis
+↓
+AI worker
+↓
+Redis
+↓
+Telegram worker
+
+23. Docker Compose
+
+services:
+
+  api:
+    build: ./app
+    container_name: rf_api
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "8000:8000"
+
+  worker:
+    build: ./app
+    container_name: rf_worker
+    restart: unless-stopped
+    command: celery -A app.celery_app worker --loglevel=INFO
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+
+  beat:
+    build: ./app
+    container_name: rf_beat
+    restart: unless-stopped
+    command: celery -A app.celery_app beat --loglevel=INFO
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:17
+    container_name: rf_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: russian_friendly
+      POSTGRES_USER: rf
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    container_name: rf_redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+
+  nginx:
+    image: nginx:alpine
+    container_name: rf_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - api
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+
+volumes:
+  postgres_data:
+  redis_data:
+
+24. .env
+
+POSTGRES_PASSWORD=change_me
+
+DATABASE_URL=postgresql+asyncpg://rf:change_me@postgres:5432/russian_friendly
+
+REDIS_URL=redis://redis:6379/0
+
+OPENAI_API_KEY=...
+
+TELEGRAM_BOT_TOKEN=...
+
+TELEGRAM_ADMIN_CHAT_ID=...
+
+APIFY_API_TOKEN=...
+
+SEARCH_API_KEY=...
+
+25. Структура проекта
+
+russian-friendly-monitor/
+
+├── docker-compose.yml
+├── .env
+├── .env.example
+├── .gitignore
+│
+├── app/
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   ├── main.py
+│   ├── config.py
+│   ├── database.py
+│   ├── celery_app.py
+│   │
+│   ├── models/
+│   │   ├── raw_item.py
+│   │   ├── business.py
+│   │   ├── listing.py
+│   │   ├── channel.py
+│   │   └── publication.py
+│   │
+│   ├── collectors/
+│   │   ├── base.py
+│   │   ├── search.py
+│   │   ├── telegram.py
+│   │   ├── rss.py
+│   │   ├── classifieds.py
+│   │   └── apify.py
+│   │
+│   ├── services/
+│   │   ├── normalize.py
+│   │   ├── dedup.py
+│   │   ├── classifier.py
+│   │   ├── scoring.py
+│   │   ├── publisher.py
+│   │   └── routing.py
+│   │
+│   ├── prompts/
+│   │   ├── classifier.txt
+│   │   └── publisher.txt
+│   │
+│   ├── telegram/
+│   │   ├── bot.py
+│   │   ├── publisher.py
+│   │   └── moderation.py
+│   │
+│   └── tasks/
+│       ├── collect.py
+│       ├── classify.py
+│       ├── publish.py
+│       └── cleanup.py
+│
+├── migrations/
+│
+└── nginx/
+    └── default.conf
+
+26. Как проходит объявление
+
+Пример:
+«В Мадриде принимаю русскоязычных клиентов. Стоматолог, имплантация, коронки. WhatsApp...»
+
+Collector:
+source = google
+
+Raw:
+raw_items.id = 15231
+
+Dedup:
+new
+
+AI:
+{
+  "is_business": true,
+  "is_service": true,
+  "is_russian_related": true,
+  "category": "dentist",
+  "country": "ES",
+  "city": "Madrid",
+  "confidence": 0.97
+}
+
+Score:
+96
+
+Business:
+Madrid dentist
+
+Publisher:
+🇪🇸 Мадрид — Стоматолог
+
+Стоматолог принимает русскоязычных клиентов.
+Имплантация, коронки.
+
+📍 Мадрид
+🗣 Русский
+
+🔗 Источник
+
+Routing:
+Spain
+Madrid
+Global
+
+Telegram:
+3 publications
+
+27. Таблица sources
+
+CREATE TABLE sources (
+    id BIGSERIAL PRIMARY KEY,
+
+    name VARCHAR(200) NOT NULL,
+    source_type VARCHAR(50) NOT NULL,
+
+    base_url TEXT,
+
+    country_code VARCHAR(2),
+
+    enabled BOOLEAN DEFAULT TRUE,
+
+    crawl_interval_minutes INTEGER DEFAULT 60,
+
+    last_success_at TIMESTAMPTZ,
+    last_error_at TIMESTAMPTZ,
+
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+Можно видеть:
+
+Source         Items/day    Good    Error
+Google            320        41      0
+Telegram          870       123      2
+OLX               190        17      1
+RSS                90        32      0
+
+28. Russian Friendly
+
+PostgreSQL
+    ↓
+┌──────────┼──────────┐
+↓          ↓          ↓
+Telegram   API       Static
+↓          ↓          ↓
+объявления карта     Russian Friendly
+
+База может питать карты городов, каталоги и Telegram одновременно.
+
+29. Рекомендация по запуску
+
+Этап 1 — MVP
+
+5 городов:
+- Madrid
+- Barcelona
+- Alicante
+- Valencia
+- Málaga
+
+10 категорий:
+- стоматологи
+- врачи
+- юристы
+- переводчики
+- бухгалтеры
+- риелторы
+- визовые услуги
+- красота
+- трансферы
+- ремонт
+
+3 источника:
+Google/Bing
+Telegram
+RSS/открытые сайты
+
+1 PostgreSQL
+1 Redis
+1 FastAPI
+1 Celery worker
+1 Telegram bot
+OpenAI
+
+Без Kubernetes, Kafka, Elasticsearch.
+
+30. Масштабирование
+
+5 городов
+↓
+20 городов
+↓
+100 городов
+↓
+500 городов
+↓
+весь мир
+
+И автоматически:
+- /madrid
+- /barcelona
+- /alicante
+- /valencia
+- /malaga
+- /phuket
+- /bangkok
+- /pattaya
+- /podgorica
+- /budva
+- /tbilisi
+
+Финальная архитектура:
+
+SOURCES
+↓
+DATA INGESTION
+↓
+NORMALIZATION
+↓
+DEDUP
+↓
+AI CLASSIFICATION
+↓
+SCORING
+↓
+BUSINESS DB
+   /     |        /      |       TELEGRAM API     MAPS
+  ↓       ↓        ↓
+канал   сайты   Russian Friendly
+
+Главная идея: не делать «бот, который парсит сайты», а строить Russian Friendly Intelligence Platform, где Telegram — только один из интерфейсов. Сначала Spain как пилот, затем остальные страны.

@@ -35,10 +35,12 @@ Russian Friendly не является государственным орган
 
 ## Автор
 
-Кристина Перез — автор сети городских гидов Russian Friendly:
+Кристина Перез — автор проектов:
 
-https://kristinaperez.netlify.app/
+EspanolReal — тренажёр разговорного испанского:
+https://espanolreal.es/
 
+Russian Friendly — сеть городских гидов для русскоязычных:
 https://russianfriendly.netlify.app/
 
 ## Страницы
